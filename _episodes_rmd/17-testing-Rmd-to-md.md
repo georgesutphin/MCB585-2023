@@ -1,4 +1,11 @@
-We are studying inflammation in patients who have been given a new treatment for arthritis, and need to analyze the first dozen data sets. The data sets are stored in [comma-separated values](%7B%7B%20page.root%20%7D%7D/reference.html#comma-separated-values-csv) (CSV) format. Each row holds the observations for just one patient. Each column holds the inflammation measured in a day, so we have a set of values in successive days. The first few rows of our first file look like this:
+We are studying inflammation in patients who have been given a new
+treatment for arthritis, and need to analyze the first dozen data sets.
+The data sets are stored in [comma-separated
+values](%7B%7B%20page.root%20%7D%7D/reference.html#comma-separated-values-csv)
+(CSV) format. Each row holds the observations for just one patient. Each
+column holds the inflammation measured in a day, so we have a set of
+values in successive days. The first few rows of our first file look
+like this:
 
     0,0,1,3,1,2,4,7,8,3,3,3,10,5,7,4,7,7,12,18,6,13,11,11,7,7,4,6,8,8,4,4,5,7,3,4,2,3,0,0
     0,1,2,1,2,1,3,2,2,6,10,11,5,9,4,4,7,16,8,6,18,4,12,5,12,7,11,5,11,3,3,5,4,4,5,5,1,1,0,1
@@ -11,40 +18,74 @@ We are studying inflammation in patients who have been given a new treatment for
 We want to:
 
 -   Load data into memory,
--   Calculate the average value of inflammation per day across all patients, and
+-   Calculate the average value of inflammation per day across all
+    patients, and
 -   Plot the results.
 
 To do all that, we'll have to learn a little bit about programming.
 
 ### Loading Data
 
-Let's import the file called `inflammation-01.csv` into our R environment. To import the file, first we need to tell our computer where the file is. We do that by choosing a working directory, that is, a local directory on our computer containing the files we need. This is very important in R. If we forget this step we'll get an error message saying that the file does not exist. We can set the working directory using the function `setwd`. For this example, we change the path to our new directory at the desktop:
+Let's import the file called `inflammation-01.csv` into our R
+environment. To import the file, first we need to tell our computer
+where the file is. We do that by choosing a working directory, that is,
+a local directory on our computer containing the files we need. This is
+very important in R. If we forget this step we'll get an error message
+saying that the file does not exist. We can set the working directory
+using the function `setwd`. For this example, we change the path to our
+new directory at the desktop:
 
     setwd("~/Desktop/r-novice-inflammation/")
 
 {: .language-r}
 
-Just like in the Unix Shell, we type the command and then press <kbd>Return</kbd> (or <kbd>Enter</kbd>). Alternatively you can change the working directory using the RStudio GUI using the menu option `Session` -&gt; `Set Working Directory` -&gt; `Choose Directory...`
+Just like in the Unix Shell, we type the command and then press
+<kbd>Return</kbd> (or <kbd>Enter</kbd>). Alternatively you can change
+the working directory using the RStudio GUI using the menu option
+`Session` -&gt; `Set Working Directory` -&gt; `Choose Directory...`
 
-The data file is located in the directory `data` inside the working directory. Now we can load the data into R using `read.csv`:
+The data file is located in the directory `data` inside the working
+directory. Now we can load the data into R using `read.csv`:
 
     read.csv(file = "data/inflammation-01.csv", header = FALSE)
 
 {: .language-r}
 
-The expression `read.csv(...)` is a [function call](%7B%7B%20page.root%20%7D%7D/reference.html#function-call) that asks R to run the function `read.csv`.
+The expression `read.csv(...)` is a [function
+call](%7B%7B%20page.root%20%7D%7D/reference.html#function-call) that
+asks R to run the function `read.csv`.
 
-`read.csv` has two [arguments](%7B%7B%20page.root%20%7D%7D/reference.html#argument): the name of the file we want to read, and whether the first line of the file contains names for the columns of data. The filename needs to be a character string (or [string](%7B%7B%20page.root%20%7D%7D/reference.html#string) for short), so we put it in quotes. Assigning the second argument, `header`, to be `FALSE` indicates that the data file does not have column headers. We'll talk more about the value `FALSE`, and its converse `TRUE`, in lesson 04. In case of our `inflammation-01.csv` example, R auto-generates column names in the sequence `V1` (for "variable 1"), `V2`, and so on, until `V40`.
+`read.csv` has two
+[arguments](%7B%7B%20page.root%20%7D%7D/reference.html#argument): the
+name of the file we want to read, and whether the first line of the file
+contains names for the columns of data. The filename needs to be a
+character string (or
+[string](%7B%7B%20page.root%20%7D%7D/reference.html#string) for short),
+so we put it in quotes. Assigning the second argument, `header`, to be
+`FALSE` indicates that the data file does not have column headers. We'll
+talk more about the value `FALSE`, and its converse `TRUE`, in lesson
+04. In case of our `inflammation-01.csv` example, R auto-generates
+column names in the sequence `V1` (for "variable 1"), `V2`, and so on,
+until `V40`.
 
 > Other Options for Reading CSV Files
 > -----------------------------------
 >
-> `read.csv` actually has many more arguments that you may find useful when importing your own data in the future. You can learn more about these options in this supplementary [lesson](%7B%7B%20page.root%20%7D%7D/11-supp-read-write-csv/). {: .callout}
+> `read.csv` actually has many more arguments that you may find useful
+> when importing your own data in the future. You can learn more about
+> these options in this supplementary
+> [lesson](%7B%7B%20page.root%20%7D%7D/11-supp-read-write-csv/). {:
+> .callout}
 
 > Loading Data with Headers
 > -------------------------
 >
-> What happens if you forget to put `header = FALSE`? The default value is `header = TRUE`, which you can check with `?read.csv` or `help(read.csv)`. What do you expect will happen if you leave the default value? Before you run any code, think about what will happen to the first few rows of your data frame, and its overall size. Then run the following code and see if your expectations agree:
+> What happens if you forget to put `header = FALSE`? The default value
+> is `header = TRUE`, which you can check with `?read.csv` or
+> `help(read.csv)`. What do you expect will happen if you leave the
+> default value? Before you run any code, think about what will happen
+> to the first few rows of your data frame, and its overall size. Then
+> run the following code and see if your expectations agree:
 >
 >     read.csv(file = "data/inflammation-01.csv")
 >
@@ -53,14 +94,23 @@ The expression `read.csv(...)` is a [function call](%7B%7B%20page.root%20%7D%7D/
 > > Solution
 > > --------
 > >
-> > R will construct column headers from values in your first row of data, resulting in `X0 X0.1 X1 X3 X1.1 X2 ...`.
+> > R will construct column headers from values in your first row of
+> > data, resulting in `X0 X0.1 X1 X3 X1.1 X2 ...`.
 > >
-> > Note that the `X` is prepended just a number would not be a valid variable name. Because that's what column headers are, the same rules apply. Appending `.1`, `.2` etc. is necessary to avoid duplicate column headers. {: .solution} {: .challenge}
+> > Note that the `X` is prepended just a number would not be a valid
+> > variable name. Because that's what column headers are, the same
+> > rules apply. Appending `.1`, `.2` etc. is necessary to avoid
+> > duplicate column headers. {: .solution} {: .challenge}
 
 > Reading Different Decimal Point Formats
 > ---------------------------------------
 >
-> Depending on the country you live in, your standard can use the dot or the comma as decimal mark. Also, different devices or software can generate data with different decimal points. Take a look at `?read.csv` and write the code to load a file called `commadec.txt` that has numeric values with commas as decimal mark, separated by semicolons.
+> Depending on the country you live in, your standard can use the dot or
+> the comma as decimal mark. Also, different devices or software can
+> generate data with different decimal points. Take a look at
+> `?read.csv` and write the code to load a file called `commadec.txt`
+> that has numeric values with commas as decimal mark, separated by
+> semicolons.
 >
 > > Solution
 > > --------
@@ -75,21 +125,36 @@ The expression `read.csv(...)` is a [function call](%7B%7B%20page.root%20%7D%7D/
 > >
 > > {: .language-r} {: .solution} {: .challenge}
 
-A function will perform its given action on whatever value is passed to the argument(s). For example, in this case if we provided the name of a different file to the argument `file`, `read.csv` would read that instead. We'll learn more about the details of functions and their arguments in the next lesson.
+A function will perform its given action on whatever value is passed to
+the argument(s). For example, in this case if we provided the name of a
+different file to the argument `file`, `read.csv` would read that
+instead. We'll learn more about the details of functions and their
+arguments in the next lesson.
 
-Since we didn't tell it to do anything else with the function's output, the console will display the full contents of the file `inflammation-01.csv`. Try it out.
+Since we didn't tell it to do anything else with the function's output,
+the console will display the full contents of the file
+`inflammation-01.csv`. Try it out.
 
-`read.csv` reads the file, but we can't use the data unless we assign it to a variable. We can think of a variable as a container with a name, such as `x`, `current_temperature`, or `subject_id` that contains one or more values. We can create a new variable and assign a value to it using `<-`.
+`read.csv` reads the file, but we can't use the data unless we assign it
+to a variable. We can think of a variable as a container with a name,
+such as `x`, `current_temperature`, or `subject_id` that contains one or
+more values. We can create a new variable and assign a value to it using
+`<-`.
 
     weight_kg <- 55
 
 {: .language-r}
 
-Once a variable is created, we can use the variable name to refer to the value it was assigned. The variable name now acts as a tag. Whenever R reads that tag (`weight_kg`), it substitutes the value (`55`).
+Once a variable is created, we can use the variable name to refer to the
+value it was assigned. The variable name now acts as a tag. Whenever R
+reads that tag (`weight_kg`), it substitutes the value (`55`).
 
 <img src="../fig/tag-variables.svg" alt="Variables as Tags" />
 
-To see the value of a variable, we can print it by typing the name of the variable and hitting <kbd>Return</kbd> (or <kbd>Enter</kbd>). In general, R will print to the console any object returned by a function or operation *unless* we assign it to a variable.
+To see the value of a variable, we can print it by typing the name of
+the variable and hitting <kbd>Return</kbd> (or <kbd>Enter</kbd>). In
+general, R will print to the console any object returned by a function
+or operation *unless* we assign it to a variable.
 
     weight_kg
 
@@ -97,7 +162,8 @@ To see the value of a variable, we can print it by typing the name of the variab
 
     [1] 55
 
-{: .output} We can treat our variable like a regular number, and do arithmetic with it:
+{: .output} We can treat our variable like a regular number, and do
+arithmetic with it:
 
     # weight in pounds:
     2.2 * weight_kg
@@ -113,7 +179,10 @@ To see the value of a variable, we can print it by typing the name of the variab
 > Commenting
 > ----------
 >
-> We can add comments to our code using the `#` character. It is useful to document our code in this way so that others (and us the next time we read it) have an easier time following what the code is doing. {: .callout}
+> We can add comments to our code using the `#` character. It is useful
+> to document our code in this way so that others (and us the next time
+> we read it) have an easier time following what the code is doing. {:
+> .callout}
 
 We can also change a variable's value by assigning it a new value:
 
@@ -125,15 +194,32 @@ We can also change a variable's value by assigning it a new value:
 
     [1] 57.5
 
-{: .output} &gt; \#\# Variable Naming Conventions &gt; &gt; Historically, R programmers have used a variety of conventions for naming variables. The `.` character &gt; in R can be a valid part of a variable name; thus the above assignment could have easily been `weight.kg <- 57.5`. &gt; This is often confusing to R newcomers who have programmed in languages where `.` has a more significant meaning. &gt; Today, most R programmers 1) start variable names with lower case letters, 2) separate words in variable names with &gt; underscores, and 3) use only lowercase letters, underscores, and numbers in variable names. The book *R Packages* includes &gt; a [chapter](http://r-pkgs.had.co.nz/style.html) on this and other style considerations. {: .callout}
+{: .output} &gt; \#\# Variable Naming Conventions &gt; &gt;
+Historically, R programmers have used a variety of conventions for
+naming variables. The `.` character &gt; in R can be a valid part of a
+variable name; thus the above assignment could have easily been
+`weight.kg <- 57.5`. &gt; This is often confusing to R newcomers who
+have programmed in languages where `.` has a more significant meaning.
+&gt; Today, most R programmers 1) start variable names with lower case
+letters, 2) separate words in variable names with &gt; underscores, and
+3) use only lowercase letters, underscores, and numbers in variable
+names. The book *R Packages* includes &gt; a
+[chapter](http://r-pkgs.had.co.nz/style.html) on this and other style
+considerations. {: .callout}
 
 <img src="../fig/reassign-variables.svg" alt="Reassigning Variables" />
 
-Assigning a new value to a variable breaks the connection with the old value; R forgets that number and applies the variable name to the new value.
+Assigning a new value to a variable breaks the connection with the old
+value; R forgets that number and applies the variable name to the new
+value.
 
-When you assign a value to a variable, R only stores the value, not the calculation you used to create it. This is an important point if you're used to the way a spreadsheet program automatically updates linked cells. Let's look at an example.
+When you assign a value to a variable, R only stores the value, not the
+calculation you used to create it. This is an important point if you're
+used to the way a spreadsheet program automatically updates linked
+cells. Let's look at an example.
 
-First, we'll convert `weight_kg` into pounds, and store the new value in the variable `weight_lb`:
+First, we'll convert `weight_kg` into pounds, and store the new value in
+the variable `weight_lb`:
 
     weight_lb <- 2.2 * weight_kg
     # weight in kg...
@@ -154,7 +240,8 @@ First, we'll convert `weight_kg` into pounds, and store the new value in the var
 
 {: .output}
 
-In words, we're asking R to look up the value we tagged `weight_kg`, multiply it by 2.2, and tag the result with the name `weight_lb`:
+In words, we're asking R to look up the value we tagged `weight_kg`,
+multiply it by 2.2, and tag the result with the name `weight_lb`:
 
 <img src="../fig/new-variables.svg" alt="Creating Another Variable" />
 
@@ -181,20 +268,32 @@ If we now change the value of `weight_kg`:
 
 <img src="../fig/memory-variables.svg" alt="Updating a Variable" />
 
-Since `weight_lb` doesn't "remember" where its value came from, it isn't automatically updated when `weight_kg` changes. This is different from the way spreadsheets work.
+Since `weight_lb` doesn't "remember" where its value came from, it isn't
+automatically updated when `weight_kg` changes. This is different from
+the way spreadsheets work.
 
 > Printing with Parentheses
 > -------------------------
 >
-> An alternative way to print the value of a variable is to use `(` parentheses `)` around the assignment statement. As an example: `(total_weight <- weight_kg + weight_lb)` adds the values of `weight_kg` and `weight_lb`, assigns the result to the `total_weight`, and finally prints the assigned value of the variable `total_weight`. {: .callout}
+> An alternative way to print the value of a variable is to use `(`
+> parentheses `)` around the assignment statement. As an example:
+> `(total_weight <- weight_kg + weight_lb)` adds the values of
+> `weight_kg` and `weight_lb`, assigns the result to the `total_weight`,
+> and finally prints the assigned value of the variable `total_weight`.
+> {: .callout}
 
-Now that we know how to assign things to variables, let's re-run `read.csv` and save its result into a variable called 'dat':
+Now that we know how to assign things to variables, let's re-run
+`read.csv` and save its result into a variable called 'dat':
 
     dat <- read.csv(file = "data/inflammation-01.csv", header = FALSE)
 
 {: .language-r}
 
-This statement doesn't produce any output because the assignment doesn't display anything. If we want to check if our data has been loaded, we can print the variable's value by typing the name of the variable `dat`. However, for large data sets it is convenient to use the function `head` to display only the first few rows of data.
+This statement doesn't produce any output because the assignment doesn't
+display anything. If we want to check if our data has been loaded, we
+can print the variable's value by typing the name of the variable `dat`.
+However, for large data sets it is convenient to use the function `head`
+to display only the first few rows of data.
 
     head(dat)
 
@@ -227,7 +326,8 @@ This statement doesn't produce any output because the assignment doesn't display
 > Assigning Values to Variables
 > -----------------------------
 >
-> Draw diagrams showing what variables refer to what values after each statement in the following program:
+> Draw diagrams showing what variables refer to what values after each
+> statement in the following program:
 >
 >     mass <- 47.5
 >     age <- 122
@@ -257,7 +357,8 @@ This statement doesn't produce any output because the assignment doesn't display
 
 ### Manipulating Data
 
-Now that our data are loaded into R, we can start doing things with them. First, let's ask what type of thing `dat` is:
+Now that our data are loaded into R, we can start doing things with
+them. First, let's ask what type of thing `dat` is:
 
     class(dat)
 
@@ -267,9 +368,15 @@ Now that our data are loaded into R, we can start doing things with them. First,
 
 {: .output}
 
-The output tells us that it's a data frame. Think of this structure as a spreadsheet in MS Excel that many of us are familiar with. Data frames are very useful for storing data and you will use them frequently when programming in R. A typical data frame of experimental data contains individual observations in rows and variables in columns.
+The output tells us that it's a data frame. Think of this structure as a
+spreadsheet in MS Excel that many of us are familiar with. Data frames
+are very useful for storing data and you will use them frequently when
+programming in R. A typical data frame of experimental data contains
+individual observations in rows and variables in columns.
 
-We can see the shape, or [dimensions](%7B%7B%20page.root%20%7D%7D/reference.html#dimensions-of-an-array), of the data frame with the function `dim`:
+We can see the shape, or
+[dimensions](%7B%7B%20page.root%20%7D%7D/reference.html#dimensions-of-an-array),
+of the data frame with the function `dim`:
 
     dim(dat)
 
@@ -281,7 +388,9 @@ We can see the shape, or [dimensions](%7B%7B%20page.root%20%7D%7D/reference.html
 
 This tells us that our data frame, `dat`, has 60 rows and 40 columns.
 
-If we want to get a single value from the data frame, we can provide an [index](%7B%7B%20page.root%20%7D%7D/reference.html#index) in square brackets. The first number specifies the row and the second the column:
+If we want to get a single value from the data frame, we can provide an
+[index](%7B%7B%20page.root%20%7D%7D/reference.html#index) in square
+brackets. The first number specifies the row and the second the column:
 
     # first value in dat, row 1, column 1
     dat[1, 1]
@@ -301,7 +410,10 @@ If we want to get a single value from the data frame, we can provide an [index](
 
 {: .output}
 
-The first value in a data frame index is the row, the second value is the column. If we want to select more than one row or column, we can use the function `c`, which stands for **c**ombine. For example, to pick columns 10 and 20 from rows 1, 3, and 5, we can do this:
+The first value in a data frame index is the row, the second value is
+the column. If we want to select more than one row or column, we can use
+the function `c`, which stands for **c**ombine. For example, to pick
+columns 10 and 20 from rows 1, 3, and 5, we can do this:
 
     dat[c(1, 3, 5), c(10, 20)]
 
@@ -314,7 +426,10 @@ The first value in a data frame index is the row, the second value is the column
 
 {: .output}
 
-We frequently want to select contiguous rows or columns, such as the first ten rows, or columns 3 through 7. You can use `c` for this, but it's more convenient to use the `:` operator. This special function generates sequences of numbers:
+We frequently want to select contiguous rows or columns, such as the
+first ten rows, or columns 3 through 7. You can use `c` for this, but
+it's more convenient to use the `:` operator. This special function
+generates sequences of numbers:
 
     1:5
 
@@ -332,7 +447,8 @@ We frequently want to select contiguous rows or columns, such as the first ten r
 
 {: .output}
 
-For example, we can select the first ten columns of values for the first four rows like this:
+For example, we can select the first ten columns of values for the first
+four rows like this:
 
     dat[1:4, 1:10]
 
@@ -362,7 +478,8 @@ or the first ten columns of rows 5 to 10 like this:
 
 {: .output}
 
-If you want to select all rows or all columns, leave that index value empty.
+If you want to select all rows or all columns, leave that index value
+empty.
 
     # All columns from row 5
     dat[5, ]
@@ -447,14 +564,24 @@ If you want to select all rows or all columns, leave that index value empty.
 
 {: .output}
 
-If you leave both index values empty (i.e., `dat[,]`), you get the entire data frame.
+If you leave both index values empty (i.e., `dat[,]`), you get the
+entire data frame.
 
 > Addressing Columns by Name
 > --------------------------
 >
-> Columns can also be addressed by name, with either the `$` operator (ie. `dat$V16`) or square brackets (ie. `dat[, 'V16']`). You can learn more about subsetting by column name in this supplementary [lesson](%7B%7B%20page.root%20%7D%7D/10-supp-addressing-data/). {: .callout}
+> Columns can also be addressed by name, with either the `$` operator
+> (ie. `dat$V16`) or square brackets (ie. `dat[, 'V16']`). You can learn
+> more about subsetting by column name in this supplementary
+> [lesson](%7B%7B%20page.root%20%7D%7D/10-supp-addressing-data/). {:
+> .callout}
 
-Now let's perform some common mathematical operations to learn more about our inflammation data. When analyzing data we often want to look at partial statistics, such as the maximum value per patient or the average value per day. One way to do this is to select the data we want to create a new temporary data frame, and then perform the calculation on this subset:
+Now let's perform some common mathematical operations to learn more
+about our inflammation data. When analyzing data we often want to look
+at partial statistics, such as the maximum value per patient or the
+average value per day. One way to do this is to select the data we want
+to create a new temporary data frame, and then perform the calculation
+on this subset:
 
     # first row, all of the columns
     patient_1 <- dat[1, ]
@@ -501,7 +628,8 @@ Now let's perform some common mathematical operations to learn more about our in
 > `class(as.numeric(dat[1, ]))`
 {: .callout}
 -->
-We don't actually need to store the row in a variable of its own. Instead, we can combine the selection and the function call:
+We don't actually need to store the row in a variable of its own.
+Instead, we can combine the selection and the function call:
 
     # max inflammation for patient 2
     max(dat[2, ])
@@ -512,7 +640,8 @@ We don't actually need to store the row in a variable of its own. Instead, we ca
 
 {: .output}
 
-R also has functions for other common calculations, e.g. finding the minimum, mean, median, and standard deviation of the data:
+R also has functions for other common calculations, e.g. finding the
+minimum, mean, median, and standard deviation of the data:
 
     # minimum inflammation on day 7
     min(dat[, 7])
@@ -553,7 +682,15 @@ R also has functions for other common calculations, e.g. finding the minimum, me
 > Forcing Conversion
 > ------------------
 >
-> Note that R may return an error when you attempt to perform similar calculations on subsetted *rows* of data frames. This is because some functions in R automatically convert the object type to a numeric vector, while others do not (e.g. `max(dat[1, ])` works as expected, while `mean(dat[1, ])` returns `NA` and a warning). You get the expected output by including an explicit call to `as.numeric()`, e.g. `mean(as.numeric(dat[1, ]))`. By contrast, calculations on subsetted *columns* always work as expected, since columns of data frames are already defined as vectors. {: .callout}
+> Note that R may return an error when you attempt to perform similar
+> calculations on subsetted *rows* of data frames. This is because some
+> functions in R automatically convert the object type to a numeric
+> vector, while others do not (e.g. `max(dat[1, ])` works as expected,
+> while `mean(dat[1, ])` returns `NA` and a warning). You get the
+> expected output by including an explicit call to `as.numeric()`, e.g.
+> `mean(as.numeric(dat[1, ]))`. By contrast, calculations on subsetted
+> *columns* always work as expected, since columns of data frames are
+> already defined as vectors. {: .callout}
 
 R also has a function that summaries the previous common calculations:
 
@@ -572,9 +709,14 @@ R also has a function that summaries the previous common calculations:
 
 {: .output}
 
-For every column in the data frame, the function "summary" calculates: the minimun value, the first quartile, the median, the mean, the third quartile and the max value, giving helpful details about the sample distribution.
+For every column in the data frame, the function "summary" calculates:
+the minimun value, the first quartile, the median, the mean, the third
+quartile and the max value, giving helpful details about the sample
+distribution.
 
-What if we need the maximum inflammation for all patients, or the average for each day? As the diagram below shows, we want to perform the operation across a margin of the data frame:
+What if we need the maximum inflammation for all patients, or the
+average for each day? As the diagram below shows, we want to perform the
+operation across a margin of the data frame:
 
 <img src="../fig/r-operations-across-margins.svg" alt="Operations Across Margins" />
 
@@ -583,28 +725,37 @@ To support this, we can use the `apply` function.
 > Getting Help
 > ------------
 >
-> To learn about a function in R, e.g. `apply`, we can read its help documention by running `help(apply)` or `?apply`. {: .callout}
+> To learn about a function in R, e.g. `apply`, we can read its help
+> documention by running `help(apply)` or `?apply`. {: .callout}
 
-`apply` allows us to repeat a function on all of the rows (`MARGIN = 1`) or columns (`MARGIN = 2`) of a data frame.
+`apply` allows us to repeat a function on all of the rows (`MARGIN = 1`)
+or columns (`MARGIN = 2`) of a data frame.
 
-Thus, to obtain the average inflammation of each patient we will need to calculate the mean of all of the rows (`MARGIN = 1`) of the data frame.
+Thus, to obtain the average inflammation of each patient we will need to
+calculate the mean of all of the rows (`MARGIN = 1`) of the data frame.
 
     avg_patient_inflammation <- apply(dat, 1, mean)
 
 {: .language-r}
 
-And to obtain the average inflammation of each day we will need to calculate the mean of all of the columns (`MARGIN = 2`) of the data frame.
+And to obtain the average inflammation of each day we will need to
+calculate the mean of all of the columns (`MARGIN = 2`) of the data
+frame.
 
     avg_day_inflammation <- apply(dat, 2, mean)
 
 {: .language-r}
 
-Since the second argument to `apply` is `MARGIN`, the above command is equivalent to `apply(dat, MARGIN = 2, mean)`. We'll learn why this is so in the next lesson.
+Since the second argument to `apply` is `MARGIN`, the above command is
+equivalent to `apply(dat, MARGIN = 2, mean)`. We'll learn why this is so
+in the next lesson.
 
 > Efficient Alternatives
 > ----------------------
 >
-> Some common operations have more efficient alternatives. For example, you can calculate the row-wise or column-wise means with `rowMeans` and `colMeans`, respectively. {: .callout}
+> Some common operations have more efficient alternatives. For example,
+> you can calculate the row-wise or column-wise means with `rowMeans`
+> and `colMeans`, respectively. {: .callout}
 
 > Subsetting Data
 > ---------------
@@ -630,16 +781,30 @@ Since the second argument to `apply` is `MARGIN`, the above command is equivalen
 >
 > {: .output}
 >
-> 1.  If the first four characters are selected using the subset `animal[1:4]`, how can we obtain the first four characters in reverse order?
+> 1.  If the first four characters are selected using the subset
+>     `animal[1:4]`, how can we obtain the first four characters in
+>     reverse order?
 >
-> 2.  What is `animal[-1]`? What is `animal[-4]`? Given those answers, explain what `animal[-1:-4]` does.
+> 2.  What is `animal[-1]`? What is `animal[-4]`? Given those answers,
+>     explain what `animal[-1:-4]` does.
 >
-> 3.  Use a subset of `animal` to create a new character vector that spells the word "eon", i.e. `c("e", "o", "n")`. &gt; \#\# Solutions &gt; &gt; 1. `animal[4:1]` &gt; &gt; 1. `"o" "n" "k" "e" "y"` and `"m" "o" "n" "e" "y"`, which means that a &gt; single `-` removes the element at the given index position. &gt; `animal[-1:-4]` remove the subset, returning `"e" "y"`, which is &gt; equivalent to `animal[5:6]`. &gt; &gt; 1. `animal[c(5,2,3)]` combines indexing with the `c`ombine function. &gt; {: .solution} {: .challenge}
+> 3.  Use a subset of `animal` to create a new character vector that
+>     spells the word "eon", i.e. `c("e", "o", "n")`. &gt; \#\#
+>     Solutions &gt; &gt; 1. `animal[4:1]` &gt; &gt; 1.
+>     `"o" "n" "k" "e" "y"` and `"m" "o" "n" "e" "y"`, which means that
+>     a &gt; single `-` removes the element at the given index
+>     position. &gt; `animal[-1:-4]` remove the subset, returning
+>     `"e" "y"`, which is &gt; equivalent to `animal[5:6]`. &gt; &gt; 1.
+>     `animal[c(5,2,3)]` combines indexing with the `c`ombine
+>     function. &gt; {: .solution} {: .challenge}
 >
 > Subsetting More Data
 > --------------------
 >
-> Suppose you want to determine the maximum inflammation for patient 5 across days three to seven. To do this you would extract the relevant subset from the data frame and calculate the maximum value. Which of the following lines of R code gives the correct answer?
+> Suppose you want to determine the maximum inflammation for patient 5
+> across days three to seven. To do this you would extract the relevant
+> subset from the data frame and calculate the maximum value. Which of
+> the following lines of R code gives the correct answer?
 >
 > 1.  `max(dat[5, ])`
 > 2.  `max(dat[3:7, 5])`
@@ -651,18 +816,30 @@ Since the second argument to `apply` is `MARGIN`, the above command is equivalen
 > >
 > > Answer: 3
 > >
-> > Explanation: You want to extract the part of the dataframe representing data for patient 5 from days three to seven. In this dataframe, patient data is organised in rows and the days are represented by the columns. Subscripting in R follows the `[i, j]` principle, where `i = rows` and `j = columns`. Thus, answer 3 is correct since the patient is represented by the value for i (5) and the days are represented by the values in j, which is a subset spanning day 3 to 7.
+> > Explanation: You want to extract the part of the dataframe
+> > representing data for patient 5 from days three to seven. In this
+> > dataframe, patient data is organised in rows and the days are
+> > represented by the columns. Subscripting in R follows the `[i, j]`
+> > principle, where `i = rows` and `j = columns`. Thus, answer 3 is
+> > correct since the patient is represented by the value for i (5) and
+> > the days are represented by the values in j, which is a subset
+> > spanning day 3 to 7.
 > >
 > > {: .solution} {: .challenge}
 
 > Subsetting and Re-Assignment
 > ----------------------------
 >
-> Using the inflammation data frame `dat` from above: Let's pretend there was something wrong with the instrument on the first five days for every second patient (\#2, 4, 6, etc.), which resulted in the measurements being twice as large as they should be.
+> Using the inflammation data frame `dat` from above: Let's pretend
+> there was something wrong with the instrument on the first five days
+> for every second patient (\#2, 4, 6, etc.), which resulted in the
+> measurements being twice as large as they should be.
 >
 > 1.  Write a vector containing each affected patient (hint: `?seq`)
-> 2.  Create a new data frame in which you halve the first five days' values in only those patients
-> 3.  Print out the corrected data frame to check that your code has fixed the problem
+> 2.  Create a new data frame in which you halve the first five days'
+>     values in only those patients
+> 3.  Print out the corrected data frame to check that your code has
+>     fixed the problem
 >
 > > Solution
 > > --------
@@ -680,15 +857,23 @@ Since the second argument to `apply` is `MARGIN`, the above command is equivalen
 > Using the Apply Function on Patient Data
 > ----------------------------------------
 >
-> Challenge: the apply function can be used to summarize datasets and subsets of data across rows and columns using the MARGIN argument. Suppose you want to calculate the mean inflammation for specific days and patients in the patient dataset (i.e. 60 patients across 40 days).
+> Challenge: the apply function can be used to summarize datasets and
+> subsets of data across rows and columns using the MARGIN argument.
+> Suppose you want to calculate the mean inflammation for specific days
+> and patients in the patient dataset (i.e. 60 patients across 40 days).
 >
 > Please use a combination of the apply function and indexing to:
 >
-> 1.  calculate the mean inflammation for patients 1 to 5 over the whole 40 days
-> 2.  calculate the mean inflammation for days 1 to 10 (across all patients).
-> 3.  calculate the mean inflammation for every second day (across all patients).
+> 1.  calculate the mean inflammation for patients 1 to 5 over the whole
+>     40 days
+> 2.  calculate the mean inflammation for days 1 to 10 (across all
+>     patients).
+> 3.  calculate the mean inflammation for every second day (across all
+>     patients).
 >
-> Think about the number of rows and columns you would expect as the result before each apply call and check your intuition by applying the mean function.
+> Think about the number of rows and columns you would expect as the
+> result before each apply call and check your intuition by applying the
+> mean function.
 >
 > > Solution
 > > --------
@@ -704,9 +889,15 @@ Since the second argument to `apply` is `MARGIN`, the above command is equivalen
 
 ### Plotting
 
-The mathematician Richard Hamming once said, "The purpose of computing is insight, not numbers," and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R's plotting features.
+The mathematician Richard Hamming once said, "The purpose of computing
+is insight, not numbers," and the best way to develop insight is often
+to visualize data. Visualization deserves an entire lecture (or course)
+of its own, but we can explore a few of R's plotting features.
 
-Let's take a look at the average inflammation over time. Recall that we already calculated these values above using `apply(dat, 2, mean)` and saved them in the variable `avg_day_inflammation`. Plotting the values is done with the function `plot`.
+Let's take a look at the average inflammation over time. Recall that we
+already calculated these values above using `apply(dat, 2, mean)` and
+saved them in the variable `avg_day_inflammation`. Plotting the values
+is done with the function `plot`.
 
     plot(avg_day_inflammation)
 
@@ -714,7 +905,14 @@ Let's take a look at the average inflammation over time. Recall that we already 
 
 <img src="../fig/rmd-17-testing-Rmd-to-md-plot-avg-inflammation-1.png" width="816" style="display: block; margin: auto;" />
 
-Above, we gave the function `plot` a vector of numbers corresponding to the average inflammation per day across all patients. `plot` created a scatter plot where the y-axis is the average inflammation level and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 40 days of treatment. The result is roughly a linear rise and fall, which is suspicious: based on other studies, we expect a sharper rise and slower fall. Let's have a look at two other statistics: the maximum and minimum inflammation per day.
+Above, we gave the function `plot` a vector of numbers corresponding to
+the average inflammation per day across all patients. `plot` created a
+scatter plot where the y-axis is the average inflammation level and the
+x-axis is the order, or index, of the values in the vector, which in
+this case correspond to the 40 days of treatment. The result is roughly
+a linear rise and fall, which is suspicious: based on other studies, we
+expect a sharper rise and slower fall. Let's have a look at two other
+statistics: the maximum and minimum inflammation per day.
 
     max_day_inflammation <- apply(dat, 2, max)
     plot(max_day_inflammation)
@@ -730,12 +928,16 @@ Above, we gave the function `plot` a vector of numbers corresponding to the aver
 
 <img src="../fig/rmd-17-testing-Rmd-to-md-plot-min-inflammation-1.png" width="816" style="display: block; margin: auto;" />
 
-The maximum value rises and falls perfectly smoothly, while the minimum seems to be a step function. Neither result seems particularly likely, so either there's a mistake in our calculations or something is wrong with our data.
+The maximum value rises and falls perfectly smoothly, while the minimum
+seems to be a step function. Neither result seems particularly likely,
+so either there's a mistake in our calculations or something is wrong
+with our data.
 
 > Plotting Data
 > -------------
 >
-> Create a plot showing the standard deviation of the inflammation data for each day across all patients.
+> Create a plot showing the standard deviation of the inflammation data
+> for each day across all patients.
 >
 > > Solution
 > > --------

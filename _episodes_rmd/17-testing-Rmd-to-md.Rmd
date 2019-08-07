@@ -9,9 +9,7 @@ objectives:
 keypoints:
 - "Figure out MCB 585 lesson posting"
 source: Rmd
-output:
-  md_document:
-    variant: markdown_github
+output: md_document
 ---
 
 ```{r, include = FALSE}
