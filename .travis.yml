@@ -4,7 +4,7 @@
 
 # DO NOT CHANGE THE CODE BELOW
 before_install:
-  - openssl aes-256-cbc -K $encrypted_82c47beb5b26_key -iv $encrypted_82c47beb5b26_iv -in id_rsa.enc -out id_rsa -d
+  - openssl aes-256-cbc -K $encrypted_0e6e97c12fe7_key -iv $encrypted_0e6e97c12fe7_iv -in id_rsa.enc -out id_rsa -d
   - sudo apt-get install libgit2-dev
   - rvm install 2.5.1
   - rvm 2.5.1 do ruby -S gem install jekyll
