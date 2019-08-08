@@ -4,22 +4,36 @@ title: Setup
 root: .
 ---
 
-This lesson assumes you have current versions of the following installed on your computer:
+To participate in both in-class exercises and homework, you will need access to a computer with the current versions of the following installed:
 
 1. the [R software](https://cran.r-project.org/mirrors.html) itself, and
 1. [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/#download).
 
 You also need to download some files to follow this lesson:
 
-1. Make a new folder in your Desktop called `r-novice-inflammation`.
-2. Download [r-novice-inflammation-data.zip]({{ page.root }}/data/r-novice-inflammation-data.zip)
+1. Make a new folder in your Desktop called `MCB585`.
+2. Download [MCB585-sample-data.zip]({{ page.root }}/data/MCB585-sample-data.zip)
    and move the file to this folder.
 3. If it's not unzipped yet, double-click on it to unzip it. You should end up
    with a new folder called `data`.
-4. You can access this folder from the Unix shell with:
+4. You can access this folder with:
 
+**Unix shell:** 
 ~~~
-$ cd
-$ cd Desktop/r-novice-inflammation/data
+$ ls
+$ cd Desktop/MCB585/data
+~~~
+{: .language-bash}
+
+**Windows Command Prompt:** 
+~~~
+> dir
+> cd c:\Users\<username>\Desktop\MCB585\data
+~~~
+{: .language-bash}
+
+**MacOS** 
+~~~
+$ cd /Users/<username>/Desktop
 ~~~
 {: .language-bash}

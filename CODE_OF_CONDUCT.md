@@ -1,11 +1,22 @@
 ---
 layout: page
-title: "Contributor Code of Conduct"
+title: "Code of Conduct"
 ---
-As contributors and maintainers of this project,
-we pledge to follow the [Carpentry Code of Conduct][coc].
 
-Instances of abusive, harassing, or otherwise unacceptable behavior
-may be reported by following our [reporting guidelines][coc-reporting].
+## Expectations for Academic Honesty
 
-{% include links.md %}
+### Expectations for members of the University of Arizona community
+
+We refer you to the [Code of Academic Integrity][ua_coc_site] set forth by the University of Arizona regarding academic honesty as a general set of principles that we seek to uphold in MCB585
+
+### Expectations for student behavior
+
+We refer you to the policy regarding [Threatening Behavior by Students][student_behavior_site] set forth by the University of Arizona as a strict expectation for MCB585. In addition, the use of cell phones and computers for activities outside of coursework are prohibited during class meetings.
+
+### Expectations specific to MCB585
+
+Students are encouraged to work together on the critical thinking exercises, but out-of-class assignments must be completed by each student individually (students may advise their partner on the final presentation).
+
+## Accessibility and accomodations
+
+It is the University’s goal that learning experiences be as accessible as possible. If you anticipate or experience physical or academic barriers based on disability, please let us know immediately so that we can discuss options. You are also welcome to contact Disability Resources (520-621-3268) to establish reasonable accommodations. Please be aware that the accessible table and chairs in this room should remain available for students who find that standard classroom seating is not usable.

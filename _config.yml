@@ -29,6 +29,8 @@ repository: <USERNAME>/<PROJECT>
 email: "sutphin@gmail.com"
 
 # Sites.
+ua_coc_site: "http://deanofstudents.arizona.edu/policies-and-codes/code-academic-integrity"
+student_behavior_site: "http://policy.arizona.edu/education-and-student-affairs/threatening-behavior-students"
 amy_site: "https://amy.software-carpentry.org/workshops"
 carpentries_github: "https://github.com/carpentries"
 carpentries_pages: "https://carpentries.github.io"
@@ -44,6 +46,8 @@ template_repo: "https://github.com/carpentries/styles"
 training_site: "https://carpentries.github.io/instructor-training"
 workshop_repo: "https://github.com/carpentries/workshop-template"
 workshop_site: "https://carpentries.github.io/workshop-template"
+
+
 
 # Surveys.
 pre_survey: "https://www.surveymonkey.com/r/swc_pre_workshop_v1?workshop_id="

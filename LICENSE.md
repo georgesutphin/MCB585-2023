@@ -3,7 +3,12 @@ layout: page
 title: "Licenses"
 root: .
 ---
-## Instructional Material
+
+## MCB585 Attributions
+
+The website and introductory material for MCB585 were based on the publically available course material originally produced by The Carpentries. This educational material is freely available online and available for use, redistribution, remix, and transformation under the [Creative Commons Attribution license][cc-by-human]. We note that our use of this material does not imply that The Carpentries or associated entities endorse us our our use of the material. More information on The Carpentries and the assocaited license is below. 
+
+## The Carpentries
 
 All Software Carpentry, Data Carpentry, and Library Carpentry instructional material is
 made available under the [Creative Commons Attribution
