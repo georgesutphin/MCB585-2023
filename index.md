@@ -12,7 +12,6 @@ MCB585 is an advanced graduate course focused on quantitative approaches to biol
 *   **George Sutphin**, Assistant Professor, Molecule & Cellular Biology
 *   **Andrew Paek**, Assistant Professor, Molecule & Cellular Biology
 
-
 **Course Goals:**
 
 Students will be able to:
@@ -26,6 +25,10 @@ Students will be able to:
 2.  Participation in discussions and in-class exercises.
 3.  Reading assignments, completed before class.
 4.  Computer exercises before and during class.
+
+**Grading Summary:**
+* 67% discussion and exercise participation, assignments
+* 33% student research final project proposals, code, and presentation
 
 ## Prerequisites
 >
