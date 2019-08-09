@@ -71,7 +71,15 @@ setwd("C:/User/<username>/Desktop/r-novice-inflammation/") # Windows --> replace
 ~~~
 {: .language-r}
 
-Note that when working with paths in Windows you need to replace all "\\" with "/". This is because R sees "\\<letter>" as a piece of code called an escape character and does not interpret it as simple text.
+Note that when working with paths in Windows you need to replace all "\\" with "/". This is because R sees "\\" as the beginning of a piece of code called an escape character and does not interpret it as simple text. Remember this when trying to copy a path from Windows Explorer and pasting it into R. You always have to make the replacement.
+
+You can always check you current working directory using 'getwd':
+
+
+~~~
+getwd()
+~~~
+{: .language-r}
 
 Just like in the Unix Shell, we type the command and then press <kbd>Return</kbd> (or <kbd>Enter</kbd>).
 Alternatively you can change the working directory using the RStudio GUI using the menu option `Session` -> `Set Working Directory` -> `Choose Directory...`
