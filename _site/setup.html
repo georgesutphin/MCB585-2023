@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-08-08 00:00:34 -0700">
+    <meta http-equiv="last-modified" content="2019-08-09 11:10:55 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -109,39 +109,7 @@
           <a href="./" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
           <ul class="dropdown-menu">
             
-            <li><a href="./01-starting-with-data/index.html">Analyzing Patient Data</a></li>
-            
-            <li><a href="./02-func-R/index.html">Creating Functions</a></li>
-            
-            <li><a href="./03-loops-R/index.html">Analyzing Multiple Data Sets</a></li>
-            
-            <li><a href="./04-cond/index.html">Making Choices</a></li>
-            
-            <li><a href="./05-cmdline/index.html">Command-Line Programs</a></li>
-            
-            <li><a href="./06-best-practices-R/index.html">Best Practices for Writing R Code</a></li>
-            
-            <li><a href="./07-knitr-R/index.html">Dynamic Reports with knitr</a></li>
-            
-            <li><a href="./08-making-packages-R/index.html">Making Packages in R</a></li>
-            
-            <li><a href="./09-supp-intro-rstudio/index.html">Introduction to RStudio</a></li>
-            
-            <li><a href="./10-supp-addressing-data/index.html">Addressing Data</a></li>
-            
-            <li><a href="./11-supp-read-write-csv/index.html">Reading and Writing CSV Files</a></li>
-            
-            <li><a href="./12-supp-factors/index.html">Understanding Factors</a></li>
-            
-            <li><a href="./13-supp-data-structures/index.html">Data Types and Structures</a></li>
-            
-            <li><a href="./14-supp-call-stack/index.html">The Call Stack</a></li>
-            
-            <li><a href="./15-supp-loops-in-depth/index.html">Loops in R</a></li>
-            
-            <li><a href="./16-testing/index.html">Testing</a></li>
-            
-            <li><a href="./17-testing-Rmd-to-md/index.html">Testing Rmd to md conversion and posting</a></li>
+            <li><a href="./01-starting-with-data/index.html">Introduction to R</a></li>
             
 	    <li role="separator" class="divider"></li>
             <li><a href="./aio.html">All in one page (Beta)</a></li>
@@ -200,7 +168,7 @@
 <h1 class="maintitle"><a href="./">MCB 585: Multidisciplinary/Quantitative Approaches to Solving Biological Problems</a>: Setup</h1>
 
 <article>
-<p>This lesson assumes you have current versions of the following installed on your computer:</p>
+<p>To participate in both in-class exercises and homework, you will need access to a computer with the current versions of the following installed:</p>
 
 <ol>
   <li>the <a href="https://cran.r-project.org/mirrors.html">R software</a> itself, and</li>
@@ -210,16 +178,26 @@
 <p>You also need to download some files to follow this lesson:</p>
 
 <ol>
-  <li>Make a new folder in your Desktop called <code class="highlighter-rouge">r-novice-inflammation</code>.</li>
-  <li>Download <a href="./data/r-novice-inflammation-data.zip">r-novice-inflammation-data.zip</a>
+  <li>Make a new folder in your Desktop called <code class="highlighter-rouge">MCB585</code>.</li>
+  <li>Download <a href="./data/MCB585-sample-data.zip">MCB585-sample-data.zip</a>
 and move the file to this folder.</li>
   <li>If it’s not unzipped yet, double-click on it to unzip it. You should end up
 with a new folder called <code class="highlighter-rouge">data</code>.</li>
-  <li>You can access this folder from the Unix shell with:</li>
+  <li>You can access this folder with:</li>
 </ol>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span>
-<span class="nv">$ </span><span class="nb">cd </span>Desktop/r-novice-inflammation/data
+<p><strong>Unix shell:</strong></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">ls</span>
+<span class="nv">$ </span><span class="nb">cd </span>Desktop/MCB585/data
+</code></pre></div></div>
+
+<p><strong>Windows Command Prompt:</strong></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="nb">dir</span>
+<span class="o">&gt;</span> <span class="nb">cd </span>c:<span class="se">\U</span>sers<span class="se">\&lt;</span>username&gt;<span class="se">\D</span>esktop<span class="se">\M</span>CB585<span class="se">\d</span>ata
+</code></pre></div></div>
+
+<p><strong>MacOS</strong></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> /Users/&lt;username&gt;/Desktop
 </code></pre></div></div>
 
 </article>
