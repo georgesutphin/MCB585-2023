@@ -4,11 +4,11 @@ title: "Licenses"
 root: .
 ---
 
-## MCB585 Attributions
+### MCB585 Attributions
 
 The website and introductory material for MCB585 were based on the publically available course material originally produced by The Carpentries. This educational material is freely available online and available for use, redistribution, remix, and transformation under the [Creative Commons Attribution license][cc-by-human]. We note that our use of this material does not imply that The Carpentries or associated entities endorse us our our use of the material. More information on The Carpentries and the assocaited license is below. 
 
-## The Carpentries
+### The Carpentries
 
 All Software Carpentry, Data Carpentry, and Library Carpentry instructional material is
 made available under the [Creative Commons Attribution
@@ -50,7 +50,7 @@ Notices:
   rights such as publicity, privacy, or moral rights may limit how you
   use the material.
 
-## Software
+### Software
 
 Except where otherwise noted, the example programs and other software
 provided by Software Carpentry and Data Carpentry are made available under the
@@ -76,7 +76,7 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-## Trademark
+### Trademark
 
 "Software Carpentry" and "Data Carpentry" and their respective logos
 are registered trademarks of [Community Initiatives][CI].
