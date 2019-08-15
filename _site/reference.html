@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-08-09 11:27:51 -0700">
+    <meta http-equiv="last-modified" content="2019-08-15 14:27:22 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -113,7 +113,9 @@
           <a href="./" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
           <ul class="dropdown-menu">
             
-            <li><a href="./01-starting-with-data/index.html">Introduction to R</a></li>
+            <li><a href="./01-R-RStudio-setup/index.html">Title</a></li>
+            
+            <li><a href="./02-func-R/index.html">Creating Functions</a></li>
             
 	    <li role="separator" class="divider"></li>
             <li><a href="./aio.html">All in one page (Beta)</a></li>
@@ -192,39 +194,52 @@
   
     <tr>
       <td class="col-md-3">
-        <a href="./01-starting-with-data/index.html">Introduction to R</a>
+        <a href="./01-R-RStudio-setup/index.html">Title</a>
       </td>
       <td class="col-md-9">
         <ul>
         
-        <li><p>Use <code class="highlighter-rouge">variable &lt;- value</code> to assign a value to a variable in order to record it in memory.</p>
+        <li><p>Using RStudio can make programming in R much more productive.</p>
 </li>
         
-        <li><p>Objects are created on demand whenever a value is assigned to them.</p>
+        <li><p>Consider what working directory you are in when sourcing a script.</p>
 </li>
         
-        <li><p>The function <code class="highlighter-rouge">dim</code> gives the dimensions of a data frame.</p>
+        </ul>
+      </td>
+    </tr>
+  
+
+  
+    <tr>
+      <td class="col-md-3">
+        <a href="./02-func-R/index.html">Creating Functions</a>
+      </td>
+      <td class="col-md-9">
+        <ul>
+        
+        <li><p>Define a function using <code class="highlighter-rouge">name &lt;- function(...args...) {...body...}</code>.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">object[x, y]</code> to select a single element from a data frame.</p>
+        <li><p>Call a function using <code class="highlighter-rouge">name(...values...)</code>.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">from:to</code> to specify a sequence that includes the indices from <code class="highlighter-rouge">from</code> to <code class="highlighter-rouge">to</code>.</p>
+        <li><p>R looks for variables in the current stack frame before looking for them at the top level.</p>
 </li>
         
-        <li><p>All the indexing and subsetting that works on data frames also works on vectors.</p>
+        <li><p>Use <code class="highlighter-rouge">help(thing)</code> to view help for something.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">#</code> to add comments to programs.</p>
+        <li><p>Put comments at the beginning of functions to provide help for that function.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">mean</code>, <code class="highlighter-rouge">max</code>, <code class="highlighter-rouge">min</code> and <code class="highlighter-rouge">sd</code> to calculate simple statistics.</p>
+        <li><p>Annotate your code!</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">apply</code> to calculate statistics across the rows or columns of a data frame.</p>
+        <li><p>Specify default values for arguments when defining a function using <code class="highlighter-rouge">name = value</code> in the argument list.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">plot</code> to create simple visualizations.</p>
+        <li><p>Arguments can be passed by matching based on name, by position, or by omitting them (in which case the default value is used).</p>
 </li>
         
         </ul>
