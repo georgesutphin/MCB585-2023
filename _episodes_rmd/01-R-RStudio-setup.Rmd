@@ -113,7 +113,7 @@ At the simplest level, the console can be used as a calculator to directly ask f
 *To run the command, try to copy-paste each line into the console and run. Also try copying/typing each line into the script, highlighting the text (or just make sure your cursor is on the right line), and pressing <kbd>Ctrl</kbd>+<kbd>Enter</kbd>.*
 
 
-```{r}
+```{r, eval=FALSE}
 # Addition
 40+2
 
@@ -148,7 +148,7 @@ all contexts so it is good practice to use `<-` for assignments.
 
 In RStudio, the <kbd>Alt</kbd>+<kbd>-</kbd> will write `<-` in a single keystroke. Let's give it a go:
 
-```{r}
+```{r, eval=FALSE}
 x <- 42   # using <- sets the value of the variable x to 42.
 y = 42    # using `=` in place of `<-` works in almost all situation (but not quite all; it is better to get into the habit of using `<-`).
 
@@ -161,7 +161,7 @@ Also note that when you assign a value to a variable, a new object is created in
 
 Now that we have assigned a value to a variable, we can use that variable to calculate other things:
 
-```{r}
+```{r, eval=FALSE}
 x + 3
 2*(x + y)
 z = y + 2*x
@@ -170,12 +170,12 @@ z
 ```
 
 What happens if you don't complete a line:
-```{r}
+```{r, eval=FALSE}
 100 + 
 ```
 
 R hangs with a `+` in the console, wainting for you to finish your thought...
-```{r}
+```{r, eval=FALSE}
 1
 ```
 
@@ -184,7 +184,7 @@ All better.
 
 You can use the `ls()` command to list all variables currently defined in your workspace.
 
-```{r}
+```{r, eval=FALSE}
 ls()
 ```
 
@@ -228,14 +228,14 @@ ls()
 
 Try clicking on the brush icon in the Environment panel and clicking <kbd>Yes</kbd> in the po-up box. What happened to your variable? What happens if you try to display the variable in the console?
 
-```{r}
+```{r, eval=FALSE}
 x
 y
 ```
 
 You can also remove variables one at a time.
 
-```{r}
+```{r, eval=FALSE}
 x = 3
 y = x + 2
 z1 = x - y
@@ -267,7 +267,7 @@ In the future, you can either just open this file from you file explorer to load
 
 You can change the active working directly by using the function `setwd()`. For example, we can set the working directory to our *MCB585/data* folder using the following command:
 
-```{r}
+```{r, eval=FALSE}
 setwd("./data")
 setwd("data") 
 setwd("..") 
@@ -287,13 +287,13 @@ setwd("/Users/<username>/Desktop") # MacOS
 
 **Caution for Windows users:** If you copy a file path from Windows Explorer and paste it into `setwd()`, you have to change the backslashes ("\\") used in Windows to forwardslashes ("/"). R interprets "\\" as a type of special type of character called an *escape character* rather than a part of the string. If you don't replace them, you will get errors:
 
-```{r}
+```{r, eval=FALSE}
 setwd(".\data")
 ```
 
 We can also ask R what the current working directory is using `getwd()`, and ask for a list of files in the current directly with list.files():
 
-```{r}
+```{r, eval=FALSE}
 getwd()
 list.files()
 ```
@@ -322,7 +322,7 @@ To use a package, you have to do two things:
 
 Let's give it a try:
 
-```{r}
+```{r, eval=FALSE}
 install.packages("pwr")
 install.packages("survival")
 
