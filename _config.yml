@@ -29,6 +29,7 @@ repository: <USERNAME>/<PROJECT>
 email: "sutphin@gmail.com"
 
 # Sites.
+mcb585_site: "https://georgesutphin.github.io/MCB585/"
 ua_coc_site: "http://deanofstudents.arizona.edu/policies-and-codes/code-academic-integrity"
 student_behavior_site: "http://policy.arizona.edu/education-and-student-affairs/threatening-behavior-students"
 amy_site: "https://amy.software-carpentry.org/workshops"

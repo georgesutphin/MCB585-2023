@@ -1,19 +1,31 @@
 ---
-title: "Title"
-teaching: 80
-exercises: 25
+title: "Getting started with R and RStudio"
+classdate: "8/27/2019"
+teaching: 45
+exercises: 10
 questions:
+- "What is R? What is RSudio?"
 - "How do I use the RStudio graphical user interface?"
-- "Know when to use setwd()."
+- "How do I perform basic calculations in R?"
+- "How do I assign values to variables in R?"
+- "What are functions, and how are they used in R?"
 - "Where can I get help?"
 objectives:
 - "Get familiar with RStudio interface."
-- "Understand the difference between script file and console."
+- "Understand the difference between scripts and the console."
+- "Understand how to input and read out basic information in R."
+- "Assign values to variables."
+- "Execute functions."
 - "Demonstrate useful shortcuts."
 - "Know when to use setwd()."
+- "Know how to install and load packages."
+- "Know what resources are available if you get stuck."
 keypoints:
+- "R is the programming laguage; RStudio is a user friendly environment for interacting with R."
 - "Using RStudio can make programming in R much more productive."
 - "Consider what working directory you are in when sourcing a script."
+- "Use help() and ? to get basic information about functions."
+- "Online forums have the answers to almost any R-related question you can come up with. Know how to Google your question!"
 source: Rmd
 ---
 
@@ -45,7 +57,7 @@ Disadvantages of R:
 
 RStudio is an integrated development environment (IDE) for R. It basically provides a convenient working environment for writing and employing R scripts. While you can work directly in the IDE provided with R, RStudio has a number of tools that make R easier to learn and interact with. We will be working exclusively in RStudio during this course.
 
-
+***
 ### Installing R and RStudio
 
 To participate in both in-class exercises and homework, you will need access to a computer with the current versions of the following installed:
@@ -61,7 +73,7 @@ You also need to download some files to follow along with the lessons in class:
 3. If it's not unzipped yet, double-click on it to unzip it. You should end up
    with a new folder called `data`.
 
-
+&nbsp;
 #### Using RStudio
 
 Here are the basic elements of RStudio:
@@ -74,7 +86,7 @@ Here are the basic elements of RStudio:
 * The best way to achieve this is to write scripts. RStudio provides an
   environment that allows you to do that.
 
-
+&nbsp;
 #### Interacting with R using RStudio
 
 There are two main ways of interacting with R: using the console or using
@@ -103,9 +115,10 @@ receives a command (by typing, copy-pasting or sent from the script editor using
 If R is still waiting for you to enter more data because the command you entered is not yet complete, the console will show a `+` prompt. This means that you haven't finished entering
 a complete command, perhaps because you haven't 'closed' a parenthesis or quotation. If you're in RStudio and this happens, either complete the command and press <kbd>Enter</kbd> or click inside the console window and press <kbd>Esc</kbd> to cancel the current command. That should help you out of trouble.
 
-
+***
 ### Interacting with the console
 
+&nbsp;
 #### Basic commands
 
 At the simplest level, the console can be used as a calculator to directly ask for basic operations. Try a few of the following:
@@ -113,63 +126,105 @@ At the simplest level, the console can be used as a calculator to directly ask f
 *To run the command, try to copy-paste each line into the console and run. Also try copying/typing each line into the script, highlighting the text (or just make sure your cursor is on the right line), and pressing <kbd>Ctrl</kbd>+<kbd>Enter</kbd>.*
 
 
-```{r, eval=FALSE}
+```{r}
 # Addition
 40+2
-
-# Subtraction
-98-56
-
-# Multiplication
-6*7
-
-# Division
-74088/1764
-
-# Exponential
-6.480741^2
-
-# Equations with parenthetical operations
-(((6 + 4) + 2)^2 + 9)/3 - 9 # You can comment here too!
 ```
 
+```{r}
+# Subtraction
+98-56
+```
 
+```{r}
+# Multiplication
+6*7
+```
+
+```{r}
+# Division
+74088/1764
+```
+
+```{r}
+# Exponential
+6.480741^2
+```
+
+```{r}
+# Equations with parenthetical operations
+(((6 + 4) + 2)^2 + 9)/3 - 9
+```
+
+&nbsp;
 #### Commenting
 
 Note above the use of `#` signs to add comment. Comments are for you and anyone coming later to read your script. Anything to the right of a `#` is ignored by R. Comment liberally in your R scripts. We will discuss best practices in coding and the use of comments more later on in the course.
 
-
+&nbsp;
 #### Assignment Operator
 
-`<-` is the assignment operator. It assigns values on the right to objects on
+We can create a new variable and assign a value to it using `<-` or '=', which are  the assignment operators in R. It assigns values on the right to objects on
 the left. So, after executing `x <- 3`, the value of `x` is `3`. The arrow can
 be read as 3 **goes into** `x`.  You can also use `=` for assignments but not in
 all contexts so it is good practice to use `<-` for assignments.
 
 In RStudio, the <kbd>Alt</kbd>+<kbd>-</kbd> will write `<-` in a single keystroke. Let's give it a go:
 
-```{r, eval=FALSE}
-x <- 42   # using <- sets the value of the variable x to 42.
-y = 42    # using `=` in place of `<-` works in almost all situation (but not quite all; it is better to get into the habit of using `<-`).
+```{r}
+weight_kg <- 55   # using <- sets the value of the variable x to 42.
+weight_kg = 42    # using `=` in place of `<-` works in almost all situation (but not quite all; it is better to get into the habit of using `<-`).
+```
 
+Once a variable is created, we can use the variable name to refer to the value it was assigned. The variable name now acts as a tag. Whenever R reads that tag (`x`), it substitutes the value (`42`).
+
+<img src="../fig/tag-variables.svg" alt="Variables as Tags" />
+
+```{r}
 # if you want to see the value of a variable, just type the variable name into the console:
-x
-y
+weight_kg
 ```
 
 Also note that when you assign a value to a variable, a new object is created in the Environment panel (upper right). This panel lists all *objects* in your *workspace*. Note that whenever you make an assignment with `<-` or `=`, R creates a new object in memory. Your workspace is simply the collection of objects currently stored in memory that are available to access in your current R session.
 
-Now that we have assigned a value to a variable, we can use that variable to calculate other things:
+Assigning a new value to a variable breaks the connection with the old value; R forgets that number and applies the variable name to the new value. 
 
-```{r, eval=FALSE}
-x + 3
-2*(x + y)
-z = y + 2*x
-z
+When you assign a value to a variable, R only stores the value, not the calculation you used to create it. This is an important point if you're used to the way a spreadsheet program automatically updates linked cells. Let's look at an example.
 
+First, we'll convert `weight_kg` into pounds, and store the new value in the variable `weight_lb`:
+
+```{r}
+weight_lb <- 2.2 * weight_kg
+# weight in kg...
+weight_kg
+# ...and in pounds
+weight_lb
 ```
 
-What happens if you don't complete a line:
+In words, we're asking R to look up the value we tagged `weight_kg`,
+multiply it by 2.2, and tag the result with the name `weight_lb`:
+
+<img src="../fig/new-variables.svg" alt="Creating Another Variable" />
+
+If we now change the value of `weight_kg`:
+
+```{r}
+weight_kg <- 100.0
+# weight in kg now...
+weight_kg
+# ...and weight in pounds still
+weight_lb
+```
+
+<img src="../fig/memory-variables.svg" alt="Updating a Variable" />
+
+Since `weight_lb` doesn't "remember" where its value came from, it isn't automatically updated when `weight_kg` changes.
+
+This is different from the way spreadsheets work.
+
+<img src="../fig/arithmetic-variables.svg" alt="Variables as Tags" />
+
+What happens if you don't complete a line?
 ```{r, eval=FALSE}
 100 + 
 ```
@@ -184,17 +239,17 @@ All better.
 
 You can use the `ls()` command to list all variables currently defined in your workspace.
 
-```{r, eval=FALSE}
+```{r}
 ls()
 ```
 
-
+&nbsp;
 > ## What is allowed or not allowed with variable names?
 >
 > Try assigning values to the following variables. Which work and which do not? What is 
 > causing the erros?
 >
-> ~~~
+> ```{r, eval=FALSE}
 > min_height <- 1
 > max.height <- 1
 > _age <- 1
@@ -203,27 +258,39 @@ ls()
 > min-length <- 1
 > 2widths <- 1
 > celsius2kelvin <- 1
-> ~~~
-> {: .language-r}
+> ```
 >
 > > ## Solution
 > > 
-> > The lines in <span style="color:blue">blue</span> work, the lines in
-> > <span style="color:red">red</span> fail:
-> > * <span style="color:blue">min_height <- 1</span>
-> > * <span style="color:blue">max.height <- 1</span>
-> > * <span style="color:red">_age <- 1</span> --> error; starts with a symbol
-> > * <span style="color:blue">.mass <- 1</span>> --> no error --> the . results in a 
-> > hidden variable
-> > * <span style="color:blue">MaxLength <- 1</span>
-> > * <span style="color:red">min-length <- 1</span> --> error; "-" is an operator
-> > * <span style="color:red">2widths <- 1</span> --> error; starts with a number
-> > * <span style="color:blue">celsius2kelvin <- 1</span>
+> > ```{r}
+> > min_height <- 1
+> > ```
+> > ```{r}
+> > max.height <- 1
+> > ```
+> > ```{r}
+> > _age <- 1 # error; starts with a symbol
+> > ```
+> > ```{r}
+> > .mass <- 1 # no error --> the . results in a hidden variable
+> > ```
+> > ```{r}
+> > MaxLength <- 1
+> > ```
+> > ```{r}
+> > min-length <- 1 # error; "-" is an operator
+> > ```
+> > ```{r}
+> > 2widths <- 1 # error; starts with a number
+> > ```
+> > ```{r}
+> > celsius2kelvin <- 1
+> > ```
 > >
 > {: .solution}
 {: .challenge}
 
-
+&nbsp;
 #### Cleaning up
 
 Try clicking on the brush icon in the Environment panel and clicking <kbd>Yes</kbd> in the po-up box. What happened to your variable? What happens if you try to display the variable in the console?
@@ -249,7 +316,52 @@ rm(list = ls()) # remove all variables currently in environment
 
 It is generally good practice to start off each session with a clean slate. When you start RStudio, the Environment will be clear (unless you load a previously saved workspace). If you are finished with one analysis and starting another, it is a good idea to clear you Environment. That way if you reuse a variable name (e.g. `x`) you won't accidentally end up using the value stored in your workspace during the previous analysis.
 
+&nbsp;
+### Functions in R
 
+Functions are predefined commands that take *input* values, perform some operation, and generates some output. The format is:
+
+```{r, eval=FALSE}
+output <- function(input)
+```
+
+&nbsp
+
+if the output variable and `<-` are not used, the output is written directly to your console window. Let's define a new function `fahrenheit_to_kelvin` that converts temperatures from Fahrenheit to Celcius:
+
+```{r}
+FtoC <- function(temp_F) {
+  temp_C <- (temp_F - 32) * (5 / 9)
+  return(temp_C)
+}
+```
+
+&nbsp;
+
+Now let's give is a try:
+```{r}
+FtoC(32) # output to console
+Temp_C <- FtoC(32) # assign the output to a new variable called Temp_C
+Temp_C
+```
+
+&nbsp;
+
+Some functions take no input variable, like the previously discussed `ls()` (which just returns a list of variables currently in memory). Others take many different inputs, separated by `,`. For example, the `sum()` function will output the sum of all input values:
+
+```{r}
+sum(1,2,6)
+```
+
+&nbsp;
+
+Functions can also be nested:
+
+```{r}
+sum(FtoC(32),FtoC(75),FtoC(13))
+```
+
+&nbsp;
 #### Working directories in R
 
 Your *working directory* refers to the file path on your computer where the current session of R will go to look for files. You need to have any external data that you are working with in a file in your working directory in order to load it into R (or know how to specify a different location, if it isn't in your working directory). Any output (data or charts) that you save in R will also be stored in the working directory by default unless you specifcy a different location on your computer. 
@@ -293,12 +405,17 @@ setwd(".\data")
 
 We can also ask R what the current working directory is using `getwd()`, and ask for a list of files in the current directly with list.files():
 
-```{r, eval=FALSE}
+```{r}
+# Retrieve the current working directory
 getwd()
+```
+
+```{r}
+# List all files in the current working directory
 list.files()
 ```
 
-
+&nbsp;
 > ## Be careful when using `setwd()`
 >
 > One should exercise caution when using `setwd()`. Changing directories in a script file can limit reproducibility:
@@ -311,7 +428,7 @@ list.files()
 > It is best practice to have the user running the script begin in a consistent directory on their machine and then use relative file paths from that directory to access files (see below).
 {: .callout}
 
-
+&nbsp;
 #### Installing and loading packages
 
 R comes preloaded with a decently wide range of functions for basic data manipulation, but you will inevitably want to do something more interesting. There are many, many 'packages' that are available online for download. Each package is a set of related functions designed for a specific area of analysis. For example, later in the course we will use specialized packages that contain functions for power analysis (the `pwr` package) and survival analysis (the `survival` package). 
@@ -320,19 +437,65 @@ To use a package, you have to do two things:
 1. **Install** -- Download the package from an external source, and make the functions accessible to R and RStudio. This is accomplished with the `install.packages()` function and only has to be done just per computer.
 2. **Load** -- Installing the package does not immediately allow you to access the associated functions. You first have to load the package into your local workspace. This is done with the `library()` function.
 
-Let's give it a try:
+Let's give it a try by installing and loading the `pwr` package:
 
-```{r, eval=FALSE}
+```{r}
+# Install required packages
 install.packages("pwr")
-install.packages("survival")
+```
 
+```{r}
+# Load required packages into memory
 library("pwr")
-library("survival")
 ```
 
 Generally a Google search will let you find packages for just about any type of analysis. Generally these come from one of two sources (which R mostly takes care of automatically, with a few exceptions):
-* CRAN for basic R packages
-* Bioconductor for biological packages
+* [CRAN](https://cran.r-project.org/) for basic R packages
+* [Bioconductor](https://www.bioconductor.org/) for biological packages
 
+***
+### Resources -- where to turn for help
+
+There are a variety of resources available when you have questions. Here are a few places to look:
+
+&nbsp;
+#### Getting help in R
+
+R has a built in function called `help()` that provides basic information about specific functions. You can either use this funciton like any other function, or use the `?` operator. Let's give it a try to get more detailed information on how the `setwd()` function works.
+
+```{r, eval=FALSE}
+help(setwd)
+?setwd
+```
+
+When you enter either command, notice that the **Help** panel opens (lower right panel in RStudio). This panel provides information on the purpose, inputs, and outputs of the queried function. It also provides useful examples of how to use the function at the end of the documentation. `help()` is usually a good first place to look to get a feel for what a function is doing.
+
+&nbsp;
+#### Online Forums
+
+Perhaps the most valuable resource available to both basic and advanced R users is the vast online community. Many people are actively using the R language for a variety of analysis tasks. You will find that most questions have already been asked and answered on one of the various online forums. If you can't find the answer, sign up for a forum and post your question. You will generally get an answer (or a pointer to another forum where the question has already been answered) within a day or two.
+
+To find answers, the simplest way is to just type what you are trying to do into Google. Preceedign your question with "R" will tend to find questions within the R community: 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*R calculate standard deviation*
+
+There are many online forums with R user discussions, but I find the most common to be [stackoverflow](https://stackoverflow.com/).
+
+&nbsp;
+#### The Carpentries
+
+[The Carpentries](https://carpentries.org/) and [Software Carpentry](https://software-carpentry.org/) in particular offer free online introductory programming lessons for R and other languages. Much of the material in the early part of this course is based on the Software Carpentry material. They are a good resource for beginners.
+
+&nbsp;
+#### Resources at the University of Arizona
+
+The University of Arizona has several resources for both statistics and programming:
+* [Statistics resources](https://it.arizona.edu/documentation/statistical-resources)
+* [Statistics consulting](https://it.arizona.edu/service/statistical-consulting) (pay service, free consultation)
+* [BIO5 StatLab](https://statlab.bio5.org/) (pay service, free consultation)
+* [Cancer Center biostatistics](https://cancercenter.arizona.edu/researchers/shared-resources/biostatistics)
+* [Cancer Center bioinformatics](https://cancercenter.arizona.edu/researchers/shared-resources/bioinformatics)
+
+***
 
 {% include links.md %}

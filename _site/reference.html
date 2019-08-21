@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-08-15 14:27:22 -0700">
+    <meta http-equiv="last-modified" content="2019-08-21 16:25:05 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -89,7 +89,7 @@
 
       
       
-      <a href="https://carpentries.org/" class="pull-left">
+      <a href="https://georgesutphin.github.io/MCB585/" class="pull-left">
         <img class="navbar-logo" src="./assets/img/mcb585-logo.svg" alt="MCB585 logo" />
       </a>
       
@@ -113,9 +113,9 @@
           <a href="./" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
           <ul class="dropdown-menu">
             
-            <li><a href="./01-R-RStudio-setup/index.html">Title</a></li>
+            <li><a href="./01-R-RStudio-setup/index.html">Getting started with R and RStudio</a></li>
             
-            <li><a href="./02-func-R/index.html">Creating Functions</a></li>
+            <li><a href="./02-introduction-to-R-basics/index.html">Introduction to R -- Best Practices, Data Types, and Data Structures</a></li>
             
 	    <li role="separator" class="divider"></li>
             <li><a href="./aio.html">All in one page (Beta)</a></li>
@@ -194,15 +194,24 @@
   
     <tr>
       <td class="col-md-3">
-        <a href="./01-R-RStudio-setup/index.html">Title</a>
+        <a href="./01-R-RStudio-setup/index.html">Getting started with R and RStudio</a>
       </td>
       <td class="col-md-9">
         <ul>
+        
+        <li><p>R is the programming laguage; RStudio is a user friendly environment for interacting with R.</p>
+</li>
         
         <li><p>Using RStudio can make programming in R much more productive.</p>
 </li>
         
         <li><p>Consider what working directory you are in when sourcing a script.</p>
+</li>
+        
+        <li><p>Use help() and ? to get basic information about functions.</p>
+</li>
+        
+        <li><p>Online forums have the answers to almost any R-related question you can come up with. Know how to Google your question!</p>
 </li>
         
         </ul>
@@ -213,33 +222,54 @@
   
     <tr>
       <td class="col-md-3">
-        <a href="./02-func-R/index.html">Creating Functions</a>
+        <a href="./02-introduction-to-R-basics/index.html">Introduction to R -- Best Practices, Data Types, and Data Structures</a>
       </td>
       <td class="col-md-9">
         <ul>
         
-        <li><p>Define a function using <code class="highlighter-rouge">name &lt;- function(...args...) {...body...}</code>.</p>
-</li>
-        
-        <li><p>Call a function using <code class="highlighter-rouge">name(...values...)</code>.</p>
-</li>
-        
-        <li><p>R looks for variables in the current stack frame before looking for them at the top level.</p>
-</li>
-        
-        <li><p>Use <code class="highlighter-rouge">help(thing)</code> to view help for something.</p>
-</li>
-        
-        <li><p>Put comments at the beginning of functions to provide help for that function.</p>
+        <li><p>Use <code class="highlighter-rouge">#</code> to add comments to programs.</p>
 </li>
         
         <li><p>Annotate your code!</p>
 </li>
         
-        <li><p>Specify default values for arguments when defining a function using <code class="highlighter-rouge">name = value</code> in the argument list.</p>
+        <li><p>R’s basic data types are character, numeric, integer, complex, and logical.</p>
+</li>
+        
+        <li><p>R’s basic data structures include the vector, list, matrix, data frame, and factors. Some of these structures require that all members be of the same data type (e.g. vectors, matrices) while others permit multiple data types (e.g. lists, data frames).</p>
+</li>
+        
+        <li><p>Objects may have attributes, such as name, dimension, and class.</p>
+</li>
+        
+        <li><p>Factors are used to represent categorical data.</p>
+</li>
+        
+        <li><p>Factors can be <em>ordered</em> or <em>unordered</em>.</p>
+</li>
+        
+        <li><p>Some R functions have special methods for handling factors.</p>
+</li>
+        
+        <li><p>The function <code class="highlighter-rouge">dim</code> gives the dimensions of a data frame.</p>
+</li>
+        
+        <li><p>Use <code class="highlighter-rouge">object[x, y]</code> to select a single element from a data frame.</p>
+</li>
+        
+        <li><p>Use <code class="highlighter-rouge">from:to</code> to specify a sequence that includes the indices from <code class="highlighter-rouge">from</code> to <code class="highlighter-rouge">to</code>.</p>
+</li>
+        
+        <li><p>All the indexing and subsetting that works on data frames also works on vectors.</p>
 </li>
         
         <li><p>Arguments can be passed by matching based on name, by position, or by omitting them (in which case the default value is used).</p>
+</li>
+        
+        <li><p>Data in data frames can be addressed by index (subsetting), by logical vector, or by name (columns only).</p>
+</li>
+        
+        <li><p>Use the <code class="highlighter-rouge">$</code> operator to address a column by name.</p>
 </li>
         
         </ul>
