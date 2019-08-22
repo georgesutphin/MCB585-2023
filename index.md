@@ -36,3 +36,5 @@ Students will be able to:
 > 1.  One year of graduate-level coursework
 > 2.  Two core courses required for the MCB, BIOC or CMM PhD
 {: .prereq}
+
+&nbsp;

@@ -1,12 +1,14 @@
 ---
 layout: page
-title: "Licenses"
+title: "About"
 root: .
 ---
 
 ### MCB585 Attributions
 
-The website and introductory material for MCB585 were based on the publically available course material originally produced by The Carpentries. This educational material is freely available online and available for use, redistribution, remix, and transformation under the [Creative Commons Attribution license][cc-by-human]. We note that our use of this material does not imply that The Carpentries or associated entities endorse us our our use of the material. More information on The Carpentries and the assocaited license is below. 
+MCB585 is a graudate course offered by the [Department of Molecular & Cellular Biology](https://mcb.arizona.edu/) at the [University of Arizona](https://www.arizona.edu/). 
+
+The website and introductory material for MCB585 were based on the publically available course material originally produced by [The Carpentries](https://carpentries.org/). This educational material is freely available online and available for use, redistribution, remix, and transformation under the [Creative Commons Attribution license][cc-by-human]. We note that our use of this material does not imply that The Carpentries or associated entities endorse us our our use of the material. More information on The Carpentries and the assocaited license is below. 
 
 ### The Carpentries
 
