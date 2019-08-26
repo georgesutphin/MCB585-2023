@@ -6,7 +6,7 @@ classdate: "8/29/2019"
 teaching: 80
 exercises: 25
 questions:
-- "How should I document my code?"
+- "How can I write R code that other people can understand and use?"
 - "What are the different data types in R?"
 - "What are the different data structures in R?"
 - "How do I access data within the various data structures?"
@@ -15,7 +15,9 @@ questions:
 - "How do I access subsets of a data frame?"
 objectives:
 - "Employ best practices for documenting code so that others can follow your work."
-- "Understand the different data types in R and show how these data types are used in data structures."
+- "Identify and segregate distinct components in your code using # or #-."
+- "Understand the importance about requirements and dependencies for your code."
+- "Understand the different data types in R and how these data types are used in data structures."
 - "Create and manipulate vectors of different types."
 - "Check the data type of a variable or vector."
 - "Understand missing data and other special values."
@@ -29,6 +31,14 @@ objectives:
 keypoints:
 - "Use `#` to add comments to programs."
 - "Annotate your code!"
+- "Name and style code consistently."
+- "Break code into small, discrete pieces."
+- "Factor out common operations rather than repeating them."
+- "Keep all of the source files for a project in one directory and use relative paths to access them."
+- "Keep track of session information in your project folder."
+- "Start each program with a description of what it does."
+- "Then load all required packages."
+- "Use comments to mark off sections of code."
 - "R's basic data types are character, numeric, integer, complex, and logical."
 - "R's basic data structures include the vector, list, matrix, data frame, and factors. Some of these structures require that all members be of the same data type (e.g. vectors, matrices) while others permit multiple data types (e.g. lists, data frames)."
 - "Objects may have attributes, such as name, dimension, and class."
@@ -47,7 +57,7 @@ source: Rmd
 
 
 
-### Coding Best Practices
+### Best practices when writing code in R (and in general)
 
 What if I handed you this and asked you to explain it:
 
@@ -76,9 +86,11 @@ newX <- aperm(X, c(s.call, s.ans))
 ~~~
 {: .language-r}
 
+&nbsp;
+
 Got it? Yeah, me neither. For the most part, if you give raw code to someone else, this is what it will look like to them. With time and a lot of messing around, they could probably figure it out, but there is a better way.
 
-Over time, the coding community has developed a set of best practices to follow when writing code to ease the confusion and frustration when someone else tries to read and interpret that code. This isn't just for other people. In a year, that other person trying to interprete you code may be future you.
+Over time, the coding community has developed a set of best practices to follow when writing code to ease the confusion and frustration when someone else tries to read and interpret that code. This isn't just for other people. In a year, that other person trying to interpret your code may be future you.
 
 &nbsp;
 Before we start, here is exercise to illustrate the point on even a simple example:
@@ -90,7 +102,7 @@ Before we start, here is exercise to illustrate the point on even a simple examp
 > **Bad:**
 > 
 > ~~~
-> # asign values, then average
+> # assignvalues, then average
 > x = 21
 > value2 = 26
 > bob = (x+value2)/2
@@ -124,7 +136,7 @@ Before we start, here is exercise to illustrate the point on even a simple examp
 > > * Header comments summarizes the overall goal of the entire script.
 > > * Comments are frequent and explain specific steps.
 > > * Variable names are descriptive.
-> > * Varaible name formats are consistent.
+> > * Variable name formats are consistent.
 > > * Steps are visually separated by blank lines to add structure.
 > > * Spaces are added to equations to add structure.
 > {: .solution}
@@ -134,15 +146,75 @@ Before we start, here is exercise to illustrate the point on even a simple examp
 Here are a few habits to develop that will improve your relationship with other coders and your future selves:
 
 &nbsp;
-#### Annotation
+#### Annotation -- Headers with key meta-data about the script
 
-In the first lesson we introduced the most important best practice: annotate your code thoroughly. Use the `#` to add text to your code that will be ignored by the computer, but helpful to another person trying to figure out just what you did. 
+In the first lesson we briefly mentioned the primary tool in keeping your code organized: the `#` comment operator. Annotate your code thoroughly. Use the `#` to add text to your code that will be ignored by the computer, but helpful to another person trying to figure out just what you did. 
 
 The goal is to allow someone who has never looked at your script before to understand what you are trying to accomplish. Just putting something down is not enough. Make them understand.
 
-&nbsp;
-#### Script Header
 In addition to adding comments to describe individual actions, adding a detailed header that outlines the purpose and usage of the script is very helpful to frame you analysis. 
+
+Starting your code with an annotated description of what the code does when it is run will help you when you have to look at or change it in the future. Just one or two lines at the beginning of the file can save you or someone else a lot of time and effort when trying to understand what a particular script does.
+
+
+~~~
+# This is code to replicate the analyses and figures from my 2014 Science
+# paper. Code developed by Sarah Supp, Tracy Teal, and Jon Borelli. Last
+# updated 8/22/2019.
+~~~
+{: .language-r}
+
+Actually, even this is a bit vague. Which science paper (provide a link?)? Which analysis in that paper? What is the purpose of the analysis? Any detail that you can add will help you down the line.
+
+&nbsp;
+#### Be explicit about the requirements and dependencies of your code
+
+Loading all of the packages that will be necessary to run your code (using `library`) is a nice way of indicating which packages are necessary to run your code. It can be frustrating to make it two-thirds of the way through a long-running script only to find out that a dependency hasn't been installed.
+
+
+~~~
+library(ggplot2)
+library(reshape)
+library(vegan)
+~~~
+{: .language-r}
+
+&nbsp;
+
+Another way you can be explicit about the requirements of your code and improve its reproducibility is to limit the "hard-coding" of the input and output files for your script. If your code will read in data from a file, define a variable early in your code that stores the path to that file. For example
+
+
+~~~
+input_file <- "data/data.csv" 
+output_file <- "data/results.csv"
+
+# read input
+input_data <- read.csv(input_file)
+# get number of samples in data
+sample_number <- nrow(input_data)
+# generate results
+results <- some_other_function(input_file, sample_number)
+# write results
+write.table(results, output_file)
+~~~
+{: .language-r}
+
+&nbsp;
+
+is preferable to 
+
+
+~~~
+# check
+input_data <- read.csv("data/data.csv")
+# get number of samples in data
+sample_number <- nrow(input_data)
+# generate results
+results <- some_other_function("data/data.csv", sample_number)
+# write results
+write.table("data/results.csv", output_file)
+~~~
+{: .language-r}
 
 &nbsp;
 #### Naming Conventions
@@ -156,6 +228,92 @@ This is often confusing to R newcomers who have programmed in languages where `.
 The book *R Packages* includes a [chapter](http://r-pkgs.had.co.nz/style.html) on this and other style considerations.
 
 How closely you follow these standards is up to you. As a good rule of thumb, choose a convention for naming R objects that is descriptive, that you can remember, and that you will stick to using.
+
+&nbsp;
+#### Identify and segregate distinct components in your code
+
+It's easy to annotate and mark your code using `#` or `#-` to set off sections of your code and to make finding specific parts of your code easier. For example, it's often helpful when writing code to separate the function definitions. If you create only one or a few custom functions in your script, put them toward the top of your code. If you have written many functions, put them all in their own .R file and then `source` those files. `source` will define all of these functions so that your code can make use of them as needed. 
+
+
+~~~
+source("my_genius_fxns.R")
+~~~
+{: .language-r}
+
+&nbsp;
+#### Other ideas
+
+1. Keep your code in bite-sized chunks. If a single function or loop gets too long, consider looking for ways to break it into smaller pieces (e.g. write functions to carry out chunks of code all in one line; break complex analyses into multiple loops with data saved in between).
+
+2. Don't repeat yourself--automate! If you are repeating the same code over and over, use a loop or a function to repeat that code for you. Needless repetition doesn't just waste time--it also increases the likelihood you'll make a costly mistake!
+
+3. Keep all of your source files for a project in the same directory, then use relative paths as necessary to access them. For example, use:
+
+
+~~~
+dat <- read.csv(file = "files/dataset-2013-01.csv", header = TRUE)
+~~~
+{: .language-r}
+
+&nbsp;
+
+rather than:
+
+
+~~~
+dat <- read.csv(file = "/Users/Karthik/Documents/sannic-project/files/dataset-2013-01.csv", header = TRUE)
+~~~
+{: .language-r}
+
+{:start="4"}
+4. R can run into memory issues. It is a common problem to run out of memory after running R scripts for a long time. To inspect the objects in your current R environment, you can list the objects, search current packages, and remove objects that are currently not in use. A good practice when running long lines of computationally intensive code is to remove temporary objects after they have served their purpose. However, sometimes, R will not clean up unused memory for a while after you delete objects. You can force R to tidy up its memory by using `gc()`.
+
+
+~~~
+# Sample dataset of 1000 rows
+interim_object <- data.frame(rep(1:100, 10),
+                             rep(101:200, 10),
+                             rep(201:300, 10))
+object.size(interim_object) # Reports the memory size allocated to the object
+rm("interim_object") # Removes only the object itself and not necessarily the memory allotted to it
+gc() # Force R to release memory it is no longer using
+ls() # Lists all the objects in your current workspace
+rm(list = ls()) # If you want to delete all the objects in the workspace and start with a clean slate
+~~~
+{: .language-r}
+
+&nbsp;
+
+{:start="6"}
+6. Don't save a session history (the default option in R, when it asks if you want an `RData` file). Instead, start in a clean environment so that older objects don't remain in your environment any longer than they need to. If that happens, it can lead to unexpected results. Your script should explicitly load any data and create any variables that it needs, rather than relying on a variable that you assigned in the console panel sometime last week.
+
+7. Wherever possible, keep track of `sessionInfo()` somewhere in your project folder. Session information is invaluable because it captures all of the packages used in the current project. If a newer version of a package changes the way a function behaves, you can always go back and reinstall the version that worked (Note: At least on CRAN, all older versions of packages are permanently archived).
+
+
+~~~
+# Take a look at the information provided by sessionInfo():
+sessionInfo()
+
+# Here is how to save:
+current.session = sessionInfo()
+session.file = paste0("./Project X R Session Info for ",Sys.Date(),".Rdata")
+save(current.session, file=session.file)
+rm(current.session)
+
+# ... and to load old files to look at them
+load(file=session.file)
+current.session
+~~~
+{: .language-r}
+
+&nbsp;
+
+{:start="8"}
+8. Do not ever modify your original raw data files. Doing so risks overwriting or unintentionally modifying the values of your starting data. Instead, always save data modified in R under a new name.
+
+9. Collaborate. Grab a buddy and practice "code review". Review is used for preparing experiments and manuscripts; why not use it for code as well? Our code is also a major scientific achievement and the product of lots of hard work!
+
+10. Develop your code using version control and frequent updates! You can find lessons about version control on [software-carpentry.org/lessons][swc-lessons].
 
 ***
 ### Basic Data Types and Data Structures in R
@@ -545,7 +703,7 @@ class(z)
 
 
 ~~~
-str(z) # stands for "sturcture" of an object
+str(z) # stands for "structure" of an object
 ~~~
 {: .language-r}
 
@@ -1066,10 +1224,10 @@ paste("I like", "dogs.")
 
 ~~~
 # Now let's try pasting two character vectors together:
-attitute = c("I like","I dislike","I am indifferent to")
-animal = c("dogs.","fish.","cats.")
+attitude <- c("I like","I dislike","I am indifferent to")
+animal <-  c("dogs.","fish.","cats.")
 
-paste(attitute,animal)
+paste(attitude,animal)
 ~~~
 {: .language-r}
 
@@ -1093,7 +1251,7 @@ R supports both missing data and special values in data structures.
 &nbsp;
 #### Missing Data
 
-Missing datais represented as `NA` (Not Available)
+Missing data is represented as `NA` (Not Available)
 and can be used for all the vector types covered in this lesson:
 
 
@@ -1329,7 +1487,7 @@ nchar("Software Carpentry")
 
 &nbsp;
 
-We will talk more about attributes when we get to more comlex data structures.
+We will talk more about attributes when we get to more complex data structures.
 
 ***
 ### Matrices
@@ -1689,7 +1847,7 @@ types. Lists are sometimes called "generic vectors"", because the elements of a
 list can by of any type of R object, even lists containing further lists. This
 property makes them fundamentally different from atomic vectors.
 
-A list is a special type of vector. Each element can be a different type, and is not restricted to a single valuve.
+A list is a special type of vector. Each element can be a different type, and is not restricted to a single value.
 
 Create lists using `list()` or coerce other objects using `as.list()`. An empty
 list of the required length can be created using `vector()`
@@ -2052,7 +2210,7 @@ class(my.list[[2]])
 
 
 ~~~
-my.list <- list(x = x, y = y, z = x) # use the `=` to name your list eleements
+my.list <- list(x = x, y = y, z = x) # use the `=` to name your list elements
 my.list$x
 ~~~
 {: .language-r}
@@ -2105,19 +2263,19 @@ my.list[[1]]
 &nbsp;
 
 Again, if the elements of a list are named, they can be referenced by
-the `$` notation (i.e. `xlist$data`). This can be useful if a function runs a complex analysis. It can export a lot of different types of information as differetn elements in a single list (raw data, processes data, analysis summary, analysis statistics, etc.)
+the `$` notation (i.e. `xlist$data`). This can be useful if a function runs a complex analysis. It can export a lot of different types of information as different elements in a single list (raw data, processes data, analysis summary, analysis statistics, etc.)
 
 ***
 ### Factors
 
 Factors are a special type of data in R, primarily used to represent categorical data. Factors can be ordered or unordered and are an important class for statistical analysis and for plotting.
 
-Factors look (and often behave) like character vectors, but assuming that they are character vectors can lead to unexpected behavior. Factors are actually actually integers under the hood, and you need to be careful when treating them
+Factors look (and often behave) like character vectors, but assuming that they are character vectors can lead to unexpected behavior. Factors are actually integers under the hood, and you need to be careful when treating them
 like strings. 
 
 Factors have three essential properties:
 * A list of integers.
-* A set of labels defining the label for the interger.
+* A set of labels defining the label for the integer.
 * An order for the labels.
 
 The integer defines the value of each element in the factor, the label indicates what that value means, and the order defines the relationship between the values.
@@ -2197,7 +2355,7 @@ nlevels(sex)
 
 &nbsp;
 
-One major functional difference is that the elements of the `character` vector only have the inherent order defined by their vaules (e.g. alphabetical). Sometimes, the order of the factors does not matter, other times you might want
+One major functional difference is that the elements of the `character` vector only have the inherent order defined by their values (e.g. alphabetical). Sometimes, the order of the factors does not matter, other times you might want
 to specify the order because it is meaningful. For instance, "low", "medium", "high" as elements of a character vector have the implicit alphabetical order:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"high" < "low" < "medium"
@@ -2460,7 +2618,7 @@ Levels: low < medium < high
 > > {: .output}
 > > &nbsp;
 > > 
-> > We only expect three cathegories ("n", "l", "i").
+> > We only expect three categories ("n", "l", "i").
 > > We can order these from least intense to most intense, so let's use `ordered`.
 > {: .solution}
 {: .challenge}
@@ -2486,7 +2644,7 @@ as.numeric(f)
 
 &nbsp;
 
-This does not behave as expected (and there is no warning). The reason is that the apparent numeric values are actually stored as intergers (2, 1, 3) with labels ("3.4", "1.2", "5"). R uses the interger vaue when trying to perform the `as.numeric()` function.
+This does not behave as expected (and there is no warning). The reason is that the apparent numeric values are actually stored as integers (2, 1, 3) with labels ("3.4", "1.2", "5"). R uses the integer vaue when trying to perform the `as.numeric()` function.
 
 The recommended way is to use the integer vector to index the factor levels:
 
@@ -2506,13 +2664,13 @@ levels(f)[f]
 &nbsp;
 
 The factor really consists of two elements:
-* The ordered interger list: `2, 1, 3`
-* The "key" indicating which interger corresponds to which level: `1 = 1.2`, `2 = 3.4`, `3 = 5` 
+* The ordered integer list: `2, 1, 3`
+* The "key" indicating which integer corresponds to which level: `1 = 1.2`, `2 = 3.4`, `3 = 5` 
 
 To break this down the `levels(f)[f]`:
 1. First we grabe the list of levels using `levels(f)`, which outputs a character vector: "1.2" "3.4" "5".
 2. Next we index this list with `[f]`. Because the index requests a numeric representation of the factor `f`, R replaces the `[f]` with `[c(2,1,3)]` (the integer portion of the factor object).
-3. R returns the elements of the character list in (1) with the order indecated by the integer list in (2).
+3. R returns the elements of the character list in (1) with the order indicated by the integer list in (2).
 
 To convert that value of `f` to a basic `numeric` type, we still need to assign the values output above using `<-` and the `as.numeric()`:
 
@@ -2799,7 +2957,7 @@ iris[1, 3]
 
 &nbsp;
 
-Like matrices, we can also ask for multiple collumns and rows using the `:` operator:
+Like matrices, we can also ask for multiple columns and rows using the `:` operator:
 
 ~~~
 iris[1:20, 2:3]
@@ -3549,7 +3707,7 @@ iris[iris$Species == 'setosa', ]
 &nbsp;
 
 In addition to the numeric comparisons, there are a set of operators that compare logical variables and output a new logical variable:
-* `!` = NOT (changes `TRUE` to `FALSE` and vise versa)
+* `!` = NOT (changes `TRUE` to `FALSE` and vice versa)
 * `&` = element-wise AND (both are true; outputs vector for vector input comparing elements)
 * `&&` = logical AND (both are true; only considers first index of a vector)
 * `|` = element-wise OR (one or both are true; outputs vector for vector input comparing elements)
@@ -3875,7 +4033,7 @@ F | F
 > ## Adding a new variable
 >
 > We want to add a variable called "Petal.Color" the `iris` data frame to record a new set of 
-> observations. Lets first define a new data frame 'iris.update' (so as not to modify our original raw data).
+> observations. Let's first define a new data frame 'iris.update' (so as not to modify our original raw data).
 > 
 > 
 > ~~~
@@ -3934,7 +4092,7 @@ F | F
 > > ~~~
 > > {: .output}
 > > 
-> > There are also otherways to accomplish this task.
+> > There are also other ways to accomplish this task.
 > {: .solution}
 {: .challenge}
 

@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-08-21 22:57:53 -0700">
+    <meta http-equiv="last-modified" content="2019-08-26 00:29:27 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -117,6 +117,8 @@
             
             <li><a href="../02-introduction-to-R-basics/index.html">Introduction to R -- Best Practices, Data Types, and Data Structures</a></li>
             
+            <li><a href="../03-introduction-to-R-data-plotting/index.html">Introduction to R -- Reading, Writing, and Plotting Data</a></li>
+            
 	    <li role="separator" class="divider"></li>
             <li><a href="../aio.html">All in one page (Beta)</a></li>
           </ul>
@@ -191,7 +193,7 @@
   <div class="col-xs-1">
     <h3 class="text-right">
       
-      <a href="../"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span><span class="sr-only">lesson home</span></a>
+      <a href="../03-introduction-to-R-data-plotting/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
       
     </h3>
   </div>
@@ -224,7 +226,7 @@
       <strong>Questions</strong>
       <ul>
 	
-	<li><p>How should I document my code?</p>
+	<li><p>How can I write R code that other people can understand and use?</p>
 </li>
 	
 	<li><p>What are the different data types in R?</p>
@@ -259,7 +261,13 @@
 	<li><p>Employ best practices for documenting code so that others can follow your work.</p>
 </li>
 	
-	<li><p>Understand the different data types in R and show how these data types are used in data structures.</p>
+	<li><p>Identify and segregate distinct components in your code using # or #-.</p>
+</li>
+	
+	<li><p>Understand the importance about requirements and dependencies for your code.</p>
+</li>
+	
+	<li><p>Understand the different data types in R and how these data types are used in data structures.</p>
 </li>
 	
 	<li><p>Create and manipulate vectors of different types.</p>
@@ -298,7 +306,7 @@
 
 </blockquote>
 
-<h3 id="coding-best-practices">Coding Best Practices</h3>
+<h3 id="best-practices-when-writing-code-in-r-and-in-general">Best practices when writing code in R (and in general)</h3>
 
 <p>What if I handed you this and asked you to explain it:</p>
 
@@ -325,9 +333,11 @@
     </span><span class="n">ans.names</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">names</span><span class="p">(</span><span class="n">ans</span><span class="p">[[</span><span class="m">1L</span><span class="p">]])</span><span class="w">
 </span></code></pre></div></div>
 
+<p> </p>
+
 <p>Got it? Yeah, me neither. For the most part, if you give raw code to someone else, this is what it will look like to them. With time and a lot of messing around, they could probably figure it out, but there is a better way.</p>
 
-<p>Over time, the coding community has developed a set of best practices to follow when writing code to ease the confusion and frustration when someone else tries to read and interpret that code. This isn’t just for other people. In a year, that other person trying to interprete you code may be future you.</p>
+<p>Over time, the coding community has developed a set of best practices to follow when writing code to ease the confusion and frustration when someone else tries to read and interpret that code. This isn’t just for other people. In a year, that other person trying to interpret your code may be future you.</p>
 
 <p> 
 Before we start, here is exercise to illustrate the point on even a simple example:</p>
@@ -339,7 +349,7 @@ Before we start, here is exercise to illustrate the point on even a simple examp
 
   <p><strong>Bad:</strong></p>
 
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># asign values, then average</span><span class="w">
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># assignvalues, then average</span><span class="w">
 </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">21</span><span class="w">
 </span><span class="n">value2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">26</span><span class="w">
 </span><span class="n">bob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">value2</span><span class="p">)</span><span class="o">/</span><span class="m">2</span><span class="w">
@@ -372,7 +382,7 @@ Before we start, here is exercise to illustrate the point on even a simple examp
       <li>Header comments summarizes the overall goal of the entire script.</li>
       <li>Comments are frequent and explain specific steps.</li>
       <li>Variable names are descriptive.</li>
-      <li>Varaible name formats are consistent.</li>
+      <li>Variable name formats are consistent.</li>
       <li>Steps are visually separated by blank lines to add structure.</li>
       <li>Spaces are added to equations to add structure.</li>
     </ul>
@@ -382,15 +392,63 @@ Before we start, here is exercise to illustrate the point on even a simple examp
 <p>Here are a few habits to develop that will improve your relationship with other coders and your future selves:</p>
 
 <p> </p>
-<h4 id="annotation">Annotation</h4>
+<h4 id="annotation--headers-with-key-meta-data-about-the-script">Annotation – Headers with key meta-data about the script</h4>
 
-<p>In the first lesson we introduced the most important best practice: annotate your code thoroughly. Use the <code class="highlighter-rouge">#</code> to add text to your code that will be ignored by the computer, but helpful to another person trying to figure out just what you did.</p>
+<p>In the first lesson we briefly mentioned the primary tool in keeping your code organized: the <code class="highlighter-rouge">#</code> comment operator. Annotate your code thoroughly. Use the <code class="highlighter-rouge">#</code> to add text to your code that will be ignored by the computer, but helpful to another person trying to figure out just what you did.</p>
 
 <p>The goal is to allow someone who has never looked at your script before to understand what you are trying to accomplish. Just putting something down is not enough. Make them understand.</p>
 
-<p> </p>
-<h4 id="script-header">Script Header</h4>
 <p>In addition to adding comments to describe individual actions, adding a detailed header that outlines the purpose and usage of the script is very helpful to frame you analysis.</p>
+
+<p>Starting your code with an annotated description of what the code does when it is run will help you when you have to look at or change it in the future. Just one or two lines at the beginning of the file can save you or someone else a lot of time and effort when trying to understand what a particular script does.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># This is code to replicate the analyses and figures from my 2014 Science</span><span class="w">
+</span><span class="c1"># paper. Code developed by Sarah Supp, Tracy Teal, and Jon Borelli. Last</span><span class="w">
+</span><span class="c1"># updated 8/22/2019.</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Actually, even this is a bit vague. Which science paper (provide a link?)? Which analysis in that paper? What is the purpose of the analysis? Any detail that you can add will help you down the line.</p>
+
+<p> </p>
+<h4 id="be-explicit-about-the-requirements-and-dependencies-of-your-code">Be explicit about the requirements and dependencies of your code</h4>
+
+<p>Loading all of the packages that will be necessary to run your code (using <code class="highlighter-rouge">library</code>) is a nice way of indicating which packages are necessary to run your code. It can be frustrating to make it two-thirds of the way through a long-running script only to find out that a dependency hasn’t been installed.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">reshape</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">vegan</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<p>Another way you can be explicit about the requirements of your code and improve its reproducibility is to limit the “hard-coding” of the input and output files for your script. If your code will read in data from a file, define a variable early in your code that stores the path to that file. For example</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">input_file</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"data/data.csv"</span><span class="w"> 
+</span><span class="n">output_file</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"data/results.csv"</span><span class="w">
+
+</span><span class="c1"># read input</span><span class="w">
+</span><span class="n">input_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span><span class="w">
+</span><span class="c1"># get number of samples in data</span><span class="w">
+</span><span class="n">sample_number</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">nrow</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span><span class="w">
+</span><span class="c1"># generate results</span><span class="w">
+</span><span class="n">results</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">some_other_function</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span><span class="w"> </span><span class="n">sample_number</span><span class="p">)</span><span class="w">
+</span><span class="c1"># write results</span><span class="w">
+</span><span class="n">write.table</span><span class="p">(</span><span class="n">results</span><span class="p">,</span><span class="w"> </span><span class="n">output_file</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<p>is preferable to</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># check</span><span class="w">
+</span><span class="n">input_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"data/data.csv"</span><span class="p">)</span><span class="w">
+</span><span class="c1"># get number of samples in data</span><span class="w">
+</span><span class="n">sample_number</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">nrow</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span><span class="w">
+</span><span class="c1"># generate results</span><span class="w">
+</span><span class="n">results</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">some_other_function</span><span class="p">(</span><span class="s2">"data/data.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">sample_number</span><span class="p">)</span><span class="w">
+</span><span class="c1"># write results</span><span class="w">
+</span><span class="n">write.table</span><span class="p">(</span><span class="s2">"data/results.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">output_file</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
 
 <p> </p>
 <h4 id="naming-conventions">Naming Conventions</h4>
@@ -406,6 +464,93 @@ Before we start, here is exercise to illustrate the point on even a simple examp
 <p>The book <em>R Packages</em> includes a <a href="http://r-pkgs.had.co.nz/style.html">chapter</a> on this and other style considerations.</p>
 
 <p>How closely you follow these standards is up to you. As a good rule of thumb, choose a convention for naming R objects that is descriptive, that you can remember, and that you will stick to using.</p>
+
+<p> </p>
+<h4 id="identify-and-segregate-distinct-components-in-your-code">Identify and segregate distinct components in your code</h4>
+
+<p>It’s easy to annotate and mark your code using <code class="highlighter-rouge">#</code> or <code class="highlighter-rouge">#-</code> to set off sections of your code and to make finding specific parts of your code easier. For example, it’s often helpful when writing code to separate the function definitions. If you create only one or a few custom functions in your script, put them toward the top of your code. If you have written many functions, put them all in their own .R file and then <code class="highlighter-rouge">source</code> those files. <code class="highlighter-rouge">source</code> will define all of these functions so that your code can make use of them as needed.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span><span class="p">(</span><span class="s2">"my_genius_fxns.R"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+<h4 id="other-ideas">Other ideas</h4>
+
+<ol>
+  <li>
+    <p>Keep your code in bite-sized chunks. If a single function or loop gets too long, consider looking for ways to break it into smaller pieces (e.g. write functions to carry out chunks of code all in one line; break complex analyses into multiple loops with data saved in between).</p>
+  </li>
+  <li>
+    <p>Don’t repeat yourself–automate! If you are repeating the same code over and over, use a loop or a function to repeat that code for you. Needless repetition doesn’t just waste time–it also increases the likelihood you’ll make a costly mistake!</p>
+  </li>
+  <li>
+    <p>Keep all of your source files for a project in the same directory, then use relative paths as necessary to access them. For example, use:</p>
+  </li>
+</ol>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"files/dataset-2013-01.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<p>rather than:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"/Users/Karthik/Documents/sannic-project/files/dataset-2013-01.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<ol start="4">
+  <li>R can run into memory issues. It is a common problem to run out of memory after running R scripts for a long time. To inspect the objects in your current R environment, you can list the objects, search current packages, and remove objects that are currently not in use. A good practice when running long lines of computationally intensive code is to remove temporary objects after they have served their purpose. However, sometimes, R will not clean up unused memory for a while after you delete objects. You can force R to tidy up its memory by using <code class="highlighter-rouge">gc()</code>.</li>
+</ol>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Sample dataset of 1000 rows</span><span class="w">
+</span><span class="n">interim_object</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">),</span><span class="w">
+                             </span><span class="nf">rep</span><span class="p">(</span><span class="m">101</span><span class="o">:</span><span class="m">200</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">),</span><span class="w">
+                             </span><span class="nf">rep</span><span class="p">(</span><span class="m">201</span><span class="o">:</span><span class="m">300</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">))</span><span class="w">
+</span><span class="n">object.size</span><span class="p">(</span><span class="n">interim_object</span><span class="p">)</span><span class="w"> </span><span class="c1"># Reports the memory size allocated to the object</span><span class="w">
+</span><span class="n">rm</span><span class="p">(</span><span class="s2">"interim_object"</span><span class="p">)</span><span class="w"> </span><span class="c1"># Removes only the object itself and not necessarily the memory allotted to it</span><span class="w">
+</span><span class="n">gc</span><span class="p">()</span><span class="w"> </span><span class="c1"># Force R to release memory it is no longer using</span><span class="w">
+</span><span class="n">ls</span><span class="p">()</span><span class="w"> </span><span class="c1"># Lists all the objects in your current workspace</span><span class="w">
+</span><span class="n">rm</span><span class="p">(</span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ls</span><span class="p">())</span><span class="w"> </span><span class="c1"># If you want to delete all the objects in the workspace and start with a clean slate</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<ol start="6">
+  <li>
+    <p>Don’t save a session history (the default option in R, when it asks if you want an <code class="highlighter-rouge">RData</code> file). Instead, start in a clean environment so that older objects don’t remain in your environment any longer than they need to. If that happens, it can lead to unexpected results. Your script should explicitly load any data and create any variables that it needs, rather than relying on a variable that you assigned in the console panel sometime last week.</p>
+  </li>
+  <li>
+    <p>Wherever possible, keep track of <code class="highlighter-rouge">sessionInfo()</code> somewhere in your project folder. Session information is invaluable because it captures all of the packages used in the current project. If a newer version of a package changes the way a function behaves, you can always go back and reinstall the version that worked (Note: At least on CRAN, all older versions of packages are permanently archived).</p>
+  </li>
+</ol>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Take a look at the information provided by sessionInfo():</span><span class="w">
+</span><span class="n">sessionInfo</span><span class="p">()</span><span class="w">
+
+</span><span class="c1"># Here is how to save:</span><span class="w">
+</span><span class="n">current.session</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sessionInfo</span><span class="p">()</span><span class="w">
+</span><span class="n">session.file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="s2">"./Project X R Session Info for "</span><span class="p">,</span><span class="n">Sys.Date</span><span class="p">(),</span><span class="s2">".Rdata"</span><span class="p">)</span><span class="w">
+</span><span class="n">save</span><span class="p">(</span><span class="n">current.session</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="o">=</span><span class="n">session.file</span><span class="p">)</span><span class="w">
+</span><span class="n">rm</span><span class="p">(</span><span class="n">current.session</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># ... and to load old files to look at them</span><span class="w">
+</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">session.file</span><span class="p">)</span><span class="w">
+</span><span class="n">current.session</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<ol start="8">
+  <li>
+    <p>Do not ever modify your original raw data files. Doing so risks overwriting or unintentionally modifying the values of your starting data. Instead, always save data modified in R under a new name.</p>
+  </li>
+  <li>
+    <p>Collaborate. Grab a buddy and practice “code review”. Review is used for preparing experiments and manuscripts; why not use it for code as well? Our code is also a major scientific achievement and the product of lots of hard work!</p>
+  </li>
+  <li>
+    <p>Develop your code using version control and frequent updates! You can find lessons about version control on <a href="https://software-carpentry.org/lessons/">software-carpentry.org/lessons</a>.</p>
+  </li>
+</ol>
 
 <hr />
 <h3 id="basic-data-types-and-data-structures-in-r">Basic Data Types and Data Structures in R</h3>
@@ -651,7 +796,7 @@ information about your vectors and R objects in general.</p>
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
 </code></pre></div></div>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="c1"># stands for "sturcture" of an object</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="c1"># stands for "structure" of an object</span><span class="w">
 </span></code></pre></div></div>
 
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> chr [1:3] "Sarah" "Tracy" "Jon"
@@ -958,10 +1103,10 @@ referred to as “implicit coercion”.</p>
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Now let's try pasting two character vectors together:</span><span class="w">
-</span><span class="n">attitute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"I like"</span><span class="p">,</span><span class="s2">"I dislike"</span><span class="p">,</span><span class="s2">"I am indifferent to"</span><span class="p">)</span><span class="w">
-</span><span class="n">animal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"dogs."</span><span class="p">,</span><span class="s2">"fish."</span><span class="p">,</span><span class="s2">"cats."</span><span class="p">)</span><span class="w">
+</span><span class="n">attitude</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"I like"</span><span class="p">,</span><span class="s2">"I dislike"</span><span class="p">,</span><span class="s2">"I am indifferent to"</span><span class="p">)</span><span class="w">
+</span><span class="n">animal</span><span class="w"> </span><span class="o">&lt;-</span><span class="w">  </span><span class="nf">c</span><span class="p">(</span><span class="s2">"dogs."</span><span class="p">,</span><span class="s2">"fish."</span><span class="p">,</span><span class="s2">"cats."</span><span class="p">)</span><span class="w">
 
-</span><span class="n">paste</span><span class="p">(</span><span class="n">attitute</span><span class="p">,</span><span class="n">animal</span><span class="p">)</span><span class="w">
+</span><span class="n">paste</span><span class="p">(</span><span class="n">attitude</span><span class="p">,</span><span class="n">animal</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "I like dogs."              "I dislike fish."          
@@ -980,7 +1125,7 @@ referred to as “implicit coercion”.</p>
 <p> </p>
 <h4 id="missing-data">Missing Data</h4>
 
-<p>Missing datais represented as <code class="highlighter-rouge">NA</code> (Not Available)
+<p>Missing data is represented as <code class="highlighter-rouge">NA</code> (Not Available)
 and can be used for all the vector types covered in this lesson:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span><span class="m">1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="m">0.7</span><span class="p">)</span><span class="w">
@@ -1108,7 +1253,7 @@ any missing values:</p>
 
 <p> </p>
 
-<p>We will talk more about attributes when we get to more comlex data structures.</p>
+<p>We will talk more about attributes when we get to more complex data structures.</p>
 
 <hr />
 <h3 id="matrices">Matrices</h3>
@@ -1331,7 +1476,7 @@ types. Lists are sometimes called “generic vectors””, because the elements
 list can by of any type of R object, even lists containing further lists. This
 property makes them fundamentally different from atomic vectors.</p>
 
-<p>A list is a special type of vector. Each element can be a different type, and is not restricted to a single valuve.</p>
+<p>A list is a special type of vector. Each element can be a different type, and is not restricted to a single value.</p>
 
 <p>Create lists using <code class="highlighter-rouge">list()</code> or coerce other objects using <code class="highlighter-rouge">as.list()</code>. An empty
 list of the required length can be created using <code class="highlighter-rouge">vector()</code></p>
@@ -1576,7 +1721,7 @@ $data
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "logical"
 </code></pre></div></div>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my.list</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c1"># use the `=` to name your list eleements</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my.list</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c1"># use the `=` to name your list elements</span><span class="w">
 </span><span class="n">my.list</span><span class="o">$</span><span class="n">x</span><span class="w">
 </span></code></pre></div></div>
 
@@ -1608,20 +1753,20 @@ kinds of results into a single object that a function can return.</p>
 <p> </p>
 
 <p>Again, if the elements of a list are named, they can be referenced by
-the <code class="highlighter-rouge">$</code> notation (i.e. <code class="highlighter-rouge">xlist$data</code>). This can be useful if a function runs a complex analysis. It can export a lot of different types of information as differetn elements in a single list (raw data, processes data, analysis summary, analysis statistics, etc.)</p>
+the <code class="highlighter-rouge">$</code> notation (i.e. <code class="highlighter-rouge">xlist$data</code>). This can be useful if a function runs a complex analysis. It can export a lot of different types of information as different elements in a single list (raw data, processes data, analysis summary, analysis statistics, etc.)</p>
 
 <hr />
 <h3 id="factors">Factors</h3>
 
 <p>Factors are a special type of data in R, primarily used to represent categorical data. Factors can be ordered or unordered and are an important class for statistical analysis and for plotting.</p>
 
-<p>Factors look (and often behave) like character vectors, but assuming that they are character vectors can lead to unexpected behavior. Factors are actually actually integers under the hood, and you need to be careful when treating them
+<p>Factors look (and often behave) like character vectors, but assuming that they are character vectors can lead to unexpected behavior. Factors are actually integers under the hood, and you need to be careful when treating them
 like strings.</p>
 
 <p>Factors have three essential properties:</p>
 <ul>
   <li>A list of integers.</li>
-  <li>A set of labels defining the label for the interger.</li>
+  <li>A set of labels defining the label for the integer.</li>
   <li>An order for the labels.</li>
 </ul>
 
@@ -1673,7 +1818,7 @@ number of levels using <code class="highlighter-rouge">nlevels()</code>:</p>
 
 <p> </p>
 
-<p>One major functional difference is that the elements of the <code class="highlighter-rouge">character</code> vector only have the inherent order defined by their vaules (e.g. alphabetical). Sometimes, the order of the factors does not matter, other times you might want
+<p>One major functional difference is that the elements of the <code class="highlighter-rouge">character</code> vector only have the inherent order defined by their values (e.g. alphabetical). Sometimes, the order of the factors does not matter, other times you might want
 to specify the order because it is meaningful. For instance, “low”, “medium”, “high” as elements of a character vector have the implicit alphabetical order:</p>
 
 <p>      “high” &lt; “low” &lt; “medium”</p>
@@ -1826,7 +1971,7 @@ Levels: n &lt; l &lt; i
 </code></pre></div>    </div>
     <p> </p>
 
-    <p>We only expect three cathegories (“n”, “l”, “i”).
+    <p>We only expect three categories (“n”, “l”, “i”).
 We can order these from least intense to most intense, so let’s use <code class="highlighter-rouge">ordered</code>.</p>
   </blockquote>
 </blockquote>
@@ -1845,7 +1990,7 @@ We can order these from least intense to most intense, so let’s use <code clas
 
 <p> </p>
 
-<p>This does not behave as expected (and there is no warning). The reason is that the apparent numeric values are actually stored as intergers (2, 1, 3) with labels (“3.4”, “1.2”, “5”). R uses the interger vaue when trying to perform the <code class="highlighter-rouge">as.numeric()</code> function.</p>
+<p>This does not behave as expected (and there is no warning). The reason is that the apparent numeric values are actually stored as integers (2, 1, 3) with labels (“3.4”, “1.2”, “5”). R uses the integer vaue when trying to perform the <code class="highlighter-rouge">as.numeric()</code> function.</p>
 
 <p>The recommended way is to use the integer vector to index the factor levels:</p>
 
@@ -1859,15 +2004,15 @@ We can order these from least intense to most intense, so let’s use <code clas
 
 <p>The factor really consists of two elements:</p>
 <ul>
-  <li>The ordered interger list: <code class="highlighter-rouge">2, 1, 3</code></li>
-  <li>The “key” indicating which interger corresponds to which level: <code class="highlighter-rouge">1 = 1.2</code>, <code class="highlighter-rouge">2 = 3.4</code>, <code class="highlighter-rouge">3 = 5</code></li>
+  <li>The ordered integer list: <code class="highlighter-rouge">2, 1, 3</code></li>
+  <li>The “key” indicating which integer corresponds to which level: <code class="highlighter-rouge">1 = 1.2</code>, <code class="highlighter-rouge">2 = 3.4</code>, <code class="highlighter-rouge">3 = 5</code></li>
 </ul>
 
 <p>To break this down the <code class="highlighter-rouge">levels(f)[f]</code>:</p>
 <ol>
   <li>First we grabe the list of levels using <code class="highlighter-rouge">levels(f)</code>, which outputs a character vector: “1.2” “3.4” “5”.</li>
   <li>Next we index this list with <code class="highlighter-rouge">[f]</code>. Because the index requests a numeric representation of the factor <code class="highlighter-rouge">f</code>, R replaces the <code class="highlighter-rouge">[f]</code> with <code class="highlighter-rouge">[c(2,1,3)]</code> (the integer portion of the factor object).</li>
-  <li>R returns the elements of the character list in (1) with the order indecated by the integer list in (2).</li>
+  <li>R returns the elements of the character list in (1) with the order indicated by the integer list in (2).</li>
 </ol>
 
 <p>To convert that value of <code class="highlighter-rouge">f</code> to a basic <code class="highlighter-rouge">numeric</code> type, we still need to assign the values output above using <code class="highlighter-rouge">&lt;-</code> and the <code class="highlighter-rouge">as.numeric()</code>:</p>
@@ -2100,7 +2245,7 @@ the row and the column index in single square brackets (similar to matrix).</p>
 
 <p> </p>
 
-<p>Like matrices, we can also ask for multiple collumns and rows using the <code class="highlighter-rouge">:</code> operator:</p>
+<p>Like matrices, we can also ask for multiple columns and rows using the <code class="highlighter-rouge">:</code> operator:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="o">:</span><span class="m">3</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
@@ -2697,7 +2842,7 @@ equal to 5.0.</p>
 
 <p>In addition to the numeric comparisons, there are a set of operators that compare logical variables and output a new logical variable:</p>
 <ul>
-  <li><code class="highlighter-rouge">!</code> = NOT (changes <code class="highlighter-rouge">TRUE</code> to <code class="highlighter-rouge">FALSE</code> and vise versa)</li>
+  <li><code class="highlighter-rouge">!</code> = NOT (changes <code class="highlighter-rouge">TRUE</code> to <code class="highlighter-rouge">FALSE</code> and vice versa)</li>
   <li><code class="highlighter-rouge">&amp;</code> = element-wise AND (both are true; outputs vector for vector input comparing elements)</li>
   <li><code class="highlighter-rouge">&amp;&amp;</code> = logical AND (both are true; only considers first index of a vector)</li>
   <li><code class="highlighter-rouge">|</code> = element-wise OR (one or both are true; outputs vector for vector input comparing elements)</li>
@@ -2962,7 +3107,7 @@ length and species from <code class="highlighter-rouge">iris</code></p>
   <h2 id="adding-a-new-variable">Adding a new variable</h2>
 
   <p>We want to add a variable called “Petal.Color” the <code class="highlighter-rouge">iris</code> data frame to record a new set of 
-observations. Lets first define a new data frame ‘iris.update’ (so as not to modify our original raw data).</p>
+observations. Let’s first define a new data frame ‘iris.update’ (so as not to modify our original raw data).</p>
 
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris.update</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="w">
 </span></code></pre></div>  </div>
@@ -3005,7 +3150,7 @@ no values to indicate that we have not recorded any observations.</p>
 6          5.4         3.9          1.7         0.4  setosa            
 </code></pre></div>    </div>
 
-    <p>There are also otherways to accomplish this task.</p>
+    <p>There are also other ways to accomplish this task.</p>
   </blockquote>
 </blockquote>
 
@@ -3340,6 +3485,30 @@ changing the values for the other species).</p>
     <li><p>Annotate your code!</p>
 </li>
     
+    <li><p>Name and style code consistently.</p>
+</li>
+    
+    <li><p>Break code into small, discrete pieces.</p>
+</li>
+    
+    <li><p>Factor out common operations rather than repeating them.</p>
+</li>
+    
+    <li><p>Keep all of the source files for a project in one directory and use relative paths to access them.</p>
+</li>
+    
+    <li><p>Keep track of session information in your project folder.</p>
+</li>
+    
+    <li><p>Start each program with a description of what it does.</p>
+</li>
+    
+    <li><p>Then load all required packages.</p>
+</li>
+    
+    <li><p>Use comments to mark off sections of code.</p>
+</li>
+    
     <li><p>R’s basic data types are character, numeric, integer, complex, and logical.</p>
 </li>
     
@@ -3413,7 +3582,7 @@ changing the values for the other species).</p>
   <div class="col-xs-1">
     <h3 class="text-right">
       
-      <a href="../"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span><span class="sr-only">lesson home</span></a>
+      <a href="../03-introduction-to-R-data-plotting/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
       
     </h3>
   </div>

@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-08-21 22:57:53 -0700">
+    <meta http-equiv="last-modified" content="2019-08-26 00:29:27 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -117,6 +117,8 @@
             
             <li><a href="./02-introduction-to-R-basics/index.html">Introduction to R -- Best Practices, Data Types, and Data Structures</a></li>
             
+            <li><a href="./03-introduction-to-R-data-plotting/index.html">Introduction to R -- Reading, Writing, and Plotting Data</a></li>
+            
 	    <li role="separator" class="divider"></li>
             <li><a href="./aio.html">All in one page (Beta)</a></li>
           </ul>
@@ -199,7 +201,7 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>R is the programming laguage; RStudio is a user friendly environment for interacting with R.</p>
+        <li><p>R is the programming language; RStudio is a user friendly environment for interacting with R.</p>
 </li>
         
         <li><p>Using RStudio can make programming in R much more productive.</p>
@@ -231,6 +233,30 @@
 </li>
         
         <li><p>Annotate your code!</p>
+</li>
+        
+        <li><p>Name and style code consistently.</p>
+</li>
+        
+        <li><p>Break code into small, discrete pieces.</p>
+</li>
+        
+        <li><p>Factor out common operations rather than repeating them.</p>
+</li>
+        
+        <li><p>Keep all of the source files for a project in one directory and use relative paths to access them.</p>
+</li>
+        
+        <li><p>Keep track of session information in your project folder.</p>
+</li>
+        
+        <li><p>Start each program with a description of what it does.</p>
+</li>
+        
+        <li><p>Then load all required packages.</p>
+</li>
+        
+        <li><p>Use comments to mark off sections of code.</p>
 </li>
         
         <li><p>R’s basic data types are character, numeric, integer, complex, and logical.</p>
@@ -270,6 +296,43 @@
 </li>
         
         <li><p>Use the <code class="highlighter-rouge">$</code> operator to address a column by name.</p>
+</li>
+        
+        </ul>
+      </td>
+    </tr>
+  
+
+  
+    <tr>
+      <td class="col-md-3">
+        <a href="./03-introduction-to-R-data-plotting/index.html">Introduction to R -- Reading, Writing, and Plotting Data</a>
+      </td>
+      <td class="col-md-9">
+        <ul>
+        
+        <li><p>Import data from a .csv or .txt file using the <code class="highlighter-rouge">read.table(...)</code>, <code class="highlighter-rouge">read.csv(...)</code>, and <code class="highlighter-rouge">read.delim(...)</code> functions.</p>
+</li>
+        
+        <li><p>Understand some of the key arguments available for importing the data properly, including <code class="highlighter-rouge">header</code>, <code class="highlighter-rouge">stringsAsFactors</code>, <code class="highlighter-rouge">as.is</code>, and <code class="highlighter-rouge">strip.white</code>.</p>
+</li>
+        
+        <li><p>Write data to a new .csv file using the <code class="highlighter-rouge">write.table(...)</code> and <code class="highlighter-rouge">write.csv(...)</code> functions.</p>
+</li>
+        
+        <li><p>Understand some of the key arguments available for exporting the data properly, such as <code class="highlighter-rouge">row.names</code>, <code class="highlighter-rouge">col.names</code>, <code class="highlighter-rouge">quote</code>, and <code class="highlighter-rouge">na.strings</code>.</p>
+</li>
+        
+        <li><p>Use <code class="highlighter-rouge">apply</code> to calculate statistics across the rows or columns of a data frame.</p>
+</li>
+        
+        <li><p>Use <code class="highlighter-rouge">plot</code> to create simple visualizations.</p>
+</li>
+        
+        <li><p>Display simple graphs.</p>
+</li>
+        
+        <li><p>Save a plot in a pdf file using <code class="highlighter-rouge">pdf(...)</code> and stop writing to the pdf file with <code class="highlighter-rouge">dev.off()</code>.</p>
 </li>
         
         </ul>
