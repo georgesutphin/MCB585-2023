@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-08-21 22:57:53 -0700">
+    <meta http-equiv="last-modified" content="2019-08-26 00:29:27 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -116,6 +116,8 @@
             <li><a href="../01-R-RStudio-setup/index.html">Getting started with R and RStudio</a></li>
             
             <li><a href="../02-introduction-to-R-basics/index.html">Introduction to R -- Best Practices, Data Types, and Data Structures</a></li>
+            
+            <li><a href="../03-introduction-to-R-data-plotting/index.html">Introduction to R -- Reading, Writing, and Plotting Data</a></li>
             
 	    <li role="separator" class="divider"></li>
             <li><a href="../aio.html">All in one page (Beta)</a></li>
@@ -224,7 +226,7 @@
       <strong>Questions</strong>
       <ul>
 	
-	<li><p>What is R? What is RSudio?</p>
+	<li><p>What is R? What is RStudio?</p>
 </li>
 	
 	<li><p>How do I use the RStudio graphical user interface?</p>
@@ -437,7 +439,7 @@ a complete command, perhaps because you haven’t ‘closed’ a parenthesis or 
 <p> </p>
 <h4 id="assignment-operator">Assignment Operator</h4>
 
-<p>We can create a new variable and assign a value to it using <code class="highlighter-rouge">&lt;-</code> or ‘=’, which are  the assignment operators in R. It assigns values on the right to objects on
+<p>We can create a new variable and assign a value to it using <code class="highlighter-rouge">&lt;-</code> or ‘=’, which are the assignment operators in R. It assigns values on the right to objects on
 the left. So, after executing <code class="highlighter-rouge">x &lt;- 3</code>, the value of <code class="highlighter-rouge">x</code> is <code class="highlighter-rouge">3</code>. The arrow can
 be read as 3 <strong>goes into</strong> <code class="highlighter-rouge">x</code>.  You can also use <code class="highlighter-rouge">=</code> for assignments but not in
 all contexts so it is good practice to use <code class="highlighter-rouge">&lt;-</code> for assignments.</p>
@@ -517,7 +519,7 @@ multiply it by 2.2, and tag the result with the name <code class="highlighter-ro
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">100</span><span class="w"> </span><span class="o">+</span><span class="w"> 
 </span></code></pre></div></div>
 
-<p>R hangs with a <code class="highlighter-rouge">+</code> in the console, wainting for you to finish your thought…</p>
+<p>R hangs with a <code class="highlighter-rouge">+</code> in the console, waiting for you to finish your thought…</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span><span class="w">
 </span></code></pre></div></div>
@@ -538,7 +540,7 @@ multiply it by 2.2, and tag the result with the name <code class="highlighter-ro
   <h2 id="what-is-allowed-or-not-allowed-with-variable-names">What is allowed or not allowed with variable names?</h2>
 
   <p>Try assigning values to the following variables. Which work and which do not? What is 
-causing the erros?</p>
+causing the errors?</p>
 
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">min_height</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="n">max.height</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
@@ -596,7 +598,7 @@ causing the erros?</p>
 <p> </p>
 <h4 id="cleaning-up">Cleaning up</h4>
 
-<p>Try clicking on the brush icon in the Environment panel and clicking <kbd>Yes</kbd> in the po-up box. What happened to your variable? What happens if you try to display the variable in the console?</p>
+<p>Try clicking on the brush icon in the Environment panel and clicking <kbd>Yes</kbd> in the pop-up box. What happened to your variable? What happens if you try to display the variable in the console?</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w">
 </span><span class="n">y</span><span class="w">
@@ -619,14 +621,14 @@ causing the erros?</p>
 <p> </p>
 <h3 id="functions-in-r">Functions in R</h3>
 
-<p>Functions are predefined commands that take <em>input</em> values, perform some operation, and generates some output. The format is:</p>
+<p>Functions are predefined commands that take <em>input</em> values (aka <a href="../reference.html#argument">arguments</a>, perform some operation, and generates some output. The format is:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">output</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">input</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">output</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">argument1</span><span class="p">,</span><span class="w"> </span><span class="n">argument2</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <p>&amp;nbsp</p>
 
-<p>if the output variable and <code class="highlighter-rouge">&lt;-</code> are not used, the output is written directly to your console window. Let’s define a new function <code class="highlighter-rouge">fahrenheit_to_kelvin</code> that converts temperatures from Fahrenheit to Celcius:</p>
+<p>if the output variable and <code class="highlighter-rouge">&lt;-</code> are not used, the output is written directly to your console window. Let’s define a new function <code class="highlighter-rouge">fahrenheit_to_kelvin</code> that converts a temperature value in Fahrenheit (the <em>argument</em>) to Celsius (the <em>output</em>):</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">FtoC</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">temp_F</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">temp_C</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">(</span><span class="n">temp_F</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">32</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="m">5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">9</span><span class="p">)</span><span class="w">
@@ -653,7 +655,7 @@ causing the erros?</p>
 
 <p> </p>
 
-<p>Some functions take no input variable, like the previously discussed <code class="highlighter-rouge">ls()</code> (which just returns a list of variables currently in memory). Others take many different inputs, separated by <code class="highlighter-rouge">,</code>. For example, the <code class="highlighter-rouge">sum()</code> function will output the sum of all input values:</p>
+<p>Some functions take no <em>arguments</em>, like the previously discussed <code class="highlighter-rouge">ls()</code> (which just returns a list of variables currently in memory). Others take many different <em>arguments</em>, separated by <code class="highlighter-rouge">,</code>s, that modify the output. For example, the <code class="highlighter-rouge">sum()</code> function will output the sum of all input values:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sum</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">6</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -674,7 +676,7 @@ causing the erros?</p>
 <p> </p>
 <h4 id="working-directories-in-r">Working directories in R</h4>
 
-<p>Your <em>working directory</em> refers to the file path on your computer where the current session of R will go to look for files. You need to have any external data that you are working with in a file in your working directory in order to load it into R (or know how to specify a different location, if it isn’t in your working directory). Any output (data or charts) that you save in R will also be stored in the working directory by default unless you specifcy a different location on your computer.</p>
+<p>Your <em>working directory</em> refers to the file path on your computer where the current session of R will go to look for files. You need to have any external data that you are working with in a file in your working directory in order to load it into R (or know how to specify a different location, if it isn’t in your working directory). Any output (data or charts) that you save in R will also be stored in the working directory by default unless you specify a different location on your computer.</p>
 
 <p>A collection of scripts and data in R are defined as a <em>Project</em>. Among other things, the project will define the default working directory. Let’s try staring a new project:</p>
 
@@ -714,7 +716,7 @@ causing the erros?</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setwd</span><span class="p">(</span><span class="s2">".\data"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<p>We can also ask R what the current working directory is using <code class="highlighter-rouge">getwd()</code>, and ask for a list of files in the current directly with list.files():</p>
+<p>We can also ask R what the current working directory is using <code class="highlighter-rouge">getwd()</code>, and ask for a list of files in the current directly with <code class="highlighter-rouge">list.files()</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Retrieve the current working directory</span><span class="w">
 </span><span class="n">getwd</span><span class="p">()</span><span class="w">
@@ -727,8 +729,12 @@ causing the erros?</p>
 </span><span class="n">list.files</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "01-R-RStudio-setup.Rmd"          "02-introduction-to-R-basics.Rmd"
-[3] "data"                           
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "01-R-RStudio-setup.Rmd"                
+[2] "02-introduction-to-R-basics.Rmd"       
+[3] "03-introduction-to-R-data-plotting.Rmd"
+[4] "data"                                  
+[5] "inflammation-01.pdf"                   
+[6] "results"                               
 </code></pre></div></div>
 
 <p> </p>
@@ -767,14 +773,14 @@ The following error message indicates that R has failed to set the working direc
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="s1">'pwr'</span> <span class="n">successfully</span> <span class="n">unpacked</span> <span class="k">and</span> <span class="n">MD5</span> <span class="n">sums</span> <span class="n">checked</span>
 
 <span class="n">The</span> <span class="n">downloaded</span> <span class="n">binary</span> <span class="n">packages</span> <span class="n">are</span> <span class="k">in</span>
-	<span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sutph</span><span class="p">\</span><span class="n">AppData</span><span class="p">\</span><span class="n">Local</span><span class="p">\</span><span class="n">Temp</span><span class="p">\</span><span class="n">Rtmp44i9rC</span><span class="p">\</span><span class="n">downloaded_packages</span>
+	<span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sutph</span><span class="p">\</span><span class="n">AppData</span><span class="p">\</span><span class="n">Local</span><span class="p">\</span><span class="n">Temp</span><span class="p">\</span><span class="n">Rtmp8Y9n7z</span><span class="p">\</span><span class="n">downloaded_packages</span>
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Load required packages into memory</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<p>Generally a Google search will let you find packages for just about any type of analysis. Generally these come from one of two sources (which R mostly takes care of automatically, with a few exceptions):</p>
+<p>Generally, a Google search will let you find packages for just about any type of analysis. These usually come from one of two sources (which R mostly takes care of automatically, with a few exceptions):</p>
 <ul>
   <li><a href="https://cran.r-project.org/">CRAN</a> for basic R packages</li>
   <li><a href="https://www.bioconductor.org/">Bioconductor</a> for biological packages</li>
@@ -788,7 +794,7 @@ The following error message indicates that R has failed to set the working direc
 <p> </p>
 <h4 id="getting-help-in-r">Getting help in R</h4>
 
-<p>R has a built in function called <code class="highlighter-rouge">help()</code> that provides basic information about specific functions. You can either use this funciton like any other function, or use the <code class="highlighter-rouge">?</code> operator. Let’s give it a try to get more detailed information on how the <code class="highlighter-rouge">setwd()</code> function works.</p>
+<p>R has a built in function called <code class="highlighter-rouge">help()</code> that provides basic information about specific functions. You can either use this function like any other function, or use the <code class="highlighter-rouge">?</code> operator. Let’s give it a try to get more detailed information on how the <code class="highlighter-rouge">setwd()</code> function works.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">help</span><span class="p">(</span><span class="n">setwd</span><span class="p">)</span><span class="w">
 </span><span class="o">?</span><span class="n">setwd</span><span class="w">
@@ -832,7 +838,7 @@ The following error message indicates that R has failed to set the working direc
   <h2>Key Points</h2>
   <ul>
     
-    <li><p>R is the programming laguage; RStudio is a user friendly environment for interacting with R.</p>
+    <li><p>R is the programming language; RStudio is a user friendly environment for interacting with R.</p>
 </li>
     
     <li><p>Using RStudio can make programming in R much more productive.</p>

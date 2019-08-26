@@ -6,7 +6,7 @@ classdate: "8/27/2019"
 teaching: 45
 exercises: 10
 questions:
-- "What is R? What is RSudio?"
+- "What is R? What is RStudio?"
 - "How do I use the RStudio graphical user interface?"
 - "How do I perform basic calculations in R?"
 - "How do I assign values to variables in R?"
@@ -23,7 +23,7 @@ objectives:
 - "Know how to install and load packages."
 - "Know what resources are available if you get stuck."
 keypoints:
-- "R is the programming laguage; RStudio is a user friendly environment for interacting with R."
+- "R is the programming language; RStudio is a user friendly environment for interacting with R."
 - "Using RStudio can make programming in R much more productive."
 - "Consider what working directory you are in when sourcing a script."
 - "Use help() and ? to get basic information about functions."
@@ -217,7 +217,7 @@ Note above the use of `#` signs to add comment. Comments are for you and anyone 
 &nbsp;
 #### Assignment Operator
 
-We can create a new variable and assign a value to it using `<-` or '=', which are  the assignment operators in R. It assigns values on the right to objects on
+We can create a new variable and assign a value to it using `<-` or '=', which are the assignment operators in R. It assigns values on the right to objects on
 the left. So, after executing `x <- 3`, the value of `x` is `3`. The arrow can
 be read as 3 **goes into** `x`.  You can also use `=` for assignments but not in
 all contexts so it is good practice to use `<-` for assignments.
@@ -339,7 +339,7 @@ What happens if you don't complete a line?
 ~~~
 {: .language-r}
 
-R hangs with a `+` in the console, wainting for you to finish your thought...
+R hangs with a `+` in the console, waiting for you to finish your thought...
 
 ~~~
 1
@@ -369,7 +369,7 @@ ls()
 > ## What is allowed or not allowed with variable names?
 >
 > Try assigning values to the following variables. Which work and which do not? What is 
-> causing the erros?
+> causing the errors?
 >
 > 
 > ~~~
@@ -458,7 +458,7 @@ ls()
 &nbsp;
 #### Cleaning up
 
-Try clicking on the brush icon in the Environment panel and clicking <kbd>Yes</kbd> in the po-up box. What happened to your variable? What happens if you try to display the variable in the console?
+Try clicking on the brush icon in the Environment panel and clicking <kbd>Yes</kbd> in the pop-up box. What happened to your variable? What happens if you try to display the variable in the console?
 
 
 ~~~
@@ -488,17 +488,17 @@ It is generally good practice to start off each session with a clean slate. When
 &nbsp;
 ### Functions in R
 
-Functions are predefined commands that take *input* values, perform some operation, and generates some output. The format is:
+Functions are predefined commands that take *input* values (aka [arguments]({{ page.root }}/reference.html#argument), perform some operation, and generates some output. The format is:
 
 
 ~~~
-output <- function(input)
+output <- function(argument1, argument2, ...)
 ~~~
 {: .language-r}
 
 &nbsp
 
-if the output variable and `<-` are not used, the output is written directly to your console window. Let's define a new function `fahrenheit_to_kelvin` that converts temperatures from Fahrenheit to Celcius:
+if the output variable and `<-` are not used, the output is written directly to your console window. Let's define a new function `fahrenheit_to_kelvin` that converts a temperature value in Fahrenheit (the *argument*) to Celsius (the *output*):
 
 
 ~~~
@@ -542,7 +542,7 @@ Temp_C
 
 &nbsp;
 
-Some functions take no input variable, like the previously discussed `ls()` (which just returns a list of variables currently in memory). Others take many different inputs, separated by `,`. For example, the `sum()` function will output the sum of all input values:
+Some functions take no *arguments*, like the previously discussed `ls()` (which just returns a list of variables currently in memory). Others take many different *arguments*, separated by `,`s, that modify the output. For example, the `sum()` function will output the sum of all input values:
 
 
 ~~~
@@ -577,7 +577,7 @@ sum(FtoC(32),FtoC(75),FtoC(13))
 &nbsp;
 #### Working directories in R
 
-Your *working directory* refers to the file path on your computer where the current session of R will go to look for files. You need to have any external data that you are working with in a file in your working directory in order to load it into R (or know how to specify a different location, if it isn't in your working directory). Any output (data or charts) that you save in R will also be stored in the working directory by default unless you specifcy a different location on your computer. 
+Your *working directory* refers to the file path on your computer where the current session of R will go to look for files. You need to have any external data that you are working with in a file in your working directory in order to load it into R (or know how to specify a different location, if it isn't in your working directory). Any output (data or charts) that you save in R will also be stored in the working directory by default unless you specify a different location on your computer. 
 
 A collection of scripts and data in R are defined as a *Project*. Among other things, the project will define the default working directory. Let's try staring a new project:
 
@@ -622,7 +622,7 @@ setwd(".\data")
 ~~~
 {: .language-r}
 
-We can also ask R what the current working directory is using `getwd()`, and ask for a list of files in the current directly with list.files():
+We can also ask R what the current working directory is using `getwd()`, and ask for a list of files in the current directly with `list.files()`:
 
 
 ~~~
@@ -648,8 +648,12 @@ list.files()
 
 
 ~~~
-[1] "01-R-RStudio-setup.Rmd"          "02-introduction-to-R-basics.Rmd"
-[3] "data"                           
+[1] "01-R-RStudio-setup.Rmd"                
+[2] "02-introduction-to-R-basics.Rmd"       
+[3] "03-introduction-to-R-data-plotting.Rmd"
+[4] "data"                                  
+[5] "inflammation-01.pdf"                   
+[6] "results"                               
 ~~~
 {: .output}
 
@@ -690,7 +694,7 @@ install.packages("pwr")
 package 'pwr' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\Rtmp44i9rC\downloaded_packages
+	C:\Users\sutph\AppData\Local\Temp\Rtmp8Y9n7z\downloaded_packages
 ~~~
 {: .output}
 
@@ -701,7 +705,7 @@ library("pwr")
 ~~~
 {: .language-r}
 
-Generally a Google search will let you find packages for just about any type of analysis. Generally these come from one of two sources (which R mostly takes care of automatically, with a few exceptions):
+Generally, a Google search will let you find packages for just about any type of analysis. These usually come from one of two sources (which R mostly takes care of automatically, with a few exceptions):
 * [CRAN](https://cran.r-project.org/) for basic R packages
 * [Bioconductor](https://www.bioconductor.org/) for biological packages
 
@@ -713,7 +717,7 @@ There are a variety of resources available when you have questions. Here are a f
 &nbsp;
 #### Getting help in R
 
-R has a built in function called `help()` that provides basic information about specific functions. You can either use this funciton like any other function, or use the `?` operator. Let's give it a try to get more detailed information on how the `setwd()` function works.
+R has a built in function called `help()` that provides basic information about specific functions. You can either use this function like any other function, or use the `?` operator. Let's give it a try to get more detailed information on how the `setwd()` function works.
 
 
 ~~~
