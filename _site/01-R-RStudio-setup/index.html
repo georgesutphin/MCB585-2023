@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-08-26 00:29:27 -0700">
+    <meta http-equiv="last-modified" content="2019-08-26 22:31:11 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -364,7 +364,7 @@ forgotten when you close the session.</p>
 <p><strong>Script:</strong> The script window (top left panel) It is better to enter the commands in the
 script editor, and save the script. This way, you have a complete record of what
 you did, you can easily show others how you did it and you can do it again later
-on if needed. To run commands from script, you can either copy-paste them into the R console, or you can use the script window to ‘send’ the current line or the currently selected text to the R console using the <kbd>Ctrl</kbd>+<kbd>Return</kbd> (Mac) or <kbd>Ctrl</kbd>+<kbd>Enter</kbd> keyboard shortcut.</p>
+on if needed. To run commands from script, you can either copy-paste them into the R console, or you can use the script window to ‘send’ the current line or the currently selected text to the R console using the <kbd>Ctrl</kbd>+<kbd>Return</kbd> (Mac) or <kbd>Ctrl</kbd>+<kbd>Enter</kbd> (Windows) keyboard shortcut.</p>
 
 <p>At some point in your analysis you may want to check the content of variable or
 the structure of an object, without necessarily keep a record of it in your
@@ -374,7 +374,7 @@ console windows.</p>
 
 <p>If R is ready to accept commands, the R console shows a <code class="highlighter-rouge">&gt;</code> prompt. If it
 receives a command (by typing, copy-pasting or sent from the script editor using
-<kbd>Ctrl</kbd>+<kbd>Return</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd>), R will try to execute it, and when ready, show the results and come back with a new <code class="highlighter-rouge">&gt;</code>-prompt to wait for new commands.</p>
+<kbd>Ctrl</kbd>+<kbd>Return</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd>, R will try to execute it, and when ready, show the results and come back with a new <code class="highlighter-rouge">&gt;</code>-prompt to wait for new commands.</p>
 
 <p>If R is still waiting for you to enter more data because the command you entered is not yet complete, the console will show a <code class="highlighter-rouge">+</code> prompt. This means that you haven’t finished entering
 a complete command, perhaps because you haven’t ‘closed’ a parenthesis or quotation. If you’re in RStudio and this happens, either complete the command and press <kbd>Enter</kbd> or click inside the console window and press <kbd>Esc</kbd> to cancel the current command. That should help you out of trouble.</p>
@@ -623,10 +623,10 @@ causing the errors?</p>
 
 <p>Functions are predefined commands that take <em>input</em> values (aka <a href="../reference.html#argument">arguments</a>, perform some operation, and generates some output. The format is:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">output</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">argument1</span><span class="p">,</span><span class="w"> </span><span class="n">argument2</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">output</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">functionX</span><span class="p">(</span><span class="n">argument1</span><span class="p">,</span><span class="w"> </span><span class="n">argument2</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<p>&amp;nbsp</p>
+<p> </p>
 
 <p>if the output variable and <code class="highlighter-rouge">&lt;-</code> are not used, the output is written directly to your console window. Let’s define a new function <code class="highlighter-rouge">fahrenheit_to_kelvin</code> that converts a temperature value in Fahrenheit (the <em>argument</em>) to Celsius (the <em>output</em>):</p>
 
@@ -698,6 +698,8 @@ causing the errors?</p>
 </span><span class="n">setwd</span><span class="p">(</span><span class="s2">".."</span><span class="p">)</span><span class="w"> 
 </span></code></pre></div></div>
 
+<p> </p>
+
 <p>Note that unless you specify the entire path, all entries will be relative to the current working directory. Relative navigation:</p>
 <ul>
   <li>’.’ = the current working directory</li>
@@ -713,8 +715,12 @@ causing the errors?</p>
 
 <p><strong>Caution for Windows users:</strong> If you copy a file path from Windows Explorer and paste it into <code class="highlighter-rouge">setwd()</code>, you have to change the backslashes (“\”) used in Windows to forwardslashes (“/”). R interprets “\” as a type of special type of character called an <em>escape character</em> rather than a part of the string. If you don’t replace them, you will get errors:</p>
 
+<p> </p>
+
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setwd</span><span class="p">(</span><span class="s2">".\data"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
+
+<p> </p>
 
 <p>We can also ask R what the current working directory is using <code class="highlighter-rouge">getwd()</code>, and ask for a list of files in the current directly with <code class="highlighter-rouge">list.files()</code>:</p>
 
@@ -733,8 +739,7 @@ causing the errors?</p>
 [2] "02-introduction-to-R-basics.Rmd"       
 [3] "03-introduction-to-R-data-plotting.Rmd"
 [4] "data"                                  
-[5] "inflammation-01.pdf"                   
-[6] "results"                               
+[5] "results"                               
 </code></pre></div></div>
 
 <p> </p>
@@ -773,12 +778,14 @@ The following error message indicates that R has failed to set the working direc
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="s1">'pwr'</span> <span class="n">successfully</span> <span class="n">unpacked</span> <span class="k">and</span> <span class="n">MD5</span> <span class="n">sums</span> <span class="n">checked</span>
 
 <span class="n">The</span> <span class="n">downloaded</span> <span class="n">binary</span> <span class="n">packages</span> <span class="n">are</span> <span class="k">in</span>
-	<span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sutph</span><span class="p">\</span><span class="n">AppData</span><span class="p">\</span><span class="n">Local</span><span class="p">\</span><span class="n">Temp</span><span class="p">\</span><span class="n">Rtmp8Y9n7z</span><span class="p">\</span><span class="n">downloaded_packages</span>
+	<span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sutph</span><span class="p">\</span><span class="n">AppData</span><span class="p">\</span><span class="n">Local</span><span class="p">\</span><span class="n">Temp</span><span class="p">\</span><span class="n">RtmpGS4OK8</span><span class="p">\</span><span class="n">downloaded_packages</span>
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Load required packages into memory</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
+
+<p> </p>
 
 <p>Generally, a Google search will let you find packages for just about any type of analysis. These usually come from one of two sources (which R mostly takes care of automatically, with a few exceptions):</p>
 <ul>
@@ -799,6 +806,8 @@ The following error message indicates that R has failed to set the working direc
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">help</span><span class="p">(</span><span class="n">setwd</span><span class="p">)</span><span class="w">
 </span><span class="o">?</span><span class="n">setwd</span><span class="w">
 </span></code></pre></div></div>
+
+<p> </p>
 
 <p>When you enter either command, notice that the <strong>Help</strong> panel opens (lower right panel in RStudio). This panel provides information on the purpose, inputs, and outputs of the queried function. It also provides useful examples of how to use the function at the end of the documentation. <code class="highlighter-rouge">help()</code> is usually a good first place to look to get a feel for what a function is doing.</p>
 

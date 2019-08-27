@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-08-26 00:29:27 -0700">
+    <meta http-equiv="last-modified" content="2019-08-26 22:31:11 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -1028,6 +1028,61 @@ referred to as “implicit coercion”.</p>
 
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "b" "c" "d"
 </code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="subsetting-data">Subsetting Data</h2>
+
+  <p>Let’s look at a different subsetting option using a character vectors:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">animal</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"m"</span><span class="p">,</span><span class="w"> </span><span class="s2">"o"</span><span class="p">,</span><span class="w"> </span><span class="s2">"n"</span><span class="p">,</span><span class="w"> </span><span class="s2">"k"</span><span class="p">,</span><span class="w"> </span><span class="s2">"e"</span><span class="p">,</span><span class="w"> </span><span class="s2">"y"</span><span class="p">)</span><span class="w">
+</span><span class="c1"># first three characters</span><span class="w">
+</span><span class="n">animal</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">]</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "m" "o" "n"
+</code></pre></div>  </div>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># last three characters</span><span class="w">
+</span><span class="n">animal</span><span class="p">[</span><span class="m">4</span><span class="o">:</span><span class="m">6</span><span class="p">]</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "k" "e" "y"
+</code></pre></div>  </div>
+
+  <ol class="solution">
+    <li>
+      <p>If the first four characters are selected using the subset <code class="highlighter-rouge">animal[1:4]</code>, how can we obtain the first four characters in reverse order?</p>
+    </li>
+    <li>
+      <p>What is <code class="highlighter-rouge">animal[-1]</code>?
+   What is <code class="highlighter-rouge">animal[-4]</code>?
+   Given those answers,
+   explain what <code class="highlighter-rouge">animal[-1:-4]</code> does.</p>
+    </li>
+    <li>
+      <p>Use a subset of <code class="highlighter-rouge">animal</code> to create a new character vector that spells the word “eon”, i.e. <code class="highlighter-rouge">c("e", "o", "n")</code>.</p>
+      <blockquote>
+        <h2 id="solutions">Solutions</h2>
+
+        <ol>
+          <li>
+            <p><code class="highlighter-rouge">animal[4:1]</code></p>
+          </li>
+          <li>
+            <p><code class="highlighter-rouge">"o" "n" "k" "e" "y"</code> and <code class="highlighter-rouge">"m" "o" "n" "e" "y"</code>, which means that a
+single <code class="highlighter-rouge">-</code> removes the element at the given index position.
+<code class="highlighter-rouge">animal[-1:-4]</code> remove the subset, returning <code class="highlighter-rouge">"e" "y"</code>, which is
+equivalent to <code class="highlighter-rouge">animal[5:6]</code>.</p>
+          </li>
+          <li>
+            <p><code class="highlighter-rouge">animal[c(5,2,3)]</code> combines indexing with the <code class="highlighter-rouge">c</code>ombine function.</p>
+          </li>
+        </ol>
+
+      </blockquote>
+    </li>
+  </ol>
+</blockquote>
 
 <p> </p>
 

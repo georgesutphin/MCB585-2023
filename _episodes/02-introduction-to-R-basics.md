@@ -1099,6 +1099,62 @@ x[range] # returns the range of values specified by "range", in this case elemen
 ~~~
 {: .output}
 
+> ## Subsetting Data
+>
+> Let's look at a different subsetting option using a character vectors:
+>
+> 
+> ~~~
+> animal <- c("m", "o", "n", "k", "e", "y")
+> # first three characters
+> animal[1:3]
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] "m" "o" "n"
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> # last three characters
+> animal[4:6]
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] "k" "e" "y"
+> ~~~
+> {: .output}
+>
+> 1.  If the first four characters are selected using the subset `animal[1:4]`, how can we obtain the first four characters in reverse order?
+>
+> 1.  What is `animal[-1]`?
+>    What is `animal[-4]`?
+>    Given those answers,
+>    explain what `animal[-1:-4]` does.
+>
+> 1.  Use a subset of `animal` to create a new character vector that spells the word "eon", i.e. `c("e", "o", "n")`.
+> > ## Solutions
+> > 
+> > 1. `animal[4:1]`
+> > 
+> > 1. `"o" "n" "k" "e" "y"` and `"m" "o" "n" "e" "y"`, which means that a
+> >    single `-` removes the element at the given index position.
+> >    `animal[-1:-4]` remove the subset, returning `"e" "y"`, which is
+> >    equivalent to `animal[5:6]`.
+> > 
+> > 1. `animal[c(5,2,3)]` combines indexing with the `c`ombine function.
+> > 
+> {: .solution}
+{: .challenge}
+
 &nbsp;
 
 We will talk about more advanced indexing later in this lesson.
