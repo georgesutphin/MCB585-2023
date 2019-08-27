@@ -99,7 +99,7 @@ forgotten when you close the session.
 **Script:** The script window (top left panel) It is better to enter the commands in the
 script editor, and save the script. This way, you have a complete record of what
 you did, you can easily show others how you did it and you can do it again later
-on if needed. To run commands from script, you can either copy-paste them into the R console, or you can use the script window to 'send' the current line or the currently selected text to the R console using the <kbd>Ctrl</kbd>+<kbd>Return</kbd> (Mac) or <kbd>Ctrl</kbd>+<kbd>Enter</kbd> keyboard shortcut.
+on if needed. To run commands from script, you can either copy-paste them into the R console, or you can use the script window to 'send' the current line or the currently selected text to the R console using the <kbd>Ctrl</kbd>+<kbd>Return</kbd> (Mac) or <kbd>Ctrl</kbd>+<kbd>Enter</kbd> (Windows) keyboard shortcut.
 
 At some point in your analysis you may want to check the content of variable or
 the structure of an object, without necessarily keep a record of it in your
@@ -109,7 +109,7 @@ console windows.
 
 If R is ready to accept commands, the R console shows a `>` prompt. If it
 receives a command (by typing, copy-pasting or sent from the script editor using
-<kbd>Ctrl</kbd>+<kbd>Return</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd>), R will try to execute it, and when ready, show the results and come back with a new `>`-prompt to wait for new commands.
+<kbd>Ctrl</kbd>+<kbd>Return</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd>, R will try to execute it, and when ready, show the results and come back with a new `>`-prompt to wait for new commands.
 
 If R is still waiting for you to enter more data because the command you entered is not yet complete, the console will show a `+` prompt. This means that you haven't finished entering
 a complete command, perhaps because you haven't 'closed' a parenthesis or quotation. If you're in RStudio and this happens, either complete the command and press <kbd>Enter</kbd> or click inside the console window and press <kbd>Esc</kbd> to cancel the current command. That should help you out of trouble.
@@ -492,11 +492,11 @@ Functions are predefined commands that take *input* values (aka [arguments]({{ p
 
 
 ~~~
-output <- function(argument1, argument2, ...)
+output <- functionX(argument1, argument2, ...)
 ~~~
 {: .language-r}
 
-&nbsp
+&nbsp;
 
 if the output variable and `<-` are not used, the output is written directly to your console window. Let's define a new function `fahrenheit_to_kelvin` that converts a temperature value in Fahrenheit (the *argument*) to Celsius (the *output*):
 
@@ -600,6 +600,8 @@ setwd("..")
 ~~~
 {: .language-r}
 
+&nbsp;
+
 Note that unless you specify the entire path, all entries will be relative to the current working directory. Relative navigation:
 * '.' = the current working directory
 * '..' = the directory one level above the working directory (i.e. the Desktop in our case)
@@ -616,11 +618,15 @@ setwd("/Users/<username>/Desktop") # MacOS
 
 **Caution for Windows users:** If you copy a file path from Windows Explorer and paste it into `setwd()`, you have to change the backslashes ("\\") used in Windows to forwardslashes ("/"). R interprets "\\" as a type of special type of character called an *escape character* rather than a part of the string. If you don't replace them, you will get errors:
 
+&nbsp;
+
 
 ~~~
 setwd(".\data")
 ~~~
 {: .language-r}
+
+&nbsp;
 
 We can also ask R what the current working directory is using `getwd()`, and ask for a list of files in the current directly with `list.files()`:
 
@@ -652,8 +658,7 @@ list.files()
 [2] "02-introduction-to-R-basics.Rmd"       
 [3] "03-introduction-to-R-data-plotting.Rmd"
 [4] "data"                                  
-[5] "inflammation-01.pdf"                   
-[6] "results"                               
+[5] "results"                               
 ~~~
 {: .output}
 
@@ -694,7 +699,7 @@ install.packages("pwr")
 package 'pwr' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\Rtmp8Y9n7z\downloaded_packages
+	C:\Users\sutph\AppData\Local\Temp\RtmpGS4OK8\downloaded_packages
 ~~~
 {: .output}
 
@@ -704,6 +709,8 @@ The downloaded binary packages are in
 library("pwr")
 ~~~
 {: .language-r}
+
+&nbsp;
 
 Generally, a Google search will let you find packages for just about any type of analysis. These usually come from one of two sources (which R mostly takes care of automatically, with a few exceptions):
 * [CRAN](https://cran.r-project.org/) for basic R packages
@@ -725,6 +732,8 @@ help(setwd)
 ?setwd
 ~~~
 {: .language-r}
+
+&nbsp;
 
 When you enter either command, notice that the **Help** panel opens (lower right panel in RStudio). This panel provides information on the purpose, inputs, and outputs of the queried function. It also provides useful examples of how to use the function at the end of the documentation. `help()` is usually a good first place to look to get a feel for what a function is doing.
 

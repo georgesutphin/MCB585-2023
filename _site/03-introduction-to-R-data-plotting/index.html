@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-08-26 00:29:27 -0700">
+    <meta http-equiv="last-modified" content="2019-08-26 22:31:11 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -884,113 +884,77 @@ First, let’s ask what type of thing <code class="highlighter-rouge">dat</code>
 
 <p> </p>
 
-<p>This data is the results of an (not real) experiment, looking at the number of aneurysms that formed in the eyes of patients who undertook 3 different treatments.</p>
+<p>This data is the results of an (not real) experiment, looking at the number of aneurisms that formed in the eyes of patients who undertook 3 different treatments.</p>
 
-<p>When analyzing data we often want to look at partial statistics, such as the maximum value per patient or the average value per day.
-One way to do this is to select the data we want to create a new temporary data frame, and then perform the calculation on this subset:</p>
+<p>When analyzing data we often want to look at partial statistics, such as the maximum value per patient or the average value per treatment group. One way to do this is to select the data we want to create a new temporary data frame, and then perform the calculation on this subset:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first row, all of the columns</span><span class="w">
-</span><span class="n">patient_1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dat</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w">
-</span><span class="c1"># max inflammation for patient 1</span><span class="w">
-</span><span class="nf">max</span><span class="p">(</span><span class="n">patient_1</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># select aneurism data for the first subject</span><span class="w">
+</span><span class="n">sub1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dat</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="o">:</span><span class="m">9</span><span class="p">]</span><span class="w">
+
+</span><span class="c1"># max number of aneurisms for subject 1</span><span class="w">
+</span><span class="nf">max</span><span class="p">(</span><span class="n">sub1</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in FUN(X[[i]], ...): only defined on a data frame with all numeric variables
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 237
 </code></pre></div></div>
-<!-- 
-    OUCH!! The following may be true, but it will vary by R version, not by
-    installation! There shouldn't be an issue with a data frame where all
-    columns are numeric without missing values. Under those circumstances,
-    coercion should do what you expect. You'll get problems with mixed
-    types (factors, character etc), or with missing values. If this is
-    actually a problem, we need to change the example - we should be able
-    to come up with an example that doesn't require this ugliness in the
-    very first lesson. 
-    
-    Also, columns always work as expected because by definition a column
-    contains a vector of values of the same type. Rows include values from
-    different columns, which of course can be different types. This doesn't
-    need to be confusing, and if we're careful in our presentation here we
-    can avoid this until the students know enough to cope rationally.
--->
 
-<!--
-> ## Forcing Conversion
->
-> The code above may give you an error in some R installations,
-> since R does not automatically convert a row from a `data.frame` to a vector.
-> (Confusingly, subsetted columns are automatically converted.)
-> If this happens, you can use the `as.numeric` command to convert the row of data to a numeric vector:
->
-> `patient_1 <- as.numeric(dat[1, ])`
->
-> `max(patient_1)`
->
-> You can also check the `class` of each object:
->
-> `class(dat[1, ])`
->
-> `class(as.numeric(dat[1, ]))`
-{: .callout}
--->
+<p> </p>
 
 <p>We don’t actually need to store the row in a variable of its own.
 Instead, we can combine the selection and the function call:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># max inflammation for patient 2</span><span class="w">
-</span><span class="nf">max</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="p">])</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># max inflammation for subject 2</span><span class="w">
+</span><span class="nf">max</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="o">:</span><span class="m">9</span><span class="p">])</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in FUN(X[[i]], ...): only defined on a data frame with all numeric variables
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 248
 </code></pre></div></div>
+
+<p> </p>
 
 <p>R also has functions for other common calculations, e.g. finding the minimum, mean, median, and standard deviation of the data:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># minimum inflammation on day 7</span><span class="w">
-</span><span class="nf">min</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">7</span><span class="p">])</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># minimum number of aneurisms in q3</span><span class="w">
+</span><span class="nf">min</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Aneurisms_q3</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 80
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 105
 </code></pre></div></div>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># mean inflammation on day 7</span><span class="w">
-</span><span class="n">mean</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">7</span><span class="p">])</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># mean number of aneurisms in q3</span><span class="w">
+</span><span class="n">mean</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Aneurisms_q3</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 168.03
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 219.85
 </code></pre></div></div>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># median inflammation on day 7</span><span class="w">
-</span><span class="n">median</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">7</span><span class="p">])</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># median number of aneurisms in q3</span><span class="w">
+</span><span class="n">median</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Aneurisms_q3</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 162.5
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 217
 </code></pre></div></div>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># standard deviation of inflammation on day 7</span><span class="w">
-</span><span class="n">sd</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">7</span><span class="p">])</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># standard deviation number of aneurisms in q3</span><span class="w">
+</span><span class="n">sd</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Aneurisms_q3</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 48.47543
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 48.76958
 </code></pre></div></div>
 
-<blockquote class="callout">
-  <h2 id="forcing-conversion">Forcing Conversion</h2>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># total number of observations in q3</span><span class="w">
+</span><span class="nf">length</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Aneurisms_q3</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
 
-  <p>Note that R may return an error when you attempt to perform similar calculations on 
-subsetted <em>rows</em> of data frames. This is because some functions in R automatically convert 
-the object type to a numeric vector, while others do not (e.g. <code class="highlighter-rouge">max(dat[1, ])</code> works as 
-expected, while <code class="highlighter-rouge">mean(dat[1, ])</code> returns <code class="highlighter-rouge">NA</code> and a warning). You get the
-expected output by including an
-explicit call to <code class="highlighter-rouge">as.numeric()</code>, e.g. <code class="highlighter-rouge">mean(as.numeric(dat[1, ]))</code>. By contrast, 
-calculations on subsetted <em>columns</em> always work as expected, since columns of data frames 
-are already defined as vectors.</p>
-</blockquote>
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 100
+</code></pre></div></div>
 
-<p>R also has a function that summaries the previous common calculations:</p>
+<p> </p>
+
+<p>R has a function called <code class="highlighter-rouge">summary()</code> that provides a convenient summary of each column:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Summarize function</span><span class="w">
-</span><span class="n">summary</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">])</span><span class="w">
+</span><span class="n">summary</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      ID               Gender             Group           BloodPressure  
@@ -1000,336 +964,96 @@ are already defined as vectors.</p>
                                                           Mean   :118.6  
                                                           3rd Qu.:133.0  
                                                           Max.   :173.0  
+      Age         Aneurisms_q1    Aneurisms_q2    Aneurisms_q3  
+ Min.   :12.10   Min.   : 65.0   Min.   : 80.0   Min.   :105.0  
+ 1st Qu.:14.78   1st Qu.:118.0   1st Qu.:131.5   1st Qu.:182.5  
+ Median :16.65   Median :158.0   Median :162.5   Median :217.0  
+ Mean   :16.42   Mean   :158.8   Mean   :168.0   Mean   :219.8  
+ 3rd Qu.:18.30   3rd Qu.:188.0   3rd Qu.:196.8   3rd Qu.:248.2  
+ Max.   :20.00   Max.   :260.0   Max.   :283.0   Max.   :323.0  
+  Aneurisms_q4  
+ Min.   :116.0  
+ 1st Qu.:186.8  
+ Median :219.0  
+ Mean   :217.9  
+ 3rd Qu.:244.2  
+ Max.   :315.0  
 </code></pre></div></div>
 
-<p>For every column in the data frame, the function “summary” calculates: the minimun value, the first quartile, the median, the mean, the third quartile and the max value, giving helpful details about the sample distribution.</p>
+<p> </p>
 
-<p>What if we need the maximum inflammation for all patients, or the average for each day?
-As the diagram below shows, we want to perform the operation across a margin of the data frame:</p>
+<p>For every column in the data frame, <code class="highlighter-rouge">summary()</code> provides a different of summary data depending on the class of that column. For instance, for <code class="highlighter-rouge">numeric</code> columns, <code class="highlighter-rouge">summary()</code> provides minimun, maximum, mean, median, and quartile values.</p>
+
+<p>What if we need the maximum number of aneurisms across quarters for each patient, or perhaps the average across quarters? As the diagram below shows, we want to perform the operation across a <code class="highlighter-rouge">margin</code> of the data frame; that is we want to perform the same function (<code class="highlighter-rouge">mean()</code>) on the last 4 columns for every row:</p>
 
 <p><img src="../fig/r-operations-across-margins.svg" alt="Operations Across Margins" /></p>
 
 <p>To support this, we can use the <code class="highlighter-rouge">apply</code> function.</p>
 
-<blockquote class="callout">
-  <h2 id="getting-help">Getting Help</h2>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">apply</span><span class="w">
+</span></code></pre></div></div>
 
-  <p>To learn about a function in R, e.g. <code class="highlighter-rouge">apply</code>, we can read its help
-documention by running <code class="highlighter-rouge">help(apply)</code> or <code class="highlighter-rouge">?apply</code>.</p>
+<p> </p>
+
+<p><code class="highlighter-rouge">apply</code> allows us to repeat a function on all of the rows (<code class="highlighter-rouge">MARGIN = 1</code>) or columns (<code class="highlighter-rouge">MARGIN = 2</code>) of a data frame. Thus, to obtain the average inflammation of each patient we will need to calculate the mean of all of the rows (<code class="highlighter-rouge">MARGIN = 1</code>) of the data frame.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">avg_aneurisms_subject</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="m">6</span><span class="o">:</span><span class="m">9</span><span class="p">],</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<p>And to obtain the average number of aneurisms for each quater, mean of all of the columns (<code class="highlighter-rouge">MARGIN = 2</code>) of the data frame:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">avg_aneurisms_quarter</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="m">6</span><span class="o">:</span><span class="m">9</span><span class="p">],</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<blockquote class="callout">
+  <h2 id="argument-order-in-functions">Argument Order in Functions</h2>
+
+  <p>Notice that we did not specify the argument names in <code class="highlighter-rouge">apply()</code>. Looking at the help file, the argument 
+order is <code class="highlighter-rouge">X</code> (indicating the input data), then <code class="highlighter-rouge">MARGIN</code>, then <code class="highlighter-rouge">FUN</code> (for function to apply). So long as you 
+enter arguments in the requested order, you do not need to be explicity about which argument you are 
+referring too. <code class="highlighter-rouge">apply()</code> just assums that the first argument entered is the value for <code class="highlighter-rouge">X</code>, the second is the &gt; value for <code class="highlighter-rouge">MARGIN</code>, and the third is the value for <code class="highlighter-rouge">FUN</code>. You can mix up the order, but then you have to be 
+explicit about which argument you are defining.</p>
+
+  <p>For example, this will return an error:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">avg_aneurisms_subject</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">dat</span><span class="p">[,</span><span class="m">6</span><span class="o">:</span><span class="m">9</span><span class="p">])</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <p>while this will be interpreted identically to the earlier function call:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">avg_aneurisms_subject</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">FUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="n">MARGIN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dat</span><span class="p">[,</span><span class="m">6</span><span class="o">:</span><span class="m">9</span><span class="p">])</span><span class="w">
+</span></code></pre></div>  </div>
 </blockquote>
 
-<p><code class="highlighter-rouge">apply</code> allows us to repeat a function on all of the rows (<code class="highlighter-rouge">MARGIN = 1</code>) or columns (<code class="highlighter-rouge">MARGIN = 2</code>) of a data frame.</p>
-
-<p>Thus, to obtain the average inflammation of each patient we will need to calculate the mean of all of the rows (<code class="highlighter-rouge">MARGIN = 1</code>) of the data frame.</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">avg_patient_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-</code></pre></div></div>
-
-<p>And to obtain the average inflammation of each day we will need to calculate the mean of all of the columns (<code class="highlighter-rouge">MARGIN = 2</code>) of the data frame.</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">avg_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-</code></pre></div></div>
-
-<p>Since the second argument to <code class="highlighter-rouge">apply</code> is <code class="highlighter-rouge">MARGIN</code>, the above command is equivalent to <code class="highlighter-rouge">apply(dat, MARGIN = 2, mean)</code>.
-We’ll learn why this is so in the next lesson.</p>
+<p> </p>
 
 <blockquote class="callout">
   <h2 id="efficient-alternatives">Efficient Alternatives</h2>
 
   <p>Some common operations have more efficient alternatives. For example, you
-can calculate the row-wise or column-wise means with <code class="highlighter-rouge">rowMeans</code> and
-<code class="highlighter-rouge">colMeans</code>, respectively.</p>
+can calculate the row-wise or column-wise means with <code class="highlighter-rouge">rowMeans()</code> and
+<code class="highlighter-rouge">colMeans()</code>, respectively. Similarly for <code class="highlighter-rouge">rowSums()</code> and <code class="highlighter-rouge">colSums()</code>.</p>
 </blockquote>
 
-<blockquote class="challenge">
-  <h2 id="subsetting-data">Subsetting Data</h2>
-
-  <p>We can take subsets of character vectors as well:</p>
-
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">animal</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"m"</span><span class="p">,</span><span class="w"> </span><span class="s2">"o"</span><span class="p">,</span><span class="w"> </span><span class="s2">"n"</span><span class="p">,</span><span class="w"> </span><span class="s2">"k"</span><span class="p">,</span><span class="w"> </span><span class="s2">"e"</span><span class="p">,</span><span class="w"> </span><span class="s2">"y"</span><span class="p">)</span><span class="w">
-</span><span class="c1"># first three characters</span><span class="w">
-</span><span class="n">animal</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">]</span><span class="w">
-</span></code></pre></div>  </div>
-
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "m" "o" "n"
-</code></pre></div>  </div>
-
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># last three characters</span><span class="w">
-</span><span class="n">animal</span><span class="p">[</span><span class="m">4</span><span class="o">:</span><span class="m">6</span><span class="p">]</span><span class="w">
-</span></code></pre></div>  </div>
-
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "k" "e" "y"
-</code></pre></div>  </div>
-
-  <ol class="solution">
-    <li>
-      <p>If the first four characters are selected using the subset <code class="highlighter-rouge">animal[1:4]</code>, how can we obtain the first four characters in reverse order?</p>
-    </li>
-    <li>
-      <p>What is <code class="highlighter-rouge">animal[-1]</code>?
-   What is <code class="highlighter-rouge">animal[-4]</code>?
-   Given those answers,
-   explain what <code class="highlighter-rouge">animal[-1:-4]</code> does.</p>
-    </li>
-    <li>
-      <p>Use a subset of <code class="highlighter-rouge">animal</code> to create a new character vector that spells the word “eon”, i.e. <code class="highlighter-rouge">c("e", "o", "n")</code>.</p>
-      <blockquote>
-        <h2 id="solutions">Solutions</h2>
-
-        <ol>
-          <li>
-            <p><code class="highlighter-rouge">animal[4:1]</code></p>
-          </li>
-          <li>
-            <p><code class="highlighter-rouge">"o" "n" "k" "e" "y"</code> and <code class="highlighter-rouge">"m" "o" "n" "e" "y"</code>, which means that a
-single <code class="highlighter-rouge">-</code> removes the element at the given index position.
-<code class="highlighter-rouge">animal[-1:-4]</code> remove the subset, returning <code class="highlighter-rouge">"e" "y"</code>, which is
-equivalent to <code class="highlighter-rouge">animal[5:6]</code>.</p>
-          </li>
-          <li>
-            <p><code class="highlighter-rouge">animal[c(5,2,3)]</code> combines indexing with the <code class="highlighter-rouge">c</code>ombine function.</p>
-          </li>
-        </ol>
-
-      </blockquote>
-    </li>
-  </ol>
-</blockquote>
+<p> </p>
+<h4 id="exercises">Exercises</h4>
 
 <blockquote class="challenge">
   <h2 id="subsetting-more-data">Subsetting More Data</h2>
 
-  <p>Suppose you want to determine the maximum inflammation for patient 5 across days three to seven.
+  <p>Suppose you want to determine the maximum number of aneurisms for subject 5 across quarters two to four.
 To do this you would extract the relevant subset from the data frame and calculate the maximum value.
 Which of the following lines of R code gives the correct answer?</p>
 
   <ol>
     <li><code class="highlighter-rouge">max(dat[5, ])</code></li>
-    <li><code class="highlighter-rouge">max(dat[3:7, 5])</code></li>
-    <li><code class="highlighter-rouge">max(dat[5, 3:7])</code></li>
-    <li><code class="highlighter-rouge">max(dat[5, 3, 7])</code></li>
+    <li><code class="highlighter-rouge">max(dat[7:9, 5])</code></li>
+    <li><code class="highlighter-rouge">max(dat[5, 7:9])</code></li>
+    <li><code class="highlighter-rouge">max(dat[5, 7, 9])</code></li>
   </ol>
 
   <blockquote class="solution">
@@ -1337,7 +1061,7 @@ Which of the following lines of R code gives the correct answer?</p>
 
     <p>Answer: 3</p>
 
-    <p>Explanation: You want to extract the part of the dataframe representing data for patient 5 from days three to seven. In this dataframe, patient data is organised in rows and the days are represented by the columns. Subscripting in R follows the <code class="highlighter-rouge">[i, j]</code> principle, where <code class="highlighter-rouge">i = rows</code> and <code class="highlighter-rouge">j = columns</code>. Thus, answer 3 is correct since the patient is represented by the value for i (5) and the days are represented by the values in j, which is a subset spanning day 3 to 7.</p>
+    <p>Explanation: You want to extract the part of the data frame representing data for patient 5 from quarter two (column 7) to quarter 4 (column 9). In this data frame, patient data is organised in rows and the days are represented by the columns. Subscripting in R follows the <code class="highlighter-rouge">[i, j]</code> principle, where <code class="highlighter-rouge">i = rows</code> and <code class="highlighter-rouge">j = columns</code>. Thus, answer 3 is correct since the patient is represented by the value for i (5) and the days are represented by the values in j, which is a subset spanning day 9 to 7.</p>
 
   </blockquote>
 </blockquote>
@@ -1345,24 +1069,280 @@ Which of the following lines of R code gives the correct answer?</p>
 <blockquote class="challenge">
   <h2 id="subsetting-and-re-assignment">Subsetting and Re-Assignment</h2>
 
-  <p>Using the inflammation data frame <code class="highlighter-rouge">dat</code> from above:
-Let’s pretend there was something wrong with the instrument on the first five days for every second patient (#2, 4, 6, etc.), which resulted in the measurements being twice as large as they should be.</p>
+  <p>Using the data frame <code class="highlighter-rouge">dat</code> from above:
+Let’s pretend there was something wrong with the instrument on the first two quarters for every second patient (subjects 2, 4, 6, etc.), which resulted in the measurements being twice as large as they should be.</p>
 
   <ol>
     <li>Write a vector containing each affected patient (hint: <code class="highlighter-rouge">?seq</code>)</li>
-    <li>Create a new data frame in which you halve the first five days’ values in only those patients</li>
+    <li>Create a new data frame in which you halve the first two quarters’ values in only those patients</li>
     <li>Print out the corrected data frame to check that your code has fixed the problem</li>
   </ol>
 
   <blockquote class="solution">
     <h2 id="solution-3">Solution</h2>
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">whichPatients</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">60</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># i.e., which rows</span><span class="w">
-</span><span class="n">whichDays</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w">         </span><span class="c1"># i.e., which columns</span><span class="w">
-</span><span class="n">dat2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dat</span><span class="w">
-</span><span class="c1"># check the size of your subset: returns `30 5`, that is 30 [rows=patients] by 5 [columns=days]</span><span class="w">
-</span><span class="nf">dim</span><span class="p">(</span><span class="n">dat2</span><span class="p">[</span><span class="n">whichPatients</span><span class="p">,</span><span class="w"> </span><span class="n">whichDays</span><span class="p">])</span><span class="w">
-</span><span class="n">dat2</span><span class="p">[</span><span class="n">whichPatients</span><span class="p">,</span><span class="w"> </span><span class="n">whichDays</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dat2</span><span class="p">[</span><span class="n">whichPatients</span><span class="p">,</span><span class="w"> </span><span class="n">whichDays</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">2</span><span class="w">
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">whichPatients</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">dat</span><span class="p">)[</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># i.e., which rows</span><span class="w">
+</span><span class="n">whichQuarters</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">6</span><span class="p">,</span><span class="m">7</span><span class="p">)</span><span class="w">         </span><span class="c1"># i.e., which columns indicates quarters 1 and 2; you could also use c(6,7) or 6:7</span><span class="w">
+</span><span class="n">dat2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dat</span><span class="w"> </span><span class="c1"># make a copy of the original data</span><span class="w">
+</span><span class="c1"># check the size of your subset: returns `30 5`, that is 30 [rows=patients] by 5 [columns=quarters]</span><span class="w">
+</span><span class="nf">dim</span><span class="p">(</span><span class="n">dat2</span><span class="p">[</span><span class="n">whichPatients</span><span class="p">,</span><span class="w"> </span><span class="n">whichQuarters</span><span class="p">])</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 50  2
+</code></pre></div>    </div>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat2</span><span class="p">[</span><span class="n">whichPatients</span><span class="p">,</span><span class="w"> </span><span class="n">whichQuarters</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dat</span><span class="p">[</span><span class="n">whichPatients</span><span class="p">,</span><span class="w"> </span><span class="n">whichQuarters</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span><span class="n">dat2</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        ID Gender      Group BloodPressure  Age Aneurisms_q1 Aneurisms_q2
+1   Sub001      m    Control           132 16.0        114.0        140.0
+2   Sub002      m Treatment2           139 17.2         74.0        104.5
+3   Sub003      m Treatment2           130 19.5        196.0        251.0
+4   Sub004      f Treatment1           105 15.7         99.5         70.0
+5   Sub005      m Treatment1           125 19.9        188.0        120.0
+6   Sub006      M Treatment2           112 14.3        130.0        133.0
+7   Sub007      f    Control           173 17.7        135.0         98.0
+8   Sub008      m Treatment2           108 19.8        108.0        119.0
+9   Sub009      m Treatment2           131 19.4        117.0        215.0
+10  Sub010      f    Control           129 18.8         94.0         72.0
+11  Sub011      m Treatment1           126 14.8        134.0        155.0
+12  Sub012      f Treatment2            96 15.3         76.0         88.5
+13  Sub013      f    Control            77 16.5        112.0        220.0
+14  Sub014      m    Control           158 12.6         54.5         75.0
+15  Sub015      m    Control            81 14.3        146.0        140.0
+16  Sub016      m    Control           137 15.9         48.5         86.0
+17  Sub017      f Treatment1           147 18.4        165.0        157.0
+18  Sub018      m Treatment2           130 18.3         79.0        132.5
+19  Sub019      m Treatment1           105 15.4        178.0        109.0
+20  Sub020      F Treatment1            92 14.3         53.5         94.0
+21  Sub021      f    Control           111 12.7        174.0        160.0
+22  Sub022      m Treatment1           122 15.4         48.5         55.0
+23  Sub023      f Treatment2            97 17.2        187.0        239.0
+24  Sub024      f Treatment2           118 17.3         94.0         95.5
+25  Sub025      m Treatment1            82 16.7        114.0        199.0
+26  Sub026      M Treatment1           123 19.6         57.5         80.0
+27  Sub027      M Treatment2           126 15.0        128.0        249.0
+28  Sub028      f Treatment1            94 16.1         56.0        115.0
+29  Sub029      m    Control           135 17.6        136.0        109.0
+30  Sub030      f    Control           108 18.6         51.5         74.0
+31  Sub031      f Treatment1           133 18.3        132.0        151.0
+32  Sub032      m Treatment1           108 16.7         59.0         77.0
+33  Sub033      m Treatment2           122 12.5        166.0        176.0
+34  Sub034      m Treatment1           134 14.3         76.0         52.5
+35  Sub035      m Treatment1           145 19.7        191.0        148.0
+36  Sub036      f    Control           133 17.6         76.0         89.0
+37  Sub037      f Treatment2            90 17.0        161.0        270.0
+38  Sub038      m Treatment2           118 12.2        119.5         92.0
+39  Sub039      M Treatment1           113 15.1        132.0        137.0
+40  Sub040      m Treatment2           115 17.7         84.0        127.5
+41  Sub041      f Treatment1           142 19.0        140.0        184.0
+42  Sub042      m Treatment1           114 14.7         83.0         42.5
+43  Sub043      m    Control           139 15.2        141.0        160.0
+44  Sub044      m Treatment1            90 15.3         80.5         84.0
+45  Sub045      f    Control           126 12.9        103.0        111.0
+46  Sub046      f Treatment2           109 18.4        115.5        120.0
+47  Sub047      M    Control           125 18.1        192.0        141.0
+48  Sub048      M    Control            99 15.6         89.0         90.0
+49  Sub049      m    Control           122 19.5        167.0        123.0
+50  Sub050      m Treatment1           111 13.5         67.5         75.0
+51  Sub051      m Treatment2           109 13.5        150.0        166.0
+52  Sub052      f Treatment1           134 13.7         96.0         40.0
+53  Sub053      f Treatment1           113 18.7        153.0        153.0
+54  Sub054      f Treatment2           105 12.2        102.5        132.0
+55  Sub055      m Treatment2           125 16.9        117.0        194.0
+56  Sub056      f Treatment2           123 19.5         99.5         59.5
+57  Sub057      m    Control           155 12.1        182.0        129.0
+58  Sub058      m Treatment2           117 17.0         90.0         98.0
+59  Sub059      m Treatment1           116 19.2        111.0        111.0
+60  Sub060      f    Control           133 14.7         50.5         49.0
+61  Sub061      f    Control            94 20.0        166.0        167.0
+62  Sub062      f Treatment2           106 14.1         79.0         85.5
+63  Sub063      f Treatment1           144 14.7        189.0        178.0
+64  Sub064      M Treatment1           149 16.6         94.5         50.5
+65  Sub065      f Treatment2           108 15.0        239.0        189.0
+66  Sub066      m Treatment1           116 15.0         92.5        112.0
+67  Sub067      f Treatment2           136 13.8        224.0        112.0
+68  Sub068      f    Control            98 14.8         52.0         69.5
+69  Sub069      M Treatment2           148 19.1        222.0        199.0
+70  Sub070      m    Control            74 18.9         53.5         49.0
+71  Sub071      m Treatment2           147 17.7        153.0        255.0
+72  Sub072      m    Control           116 17.4         59.0         82.5
+73  Sub073      F Treatment1           133 15.5        102.0        184.0
+74  Sub074      m    Control            97 13.1         94.0         62.5
+75  Sub075      m Treatment2           132 12.2        180.0        283.0
+76  Sub076      f Treatment2           153 17.0         89.0        107.0
+77  Sub077      M Treatment1           151 17.7        168.0        184.0
+78  Sub078      M Treatment1           121 19.5         59.0         85.0
+79  Sub079      M Treatment1           116 19.5        169.0        114.0
+80  Sub080      f    Control           104 12.8         78.0         69.0
+81  Sub081      m Treatment2           111 17.6        232.0        211.0
+82  Sub082      M Treatment1            62 17.7         94.0         54.0
+83  Sub083      M Treatment2           124 14.2        169.0        168.0
+84  Sub084      m Treatment2           124 19.2        120.5        116.5
+85  Sub085      m Treatment2           109 16.0         65.0        207.0
+86  Sub086      f    Control           117 15.2        112.5         92.5
+87  Sub087      f    Control            90 17.6        104.0        116.0
+88  Sub088      f Treatment1           158 17.6         89.5         79.0
+89  Sub089      m Treatment1           113 15.1        103.0        140.0
+90  Sub090      m    Control           150 17.8         56.0         65.0
+91  Sub091      f Treatment2           115 16.2        226.0        170.0
+92  Sub092      m Treatment2            83 16.6        114.0        110.5
+93  Sub093      F    Control           116 19.1        209.0        142.0
+94  Sub094      f Treatment1           141 17.2         76.5         52.0
+95  Sub095      m    Control           108 13.6        111.0        118.0
+96  Sub096      m    Control           102 14.6         74.0         66.0
+97  Sub097      F Treatment2            90 19.6        141.0        196.0
+98  Sub098      m Treatment1           133 17.0         96.5         56.0
+99  Sub099      M Treatment2            83 16.2        130.0        226.0
+100 Sub100      M Treatment1           122 18.4         63.0         78.5
+    Aneurisms_q3 Aneurisms_q4
+1            202          237
+2            248          248
+3            122          177
+4            233          220
+5            222          228
+6            320          294
+7            154          245
+8            279          251
+9            181          272
+10           192          185
+11           247          223
+12           323          245
+13           225          195
+14           177          189
+15           239          223
+16           203          207
+17           200          193
+18           243          187
+19           206          182
+20           167          218
+21           203          183
+22           194          133
+23           281          214
+24           256          265
+25           242          195
+26           158          228
+27           294          315
+28           281          126
+29           105          155
+30           219          228
+31           234          162
+32           260          160
+33           253          233
+34           197          299
+35           166          185
+36           158          170
+37           232          284
+38           317          269
+39           193          206
+40           273          274
+41           239          202
+42           179          196
+43           179          239
+44           212          181
+45           254          126
+46           260          310
+47           180          225
+48           169          183
+49           236          224
+50           208          279
+51           153          204
+52           138          222
+53           236          216
+54           269          207
+55           216          211
+56           183          251
+57           226          218
+58           250          294
+59           244          201
+60           178          116
+61           232          241
+62           237          212
+63           177          238
+64           193          172
+65           297          300
+66           151          182
+67           304          288
+68           211          204
+69           280          196
+70           204          138
+71           218          234
+72           220          227
+73           246          222
+74           191          157
+75           204          298
+76           291          240
+77           184          229
+78           249          249
+79           248          233
+80           218          258
+81           219          246
+82           180          136
+83           180          211
+84           292          182
+85           234          235
+86           195          235
+87           173          221
+88           216          244
+89           209          186
+90           175          191
+91           307          244
+92           316          259
+93           199          184
+94           194          214
+95           173          191
+96           200          194
+97           322          273
+98           123          181
+99           286          281
+100          129          160
+</code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="correcting-case-in-gender">Correcting Case in Gender</h2>
+
+  <p>Take a closer look at the gender break down of our aneurism patient group.
+You can use the <code class="highlighter-rouge">table()</code> function to give you a count of each category for a 
+categorical vector:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">table</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Gender</span><span class="p">)</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+ f  F  m  M 
+35  4 46 15 
+</code></pre></div>  </div>
+
+  <p>What is going on here? It appears that the person entering this data sometimes
+used <code class="highlighter-rouge">m</code> and sometimes <code class="highlighter-rouge">M</code> to indicate <code class="highlighter-rouge">male</code>, and similarly <code class="highlighter-rouge">f</code> or <code class="highlighter-rouge">F</code> to 
+indicate <code class="highlighter-rouge">female</code> (or perhaps there were two individuals entering the data
+in slightly different ways). This is a problem, because R is case-sensitive and
+treates <code class="highlighter-rouge">m</code> as a different entry from <code class="highlighter-rouge">M</code>.</p>
+
+  <p>Use logical indexing to correct this problem. So we are all on the same page,
+change all entries to capitals. Save your corrected file to the data folder under
+the file name “sample-gendercorrected.csv”.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-4">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first make a copy of the data (never overwrite your raw data)</span><span class="w">
+</span><span class="n">dat_cor</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dat</span><span class="w">
+
+</span><span class="c1"># correct `f` entries to `F`</span><span class="w">
+</span><span class="n">dat_cor</span><span class="o">$</span><span class="n">Gender</span><span class="p">[</span><span class="n">dat_cor</span><span class="o">$</span><span class="n">Gender</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'f'</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'F'</span><span class="w">
+
+</span><span class="c1"># correct `m` entries to `M`</span><span class="w">
+</span><span class="n">dat_cor</span><span class="o">$</span><span class="n">Gender</span><span class="p">[</span><span class="n">dat_cor</span><span class="o">$</span><span class="n">Gender</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'m'</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'M'</span><span class="w">
+
+</span><span class="c1"># check the output using `table()`</span><span class="w">
+</span><span class="n">table</span><span class="p">(</span><span class="n">dat_cor</span><span class="o">$</span><span class="n">Gender</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># save corrected data file</span><span class="w">
+</span><span class="n">write.csv</span><span class="p">(</span><span class="n">dat_cor</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="o">=</span><span class="s2">"data/sample-gendercorrected.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
   </blockquote>
 </blockquote>
@@ -1370,99 +1350,54 @@ Let’s pretend there was something wrong with the instrument on the first five 
 <blockquote class="challenge">
   <h2 id="using-the-apply-function-on-patient-data">Using the Apply Function on Patient Data</h2>
 
-  <p>Challenge: the apply function can be used to summarize datasets and subsets
+  <p>The apply function can be used to summarize datasets and subsets
 of data across rows and columns using the MARGIN argument.
-Suppose you want to calculate the mean inflammation for specific days and patients
-in the patient dataset (i.e. 60 patients across 40 days).</p>
+Suppose you want to calculate the mean number of aneurisms for 
+specific quarters and patients in the patient dataset.</p>
 
-  <p>Please use a combination of the apply function and indexing to:</p>
+  <p>Use a combination of the apply function and indexing to:</p>
 
   <ol>
-    <li>calculate the mean inflammation for patients 1 to 5 over the whole 40 days</li>
-    <li>calculate the mean inflammation for days 1 to 10 (across all patients).</li>
-    <li>calculate the mean inflammation for every second day (across all patients).</li>
+    <li>Calculate the mean number of aneurisms for patients 1 to 5 over all four quarters.</li>
+    <li>Calculate the mean number of aneurisms for quarters 1 to 3 (across all patients).</li>
+    <li>Calculate the mean number of aneurisms for each patient in treatment group 2 day (across all quarters).</li>
   </ol>
 
-  <p>Think about the number of rows and columns you would expect as the result before each
-apply call and check your intuition by applying the mean function.</p>
+  <p>Think about the number of rows and columns you would expect as the result before each apply call and check your intuition by applying the mean function.</p>
 
   <blockquote class="solution">
-    <h2 id="solution-4">Solution</h2>
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 1.</span><span class="w">
-</span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
+    <h2 id="solution-5">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="c1"># 1.</span><span class="w">
+</span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="o">:</span><span class="m">9</span><span class="p">],</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
+
 </span><span class="c1"># 2.</span><span class="w">
-</span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">],</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
+</span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">6</span><span class="o">:</span><span class="m">8</span><span class="p">],</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
+
 </span><span class="c1"># 3.</span><span class="w">
-</span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">40</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)],</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
+</span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="n">dat</span><span class="o">$</span><span class="n">Group</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"Treatment2"</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="o">:</span><span class="m">9</span><span class="p">],</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
   </blockquote>
 </blockquote>
 
-<h3 id="basic-data-statistics">Basic data statistics</h3>
-
-<p>It’s hard to tell from the default output whether the result is correct, but there are a few simple tests that will reassure us:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># original min</span><span class="w">
-</span><span class="nf">min</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">4</span><span class="p">])</span><span class="w">
-</span><span class="c1"># original mean</span><span class="w">
-</span><span class="n">mean</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">4</span><span class="p">])</span><span class="w">
-</span><span class="c1"># original max</span><span class="w">
-</span><span class="nf">max</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">4</span><span class="p">])</span><span class="w">
-</span><span class="c1"># centered min</span><span class="w">
-</span><span class="nf">min</span><span class="p">(</span><span class="n">centered</span><span class="p">)</span><span class="w">
-</span><span class="c1"># centered mean</span><span class="w">
-</span><span class="n">mean</span><span class="p">(</span><span class="n">centered</span><span class="p">)</span><span class="w">
-</span><span class="c1"># centered max</span><span class="w">
-</span><span class="nf">max</span><span class="p">(</span><span class="n">centered</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<p>That seems almost right: the original mean was about 118.61, so the lower bound from zero is now about -118.61.
-The mean of the centered data is <code class="highlighter-rouge">mean(centered)</code>.
-We can even go further and check that the standard deviation hasn’t changed:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># original standard deviation</span><span class="w">
-</span><span class="n">sd</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">4</span><span class="p">])</span><span class="w">
-</span><span class="c1"># centered standard deviation</span><span class="w">
-</span><span class="n">sd</span><span class="p">(</span><span class="n">centered</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<p>Those values look the same, but we probably wouldn’t notice if they were different in the sixth decimal place.
-Let’s do this instead:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># difference in standard deviations before and after</span><span class="w">
-</span><span class="n">sd</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">4</span><span class="p">])</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">centered</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<p>Sometimes, a very small difference can be detected due to rounding at very low decimal places.
-R has a useful function for comparing two objects allowing for rounding errors, <code class="highlighter-rouge">all.equal</code>:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">all.equal</span><span class="p">(</span><span class="n">sd</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">4</span><span class="p">]),</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">centered</span><span class="p">))</span><span class="w">
-</span></code></pre></div></div>
-
+<hr />
 <h3 id="plotting">Plotting</h3>
 
-<p>The mathematician Richard Hamming once said, “The purpose of computing is insight, not numbers,” and the best way to develop insight is often to visualize data.
-Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R’s plotting features.</p>
+<p>The mathematician Richard Hamming once said,</p>
 
-<p>Let’s take a look at the average inflammation over time.
-Recall that we already calculated these values above using <code class="highlighter-rouge">apply(dat, 2, mean)</code> and saved them in the variable <code class="highlighter-rouge">avg_day_inflammation</code>.
-Plotting the values is done with the function <code class="highlighter-rouge">plot</code>.</p>
+<p>      <em>“The purpose of computing is insight, not numbers.”</em></p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">avg_day_inflammation</span><span class="p">)</span><span class="w">
+<p>The best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R’s plotting features.</p>
+
+<p>Let’s take a look at the average number of aneurisms over time. Recall that we already calculated these values above using <code class="highlighter-rouge">apply(dat[,6:9], 2, mean)</code> and saved them in the variable <code class="highlighter-rouge">avg_aneurisms_quarter</code>.
+Plotting the values is done with the function <code class="highlighter-rouge">plot()</code>.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">avg_aneurisms_quarter</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in min(x): no non-missing arguments to min; returning Inf
-</code></pre></div></div>
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-38-1.png" title="plot of chunk unnamed-chunk-38" alt="plot of chunk unnamed-chunk-38" width="612" style="display: block; margin: auto;" /></p>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in max(x): no non-missing arguments to max; returning -Inf
-</code></pre></div></div>
-
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in plot.window(...): need finite 'ylim' values
-</code></pre></div></div>
-
-<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-36-1.png" title="plot of chunk unnamed-chunk-36" alt="plot of chunk unnamed-chunk-36" width="612" style="display: block; margin: auto;" /></p>
-
-<p>Above, we gave the function <code class="highlighter-rouge">plot</code> a vector of numbers corresponding to the average inflammation per day across all patients.
+<p>Above, we gave the function <code class="highlighter-rouge">plot()</code> a vector of numbers corresponding to the average inflammation per day across all patients.
 <code class="highlighter-rouge">plot</code> created a scatter plot where the y-axis is the average inflammation level and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 40 days of treatment.
 The result is roughly a linear rise and fall, which is suspicious: based on other studies, we expect a sharper rise and slower fall.
 Let’s have a look at two other statistics: the maximum and minimum inflammation per day.</p>
@@ -1474,7 +1409,7 @@ Let’s have a look at two other statistics: the maximum and minimum inflammatio
 <div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion
 </code></pre></div></div>
 
-<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-37-1.png" title="plot of chunk unnamed-chunk-37" alt="plot of chunk unnamed-chunk-37" width="612" style="display: block; margin: auto;" /></p>
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-39-1.png" title="plot of chunk unnamed-chunk-39" alt="plot of chunk unnamed-chunk-39" width="612" style="display: block; margin: auto;" /></p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">min_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">min</span><span class="p">)</span><span class="w">
 </span><span class="n">plot</span><span class="p">(</span><span class="n">min_day_inflammation</span><span class="p">)</span><span class="w">
@@ -1483,7 +1418,7 @@ Let’s have a look at two other statistics: the maximum and minimum inflammatio
 <div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion
 </code></pre></div></div>
 
-<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-38-1.png" title="plot of chunk unnamed-chunk-38" alt="plot of chunk unnamed-chunk-38" width="612" style="display: block; margin: auto;" /></p>
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-40-1.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="612" style="display: block; margin: auto;" /></p>
 
 <p>The maximum value rises and falls perfectly smoothly, while the minimum seems to be a step function. Neither result seems particularly likely, so either there’s a mistake in our calculations or something is wrong with our data.</p>
 
@@ -1493,7 +1428,7 @@ Let’s have a look at two other statistics: the maximum and minimum inflammatio
   <p>Create a plot showing the standard deviation of the inflammation data for each day across all patients.</p>
 
   <blockquote class="solution">
-    <h2 id="solution-5">Solution</h2>
+    <h2 id="solution-6">Solution</h2>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sd_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">sd</span><span class="p">)</span><span class="w">
 </span><span class="n">plot</span><span class="p">(</span><span class="n">sd_day_inflammation</span><span class="p">)</span><span class="w">
@@ -1611,7 +1546,7 @@ Therefore the line in the <code class="highlighter-rouge">if</code> block is onl
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze</span><span class="p">(</span><span class="s2">"data/inflammation-01.csv"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-44-1.png" title="plot of chunk unnamed-chunk-44" alt="plot of chunk unnamed-chunk-44" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-44-2.png" title="plot of chunk unnamed-chunk-44" alt="plot of chunk unnamed-chunk-44" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-44-3.png" title="plot of chunk unnamed-chunk-44" alt="plot of chunk unnamed-chunk-44" width="612" style="display: block; margin: auto;" /></p>
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-46-1.png" title="plot of chunk unnamed-chunk-46" alt="plot of chunk unnamed-chunk-46" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-46-2.png" title="plot of chunk unnamed-chunk-46" alt="plot of chunk unnamed-chunk-46" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-46-3.png" title="plot of chunk unnamed-chunk-46" alt="plot of chunk unnamed-chunk-46" width="612" style="display: block; margin: auto;" /></p>
 
 <p>but also use it to save plots,</p>
 
@@ -1697,7 +1632,7 @@ Find the relevant argument to <code class="highlighter-rouge">plot</code> by rea
 update <code class="highlighter-rouge">analyze</code>, and then recreate all the figures with <code class="highlighter-rouge">analyze_all</code>.</p>
 
   <blockquote class="solution">
-    <h2 id="solution-6">Solution</h2>
+    <h2 id="solution-7">Solution</h2>
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="c1"># Plots the average, min, and max inflammation over time.</span><span class="w">
   </span><span class="c1"># Input:</span><span class="w">
@@ -1803,7 +1738,7 @@ It’s also a great way for spotting missing data.</p>
   <p><img src="../fig/rmd-03-introduction-to-R-data-plotting-reordering-factors-1.png" title="plot of chunk reordering-factors" alt="plot of chunk reordering-factors" width="612" style="display: block; margin: auto;" />
 Use the <code class="highlighter-rouge">factor()</code> command to modify the column dat$Group so that the <em>control</em> group is plotted last.</p>
   <blockquote class="solution">
-    <h2 id="solution-7">Solution</h2>
+    <h2 id="solution-8">Solution</h2>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="o">$</span><span class="n">Group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Group</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Treatment1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Treatment2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Control"</span><span class="p">))</span><span class="w">
 </span><span class="n">barplot</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Group</span><span class="p">))</span><span class="w">
@@ -1821,7 +1756,7 @@ Let’s remove levels from this factor.</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">barplot</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Gender</span><span class="p">))</span><span class="w">
 </span></code></pre></div></div>
 
-<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-55-1.png" title="plot of chunk unnamed-chunk-55" alt="plot of chunk unnamed-chunk-55" width="612" style="display: block; margin: auto;" /></p>
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-57-1.png" title="plot of chunk unnamed-chunk-57" alt="plot of chunk unnamed-chunk-57" width="612" style="display: block; margin: auto;" /></p>
 
 <p>Values should have been recorded as lowercase ‘m’ and ‘f’. We should correct this.</p>
 
@@ -1840,7 +1775,7 @@ Let’s remove levels from this factor.</p>
 
   <p><em>Hint</em> how many levels does dat$Gender have?</p>
   <blockquote class="solution">
-    <h2 id="solution-8">Solution</h2>
+    <h2 id="solution-9">Solution</h2>
     <p><code class="highlighter-rouge">dat$Gender</code> has 4 levels, so the plot shows 4 levels.</p>
   </blockquote>
 </blockquote>
@@ -1852,7 +1787,7 @@ We use the <code class="highlighter-rouge">droplevels()</code> function to remov
 </span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dat</span><span class="o">$</span><span class="n">Gender</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dat</span><span class="o">$</span><span class="n">BloodPressure</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-57-1.png" title="plot of chunk unnamed-chunk-57" alt="plot of chunk unnamed-chunk-57" width="612" style="display: block; margin: auto;" /></p>
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-59-1.png" title="plot of chunk unnamed-chunk-59" alt="plot of chunk unnamed-chunk-59" width="612" style="display: block; margin: auto;" /></p>
 
 <blockquote class="callout">
   <h2 id="adjusting-factor-levels">Adjusting Factor Levels</h2>

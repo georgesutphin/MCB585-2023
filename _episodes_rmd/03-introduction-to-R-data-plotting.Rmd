@@ -409,301 +409,251 @@ dat <- read.csv(file="data/sample.csv", header=TRUE, stringsAsFactors=FALSE)
 
 &nbsp;
 
-This data is the results of an (not real) experiment, looking at the number of aneurysms that formed in the eyes of patients who undertook 3 different treatments.
+This data is the results of an (not real) experiment, looking at the number of aneurisms that formed in the eyes of patients who undertook 3 different treatments.
 
-
-
-When analyzing data we often want to look at partial statistics, such as the maximum value per patient or the average value per day.
-One way to do this is to select the data we want to create a new temporary data frame, and then perform the calculation on this subset:
+When analyzing data we often want to look at partial statistics, such as the maximum value per patient or the average value per treatment group. One way to do this is to select the data we want to create a new temporary data frame, and then perform the calculation on this subset:
 
 ```{r}
-# first row, all of the columns
-patient_1 <- dat[1, ]
-# max inflammation for patient 1
-max(patient_1)
-```
-<!-- 
-    OUCH!! The following may be true, but it will vary by R version, not by
-    installation! There shouldn't be an issue with a data frame where all
-    columns are numeric without missing values. Under those circumstances,
-    coercion should do what you expect. You'll get problems with mixed
-    types (factors, character etc), or with missing values. If this is
-    actually a problem, we need to change the example - we should be able
-    to come up with an example that doesn't require this ugliness in the
-    very first lesson. 
-    
-    Also, columns always work as expected because by definition a column
-    contains a vector of values of the same type. Rows include values from
-    different columns, which of course can be different types. This doesn't
-    need to be confusing, and if we're careful in our presentation here we
-    can avoid this until the students know enough to cope rationally.
--->
+# select aneurism data for the first subject
+sub1 <- dat[1, 6:9]
 
-<!--
-> ## Forcing Conversion
->
-> The code above may give you an error in some R installations,
-> since R does not automatically convert a row from a `data.frame` to a vector.
-> (Confusingly, subsetted columns are automatically converted.)
-> If this happens, you can use the `as.numeric` command to convert the row of data to a numeric vector:
->
-> `patient_1 <- as.numeric(dat[1, ])`
->
-> `max(patient_1)`
->
-> You can also check the `class` of each object:
->
-> `class(dat[1, ])`
->
-> `class(as.numeric(dat[1, ]))`
-{: .callout}
--->
+# max number of aneurisms for subject 1
+max(sub1)
+```
+
+&nbsp;
 
 We don't actually need to store the row in a variable of its own.
 Instead, we can combine the selection and the function call:
 
 ```{r}
-# max inflammation for patient 2
-max(dat[2, ])
+# max inflammation for subject 2
+max(dat[2, 6:9])
 ```
+
+&nbsp;
 
 R also has functions for other common calculations, e.g. finding the minimum, mean, median, and standard deviation of the data:
 
 ```{r}
-# minimum inflammation on day 7
-min(dat[, 7])
-# mean inflammation on day 7
-mean(dat[, 7])
-# median inflammation on day 7
-median(dat[, 7])
-# standard deviation of inflammation on day 7
-sd(dat[, 7])
+# minimum number of aneurisms in q3
+min(dat$Aneurisms_q3)
+
+# mean number of aneurisms in q3
+mean(dat$Aneurisms_q3)
+
+# median number of aneurisms in q3
+median(dat$Aneurisms_q3)
+
+# standard deviation number of aneurisms in q3
+sd(dat$Aneurisms_q3)
+
+# total number of observations in q3
+length(dat$Aneurisms_q3)
 ```
 
-> ## Forcing Conversion
->
-> Note that R may return an error when you attempt to perform similar calculations on 
-> subsetted *rows* of data frames. This is because some functions in R automatically convert 
-> the object type to a numeric vector, while others do not (e.g. `max(dat[1, ])` works as 
-> expected, while `mean(dat[1, ])` returns `NA` and a warning). You get the
-> expected output by including an
-> explicit call to `as.numeric()`, e.g. `mean(as.numeric(dat[1, ]))`. By contrast, 
-> calculations on subsetted *columns* always work as expected, since columns of data frames 
-> are already defined as vectors.
-{: .callout}
+&nbsp;
 
-R also has a function that summaries the previous common calculations:
+R has a function called `summary()` that provides a convenient summary of each column:
 
 ```{r}
 # Summarize function
-summary(dat[, 1:4])
+summary(dat)
 ```
 
-For every column in the data frame, the function "summary" calculates: the minimun value, the first quartile, the median, the mean, the third quartile and the max value, giving helpful details about the sample distribution.
+&nbsp; 
 
-What if we need the maximum inflammation for all patients, or the average for each day?
-As the diagram below shows, we want to perform the operation across a margin of the data frame:
+For every column in the data frame, `summary()` provides a different of summary data depending on the class of that column. For instance, for `numeric` columns, `summary()` provides minimun, maximum, mean, median, and quartile values. 
+
+What if we need the maximum number of aneurisms across quarters for each patient, or perhaps the average across quarters? As the diagram below shows, we want to perform the operation across a `margin` of the data frame; that is we want to perform the same function (`mean()`) on the last 4 columns for every row:
 
 <img src="../fig/r-operations-across-margins.svg" alt="Operations Across Margins" />
 
 To support this, we can use the `apply` function.
 
-> ## Getting Help
+```{r, eval=FALSE}
+?apply
+```
+
+&nbsp;
+
+`apply` allows us to repeat a function on all of the rows (`MARGIN = 1`) or columns (`MARGIN = 2`) of a data frame. Thus, to obtain the average inflammation of each patient we will need to calculate the mean of all of the rows (`MARGIN = 1`) of the data frame.
+
+```{r}
+avg_aneurisms_subject <- apply(dat[,6:9], 1, mean)
+```
+
+&nbsp;
+
+And to obtain the average number of aneurisms for each quater, mean of all of the columns (`MARGIN = 2`) of the data frame:
+
+```{r}
+avg_aneurisms_quarter <- apply(dat[,6:9], 2, mean)
+```
+
+&nbsp; 
+
+> ## Argument Order in Functions
+> 
+> Notice that we did not specify the argument names in `apply()`. Looking at the help file, the argument 
+> order is `X` (indicating the input data), then `MARGIN`, then `FUN` (for function to apply). So long as you 
+> enter arguments in the requested order, you do not need to be explicity about which argument you are 
+> referring too. `apply()` just assums that the first argument entered is the value for `X`, the second is the > value for `MARGIN`, and the third is the value for `FUN`. You can mix up the order, but then you have to be 
+> explicit about which argument you are defining.
 >
-> To learn about a function in R, e.g. `apply`, we can read its help
-> documention by running `help(apply)` or `?apply`.
+> For example, this will return an error:
+> ```{r eval=F}
+> avg_aneurisms_subject <- apply(mean, 1, dat[,6:9])
+> ```
+> 
+> while this will be interpreted identically to the earlier function call:
+> ```{r eval=F}
+> avg_aneurisms_subject <- apply(FUN = mean, MARGIN = 1, X = dat[,6:9])
+> ```
 {: .callout}
 
-`apply` allows us to repeat a function on all of the rows (`MARGIN = 1`) or columns (`MARGIN = 2`) of a data frame.
-
-Thus, to obtain the average inflammation of each patient we will need to calculate the mean of all of the rows (`MARGIN = 1`) of the data frame.
-
-```{r}
-avg_patient_inflammation <- apply(dat, 1, mean)
-```
-
-And to obtain the average inflammation of each day we will need to calculate the mean of all of the columns (`MARGIN = 2`) of the data frame.
-
-```{r}
-avg_day_inflammation <- apply(dat, 2, mean)
-```
-
-Since the second argument to `apply` is `MARGIN`, the above command is equivalent to `apply(dat, MARGIN = 2, mean)`.
-We'll learn why this is so in the next lesson.
+&nbsp;
 
 > ## Efficient Alternatives
 >
 > Some common operations have more efficient alternatives. For example, you
-> can calculate the row-wise or column-wise means with `rowMeans` and
-> `colMeans`, respectively.
+> can calculate the row-wise or column-wise means with `rowMeans()` and
+> `colMeans()`, respectively. Similarly for `rowSums()` and `colSums()`.
 {: .callout}
 
-> ## Subsetting Data
->
-> We can take subsets of character vectors as well:
->
-> ```{r}
-> animal <- c("m", "o", "n", "k", "e", "y")
-> # first three characters
-> animal[1:3]
-> # last three characters
-> animal[4:6]
-> ```
->
-> 1.  If the first four characters are selected using the subset `animal[1:4]`, how can we obtain the first four characters in reverse order?
->
-> 1.  What is `animal[-1]`?
->    What is `animal[-4]`?
->    Given those answers,
->    explain what `animal[-1:-4]` does.
->
-> 1.  Use a subset of `animal` to create a new character vector that spells the word "eon", i.e. `c("e", "o", "n")`.
-> > ## Solutions
-> > 
-> > 1. `animal[4:1]`
-> > 
-> > 1. `"o" "n" "k" "e" "y"` and `"m" "o" "n" "e" "y"`, which means that a
-> >    single `-` removes the element at the given index position.
-> >    `animal[-1:-4]` remove the subset, returning `"e" "y"`, which is
-> >    equivalent to `animal[5:6]`.
-> > 
-> > 1. `animal[c(5,2,3)]` combines indexing with the `c`ombine function.
-> > 
-> {: .solution}
-{: .challenge}
+&nbsp;
+#### Exercises
 
 > ## Subsetting More Data
 >
-> Suppose you want to determine the maximum inflammation for patient 5 across days three to seven.
+> Suppose you want to determine the maximum number of aneurisms for subject 5 across quarters two to four.
 > To do this you would extract the relevant subset from the data frame and calculate the maximum value.
 > Which of the following lines of R code gives the correct answer?
 >
 > 1. `max(dat[5, ])`
-> 2. `max(dat[3:7, 5])`
-> 3. `max(dat[5, 3:7])`
-> 4. `max(dat[5, 3, 7])`
+> 2. `max(dat[7:9, 5])`
+> 3. `max(dat[5, 7:9])`
+> 4. `max(dat[5, 7, 9])`
 >
 > > ## Solution
 > >  
 > > Answer: 3
 > >
-> > Explanation: You want to extract the part of the dataframe representing data for patient 5 from days three to seven. In this dataframe, patient data is organised in rows and the days are represented by the columns. Subscripting in R follows the `[i, j]` principle, where `i = rows` and `j = columns`. Thus, answer 3 is correct since the patient is represented by the value for i (5) and the days are represented by the values in j, which is a subset spanning day 3 to 7.
+> > Explanation: You want to extract the part of the data frame representing data for patient 5 from quarter two (column 7) to quarter 4 (column 9). In this data frame, patient data is organised in rows and the days are represented by the columns. Subscripting in R follows the `[i, j]` principle, where `i = rows` and `j = columns`. Thus, answer 3 is correct since the patient is represented by the value for i (5) and the days are represented by the values in j, which is a subset spanning day 9 to 7.
 > > 
 > {: .solution}
 {: .challenge}
 
 > ## Subsetting and Re-Assignment
 >
-> Using the inflammation data frame `dat` from above:
-> Let's pretend there was something wrong with the instrument on the first five days for every second patient (#2, 4, 6, etc.), which resulted in the measurements being twice as large as they should be.
+> Using the data frame `dat` from above:
+> Let's pretend there was something wrong with the instrument on the first two quarters for every second patient (subjects 2, 4, 6, etc.), which resulted in the measurements being twice as large as they should be.
 >
 > 1. Write a vector containing each affected patient (hint: `?seq`)
-> 2. Create a new data frame in which you halve the first five days' values in only those patients
+> 2. Create a new data frame in which you halve the first two quarters' values in only those patients
 > 3. Print out the corrected data frame to check that your code has fixed the problem
 >
 > > ## Solution
-> > ~~~
-> > whichPatients <- seq(2, 60, 2) # i.e., which rows
-> > whichDays <- seq(1, 5)         # i.e., which columns
-> > dat2 <- dat
-> > # check the size of your subset: returns `30 5`, that is 30 [rows=patients] by 5 [columns=days]
-> > dim(dat2[whichPatients, whichDays])
-> > dat2[whichPatients, whichDays] <- dat2[whichPatients, whichDays] / 2
+> > ```{r, eval=TRUE}
+> > whichPatients <- seq(2, dim(dat)[1], 2) # i.e., which rows
+> > whichQuarters <- seq(6,7)         # i.e., which columns indicates quarters 1 and 2; you could also use c(6,7) or 6:7
+> > dat2 <- dat # make a copy of the original data
+> > # check the size of your subset: returns `30 5`, that is 30 [rows=patients] by 5 [columns=quarters]
+> > dim(dat2[whichPatients, whichQuarters])
+> > dat2[whichPatients, whichQuarters] <- dat[whichPatients, whichQuarters] / 2
 > > dat2
-> > ~~~
-> > {: .language-r}
+> > ```
 > {: .solution}
 {: .challenge}
 
+> ## Correcting Case in Gender
+>
+> Take a closer look at the gender break down of our aneurism patient group.
+> You can use the `table()` function to give you a count of each category for a 
+> categorical vector:
+> 
+> ```{r}
+> table(dat$Gender)
+> ```
+>
+> What is going on here? It appears that the person entering this data sometimes
+> used `m` and sometimes `M` to indicate `male`, and similarly `f` or `F` to 
+> indicate `female` (or perhaps there were two individuals entering the data
+> in slightly different ways). This is a problem, because R is case-sensitive and
+> treates `m` as a different entry from `M`. 
+>
+> Use logical indexing to correct this problem. So we are all on the same page,
+> change all entries to capitals. Save your corrected file to the data folder under
+> the file name "sample-gendercorrected.csv".
+>
+> > ## Solution
+> > 
+> > ```{r, eval=FALSE}
+> > # first make a copy of the data (never overwrite your raw data)
+> > dat_cor <- dat
+> > 
+> > # correct `f` entries to `F`
+> > dat_cor$Gender[dat_cor$Gender == 'f'] = 'F'
+> >
+> > # correct `m` entries to `M`
+> > dat_cor$Gender[dat_cor$Gender == 'm'] = 'M'
+> >
+> > # check the output using `table()`
+> > table(dat_cor$Gender)
+> > 
+> > # save corrected data file
+> > write.csv(dat_cor, file="data/sample-gendercorrected.csv", row.names = FALSE)
+> > ```
+> {: .solution}
+{: .challenge}
 
 > ## Using the Apply Function on Patient Data
 >
-> Challenge: the apply function can be used to summarize datasets and subsets
+> The apply function can be used to summarize datasets and subsets
 > of data across rows and columns using the MARGIN argument.
-> Suppose you want to calculate the mean inflammation for specific days and patients
-> in the patient dataset (i.e. 60 patients across 40 days).
+> Suppose you want to calculate the mean number of aneurisms for 
+> specific quarters and patients in the patient dataset.
 >
-> Please use a combination of the apply function and indexing to:
+> Use a combination of the apply function and indexing to:
 >
-> 1. calculate the mean inflammation for patients 1 to 5 over the whole 40 days
-> 1. calculate the mean inflammation for days 1 to 10 (across all patients).
-> 1. calculate the mean inflammation for every second day (across all patients).
+> 1. Calculate the mean number of aneurisms for patients 1 to 5 over all four quarters.
+> 2. Calculate the mean number of aneurisms for quarters 1 to 3 (across all patients).
+> 3. Calculate the mean number of aneurisms for each patient in treatment group 2 day (across all quarters).
 >
-> Think about the number of rows and columns you would expect as the result before each
-> apply call and check your intuition by applying the mean function.
+> Think about the number of rows and columns you would expect as the result before each apply call and check your intuition by applying the mean function.
 >
 > > ## Solution
-> > ~~~
-> > # 1.
-> > apply(dat[1:5, ], 1, mean)
+> > 
+> > ```{r, eval=FALSE}
+> >  # 1.
+> > apply(dat[1:5, 6:9], 1, mean)
+> >
 > > # 2.
-> > apply(dat[, 1:10], 2, mean)
+> > apply(dat[, 6:8], 2, mean)
+> > 
 > > # 3.
-> > apply(dat[, seq(1, 40, by = 2)], 2, mean)
-> > ~~~
-> > {: .language-r}
+> > apply(dat[dat$Group == "Treatment2", 6:9], 1, mean)
+> > ```
 > {: .solution}
 {: .challenge}
 
-### Basic data statistics
-
-It's hard to tell from the default output whether the result is correct, but there are a few simple tests that will reassure us:
-
-```{r, eval=FALSE}
-# original min
-min(dat[, 4])
-# original mean
-mean(dat[, 4])
-# original max
-max(dat[, 4])
-# centered min
-min(centered)
-# centered mean
-mean(centered)
-# centered max
-max(centered)
-```
-
-That seems almost right: the original mean was about `r round(mean(dat[, 4]), 2)`, so the lower bound from zero is now about `r -round(mean(dat[, 4]), 2)`.
-The mean of the centered data is `mean(centered)`.
-We can even go further and check that the standard deviation hasn't changed:
-
-```{r, eval=FALSE}
-# original standard deviation
-sd(dat[, 4])
-# centered standard deviation
-sd(centered)
-```
-
-Those values look the same, but we probably wouldn't notice if they were different in the sixth decimal place.
-Let's do this instead:
-
-```{r, eval=FALSE}
-# difference in standard deviations before and after
-sd(dat[, 4]) - sd(centered)
-```
-
-Sometimes, a very small difference can be detected due to rounding at very low decimal places.
-R has a useful function for comparing two objects allowing for rounding errors, `all.equal`:
-
-```{r, eval=FALSE}
-all.equal(sd(dat[, 4]), sd(centered))
-```
-
+***
 ### Plotting
 
-The mathematician Richard Hamming once said, "The purpose of computing is insight, not numbers," and the best way to develop insight is often to visualize data.
-Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R's plotting features.
+The mathematician Richard Hamming once said, 
 
-Let's take a look at the average inflammation over time.
-Recall that we already calculated these values above using `apply(dat, 2, mean)` and saved them in the variable `avg_day_inflammation`.
-Plotting the values is done with the function `plot`.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*"The purpose of computing is insight, not numbers."*
+
+The best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R's plotting features.
+
+Let's take a look at the average number of aneurisms over time. Recall that we already calculated these values above using `apply(dat[,6:9], 2, mean)` and saved them in the variable `avg_aneurisms_quarter`.
+Plotting the values is done with the function `plot()`.
 
 ```{r}
-plot(avg_day_inflammation)
+plot(avg_aneurisms_quarter)
 ```
 
-Above, we gave the function `plot` a vector of numbers corresponding to the average inflammation per day across all patients.
+Above, we gave the function `plot()` a vector of numbers corresponding to the average inflammation per day across all patients.
 `plot` created a scatter plot where the y-axis is the average inflammation level and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 40 days of treatment.
 The result is roughly a linear rise and fall, which is suspicious: based on other studies, we expect a sharper rise and slower fall.
 Let's have a look at two other statistics: the maximum and minimum inflammation per day.

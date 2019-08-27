@@ -808,161 +808,132 @@ dat <- read.csv(file="data/sample.csv", header=TRUE, stringsAsFactors=FALSE)
 
 &nbsp;
 
-This data is the results of an (not real) experiment, looking at the number of aneurysms that formed in the eyes of patients who undertook 3 different treatments.
+This data is the results of an (not real) experiment, looking at the number of aneurisms that formed in the eyes of patients who undertook 3 different treatments.
 
-
-
-When analyzing data we often want to look at partial statistics, such as the maximum value per patient or the average value per day.
-One way to do this is to select the data we want to create a new temporary data frame, and then perform the calculation on this subset:
+When analyzing data we often want to look at partial statistics, such as the maximum value per patient or the average value per treatment group. One way to do this is to select the data we want to create a new temporary data frame, and then perform the calculation on this subset:
 
 
 ~~~
-# first row, all of the columns
-patient_1 <- dat[1, ]
-# max inflammation for patient 1
-max(patient_1)
+# select aneurism data for the first subject
+sub1 <- dat[1, 6:9]
+
+# max number of aneurisms for subject 1
+max(sub1)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in FUN(X[[i]], ...): only defined on a data frame with all numeric variables
+[1] 237
 ~~~
-{: .error}
-<!-- 
-    OUCH!! The following may be true, but it will vary by R version, not by
-    installation! There shouldn't be an issue with a data frame where all
-    columns are numeric without missing values. Under those circumstances,
-    coercion should do what you expect. You'll get problems with mixed
-    types (factors, character etc), or with missing values. If this is
-    actually a problem, we need to change the example - we should be able
-    to come up with an example that doesn't require this ugliness in the
-    very first lesson. 
-    
-    Also, columns always work as expected because by definition a column
-    contains a vector of values of the same type. Rows include values from
-    different columns, which of course can be different types. This doesn't
-    need to be confusing, and if we're careful in our presentation here we
-    can avoid this until the students know enough to cope rationally.
--->
+{: .output}
 
-<!--
-> ## Forcing Conversion
->
-> The code above may give you an error in some R installations,
-> since R does not automatically convert a row from a `data.frame` to a vector.
-> (Confusingly, subsetted columns are automatically converted.)
-> If this happens, you can use the `as.numeric` command to convert the row of data to a numeric vector:
->
-> `patient_1 <- as.numeric(dat[1, ])`
->
-> `max(patient_1)`
->
-> You can also check the `class` of each object:
->
-> `class(dat[1, ])`
->
-> `class(as.numeric(dat[1, ]))`
-{: .callout}
--->
+&nbsp;
 
 We don't actually need to store the row in a variable of its own.
 Instead, we can combine the selection and the function call:
 
 
 ~~~
-# max inflammation for patient 2
-max(dat[2, ])
+# max inflammation for subject 2
+max(dat[2, 6:9])
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in FUN(X[[i]], ...): only defined on a data frame with all numeric variables
+[1] 248
 ~~~
-{: .error}
+{: .output}
+
+&nbsp;
 
 R also has functions for other common calculations, e.g. finding the minimum, mean, median, and standard deviation of the data:
 
 
 ~~~
-# minimum inflammation on day 7
-min(dat[, 7])
+# minimum number of aneurisms in q3
+min(dat$Aneurisms_q3)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] 80
+[1] 105
 ~~~
 {: .output}
 
 
 
 ~~~
-# mean inflammation on day 7
-mean(dat[, 7])
+# mean number of aneurisms in q3
+mean(dat$Aneurisms_q3)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] 168.03
+[1] 219.85
 ~~~
 {: .output}
 
 
 
 ~~~
-# median inflammation on day 7
-median(dat[, 7])
+# median number of aneurisms in q3
+median(dat$Aneurisms_q3)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] 162.5
+[1] 217
 ~~~
 {: .output}
 
 
 
 ~~~
-# standard deviation of inflammation on day 7
-sd(dat[, 7])
+# standard deviation number of aneurisms in q3
+sd(dat$Aneurisms_q3)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] 48.47543
+[1] 48.76958
 ~~~
 {: .output}
 
-> ## Forcing Conversion
->
-> Note that R may return an error when you attempt to perform similar calculations on 
-> subsetted *rows* of data frames. This is because some functions in R automatically convert 
-> the object type to a numeric vector, while others do not (e.g. `max(dat[1, ])` works as 
-> expected, while `mean(dat[1, ])` returns `NA` and a warning). You get the
-> expected output by including an
-> explicit call to `as.numeric()`, e.g. `mean(as.numeric(dat[1, ]))`. By contrast, 
-> calculations on subsetted *columns* always work as expected, since columns of data frames 
-> are already defined as vectors.
-{: .callout}
 
-R also has a function that summaries the previous common calculations:
+
+~~~
+# total number of observations in q3
+length(dat$Aneurisms_q3)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 100
+~~~
+{: .output}
+
+&nbsp;
+
+R has a function called `summary()` that provides a convenient summary of each column:
 
 
 ~~~
 # Summarize function
-summary(dat[, 1:4])
+summary(dat)
 ~~~
 {: .language-r}
 
@@ -976,503 +947,468 @@ summary(dat[, 1:4])
                                                           Mean   :118.6  
                                                           3rd Qu.:133.0  
                                                           Max.   :173.0  
+      Age         Aneurisms_q1    Aneurisms_q2    Aneurisms_q3  
+ Min.   :12.10   Min.   : 65.0   Min.   : 80.0   Min.   :105.0  
+ 1st Qu.:14.78   1st Qu.:118.0   1st Qu.:131.5   1st Qu.:182.5  
+ Median :16.65   Median :158.0   Median :162.5   Median :217.0  
+ Mean   :16.42   Mean   :158.8   Mean   :168.0   Mean   :219.8  
+ 3rd Qu.:18.30   3rd Qu.:188.0   3rd Qu.:196.8   3rd Qu.:248.2  
+ Max.   :20.00   Max.   :260.0   Max.   :283.0   Max.   :323.0  
+  Aneurisms_q4  
+ Min.   :116.0  
+ 1st Qu.:186.8  
+ Median :219.0  
+ Mean   :217.9  
+ 3rd Qu.:244.2  
+ Max.   :315.0  
 ~~~
 {: .output}
 
-For every column in the data frame, the function "summary" calculates: the minimun value, the first quartile, the median, the mean, the third quartile and the max value, giving helpful details about the sample distribution.
+&nbsp; 
 
-What if we need the maximum inflammation for all patients, or the average for each day?
-As the diagram below shows, we want to perform the operation across a margin of the data frame:
+For every column in the data frame, `summary()` provides a different of summary data depending on the class of that column. For instance, for `numeric` columns, `summary()` provides minimun, maximum, mean, median, and quartile values. 
+
+What if we need the maximum number of aneurisms across quarters for each patient, or perhaps the average across quarters? As the diagram below shows, we want to perform the operation across a `margin` of the data frame; that is we want to perform the same function (`mean()`) on the last 4 columns for every row:
 
 <img src="../fig/r-operations-across-margins.svg" alt="Operations Across Margins" />
 
 To support this, we can use the `apply` function.
 
-> ## Getting Help
+
+~~~
+?apply
+~~~
+{: .language-r}
+
+&nbsp;
+
+`apply` allows us to repeat a function on all of the rows (`MARGIN = 1`) or columns (`MARGIN = 2`) of a data frame. Thus, to obtain the average inflammation of each patient we will need to calculate the mean of all of the rows (`MARGIN = 1`) of the data frame.
+
+
+~~~
+avg_aneurisms_subject <- apply(dat[,6:9], 1, mean)
+~~~
+{: .language-r}
+
+&nbsp;
+
+And to obtain the average number of aneurisms for each quater, mean of all of the columns (`MARGIN = 2`) of the data frame:
+
+
+~~~
+avg_aneurisms_quarter <- apply(dat[,6:9], 2, mean)
+~~~
+{: .language-r}
+
+&nbsp; 
+
+> ## Argument Order in Functions
+> 
+> Notice that we did not specify the argument names in `apply()`. Looking at the help file, the argument 
+> order is `X` (indicating the input data), then `MARGIN`, then `FUN` (for function to apply). So long as you 
+> enter arguments in the requested order, you do not need to be explicity about which argument you are 
+> referring too. `apply()` just assums that the first argument entered is the value for `X`, the second is the > value for `MARGIN`, and the third is the value for `FUN`. You can mix up the order, but then you have to be 
+> explicit about which argument you are defining.
 >
-> To learn about a function in R, e.g. `apply`, we can read its help
-> documention by running `help(apply)` or `?apply`.
+> For example, this will return an error:
+> 
+> ~~~
+> avg_aneurisms_subject <- apply(mean, 1, dat[,6:9])
+> ~~~
+> {: .language-r}
+> 
+> while this will be interpreted identically to the earlier function call:
+> 
+> ~~~
+> avg_aneurisms_subject <- apply(FUN = mean, MARGIN = 1, X = dat[,6:9])
+> ~~~
+> {: .language-r}
 {: .callout}
 
-`apply` allows us to repeat a function on all of the rows (`MARGIN = 1`) or columns (`MARGIN = 2`) of a data frame.
-
-Thus, to obtain the average inflammation of each patient we will need to calculate the mean of all of the rows (`MARGIN = 1`) of the data frame.
-
-
-~~~
-avg_patient_inflammation <- apply(dat, 1, mean)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-~~~
-{: .error}
-
-And to obtain the average inflammation of each day we will need to calculate the mean of all of the columns (`MARGIN = 2`) of the data frame.
-
-
-~~~
-avg_day_inflammation <- apply(dat, 2, mean)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-Warning in mean.default(newX[, i], ...): argument is not numeric or
-logical: returning NA
-~~~
-{: .error}
-
-Since the second argument to `apply` is `MARGIN`, the above command is equivalent to `apply(dat, MARGIN = 2, mean)`.
-We'll learn why this is so in the next lesson.
+&nbsp;
 
 > ## Efficient Alternatives
 >
 > Some common operations have more efficient alternatives. For example, you
-> can calculate the row-wise or column-wise means with `rowMeans` and
-> `colMeans`, respectively.
+> can calculate the row-wise or column-wise means with `rowMeans()` and
+> `colMeans()`, respectively. Similarly for `rowSums()` and `colSums()`.
 {: .callout}
 
-> ## Subsetting Data
->
-> We can take subsets of character vectors as well:
->
-> 
-> ~~~
-> animal <- c("m", "o", "n", "k", "e", "y")
-> # first three characters
-> animal[1:3]
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [1] "m" "o" "n"
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> # last three characters
-> animal[4:6]
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> [1] "k" "e" "y"
-> ~~~
-> {: .output}
->
-> 1.  If the first four characters are selected using the subset `animal[1:4]`, how can we obtain the first four characters in reverse order?
->
-> 1.  What is `animal[-1]`?
->    What is `animal[-4]`?
->    Given those answers,
->    explain what `animal[-1:-4]` does.
->
-> 1.  Use a subset of `animal` to create a new character vector that spells the word "eon", i.e. `c("e", "o", "n")`.
-> > ## Solutions
-> > 
-> > 1. `animal[4:1]`
-> > 
-> > 1. `"o" "n" "k" "e" "y"` and `"m" "o" "n" "e" "y"`, which means that a
-> >    single `-` removes the element at the given index position.
-> >    `animal[-1:-4]` remove the subset, returning `"e" "y"`, which is
-> >    equivalent to `animal[5:6]`.
-> > 
-> > 1. `animal[c(5,2,3)]` combines indexing with the `c`ombine function.
-> > 
-> {: .solution}
-{: .challenge}
+&nbsp;
+#### Exercises
 
 > ## Subsetting More Data
 >
-> Suppose you want to determine the maximum inflammation for patient 5 across days three to seven.
+> Suppose you want to determine the maximum number of aneurisms for subject 5 across quarters two to four.
 > To do this you would extract the relevant subset from the data frame and calculate the maximum value.
 > Which of the following lines of R code gives the correct answer?
 >
 > 1. `max(dat[5, ])`
-> 2. `max(dat[3:7, 5])`
-> 3. `max(dat[5, 3:7])`
-> 4. `max(dat[5, 3, 7])`
+> 2. `max(dat[7:9, 5])`
+> 3. `max(dat[5, 7:9])`
+> 4. `max(dat[5, 7, 9])`
 >
 > > ## Solution
 > >  
 > > Answer: 3
 > >
-> > Explanation: You want to extract the part of the dataframe representing data for patient 5 from days three to seven. In this dataframe, patient data is organised in rows and the days are represented by the columns. Subscripting in R follows the `[i, j]` principle, where `i = rows` and `j = columns`. Thus, answer 3 is correct since the patient is represented by the value for i (5) and the days are represented by the values in j, which is a subset spanning day 3 to 7.
+> > Explanation: You want to extract the part of the data frame representing data for patient 5 from quarter two (column 7) to quarter 4 (column 9). In this data frame, patient data is organised in rows and the days are represented by the columns. Subscripting in R follows the `[i, j]` principle, where `i = rows` and `j = columns`. Thus, answer 3 is correct since the patient is represented by the value for i (5) and the days are represented by the values in j, which is a subset spanning day 9 to 7.
 > > 
 > {: .solution}
 {: .challenge}
 
 > ## Subsetting and Re-Assignment
 >
-> Using the inflammation data frame `dat` from above:
-> Let's pretend there was something wrong with the instrument on the first five days for every second patient (#2, 4, 6, etc.), which resulted in the measurements being twice as large as they should be.
+> Using the data frame `dat` from above:
+> Let's pretend there was something wrong with the instrument on the first two quarters for every second patient (subjects 2, 4, 6, etc.), which resulted in the measurements being twice as large as they should be.
 >
 > 1. Write a vector containing each affected patient (hint: `?seq`)
-> 2. Create a new data frame in which you halve the first five days' values in only those patients
+> 2. Create a new data frame in which you halve the first two quarters' values in only those patients
 > 3. Print out the corrected data frame to check that your code has fixed the problem
 >
 > > ## Solution
+> > 
 > > ~~~
-> > whichPatients <- seq(2, 60, 2) # i.e., which rows
-> > whichDays <- seq(1, 5)         # i.e., which columns
-> > dat2 <- dat
-> > # check the size of your subset: returns `30 5`, that is 30 [rows=patients] by 5 [columns=days]
-> > dim(dat2[whichPatients, whichDays])
-> > dat2[whichPatients, whichDays] <- dat2[whichPatients, whichDays] / 2
+> > whichPatients <- seq(2, dim(dat)[1], 2) # i.e., which rows
+> > whichQuarters <- seq(6,7)         # i.e., which columns indicates quarters 1 and 2; you could also use c(6,7) or 6:7
+> > dat2 <- dat # make a copy of the original data
+> > # check the size of your subset: returns `30 5`, that is 30 [rows=patients] by 5 [columns=quarters]
+> > dim(dat2[whichPatients, whichQuarters])
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 50  2
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > dat2[whichPatients, whichQuarters] <- dat[whichPatients, whichQuarters] / 2
 > > dat2
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >         ID Gender      Group BloodPressure  Age Aneurisms_q1 Aneurisms_q2
+> > 1   Sub001      m    Control           132 16.0        114.0        140.0
+> > 2   Sub002      m Treatment2           139 17.2         74.0        104.5
+> > 3   Sub003      m Treatment2           130 19.5        196.0        251.0
+> > 4   Sub004      f Treatment1           105 15.7         99.5         70.0
+> > 5   Sub005      m Treatment1           125 19.9        188.0        120.0
+> > 6   Sub006      M Treatment2           112 14.3        130.0        133.0
+> > 7   Sub007      f    Control           173 17.7        135.0         98.0
+> > 8   Sub008      m Treatment2           108 19.8        108.0        119.0
+> > 9   Sub009      m Treatment2           131 19.4        117.0        215.0
+> > 10  Sub010      f    Control           129 18.8         94.0         72.0
+> > 11  Sub011      m Treatment1           126 14.8        134.0        155.0
+> > 12  Sub012      f Treatment2            96 15.3         76.0         88.5
+> > 13  Sub013      f    Control            77 16.5        112.0        220.0
+> > 14  Sub014      m    Control           158 12.6         54.5         75.0
+> > 15  Sub015      m    Control            81 14.3        146.0        140.0
+> > 16  Sub016      m    Control           137 15.9         48.5         86.0
+> > 17  Sub017      f Treatment1           147 18.4        165.0        157.0
+> > 18  Sub018      m Treatment2           130 18.3         79.0        132.5
+> > 19  Sub019      m Treatment1           105 15.4        178.0        109.0
+> > 20  Sub020      F Treatment1            92 14.3         53.5         94.0
+> > 21  Sub021      f    Control           111 12.7        174.0        160.0
+> > 22  Sub022      m Treatment1           122 15.4         48.5         55.0
+> > 23  Sub023      f Treatment2            97 17.2        187.0        239.0
+> > 24  Sub024      f Treatment2           118 17.3         94.0         95.5
+> > 25  Sub025      m Treatment1            82 16.7        114.0        199.0
+> > 26  Sub026      M Treatment1           123 19.6         57.5         80.0
+> > 27  Sub027      M Treatment2           126 15.0        128.0        249.0
+> > 28  Sub028      f Treatment1            94 16.1         56.0        115.0
+> > 29  Sub029      m    Control           135 17.6        136.0        109.0
+> > 30  Sub030      f    Control           108 18.6         51.5         74.0
+> > 31  Sub031      f Treatment1           133 18.3        132.0        151.0
+> > 32  Sub032      m Treatment1           108 16.7         59.0         77.0
+> > 33  Sub033      m Treatment2           122 12.5        166.0        176.0
+> > 34  Sub034      m Treatment1           134 14.3         76.0         52.5
+> > 35  Sub035      m Treatment1           145 19.7        191.0        148.0
+> > 36  Sub036      f    Control           133 17.6         76.0         89.0
+> > 37  Sub037      f Treatment2            90 17.0        161.0        270.0
+> > 38  Sub038      m Treatment2           118 12.2        119.5         92.0
+> > 39  Sub039      M Treatment1           113 15.1        132.0        137.0
+> > 40  Sub040      m Treatment2           115 17.7         84.0        127.5
+> > 41  Sub041      f Treatment1           142 19.0        140.0        184.0
+> > 42  Sub042      m Treatment1           114 14.7         83.0         42.5
+> > 43  Sub043      m    Control           139 15.2        141.0        160.0
+> > 44  Sub044      m Treatment1            90 15.3         80.5         84.0
+> > 45  Sub045      f    Control           126 12.9        103.0        111.0
+> > 46  Sub046      f Treatment2           109 18.4        115.5        120.0
+> > 47  Sub047      M    Control           125 18.1        192.0        141.0
+> > 48  Sub048      M    Control            99 15.6         89.0         90.0
+> > 49  Sub049      m    Control           122 19.5        167.0        123.0
+> > 50  Sub050      m Treatment1           111 13.5         67.5         75.0
+> > 51  Sub051      m Treatment2           109 13.5        150.0        166.0
+> > 52  Sub052      f Treatment1           134 13.7         96.0         40.0
+> > 53  Sub053      f Treatment1           113 18.7        153.0        153.0
+> > 54  Sub054      f Treatment2           105 12.2        102.5        132.0
+> > 55  Sub055      m Treatment2           125 16.9        117.0        194.0
+> > 56  Sub056      f Treatment2           123 19.5         99.5         59.5
+> > 57  Sub057      m    Control           155 12.1        182.0        129.0
+> > 58  Sub058      m Treatment2           117 17.0         90.0         98.0
+> > 59  Sub059      m Treatment1           116 19.2        111.0        111.0
+> > 60  Sub060      f    Control           133 14.7         50.5         49.0
+> > 61  Sub061      f    Control            94 20.0        166.0        167.0
+> > 62  Sub062      f Treatment2           106 14.1         79.0         85.5
+> > 63  Sub063      f Treatment1           144 14.7        189.0        178.0
+> > 64  Sub064      M Treatment1           149 16.6         94.5         50.5
+> > 65  Sub065      f Treatment2           108 15.0        239.0        189.0
+> > 66  Sub066      m Treatment1           116 15.0         92.5        112.0
+> > 67  Sub067      f Treatment2           136 13.8        224.0        112.0
+> > 68  Sub068      f    Control            98 14.8         52.0         69.5
+> > 69  Sub069      M Treatment2           148 19.1        222.0        199.0
+> > 70  Sub070      m    Control            74 18.9         53.5         49.0
+> > 71  Sub071      m Treatment2           147 17.7        153.0        255.0
+> > 72  Sub072      m    Control           116 17.4         59.0         82.5
+> > 73  Sub073      F Treatment1           133 15.5        102.0        184.0
+> > 74  Sub074      m    Control            97 13.1         94.0         62.5
+> > 75  Sub075      m Treatment2           132 12.2        180.0        283.0
+> > 76  Sub076      f Treatment2           153 17.0         89.0        107.0
+> > 77  Sub077      M Treatment1           151 17.7        168.0        184.0
+> > 78  Sub078      M Treatment1           121 19.5         59.0         85.0
+> > 79  Sub079      M Treatment1           116 19.5        169.0        114.0
+> > 80  Sub080      f    Control           104 12.8         78.0         69.0
+> > 81  Sub081      m Treatment2           111 17.6        232.0        211.0
+> > 82  Sub082      M Treatment1            62 17.7         94.0         54.0
+> > 83  Sub083      M Treatment2           124 14.2        169.0        168.0
+> > 84  Sub084      m Treatment2           124 19.2        120.5        116.5
+> > 85  Sub085      m Treatment2           109 16.0         65.0        207.0
+> > 86  Sub086      f    Control           117 15.2        112.5         92.5
+> > 87  Sub087      f    Control            90 17.6        104.0        116.0
+> > 88  Sub088      f Treatment1           158 17.6         89.5         79.0
+> > 89  Sub089      m Treatment1           113 15.1        103.0        140.0
+> > 90  Sub090      m    Control           150 17.8         56.0         65.0
+> > 91  Sub091      f Treatment2           115 16.2        226.0        170.0
+> > 92  Sub092      m Treatment2            83 16.6        114.0        110.5
+> > 93  Sub093      F    Control           116 19.1        209.0        142.0
+> > 94  Sub094      f Treatment1           141 17.2         76.5         52.0
+> > 95  Sub095      m    Control           108 13.6        111.0        118.0
+> > 96  Sub096      m    Control           102 14.6         74.0         66.0
+> > 97  Sub097      F Treatment2            90 19.6        141.0        196.0
+> > 98  Sub098      m Treatment1           133 17.0         96.5         56.0
+> > 99  Sub099      M Treatment2            83 16.2        130.0        226.0
+> > 100 Sub100      M Treatment1           122 18.4         63.0         78.5
+> >     Aneurisms_q3 Aneurisms_q4
+> > 1            202          237
+> > 2            248          248
+> > 3            122          177
+> > 4            233          220
+> > 5            222          228
+> > 6            320          294
+> > 7            154          245
+> > 8            279          251
+> > 9            181          272
+> > 10           192          185
+> > 11           247          223
+> > 12           323          245
+> > 13           225          195
+> > 14           177          189
+> > 15           239          223
+> > 16           203          207
+> > 17           200          193
+> > 18           243          187
+> > 19           206          182
+> > 20           167          218
+> > 21           203          183
+> > 22           194          133
+> > 23           281          214
+> > 24           256          265
+> > 25           242          195
+> > 26           158          228
+> > 27           294          315
+> > 28           281          126
+> > 29           105          155
+> > 30           219          228
+> > 31           234          162
+> > 32           260          160
+> > 33           253          233
+> > 34           197          299
+> > 35           166          185
+> > 36           158          170
+> > 37           232          284
+> > 38           317          269
+> > 39           193          206
+> > 40           273          274
+> > 41           239          202
+> > 42           179          196
+> > 43           179          239
+> > 44           212          181
+> > 45           254          126
+> > 46           260          310
+> > 47           180          225
+> > 48           169          183
+> > 49           236          224
+> > 50           208          279
+> > 51           153          204
+> > 52           138          222
+> > 53           236          216
+> > 54           269          207
+> > 55           216          211
+> > 56           183          251
+> > 57           226          218
+> > 58           250          294
+> > 59           244          201
+> > 60           178          116
+> > 61           232          241
+> > 62           237          212
+> > 63           177          238
+> > 64           193          172
+> > 65           297          300
+> > 66           151          182
+> > 67           304          288
+> > 68           211          204
+> > 69           280          196
+> > 70           204          138
+> > 71           218          234
+> > 72           220          227
+> > 73           246          222
+> > 74           191          157
+> > 75           204          298
+> > 76           291          240
+> > 77           184          229
+> > 78           249          249
+> > 79           248          233
+> > 80           218          258
+> > 81           219          246
+> > 82           180          136
+> > 83           180          211
+> > 84           292          182
+> > 85           234          235
+> > 86           195          235
+> > 87           173          221
+> > 88           216          244
+> > 89           209          186
+> > 90           175          191
+> > 91           307          244
+> > 92           316          259
+> > 93           199          184
+> > 94           194          214
+> > 95           173          191
+> > 96           200          194
+> > 97           322          273
+> > 98           123          181
+> > 99           286          281
+> > 100          129          160
+> > ~~~
+> > {: .output}
 > {: .solution}
 {: .challenge}
 
-
-> ## Using the Apply Function on Patient Data
+> ## Correcting Case in Gender
 >
-> Challenge: the apply function can be used to summarize datasets and subsets
-> of data across rows and columns using the MARGIN argument.
-> Suppose you want to calculate the mean inflammation for specific days and patients
-> in the patient dataset (i.e. 60 patients across 40 days).
+> Take a closer look at the gender break down of our aneurism patient group.
+> You can use the `table()` function to give you a count of each category for a 
+> categorical vector:
+> 
+> 
+> ~~~
+> table(dat$Gender)
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> 
+>  f  F  m  M 
+> 35  4 46 15 
+> ~~~
+> {: .output}
 >
-> Please use a combination of the apply function and indexing to:
+> What is going on here? It appears that the person entering this data sometimes
+> used `m` and sometimes `M` to indicate `male`, and similarly `f` or `F` to 
+> indicate `female` (or perhaps there were two individuals entering the data
+> in slightly different ways). This is a problem, because R is case-sensitive and
+> treates `m` as a different entry from `M`. 
 >
-> 1. calculate the mean inflammation for patients 1 to 5 over the whole 40 days
-> 1. calculate the mean inflammation for days 1 to 10 (across all patients).
-> 1. calculate the mean inflammation for every second day (across all patients).
->
-> Think about the number of rows and columns you would expect as the result before each
-> apply call and check your intuition by applying the mean function.
+> Use logical indexing to correct this problem. So we are all on the same page,
+> change all entries to capitals. Save your corrected file to the data folder under
+> the file name "sample-gendercorrected.csv".
 >
 > > ## Solution
+> > 
+> > 
 > > ~~~
-> > # 1.
-> > apply(dat[1:5, ], 1, mean)
-> > # 2.
-> > apply(dat[, 1:10], 2, mean)
-> > # 3.
-> > apply(dat[, seq(1, 40, by = 2)], 2, mean)
+> > # first make a copy of the data (never overwrite your raw data)
+> > dat_cor <- dat
+> > 
+> > # correct `f` entries to `F`
+> > dat_cor$Gender[dat_cor$Gender == 'f'] = 'F'
+> > 
+> > # correct `m` entries to `M`
+> > dat_cor$Gender[dat_cor$Gender == 'm'] = 'M'
+> > 
+> > # check the output using `table()`
+> > table(dat_cor$Gender)
+> > 
+> > # save corrected data file
+> > write.csv(dat_cor, file="data/sample-gendercorrected.csv", row.names = FALSE)
 > > ~~~
 > > {: .language-r}
 > {: .solution}
 {: .challenge}
 
-### Basic data statistics
+> ## Using the Apply Function on Patient Data
+>
+> The apply function can be used to summarize datasets and subsets
+> of data across rows and columns using the MARGIN argument.
+> Suppose you want to calculate the mean number of aneurisms for 
+> specific quarters and patients in the patient dataset.
+>
+> Use a combination of the apply function and indexing to:
+>
+> 1. Calculate the mean number of aneurisms for patients 1 to 5 over all four quarters.
+> 2. Calculate the mean number of aneurisms for quarters 1 to 3 (across all patients).
+> 3. Calculate the mean number of aneurisms for each patient in treatment group 2 day (across all quarters).
+>
+> Think about the number of rows and columns you would expect as the result before each apply call and check your intuition by applying the mean function.
+>
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> >  # 1.
+> > apply(dat[1:5, 6:9], 1, mean)
+> > 
+> > # 2.
+> > apply(dat[, 6:8], 2, mean)
+> > 
+> > # 3.
+> > apply(dat[dat$Group == "Treatment2", 6:9], 1, mean)
+> > ~~~
+> > {: .language-r}
+> {: .solution}
+{: .challenge}
 
-It's hard to tell from the default output whether the result is correct, but there are a few simple tests that will reassure us:
-
-
-~~~
-# original min
-min(dat[, 4])
-# original mean
-mean(dat[, 4])
-# original max
-max(dat[, 4])
-# centered min
-min(centered)
-# centered mean
-mean(centered)
-# centered max
-max(centered)
-~~~
-{: .language-r}
-
-That seems almost right: the original mean was about 118.61, so the lower bound from zero is now about -118.61.
-The mean of the centered data is `mean(centered)`.
-We can even go further and check that the standard deviation hasn't changed:
-
-
-~~~
-# original standard deviation
-sd(dat[, 4])
-# centered standard deviation
-sd(centered)
-~~~
-{: .language-r}
-
-Those values look the same, but we probably wouldn't notice if they were different in the sixth decimal place.
-Let's do this instead:
-
-
-~~~
-# difference in standard deviations before and after
-sd(dat[, 4]) - sd(centered)
-~~~
-{: .language-r}
-
-Sometimes, a very small difference can be detected due to rounding at very low decimal places.
-R has a useful function for comparing two objects allowing for rounding errors, `all.equal`:
-
-
-~~~
-all.equal(sd(dat[, 4]), sd(centered))
-~~~
-{: .language-r}
-
+***
 ### Plotting
 
-The mathematician Richard Hamming once said, "The purpose of computing is insight, not numbers," and the best way to develop insight is often to visualize data.
-Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R's plotting features.
+The mathematician Richard Hamming once said, 
 
-Let's take a look at the average inflammation over time.
-Recall that we already calculated these values above using `apply(dat, 2, mean)` and saved them in the variable `avg_day_inflammation`.
-Plotting the values is done with the function `plot`.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*"The purpose of computing is insight, not numbers."*
+
+The best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R's plotting features.
+
+Let's take a look at the average number of aneurisms over time. Recall that we already calculated these values above using `apply(dat[,6:9], 2, mean)` and saved them in the variable `avg_aneurisms_quarter`.
+Plotting the values is done with the function `plot()`.
 
 
 ~~~
-plot(avg_day_inflammation)
+plot(avg_aneurisms_quarter)
 ~~~
 {: .language-r}
 
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-38-1.png" title="plot of chunk unnamed-chunk-38" alt="plot of chunk unnamed-chunk-38" width="612" style="display: block; margin: auto;" />
 
-
-~~~
-Warning in min(x): no non-missing arguments to min; returning Inf
-~~~
-{: .error}
-
-
-
-~~~
-Warning in max(x): no non-missing arguments to max; returning -Inf
-~~~
-{: .error}
-
-
-
-~~~
-Error in plot.window(...): need finite 'ylim' values
-~~~
-{: .error}
-
-<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-36-1.png" title="plot of chunk unnamed-chunk-36" alt="plot of chunk unnamed-chunk-36" width="612" style="display: block; margin: auto;" />
-
-Above, we gave the function `plot` a vector of numbers corresponding to the average inflammation per day across all patients.
+Above, we gave the function `plot()` a vector of numbers corresponding to the average inflammation per day across all patients.
 `plot` created a scatter plot where the y-axis is the average inflammation level and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 40 days of treatment.
 The result is roughly a linear rise and fall, which is suspicious: based on other studies, we expect a sharper rise and slower fall.
 Let's have a look at two other statistics: the maximum and minimum inflammation per day.
@@ -1491,7 +1427,7 @@ Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion
 ~~~
 {: .error}
 
-<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-37-1.png" title="plot of chunk unnamed-chunk-37" alt="plot of chunk unnamed-chunk-37" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-39-1.png" title="plot of chunk unnamed-chunk-39" alt="plot of chunk unnamed-chunk-39" width="612" style="display: block; margin: auto;" />
 
 
 ~~~
@@ -1507,7 +1443,7 @@ Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion
 ~~~
 {: .error}
 
-<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-38-1.png" title="plot of chunk unnamed-chunk-38" alt="plot of chunk unnamed-chunk-38" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-40-1.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="612" style="display: block; margin: auto;" />
 
 The maximum value rises and falls perfectly smoothly, while the minimum seems to be a step function. Neither result seems particularly likely, so either there's a mistake in our calculations or something is wrong with our data.
 
@@ -1664,7 +1600,7 @@ analyze("data/inflammation-01.csv")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-44-1.png" title="plot of chunk unnamed-chunk-44" alt="plot of chunk unnamed-chunk-44" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-44-2.png" title="plot of chunk unnamed-chunk-44" alt="plot of chunk unnamed-chunk-44" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-44-3.png" title="plot of chunk unnamed-chunk-44" alt="plot of chunk unnamed-chunk-44" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-46-1.png" title="plot of chunk unnamed-chunk-46" alt="plot of chunk unnamed-chunk-46" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-46-2.png" title="plot of chunk unnamed-chunk-46" alt="plot of chunk unnamed-chunk-46" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-46-3.png" title="plot of chunk unnamed-chunk-46" alt="plot of chunk unnamed-chunk-46" width="612" style="display: block; margin: auto;" />
 
 but also use it to save plots,
 
@@ -1940,7 +1876,7 @@ barplot(table(dat$Gender))
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-55-1.png" title="plot of chunk unnamed-chunk-55" alt="plot of chunk unnamed-chunk-55" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-57-1.png" title="plot of chunk unnamed-chunk-57" alt="plot of chunk unnamed-chunk-57" width="612" style="display: block; margin: auto;" />
 
 Values should have been recorded as lowercase 'm' and 'f'. We should correct this.
 
@@ -1978,7 +1914,7 @@ plot(x = dat$Gender, y = dat$BloodPressure)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-57-1.png" title="plot of chunk unnamed-chunk-57" alt="plot of chunk unnamed-chunk-57" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-59-1.png" title="plot of chunk unnamed-chunk-59" alt="plot of chunk unnamed-chunk-59" width="612" style="display: block; margin: auto;" />
 
 > ## Adjusting Factor Levels
 >
