@@ -167,7 +167,7 @@ use esentially any set of characters as a delimiter. `read.csv(...)` is actually
 
 Under the **Usage** section there are multiple functions listed, including `read.table(...)` and `read.csv(...)`. In the parentheses for each function there is a list of arguments. Since `read.table(...)` is the parent function, all arguments are listed. Only arguments with different default values (as indicated by the `=`) are listed for `read.csv(...)`. A default value is the value that each arguement assumes when you do not explicitly enter a value. For example, `read.table(...)` assumes that a data file has no header (`header = FALSE`) and no delimiting character (`sep = ""`) while `read.csv(...)` assumes that a data file does have a header (`header = TRUE`) and a comma as the delimiting character (`sep = ","`), unless you specify otherwise. 
 
-If your data is stored in a tab-delimited text file, you will need to use `read.table(...)` a different delimiting character, or another of the associated functions called `read.delim(...)` which has defaults to a tab-delimited file format. Note that to define a *tab* as a delimiting character, you have to us `\t`.
+If your data is stored in a tab-delimited text file, you will need to use `read.table(...)` a different delimiting character, or another of the associated functions called `read.delim(...)` which has defaults to a tab-delimited file format. Note that to define a *tab* as a delimiting character, you have to use `\t`.
 
 Let's give it a try using a copy of the `sample.csv` data saved as a tab-delimited `sample.txt` file.
 
@@ -294,7 +294,7 @@ head(carSpeeds)
 
 
 ~~~
-# Next us indexing to replace all `Blue` entries in the Color column with 'Green'
+# Next use indexing to replace all `Blue` entries in the Color column with 'Green'
 carSpeeds$Color[carSpeeds$Color == 'Blue'] = 'Green'
 ~~~
 {: .language-r}
@@ -359,7 +359,7 @@ str(carSpeeds)
 
 
 ~~~
-# Next us indexing to replace all `Blue` entries in the Color column with 'Green'
+# Next use indexing to replace all `Blue` entries in the Color column with 'Green'
 carSpeeds$Color[carSpeeds$Color == 'Blue'] = 'Green'
 carSpeeds$Color
 ~~~
@@ -506,8 +506,7 @@ This can be useful when exporting data from R in a different program that either
 ***
 ### Manipulating Data
 
-Now that our data are loaded into R, we can start doing things with them.
-First, let's ask what type of thing `dat` is:
+Now that our data are loaded into R, we can start doing things with them. First, let's ask what type of thing `dat` is:
 
 
 ~~~
@@ -641,17 +640,117 @@ dat[5, ]
 
 
 ~~~
-# All rows from column 16-18
-dat[, 16:18]
+# All rows from column 6-8
+dat[, 6:9]
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in `[.data.frame`(dat, , 16:18): undefined columns selected
+    Aneurisms_q1 Aneurisms_q2 Aneurisms_q3 Aneurisms_q4
+1            114          140          202          237
+2            148          209          248          248
+3            196          251          122          177
+4            199          140          233          220
+5            188          120          222          228
+6            260          266          320          294
+7            135           98          154          245
+8            216          238          279          251
+9            117          215          181          272
+10           188          144          192          185
+11           134          155          247          223
+12           152          177          323          245
+13           112          220          225          195
+14           109          150          177          189
+15           146          140          239          223
+16            97          172          203          207
+17           165          157          200          193
+18           158          265          243          187
+19           178          109          206          182
+20           107          188          167          218
+21           174          160          203          183
+22            97          110          194          133
+23           187          239          281          214
+24           188          191          256          265
+25           114          199          242          195
+26           115          160          158          228
+27           128          249          294          315
+28           112          230          281          126
+29           136          109          105          155
+30           103          148          219          228
+31           132          151          234          162
+32           118          154          260          160
+33           166          176          253          233
+34           152          105          197          299
+35           191          148          166          185
+36           152          178          158          170
+37           161          270          232          284
+38           239          184          317          269
+39           132          137          193          206
+40           168          255          273          274
+41           140          184          239          202
+42           166           85          179          196
+43           141          160          179          239
+44           161          168          212          181
+45           103          111          254          126
+46           231          240          260          310
+47           192          141          180          225
+48           178          180          169          183
+49           167          123          236          224
+50           135          150          208          279
+51           150          166          153          204
+52           192           80          138          222
+53           153          153          236          216
+54           205          264          269          207
+55           117          194          216          211
+56           199          119          183          251
+57           182          129          226          218
+58           180          196          250          294
+59           111          111          244          201
+60           101           98          178          116
+61           166          167          232          241
+62           158          171          237          212
+63           189          178          177          238
+64           189          101          193          172
+65           239          189          297          300
+66           185          224          151          182
+67           224          112          304          288
+68           104          139          211          204
+69           222          199          280          196
+70           107           98          204          138
+71           153          255          218          234
+72           118          165          220          227
+73           102          184          246          222
+74           188          125          191          157
+75           180          283          204          298
+76           178          214          291          240
+77           168          184          184          229
+78           118          170          249          249
+79           169          114          248          233
+80           156          138          218          258
+81           232          211          219          246
+82           188          108          180          136
+83           169          168          180          211
+84           241          233          292          182
+85            65          207          234          235
+86           225          185          195          235
+87           104          116          173          221
+88           179          158          216          244
+89           103          140          209          186
+90           112          130          175          191
+91           226          170          307          244
+92           228          221          316          259
+93           209          142          199          184
+94           153          104          194          214
+95           111          118          173          191
+96           148          132          200          194
+97           141          196          322          273
+98           193          112          123          181
+99           130          226          286          281
+100          126          157          129          160
 ~~~
-{: .error}
+{: .output}
 
 &nbsp;
 
