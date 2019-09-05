@@ -140,7 +140,7 @@ use esentially any set of characters as a delimiter. `read.csv(...)` is actually
 
 Under the **Usage** section there are multiple functions listed, including `read.table(...)` and `read.csv(...)`. In the parentheses for each function there is a list of arguments. Since `read.table(...)` is the parent function, all arguments are listed. Only arguments with different default values (as indicated by the `=`) are listed for `read.csv(...)`. A default value is the value that each arguement assumes when you do not explicitly enter a value. For example, `read.table(...)` assumes that a data file has no header (`header = FALSE`) and no delimiting character (`sep = ""`) while `read.csv(...)` assumes that a data file does have a header (`header = TRUE`) and a comma as the delimiting character (`sep = ","`), unless you specify otherwise. 
 
-If your data is stored in a tab-delimited text file, you will need to use `read.table(...)` a different delimiting character, or another of the associated functions called `read.delim(...)` which has defaults to a tab-delimited file format. Note that to define a *tab* as a delimiting character, you have to us `\t`.
+If your data is stored in a tab-delimited text file, you will need to use `read.table(...)` a different delimiting character, or another of the associated functions called `read.delim(...)` which has defaults to a tab-delimited file format. Note that to define a *tab* as a delimiting character, you have to use `\t`.
 
 Let's give it a try using a copy of the `sample.csv` data saved as a tab-delimited `sample.txt` file.
 
@@ -198,7 +198,7 @@ For example, let's look at the `car-speeds.csv` data set. We find out that the d
 carSpeeds <- read.csv(file = 'data/car-speeds.csv')
 head(carSpeeds)
 
-# Next us indexing to replace all `Blue` entries in the Color column with 'Green'
+# Next use indexing to replace all `Blue` entries in the Color column with 'Green'
 carSpeeds$Color[carSpeeds$Color == 'Blue'] = 'Green'
 ```
 
@@ -226,7 +226,7 @@ One way to solve this problem would be to add the `Green` level to the `Color` f
 carSpeeds <- read.csv(file = 'data/car-speeds.csv', stringsAsFactors = FALSE)
 str(carSpeeds)
 
-# Next us indexing to replace all `Blue` entries in the Color column with 'Green'
+# Next use indexing to replace all `Blue` entries in the Color column with 'Green'
 carSpeeds$Color[carSpeeds$Color == 'Blue'] = 'Green'
 carSpeeds$Color
 ```
@@ -331,8 +331,7 @@ This can be useful when exporting data from R in a different program that either
 ***
 ### Manipulating Data
 
-Now that our data are loaded into R, we can start doing things with them.
-First, let's ask what type of thing `dat` is:
+Now that our data are loaded into R, we can start doing things with them. First, let's ask what type of thing `dat` is:
 
 ```{r}
 class(dat)
@@ -379,8 +378,8 @@ If you want to select all rows or all columns, leave that index value empty.
 ```{r}
 # All columns from row 5
 dat[5, ]
-# All rows from column 16-18
-dat[, 16:18]
+# All rows from column 6-8
+dat[, 6:9]
 ```
 
 &nbsp;
