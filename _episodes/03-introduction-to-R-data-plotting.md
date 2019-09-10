@@ -1,6 +1,6 @@
 ---
 title: "Introduction to R -- Reading, Writing, and Plotting Data"
-classdate: "9/3/2019"
+classdate: "9/9/2019"
 teaching: 80
 exercises: 25
 questions:
@@ -17,9 +17,9 @@ objectives:
 - "Save plot(s) to a PDF file."
 keypoints:
 - "Import data from a .csv or .txt file using the `read.table(...)`, `read.csv(...)`, and `read.delim(...)` functions."
-- "Understand some of the key arguments available for importing the data properly, including `header`, `stringsAsFactors`, `as.is`, and `strip.white`."
+- "Understand some of the key arguments available for importing the data properly, including `header`, and `stringsAsFactors`."
 - "Write data to a new .csv file using the `write.table(...)` and `write.csv(...)` functions."
-- "Understand some of the key arguments available for exporting the data properly, such as `row.names`, `col.names`, `quote`, and `na.strings`."
+- "Understand some of the key arguments available for exporting the data properly, such as `row.names`, `col.names`, and `quote`."
 - "Use `apply` to calculate statistics across the rows or columns of a data frame."
 - "Use `plot` to create simple visualizations."
 - "Display simple graphs."
@@ -35,7 +35,7 @@ In the majority of cases, your data will be stored in some type of external file
 
 Thankfully, Excel is capable of opening, editing, and saving both .csv and .txt files, so we can go back and forth between R and Excel when we find it convenient. 
 
-In this short lesson, we'll learn how to read external data from a .csv or .txt file, and write data modified or generatated in R to a new .csv or .txt file. We will also explore the [arguments]({{ page.root }}/reference.html#argument) that allow you read and write the data correctly for your needs.
+In this short lesson, we'll learn how to read external data from a .csv or .txt file, and write data modified or generated in R to a new .csv or .txt file. We will also explore the [arguments]({{ page.root }}/reference.html#argument) that allow you read and write the data correctly for your needs.
 
 
 
@@ -66,10 +66,10 @@ Open up the same file using a basic text editor (e.g. *Notepad* in Windows; *Tex
 &nbsp;
 
 A couple of things to notice:
-* The frist line contains column headers.
+* The first line contains column headers.
 * The `,` delimiters tell the `read.csv(...)` function where the breaks in the data are located; that is, which data to put in which column of the output data frame.
 * Each new line is also a delimiter that tells `read.csv(...)` which data to put in which row in the output data frame
-* In this case, all strings are contained withing quotation marks `""`. This is an optional way to tell the program where character strings start and stop. 
+* In this case, all strings are contained within quotation marks `""`. This is an optional way to tell the program where character strings start and stop. 
 
 On the topic of using quotation marks, open `sample-noquotes.csv` in your text editor to see the quote-free option:
 
@@ -132,8 +132,8 @@ Whether to use quotes in your data files is up to you. The default behavior of `
 >
 > > ## Solution
 > > 
-> > The quotes are now included as part of the character arguments. It also messed up the header formating, apending
-> > an "X" to the beginning and surrounding text with "."ss.
+> > The quotes are now included as part of the character arguments. It also messed up the header 
+> > formatting, appending an "X" to the beginning and surrounding text with "."ss.
 > {: .solution}
 {: .challenge}
 
@@ -155,7 +155,7 @@ As with any other function call, if the output is not explicitly assigned, it wi
 #### Changing Delimiters
 
 The default delimiter of the `read.csv()` function is a comma `,`, but you can
-use esentially any set of characters as a delimiter. `read.csv(...)` is actually a special case of a broader function called `read.table(...)`, with the delimiter argument (which is `sep`, for "separator") set to `c` by default. Check out the help file for these functions:
+use essentially any set of characters as a delimiter. `read.csv(...)` is actually a special case of a broader function called `read.table(...)`, with the delimiter argument (which is `sep`, for "separator") set to `c` by default. Check out the help file for these functions:
 
 
 ~~~
@@ -165,7 +165,7 @@ use esentially any set of characters as a delimiter. `read.csv(...)` is actually
 
 &nbsp;
 
-Under the **Usage** section there are multiple functions listed, including `read.table(...)` and `read.csv(...)`. In the parentheses for each function there is a list of arguments. Since `read.table(...)` is the parent function, all arguments are listed. Only arguments with different default values (as indicated by the `=`) are listed for `read.csv(...)`. A default value is the value that each arguement assumes when you do not explicitly enter a value. For example, `read.table(...)` assumes that a data file has no header (`header = FALSE`) and no delimiting character (`sep = ""`) while `read.csv(...)` assumes that a data file does have a header (`header = TRUE`) and a comma as the delimiting character (`sep = ","`), unless you specify otherwise. 
+Under the **Usage** section there are multiple functions listed, including `read.table(...)` and `read.csv(...)`. In the parentheses for each function there is a list of arguments. Since `read.table(...)` is the parent function, all arguments are listed. Only arguments with different default values (as indicated by the `=`) are listed for `read.csv(...)`. A default value is the value that each argument assumes when you do not explicitly enter a value. For example, `read.table(...)` assumes that a data file has no header (`header = FALSE`) and no delimiting character (`sep = ""`) while `read.csv(...)` assumes that a data file does have a header (`header = TRUE`) and a comma as the delimiting character (`sep = ","`), unless you specify otherwise. 
 
 If your data is stored in a tab-delimited text file, you will need to use `read.table(...)` a different delimiting character, or another of the associated functions called `read.delim(...)` which has defaults to a tab-delimited file format. Note that to define a *tab* as a delimiting character, you have to use `\t`.
 
@@ -313,8 +313,7 @@ What happened? The colors of the cars were loaded as factors by `read.csv(...)` 
 
 To see the internal structure, we can use another function, `str()`. In this case,
 the dataframe's internal structure includes the format of each column, which is what
-we are interested in. `str()` will be reviewed a little more in the lesson
-[Data Types and Structures]({{ page.root }}/13-supp-data-structures/).
+we are interested in. 
 
 
 ~~~
@@ -431,6 +430,8 @@ write.csv(carSpeeds, file = 'data/car-speeds-cleaned.csv', row.names = FALSE)
 ~~~
 {: .language-r}
 
+&nbsp; 
+
 Now we see:
 
 <img src="../fig/01-supp-csv-without-row-nums.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="350px" style="display: block; margin: auto auto auto 0;" />
@@ -502,396 +503,6 @@ And we see:
 &nbsp;
 
 This can be useful when exporting data from R in a different program that either does not recognize `NA` or uses a different symbol for missing data.
-
-***
-### Manipulating Data
-
-Now that our data are loaded into R, we can start doing things with them. First, let's ask what type of thing `dat` is:
-
-
-~~~
-class(dat)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "data.frame"
-~~~
-{: .output}
-
-&nbsp;
-
-The output tells us that it's a data frame. As noted in the previous lesson, data frames are the *de facto* data type in R, and many functions will produce data frames as output.
-
-We can see the shape, or [dimensions]({{ page.root }}/reference.html#dimensions-of-an-array), of the data frame with the function `dim`:
-
-
-~~~
-dim(dat)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 100   9
-~~~
-{: .output}
-
-&nbsp;
-
-This tells us that our data frame, `dat`, has 100 rows and 9 columns.
-
-Reviewing the basic types of subsetting, if we want to get a single value from the data frame, we can provide an [index]({{ page.root }}/reference.html#index) in square brackets. The first number specifies the row and the second the column:
-
-
-~~~
-# first value in dat, row 1, column 1
-dat[1, 1]
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] Sub001
-100 Levels: Sub001 Sub002 Sub003 Sub004 Sub005 Sub006 Sub007 ... Sub100
-~~~
-{: .output}
-
-
-
-~~~
-# middle value in dat, row 30, column 6
-dat[30, 6]
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 103
-~~~
-{: .output}
-
-&nbsp;
-
-Or we can select sequential or non-sequential subsets using the `:` operator or `c()` function, respectively:
-
-
-~~~
-# output the first 4 rows and first 3 columns of dat
-dat[1:4, 1:3]
-~~~
-{: .language-r}
-
-
-
-~~~
-      ID Gender      Group
-1 Sub001      m    Control
-2 Sub002      m Treatment2
-3 Sub003      m Treatment2
-4 Sub004      f Treatment1
-~~~
-{: .output}
-
-
-
-~~~
-# output rows 1, 3, and, 5, and columsn 2 and 6
-dat[c(1, 3, 5), c(2, 6)]
-~~~
-{: .language-r}
-
-
-
-~~~
-  Gender Aneurisms_q1
-1      m          114
-3      m          196
-5      m          188
-~~~
-{: .output}
-
-&nbsp;
-
-If you want to select all rows or all columns, leave that index value empty. 
-
-
-~~~
-# All columns from row 5
-dat[5, ]
-~~~
-{: .language-r}
-
-
-
-~~~
-      ID Gender      Group BloodPressure  Age Aneurisms_q1 Aneurisms_q2
-5 Sub005      m Treatment1           125 19.9          188          120
-  Aneurisms_q3 Aneurisms_q4
-5          222          228
-~~~
-{: .output}
-
-
-
-~~~
-# All rows from column 6-8
-dat[, 6:9]
-~~~
-{: .language-r}
-
-
-
-~~~
-    Aneurisms_q1 Aneurisms_q2 Aneurisms_q3 Aneurisms_q4
-1            114          140          202          237
-2            148          209          248          248
-3            196          251          122          177
-4            199          140          233          220
-5            188          120          222          228
-6            260          266          320          294
-7            135           98          154          245
-8            216          238          279          251
-9            117          215          181          272
-10           188          144          192          185
-11           134          155          247          223
-12           152          177          323          245
-13           112          220          225          195
-14           109          150          177          189
-15           146          140          239          223
-16            97          172          203          207
-17           165          157          200          193
-18           158          265          243          187
-19           178          109          206          182
-20           107          188          167          218
-21           174          160          203          183
-22            97          110          194          133
-23           187          239          281          214
-24           188          191          256          265
-25           114          199          242          195
-26           115          160          158          228
-27           128          249          294          315
-28           112          230          281          126
-29           136          109          105          155
-30           103          148          219          228
-31           132          151          234          162
-32           118          154          260          160
-33           166          176          253          233
-34           152          105          197          299
-35           191          148          166          185
-36           152          178          158          170
-37           161          270          232          284
-38           239          184          317          269
-39           132          137          193          206
-40           168          255          273          274
-41           140          184          239          202
-42           166           85          179          196
-43           141          160          179          239
-44           161          168          212          181
-45           103          111          254          126
-46           231          240          260          310
-47           192          141          180          225
-48           178          180          169          183
-49           167          123          236          224
-50           135          150          208          279
-51           150          166          153          204
-52           192           80          138          222
-53           153          153          236          216
-54           205          264          269          207
-55           117          194          216          211
-56           199          119          183          251
-57           182          129          226          218
-58           180          196          250          294
-59           111          111          244          201
-60           101           98          178          116
-61           166          167          232          241
-62           158          171          237          212
-63           189          178          177          238
-64           189          101          193          172
-65           239          189          297          300
-66           185          224          151          182
-67           224          112          304          288
-68           104          139          211          204
-69           222          199          280          196
-70           107           98          204          138
-71           153          255          218          234
-72           118          165          220          227
-73           102          184          246          222
-74           188          125          191          157
-75           180          283          204          298
-76           178          214          291          240
-77           168          184          184          229
-78           118          170          249          249
-79           169          114          248          233
-80           156          138          218          258
-81           232          211          219          246
-82           188          108          180          136
-83           169          168          180          211
-84           241          233          292          182
-85            65          207          234          235
-86           225          185          195          235
-87           104          116          173          221
-88           179          158          216          244
-89           103          140          209          186
-90           112          130          175          191
-91           226          170          307          244
-92           228          221          316          259
-93           209          142          199          184
-94           153          104          194          214
-95           111          118          173          191
-96           148          132          200          194
-97           141          196          322          273
-98           193          112          123          181
-99           130          226          286          281
-100          126          157          129          160
-~~~
-{: .output}
-
-&nbsp;
-
-Or select columns by name:
-
-
-~~~
-# select the BloodPressure data
-dat$BloodPressure
-~~~
-{: .language-r}
-
-
-
-~~~
-  [1] 132 139 130 105 125 112 173 108 131 129 126  96  77 158  81 137 147
- [18] 130 105  92 111 122  97 118  82 123 126  94 135 108 133 108 122 134
- [35] 145 133  90 118 113 115 142 114 139  90 126 109 125  99 122 111 109
- [52] 134 113 105 125 123 155 117 116 133  94 106 144 149 108 116 136  98
- [69] 148  74 147 116 133  97 132 153 151 121 116 104 111  62 124 124 109
- [86] 117  90 158 113 150 115  83 116 141 108 102  90 133  83 122
-~~~
-{: .output}
-
-
-
-~~~
-# select all rows for the Gender and BloodPressure columns
-dat[, c("Gender", "BloodPressure")]
-~~~
-{: .language-r}
-
-
-
-~~~
-    Gender BloodPressure
-1        m           132
-2        m           139
-3        m           130
-4        f           105
-5        m           125
-6        M           112
-7        f           173
-8        m           108
-9        m           131
-10       f           129
-11       m           126
-12       f            96
-13       f            77
-14       m           158
-15       m            81
-16       m           137
-17       f           147
-18       m           130
-19       m           105
-20       F            92
-21       f           111
-22       m           122
-23       f            97
-24       f           118
-25       m            82
-26       M           123
-27       M           126
-28       f            94
-29       m           135
-30       f           108
-31       f           133
-32       m           108
-33       m           122
-34       m           134
-35       m           145
-36       f           133
-37       f            90
-38       m           118
-39       M           113
-40       m           115
-41       f           142
-42       m           114
-43       m           139
-44       m            90
-45       f           126
-46       f           109
-47       M           125
-48       M            99
-49       m           122
-50       m           111
-51       m           109
-52       f           134
-53       f           113
-54       f           105
-55       m           125
-56       f           123
-57       m           155
-58       m           117
-59       m           116
-60       f           133
-61       f            94
-62       f           106
-63       f           144
-64       M           149
-65       f           108
-66       m           116
-67       f           136
-68       f            98
-69       M           148
-70       m            74
-71       m           147
-72       m           116
-73       F           133
-74       m            97
-75       m           132
-76       f           153
-77       M           151
-78       M           121
-79       M           116
-80       f           104
-81       m           111
-82       M            62
-83       M           124
-84       m           124
-85       m           109
-86       f           117
-87       f            90
-88       f           158
-89       m           113
-90       m           150
-91       f           115
-92       m            83
-93       F           116
-94       f           141
-95       m           108
-96       m           102
-97       F            90
-98       m           133
-99       M            83
-100      M           122
-~~~
-{: .output}
-
-
-If you leave both index values empty (i.e., `dat[,]`), you get the entire data frame. 
 
 ***
 ### Calculating basic statistics
@@ -1091,7 +702,7 @@ avg_aneurisms_subject <- apply(dat[,6:9], 1, mean)
 
 &nbsp;
 
-And to obtain the average number of aneurisms for each quater, mean of all of the columns (`MARGIN = 2`) of the data frame:
+And to obtain the average number of aneurisms for each quarter, mean of all of the columns (`MARGIN = 2`) of the data frame:
 
 
 ~~~
@@ -1105,8 +716,8 @@ avg_aneurisms_quarter <- apply(dat[,6:9], 2, mean)
 > 
 > Notice that we did not specify the argument names in `apply()`. Looking at the help file, the argument 
 > order is `X` (indicating the input data), then `MARGIN`, then `FUN` (for function to apply). So long as you 
-> enter arguments in the requested order, you do not need to be explicity about which argument you are 
-> referring too. `apply()` just assums that the first argument entered is the value for `X`, the second is the > value for `MARGIN`, and the third is the value for `FUN`. You can mix up the order, but then you have to be 
+> enter arguments in the requested order, you do not need to be explicitly about which argument you are 
+> referring too. `apply()` just assumes that the first argument entered is the value for `X`, the second is the > value for `MARGIN`, and the third is the value for `FUN`. You can mix up the order, but then you have to be 
 > explicit about which argument you are defining.
 >
 > For example, this will return an error:
@@ -1426,7 +1037,7 @@ avg_aneurisms_quarter <- apply(dat[,6:9], 2, mean)
 > used `m` and sometimes `M` to indicate `male`, and similarly `f` or `F` to 
 > indicate `female` (or perhaps there were two individuals entering the data
 > in slightly different ways). This is a problem, because R is case-sensitive and
-> treates `m` as a different entry from `M`. 
+> treats `m` as a different entry from `M`. 
 >
 > Use logical indexing to correct this problem. So we are all on the same page,
 > change all entries to capitals. Save your corrected file to the data folder under
@@ -1494,179 +1105,445 @@ The mathematician Richard Hamming once said,
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*"The purpose of computing is insight, not numbers."*
 
-The best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R's plotting features.
+The best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, and we will touch on various aspects of R's plotting functionality later on in the course, but for now we will introduce a few of R's plotting features.
 
-Let's take a look at the average number of aneurisms over time. Recall that we already calculated these values above using `apply(dat[,6:9], 2, mean)` and saved them in the variable `avg_aneurisms_quarter`.
-Plotting the values is done with the function `plot()`.
+The basic plot function in R is called, conveniently, `plot()`. Let's take a quick look:
 
 
 ~~~
-plot(avg_aneurisms_quarter)
+?plot
+~~~
+{: .language-r}
+
+&nbsp;
+
+In it's most basic form, `plot(x,y)` function will create a scatter plot with points defined by the vectors `x` and `y`. Let's start out with the iris data set and look at the relationship between petal length and width:
+
+
+~~~
+plot(iris$Petal.Length, iris$Petal.Width)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-35-1.png" title="plot of chunk unnamed-chunk-35" alt="plot of chunk unnamed-chunk-35" width="612" style="display: block; margin: auto;" />
+
+&nbsp;
+
+Congratulations! You have plotted your first data in R. So what is going on in the background here? Let's talk about what R is actually doing when you give it the plot command. 
+
+&nbsp;
+#### Graphics devices
+
+When you tell R to run a plot, it actually takes a series of actions:
+
+1. Opens a new "graphics device". This device can be one of several things:
+ a. The "Plot" section in the lower-right panel of RStudio (this is the default in RStudio).
+ b. A blank graphics pane in a new window (this requires the `windows()` or `quartz()` commands, which we discuss below).
+ c. An external image file (e.g. a new .jpg file).
+ d. An external PDF file (complete with vector graphics!).
+2. Draws a series of objects; this part is done "under the hood" of the `plot()` function, and includes:
+ a. Axes.
+ b. Tick marks.
+ c. Axis labels.
+ d. Data points.
+ e. Legend(s).
+ f. Chart titles.
+3. Leaves the current graphics device open for additional drawing input. This step is important, because it means that you can continue to add things to the image using other functions. 
+4. Closes the graphics device following a `dev.off()` function call. This essentially "finalizes" the image.
+
+Note that you can have multiple graphics devices open at once. R will, by default, write new graphics to the most recently used or created graphics device. Some functions, like `plot()` automatically start a new graphics device (or page in the case of the RStudio panel or a PDF), while other functions, like `lines()`, will add graphical elements to the most recently used device.
+
+Let's repeat our above `plot()` command in a few different devices to illustrate a few of these points. 
+
+&nbsp;
+
+**Plotting in a separate window**
+
+To plot in a separate window within RStudio (rather than the "Plot" panel), use one of the following platform-dependent functions:
+
+
+~~~
+windows() # Windows
+quartz() # MacOS
+~~~
+{: .language-r}
+
+&nbsp;
+
+Now recreate our above plot:
+
+
+~~~
+plot(iris$Petal.Length, iris$Petal.Width)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-37-1.png" title="plot of chunk unnamed-chunk-37" alt="plot of chunk unnamed-chunk-37" width="612" style="display: block; margin: auto;" />
+
+&nbsp;
+
+Note that we can now add additional elements to this plot. Let's add a chart title to demonstrate the point.
+
+
+~~~
+title("Relationship between petal length and petal width")
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-38-1.png" title="plot of chunk unnamed-chunk-38" alt="plot of chunk unnamed-chunk-38" width="612" style="display: block; margin: auto;" />
 
-Above, we gave the function `plot()` a vector of numbers corresponding to the average inflammation per day across all patients.
-`plot` created a scatter plot where the y-axis is the average inflammation level and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 40 days of treatment.
-The result is roughly a linear rise and fall, which is suspicious: based on other studies, we expect a sharper rise and slower fall.
-Let's have a look at two other statistics: the maximum and minimum inflammation per day.
+&nbsp;
+
+We can shutdown the window by either just closing it, or from RStudio using the `dev.off()` function.
 
 
 ~~~
-max_day_inflammation <- apply(dat, 2, max)
-plot(max_day_inflammation)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion
-~~~
-{: .error}
-
-<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-39-1.png" title="plot of chunk unnamed-chunk-39" alt="plot of chunk unnamed-chunk-39" width="612" style="display: block; margin: auto;" />
-
-
-~~~
-min_day_inflammation <- apply(dat, 2, min)
-plot(min_day_inflammation)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion
-~~~
-{: .error}
-
-<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-40-1.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="612" style="display: block; margin: auto;" />
-
-The maximum value rises and falls perfectly smoothly, while the minimum seems to be a step function. Neither result seems particularly likely, so either there's a mistake in our calculations or something is wrong with our data.
-
-> ## Plotting Data
->
-> Create a plot showing the standard deviation of the inflammation data for each day across all patients.
->
-> > ## Solution
-> > 
-> > ~~~
-> > sd_day_inflammation <- apply(dat, 2, sd)
-> > plot(sd_day_inflammation)
-> > ~~~
-> > {: .language-r}
-> {: .solution}
-{: .challenge}
-
-### Saving Plots to a File
-
-So far, we have built a function `analyze` to plot summary statistics of the inflammation data:
-
-
-~~~
-analyze <- function(filename) {
-  # Plots the average, min, and max inflammation over time.
-  # Input is character string of a csv file.
-  dat <- read.csv(file = filename, header = FALSE)
-  avg_day_inflammation <- apply(dat, 2, mean)
-  plot(avg_day_inflammation)
-  max_day_inflammation <- apply(dat, 2, max)
-  plot(max_day_inflammation)
-  min_day_inflammation <- apply(dat, 2, min)
-  plot(min_day_inflammation)
-}
-~~~
-{: .language-r}
-
-And also built the function `analyze_all` to automate the processing of each data file:
-
-
-~~~
-analyze_all <- function(folder = "data", pattern) {
-  # Runs the function analyze for each file in the given folder
-  # that contains the given pattern.
-  filenames <- list.files(path = folder, pattern = pattern, full.names = TRUE)
-  for (f in filenames) {
-    analyze(f)
-  }
-}
-~~~
-{: .language-r}
-
-While these are useful in an interactive R session, what if we want to send our results to our collaborators?
-Since we currently have 12 data sets, running `analyze_all` creates 36 plots.
-Saving each of these individually would be tedious and error-prone.
-And in the likely situation that we want to change how the data is processed or the look of the plots, we would have to once again save all 36 before sharing the updated results with our collaborators.
-
-Here's how we can save all three plots of the first inflammation data set in a pdf file:
-
-
-~~~
-pdf("inflammation-01.pdf")
-analyze("data/inflammation-01.csv")
 dev.off()
 ~~~
 {: .language-r}
 
-The function `pdf` redirects all the plots generated by R into a pdf file, which in this case we have named "inflammation-01.pdf".
-After we are done generating the plots to be saved in the pdf file, we stop R from redirecting plots with the function `dev.off`.
-
-> ## Overwriting Plots
->
-> If you run `pdf` multiple times without running `dev.off`, you will save plots to the most recently opened file.
-> However, you won't be able to open the previous pdf files because the connections were not closed.
-> In order to get out of this situation, you'll need to run `dev.off` until all the pdf connections are closed.
-> You can check your current status using the function `dev.cur`.
-> If it says "pdf", all your plots are being saved in the last pdf specified.
-> If it says "null device" or "RStudioGD", the plots will be visualized normally.
-{: .callout}
-
-We can update the `analyze` function so that it always saves the plots in a pdf.
-But that would make it more difficult to interactively test out new changes.
-It would be ideal if `analyze` would either save or not save the plots based on its input.
-
-### Saving Automatically Generated Figures
-
-Now that we know how to have R make decisions based on input values,
-let's update `analyze`:
 
 
 ~~~
-analyze <- function(filename, output = NULL) {
-  # Plots the average, min, and max inflammation over time.
-  # Input:
-  #    filename: character string of a csv file
-  #    output: character string of pdf file for saving
-  if (!is.null(output)) {
-    pdf(output)
-  }
-  dat <- read.csv(file = filename, header = FALSE)
-  avg_day_inflammation <- apply(dat, 2, mean)
-  plot(avg_day_inflammation)
-  max_day_inflammation <- apply(dat, 2, max)
-  plot(max_day_inflammation)
-  min_day_inflammation <- apply(dat, 2, min)
-  plot(min_day_inflammation)
-  if (!is.null(output)) {
-    dev.off()
-  }
-}
+null device 
+          1 
+~~~
+{: .output}
+
+**Plotting to an external file**
+
+R has a series of functions designed to open a graphics device that will write directly to an external file. These files can be image files or PDFs. 
+*  `bmp()` generates a *.bmp*
+*  `jpeg()` generates a *.jpg*
+*  `png()` generates a *.png*
+*  `tiff()` generates a *.tif*
+*  `pdf()` generates a *.pdf*
+
+The first four are all versions of the same function and behave essentially interchangably. PDF is a separate function. The primary difference between the two is that the non-PDF image files will have a defined resolution, while the PDF files are generated as *vector graphics*, meaning that they maintain resolution at any size. 
+
+> ## Vector Graphics
+>
+> Traditional image formats (e.g. .bmp, .jpg, .tiff, .png) are, in essence, a two dimensional array of color and intensity values (such as 
+> red-green-blue, or RGB values). The array has a fixed number of pixels in each dimension, so if you take an image that is 1 in x 1 in with 
+> 100 pixels in each dimension, and blow it up to 1 ft x ft, it still only has 100 pixels in each dimension. The blowup image will appear 
+> blocky, or "pixelated".
+> 
+> Vector graphics are distinct from traditional graphics in that they are defined by a set of mathematical operations carried out at specified > coordinates. For example, two of the instructions may be something like:
+> 1. Draw the letter "A" in normal size 10 Arial font at coordinates (10, 10).
+> 2. Draw the an arrow with line weight 2 and arrow head style X size 4 from the point (12, 12) to the point (20, 20).
+> 
+> These instructions are the same for a 1 in x 1 in image and a 1 ft x 1 ft image (or a 1 mile x 1 mile image). Because the shape of the 
+> letter and the arrow are defined by the font and the arrow head style, when the image is rendered, they can be drawn with the appropriate 
+> number of pixels to appear crisp and smooth at the image size requested. 
+> 
+> This is how PDF files and other vector graphic formats work. They are really convenient for preparing manuscripts because journals often 
+> want a low-res file for review and a high-res file for publication. By starting with a PDF you can generate both categories of graphic with 
+> the same underlying file. any modern journals prefer that figures be submitted as PDF or other vector graphics format for this very reason.
+{: .callout}
+
+&nbsp;
+
+Let's give both types of graphic generation a try by generating our previous plot as a *.jpg** and **.PDF* file. Take a look at the `jpeg()` function to see what it needs:
+
+
+~~~
+?jpeg()
 ~~~
 {: .language-r}
 
-We added an argument, `output`, that by default is set to `NULL`.
-An `if` statement at the beginning checks the argument `output` to decide whether or not to save the plots to a pdf.
-Let's break it down.
-The function `is.null` returns `TRUE` if a variable is `NULL` and `FALSE` otherwise.
-The exclamation mark, `!`, stands for "not".
-Therefore the line in the `if` block is only executed if `output` is "not null".
+&nbsp;
+
+By default, the function will generate a plot with an automatically generated name in our home directory. Recall that we have already defined a separate *MCB585/results* folder, stored in memory under the `results.dir` variable. First we will generate a file name that contains both the path to our results directory and the name of the file we want. We can write this all out, or use the `paste()` function to combine the path and file name into a single `character` variable:
 
 
 ~~~
-output <- NULL
-is.null(output)
+results.dir <- "results" # in case you haven't defined it yet in this lesson
+petal.cor.file <- paste(results.dir, "/petal-width-length-comparison.jpg", sep="") # note that by default, paste() puts a space in between entries whten combining them into a string; thus we have to change the separator to "nothing" by setting sep = ""
+
+petal.cor.file <- paste0(results.dir, "/petal-width-length-comparison.jpg") # paste0() is just like paste() with the separator automatically set to "nothing"
+~~~
+{: .language-r}
+
+&nbsp;
+
+Also by default, the function will produce a 480 px x 480 px image at 72 pixels per inch (ppi). Note that the actual physical image size will be **size inches = size in pixels/ppi**. Let's make a 100 ppi *.jpg* image that is 5 in x 5 in.
+
+
+~~~
+jpeg(file = petal.cor.file, width = 500, height = 500, res = 100)
+~~~
+{: .language-r}
+
+&nbsp;
+
+Now look inside your results folder. If the `jpeg()` function worked correctly and our directories were correct, you should now see a new file called *petal-width-length-comparison.jpg*. What happens when you try to open this file? 
+
+You should get an error at this point. This is because the file has been created, but that it is currently black and open in RStudio waiting for more input. We can use the `dev.cur()` to confirm that the active graphics device is indeed the JPEG file.
+
+
+~~~
+dev.cur()
+~~~
+{: .language-r}
+
+&nbsp; 
+
+Let's give it our earlier `plot()` and `title()` commands, and then turn off the device (using `dev.off()`) to complete and close the file.
+
+
+~~~
+plot(iris$Petal.Length, iris$Petal.Width)
+title("Relationship between petal length and petal width")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-44-1.png" title="plot of chunk unnamed-chunk-44" alt="plot of chunk unnamed-chunk-44" width="612" style="display: block; margin: auto;" />
+
+~~~
+dev.off()
+~~~
+{: .language-r}
+
+
+
+~~~
+jpeg 
+   3 
+~~~
+{: .output}
+
+&nbsp;
+
+Now try opening the *petal-width-length-comparison.jpg*. We have our chart in JPG format! Zoom in to check out the resolution. Not great? Generating JPEG or other graphics formats is useful for some applications (e.g. direct output to a webpage, for example), but for generating reports and paper figures, vector graphics are the way to go. That's why I tend to work almost exclusively in PDF files, and so will we for the rest of the course. 
+
+So let's do it. First let's take a look at the `pdf()` function:
+
+
+~~~
+?pdf()
+~~~
+{: .language-r}
+
+&nbsp;
+
+While `pdf()` still wants the file name as the `file = ` argument, we now specify width and height in inches to define the size of the file, and exclude resolution because PDF files are vector graphics and will be generated to the resolution required by the size. This is more intuitive (we just ask for the image size that we way, instead of having to calculate it from pixel number and ppi), and more convenient. WE can now generate any size output we want, including a nice, printable 8.5 in x 11 in standard paper size.
+
+For the moment, we will generate the PDF equivalent of our earlier JPEG, with dimensions of 5 in x 5 in. For fun, let's also include a second plot that compares sepal length and width:
+
+
+~~~
+# define the file name
+petal.cor.pdf <- paste0(results.dir, "/petal-width-length-comparison.pdf")
+
+# generate the PDF file
+pdf(file = petal.cor.pdf, width = 5, height = 5)
+
+# plot petal length vs. width
+plot(iris$Petal.Length, iris$Petal.Width)
+title("Relationship between petal length and petal width")
+
+# plot petal length vs. width
+plot(iris$Sepal.Length, iris$Sepal.Width)
+title("Relationship between sepal length and sepal width")
+
+# finalize the PDF
+dev.off()
+~~~
+{: .language-r}
+
+&nbsp;
+
+Notice a couple of important things:
+* Zooming in and out in the PDF does not affect image resulution. It always looks sharp!
+* Running `plot()` the second time generated a second page in the PDF file. If you want a new file for every figure, set `onefile = T` in the `pdf()` function (see the `?pdf` documentation for details).
+
+&nbsp;
+#### Fixing the axis labels
+
+Okay, so we know how to generate a chart. Clearly the default parameters are not what we want. First, what is up with the axis labels? By default, R will just use the variable name as the axis labels, having nothing else to work with. We can add out own labels with the `xlab` and `ylab` arguments. 
+
+For now, we will just use the plot window in RStudio to demonstrate a few of the features of `plot()`. To make sure you don't have any open graphics devices, run `dev.off()` a few times before moving forward.
+
+
+~~~
+plot(iris$Petal.Length, iris$Petal.Width,
+     xlab = "Petal Length (cm)", ylab = "Petal Width (cm)") # line wrap longer function calls for readability
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-47-1.png" title="plot of chunk unnamed-chunk-47" alt="plot of chunk unnamed-chunk-47" width="612" style="display: block; margin: auto;" />
+
+&nbsp;
+
+That's better! Now, looking at the data, there does seem to be an odd pattern. There is clearly a distinct group in the lower left corner with smaller petals. Let's remind ourselves what information we have available:
+
+
+~~~
+head(iris)
+~~~
+{: .language-r}
+
+
+
+~~~
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+~~~
+{: .output}
+
+&nbsp;
+
+The most obvious candidate to explain the separate grouping is species. We can add color to see if that grouping is all one species using the `col` argument. R has many color names available by default which can be listed using the `colors()` function and called using a simple character string (e.g. `"blue"`), which is how we will do it. You can also select colors by hex code or RGB value with other functions, details on which can be found on this helpful [R color guide]({{ page.root }}/fig/colorPaletteCheatsheet.pdf).
+
+First, we can just specify a color for the whole plot using `col = "<color name>"`. 
+
+
+~~~
+plot(iris$Petal.Length, iris$Petal.Width,
+     xlab = "Petal Length (cm)", ylab = "Petal Width (cm)",
+     col = "blue")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-49-1.png" title="plot of chunk unnamed-chunk-49" alt="plot of chunk unnamed-chunk-49" width="612" style="display: block; margin: auto;" />
+
+&nbsp;
+
+Of course, we don't want all of the points to be blue. The `col` argument can also take a list that is the same length of the `x` and `y` arguments that assigns individual color values to each point. Since we know the species order for the point, we can use logical indexing to assign colors to each species.
+
+
+~~~
+# iris$Species is a factor, which makes things easier in this case
+iris$Species
+~~~
+{: .language-r}
+
+
+
+~~~
+  [1] setosa     setosa     setosa     setosa     setosa     setosa    
+  [7] setosa     setosa     setosa     setosa     setosa     setosa    
+ [13] setosa     setosa     setosa     setosa     setosa     setosa    
+ [19] setosa     setosa     setosa     setosa     setosa     setosa    
+ [25] setosa     setosa     setosa     setosa     setosa     setosa    
+ [31] setosa     setosa     setosa     setosa     setosa     setosa    
+ [37] setosa     setosa     setosa     setosa     setosa     setosa    
+ [43] setosa     setosa     setosa     setosa     setosa     setosa    
+ [49] setosa     setosa     versicolor versicolor versicolor versicolor
+ [55] versicolor versicolor versicolor versicolor versicolor versicolor
+ [61] versicolor versicolor versicolor versicolor versicolor versicolor
+ [67] versicolor versicolor versicolor versicolor versicolor versicolor
+ [73] versicolor versicolor versicolor versicolor versicolor versicolor
+ [79] versicolor versicolor versicolor versicolor versicolor versicolor
+ [85] versicolor versicolor versicolor versicolor versicolor versicolor
+ [91] versicolor versicolor versicolor versicolor versicolor versicolor
+ [97] versicolor versicolor versicolor versicolor virginica  virginica 
+[103] virginica  virginica  virginica  virginica  virginica  virginica 
+[109] virginica  virginica  virginica  virginica  virginica  virginica 
+[115] virginica  virginica  virginica  virginica  virginica  virginica 
+[121] virginica  virginica  virginica  virginica  virginica  virginica 
+[127] virginica  virginica  virginica  virginica  virginica  virginica 
+[133] virginica  virginica  virginica  virginica  virginica  virginica 
+[139] virginica  virginica  virginica  virginica  virginica  virginica 
+[145] virginica  virginica  virginica  virginica  virginica  virginica 
+Levels: setosa versicolor virginica
+~~~
+{: .output}
+
+
+
+~~~
+levels(iris$Species)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "setosa"     "versicolor" "virginica" 
+~~~
+{: .output}
+
+
+
+~~~
+# Let's define a list of colors to use in the plot
+col.list <- c("red", "blue", "green") # the color order will be assigned in order of factor levels
+col.list
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "red"   "blue"  "green"
+~~~
+{: .output}
+
+
+
+~~~
+# Recall that when we enter a factor as an index, R sees the underlying nueric representation:
+as.numeric(iris$Species)
+~~~
+{: .language-r}
+
+
+
+~~~
+  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ [36] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ [71] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3
+[106] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+[141] 3 3 3 3 3 3 3 3 3 3
+~~~
+{: .output}
+
+
+
+~~~
+# Taking advantage of this, we can direclty index our color list and set up a vector the length of iris$Species
+# with a unique color value for each species name
+col.vector <- col.list[iris$Species]
+col.vector
+~~~
+{: .language-r}
+
+
+
+~~~
+  [1] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+  [9] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [17] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [25] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [33] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [41] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [49] "red"   "red"   "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [57] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [65] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [73] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [81] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [89] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [97] "blue"  "blue"  "blue"  "blue"  "green" "green" "green" "green"
+[105] "green" "green" "green" "green" "green" "green" "green" "green"
+[113] "green" "green" "green" "green" "green" "green" "green" "green"
+[121] "green" "green" "green" "green" "green" "green" "green" "green"
+[129] "green" "green" "green" "green" "green" "green" "green" "green"
+[137] "green" "green" "green" "green" "green" "green" "green" "green"
+[145] "green" "green" "green" "green" "green" "green"
+~~~
+{: .output}
+
+
+
+~~~
+# note that the lengths are indeed the same
+length(iris$Species) == length(col.vector)
 ~~~
 {: .language-r}
 
@@ -1677,356 +1554,515 @@ is.null(output)
 ~~~
 {: .output}
 
+&nbsp; 
+
+Now that we have our color assignments stored in the `col.vector` variable, we can use that to color our plot by species. 
 
 
 ~~~
-!is.null(output)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] FALSE
-~~~
-{: .output}
-
-Now we can use `analyze` interactively, as before,
-
-
-~~~
-analyze("data/inflammation-01.csv")
+plot(iris$Petal.Length, iris$Petal.Width,
+     xlab = "Petal Length (cm)", ylab = "Petal Width (cm)",
+     col = col.vector)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-46-1.png" title="plot of chunk unnamed-chunk-46" alt="plot of chunk unnamed-chunk-46" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-46-2.png" title="plot of chunk unnamed-chunk-46" alt="plot of chunk unnamed-chunk-46" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-46-3.png" title="plot of chunk unnamed-chunk-46" alt="plot of chunk unnamed-chunk-46" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-51-1.png" title="plot of chunk unnamed-chunk-51" alt="plot of chunk unnamed-chunk-51" width="612" style="display: block; margin: auto;" />
 
-but also use it to save plots,
+&nbsp; 
 
-
-~~~
-analyze("data/inflammation-01.csv", output = "inflammation-01.pdf")
-~~~
-{: .language-r}
-
+As suspected, the lower left grouping is a single species. The other upper right grouping also breaks down nicely by species. But which is which? We can add a legend using the (you guessed it!) `legend()` function. First let's look at the inputs:
 
 
 ~~~
-png 
-  2 
-~~~
-{: .output}
-
-Before going further, we will create a directory `results` for saving our plots.
-It is [good practice](http://swcarpentry.github.io/good-enough-practices-in-scientific-computing/) in data analysis projects to save all output to a directory separate from the data and analysis code.
-You can create this directory using the shell command [mkdir]({{ site.swc_pages }}/shell-novice/03-create/), or the R function `dir.create()`
-
-~~~
-dir.create("results")
+?legend
 ~~~
 {: .language-r}
-
-
-
-~~~
-Warning in dir.create("results"): 'results' already exists
-~~~
-{: .error}
-
-Now run `analyze` and save the plot in the `results` directory,
-
-~~~
-analyze("data/inflammation-01.csv", output = "results/inflammation-01.pdf")
-~~~
-{: .language-r}
-
-
-
-~~~
-png 
-  2 
-~~~
-{: .output}
-
-This now works well when we want to process one data file at a time, but how can we specify the output file in `analyze_all`?
-We need to do two things:
-
-1. Substitute the filename ending "csv" with "pdf".
-2. Save the plot to the `results` directory.
-
-To change the extension to "pdf", we will use the function `sub`,
-
-~~~
-f <- "inflammation-01.csv"
-sub("csv", "pdf", f)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "inflammation-01.pdf"
-~~~
-{: .output}
-To add the "results" directory to the filename use the function `file.path`,
-
-~~~
-file.path("results", sub("csv", "pdf", f))
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "results/inflammation-01.pdf"
-~~~
-{: .output}
-
-
-Now let's update `analyze_all`:
-
-
-~~~
-analyze_all <- function(pattern) {
-  # Directory name containing the data
-  data_dir <- "data"
-  # Directory name for results
-  results_dir <- "results"
-  # Runs the function analyze for each file in the current working directory
-  # that contains the given pattern.
-  filenames <- list.files(path = data_dir, pattern = pattern)
-  for (f in filenames) {
-    pdf_name <- file.path(results_dir, sub("csv", "pdf", f))
-    analyze(file.path(data_dir, f), output = pdf_name)
-  }
-}
-~~~
-{: .language-r}
-
-Now we can save all of the results with just one line of code:
-
-
-~~~
-analyze_all("inflammation.*csv")
-~~~
-{: .language-r}
-
-Now if we need to make any changes to our analysis, we can edit the `analyze` function and quickly regenerate all the figures with `analyze_all`.
-
-> ## Changing the Behavior of the Plot Command
->
-> One of your collaborators asks if you can recreate the figures with lines instead of points.
-> Find the relevant argument to `plot` by reading the documentation (`?plot`),
-> update `analyze`, and then recreate all the figures with `analyze_all`.
->
-> > ## Solution
-> > ~~~
-> > analyze <- function(filename, output = NULL) {
-> >   # Plots the average, min, and max inflammation over time.
-> >   # Input:
-> >   #    filename: character string of a csv file
-> >   #    output: character string of pdf file for saving
-> >   if (!is.null(output)) {
-> >     pdf(output)
-> >   }
-> >   dat <- read.csv(file = filename, header = FALSE)
-> >   avg_day_inflammation <- apply(dat, 2, mean)
-> >   plot(avg_day_inflammation, type = "l")
-> >   max_day_inflammation <- apply(dat, 2, max)
-> >   plot(max_day_inflammation, type = "l")
-> >   min_day_inflammation <- apply(dat, 2, min)
-> >   plot(min_day_inflammation, type = "l")
-> >   if (!is.null(output)) {
-> >     dev.off()
-> >   }
-> > }
-> > ~~~
-> > {: .language-r}
-> {: .solution}
-{: .challenge}
-
 
 &nbsp;
-#### Using Factors
 
-Lets load our example data to see the use of factors:
-
-
-~~~
-dat <- read.csv(file = 'data/sample.csv', stringsAsFactors = TRUE)
-~~~
-{: .language-r}
-
-> ## Default Behavior
->
-> `stringsAsFactors = TRUE` is the default behavior for R.
-> We could leave this argument out.
-> It is included here for clarity.
-{: .callout}
+The `legend()` function is not very smart. It does not actually have access to any information about the plot, and requires that we give it all of information about what information to include. This can be annoying for basic plots, but it gives you the flexibility to customize the information in your charts to any degree that you like. At a minimum, we need to give it the following arguments:
+* `x` tells R where to put the legend on the plot. You can give it simple direction like `"center"`, `left`, or `bottomright`.
+* `legend` tells R the list of labels for the legend, in this case we want the species names in factor level order (yes, the argument name is the same)
+* `col` tells R the colors to display. We want to give it the same color order that we used to generate the species-matched color list.
+* `pch` tells R the type of symbol to display. By default, the `plot()` function sets `pch = 1`, but this does not have a default value in `legend()` for some reason. For now we want `pch = 1` to match the `plot()` default.
 
 
 ~~~
-str(dat)
+legend("bottomright", legend = levels(iris$Species), col=col.list, pch=1)
 ~~~
 {: .language-r}
 
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-53-1.png" title="plot of chunk unnamed-chunk-53" alt="plot of chunk unnamed-chunk-53" width="612" style="display: block; margin: auto;" />
+
+&nbsp;
+
+Now we can see that the setosa species has the small petal size.
+
+What if the iris$Species were saved as a `character` instead of a `factor`? We can still accomplish the same outcome, it's just a touch more complicated.
+
+
 
 
 ~~~
-'data.frame':	100 obs. of  9 variables:
- $ ID           : Factor w/ 100 levels "Sub001","Sub002",..: 1 2 3 4 5 6 7 8 9 10 ...
- $ Gender       : Factor w/ 4 levels "f","F","m","M": 3 3 3 1 3 4 1 3 3 1 ...
- $ Group        : Factor w/ 3 levels "Control","Treatment1",..: 1 3 3 2 2 3 1 3 3 1 ...
- $ BloodPressure: int  132 139 130 105 125 112 173 108 131 129 ...
- $ Age          : num  16 17.2 19.5 15.7 19.9 14.3 17.7 19.8 19.4 18.8 ...
- $ Aneurisms_q1 : int  114 148 196 199 188 260 135 216 117 188 ...
- $ Aneurisms_q2 : int  140 209 251 140 120 266 98 238 215 144 ...
- $ Aneurisms_q3 : int  202 248 122 233 222 320 154 279 181 192 ...
- $ Aneurisms_q4 : int  237 248 177 220 228 294 245 251 272 185 ...
+# First let's setup a new data frame with Species converted to a character vector
+iris.char <- iris
+iris.char$Species <- as.character(iris$Species)
+
+# Now, since we don't have the underlying numeric structure of the factor, we need a 
+# way to generate the same index list with a character vector. We can do this using
+# the match() function.
+species.list <- unique(iris.char$Species) # first grab the species list using unique()
+species.list
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "setosa"     "versicolor" "virginica" 
 ~~~
 {: .output}
 
-Notice the first 3 columns have been converted to factors. These values were text in the data file so R automatically interpreted them as categorical variables.
 
 
 ~~~
-summary(dat)
+# For each element in the first list, match() essentially asks R, where is this element
+# in the second list? It returns the numeric position, or index.
+species.index <- match(iris$Species, species.list)
+species.index 
 ~~~
 {: .language-r}
 
 
 
 ~~~
-       ID     Gender        Group    BloodPressure        Age       
- Sub001 : 1   f:35   Control   :30   Min.   : 62.0   Min.   :12.10  
- Sub002 : 1   F: 4   Treatment1:35   1st Qu.:107.5   1st Qu.:14.78  
- Sub003 : 1   m:46   Treatment2:35   Median :117.5   Median :16.65  
- Sub004 : 1   M:15                   Mean   :118.6   Mean   :16.42  
- Sub005 : 1                          3rd Qu.:133.0   3rd Qu.:18.30  
- Sub006 : 1                          Max.   :173.0   Max.   :20.00  
- (Other):94                                                         
-  Aneurisms_q1    Aneurisms_q2    Aneurisms_q3    Aneurisms_q4  
- Min.   : 65.0   Min.   : 80.0   Min.   :105.0   Min.   :116.0  
- 1st Qu.:118.0   1st Qu.:131.5   1st Qu.:182.5   1st Qu.:186.8  
- Median :158.0   Median :162.5   Median :217.0   Median :219.0  
- Mean   :158.8   Mean   :168.0   Mean   :219.8   Mean   :217.9  
- 3rd Qu.:188.0   3rd Qu.:196.8   3rd Qu.:248.2   3rd Qu.:244.2  
- Max.   :260.0   Max.   :283.0   Max.   :323.0   Max.   :315.0  
-                                                                
+  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ [36] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ [71] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3
+[106] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+[141] 3 3 3 3 3 3 3 3 3 3
 ~~~
 {: .output}
 
-Notice the `summary()` function handles factors differently to numbers (and strings), the occurrence counts for each value is often more useful information.
-
-> ## The `summary()` Function
->
-> The `summary()` function is a great way of spotting errors in your data (look at the *dat$Gender* column).
-> It's also a great way for spotting missing data.
-{: .callout}
-
-> ## Reordering Factors
->
-> The function `table()` tabulates observations and can be used to create bar plots quickly. For instance:
->
-> 
-> ~~~
-> table(dat$Group)
-> ~~~
-> {: .language-r}
-> 
-> 
-> 
-> ~~~
-> 
->    Control Treatment1 Treatment2 
->         30         35         35 
-> ~~~
-> {: .output}
-> 
-> 
-> 
-> ~~~
-> barplot(table(dat$Group))
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-03-introduction-to-R-data-plotting-reordering-factors-1.png" title="plot of chunk reordering-factors" alt="plot of chunk reordering-factors" width="612" style="display: block; margin: auto;" />
-> Use the `factor()` command to modify the column dat$Group so that the *control* group is plotted last.
-> > ## Solution
-> > 
-> > ~~~
-> > dat$Group <- factor(dat$Group, levels = c("Treatment1", "Treatment2", "Control"))
-> > barplot(table(dat$Group))
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-03-introduction-to-R-data-plotting-reordering-factors-2-1.png" title="plot of chunk reordering-factors-2" alt="plot of chunk reordering-factors-2" width="612" style="display: block; margin: auto;" />
-> {: .solution}
-{: .challenge}
-
-#### Removing Levels from a Factor
-
-Some of the Gender values in our dataset have been coded incorrectly.
-Let's remove levels from this factor.
 
 
 ~~~
-barplot(table(dat$Gender))
+# We still need our color list...
+col.list <- c("red", "blue", "green") 
+
+# And we use the species.index in place of iris$Species to do the indexing and generate
+# our color list for each point on the plot
+col.vector <- col.list[species.index]
+col.vector
+~~~
+{: .language-r}
+
+
+
+~~~
+  [1] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+  [9] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [17] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [25] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [33] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [41] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [49] "red"   "red"   "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [57] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [65] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [73] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [81] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [89] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [97] "blue"  "blue"  "blue"  "blue"  "green" "green" "green" "green"
+[105] "green" "green" "green" "green" "green" "green" "green" "green"
+[113] "green" "green" "green" "green" "green" "green" "green" "green"
+[121] "green" "green" "green" "green" "green" "green" "green" "green"
+[129] "green" "green" "green" "green" "green" "green" "green" "green"
+[137] "green" "green" "green" "green" "green" "green" "green" "green"
+[145] "green" "green" "green" "green" "green" "green"
+~~~
+{: .output}
+
+
+
+~~~
+# Finally, we can generate our plot. Note that we now use "species.list" in place of 
+# "levels(iris$Species)" for the legend
+plot(iris.char$Petal.Length, iris.char$Petal.Width, 
+     xlab = "Petal Length (cm)", ylab = "Petal Width (cm)",
+     col = col.vector)
+legend("bottomright", legend = species.list, col=col.list, pch=1)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-54-1.png" title="plot of chunk unnamed-chunk-54" alt="plot of chunk unnamed-chunk-54" width="612" style="display: block; margin: auto;" />
+
+&nbsp;
+#### Box and whisker plots
+
+We can now draw a scatter plot in R to look at the relationship between two variables. What if we want to compare a single data type across species? This is (still) most commonly done using bar charts with error bars. There is a movement in the biological sciences community to move away from bar charts and toward box and whisker plots. R is better equipped for the latter case any way, and that's what we will work with in this course.
+
+> ## Why use box and whisker charts instead of bar charts?
+>
+> While bar charts are still more common and have their uses, box and whisker plots are
+> almost always better. A few problems with bar charts are that they:
+> * only show summary statistics (mean and variation)
+> * hide information on the shape of the data distribution
+> * can easily be used to misrepresent the size of differences between data
+> * do not have standard error bars (standard deviation and standard error are both common)
+> 
+> Box and whisker plots provide a lot more detail about the data represented. A typical
+> box and whisker plot include:
+> * median (line in the middle of the box)
+> * quartiles (the size of the box)
+> * 95 percentiles (whiskers)
+> * outliers (points beyond whiskers)
+> * all data points (less common, but a good idea)
+> * mean (also less common, but a good idea)
+> 
+{: .callout}
+
+&nbsp;
+
+We can use the `boxplot()` function to generate box and whisker plots in R. To do so, we will usually use `formula` notation to enter the data. In this case, the first argument should be a formula indicating which data you want to plot and how your want it broken out, separated by the `~` symbol:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp`<plot variable> ~ <separator variable>`
+
+You can also provide the name of the data frame using the `data` argument, and then just use the column names directly in the formula. Let's give it a try for Petal Length separated by Species in the iris dataset:
+
+
+~~~
+boxplot(Petal.Length ~ Species, data = iris)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-55-1.png" title="plot of chunk unnamed-chunk-55" alt="plot of chunk unnamed-chunk-55" width="612" style="display: block; margin: auto;" />
+
+&nbsp; 
+
+It is a best practice to show all your data points (at least until you have hundreds or thousands) on box plots, which we can add to our plot using the `stripchart()` function. The basic format is similar to that for `boxplot()`. We need to add a couple of arguments to make it work. The first is `add = TRUE`. This tells R to add the points to the current plot, instead of generating a new plot (which is the default behavior). The Second is `vert = TRUE`, which tells R that we want the data plotted vertically (horizontal is the default). Let's try it:
+
+
+~~~
+stripchart(Petal.Length ~ Species, data = iris, add=TRUE, vert=TRUE)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-56-1.png" title="plot of chunk unnamed-chunk-56" alt="plot of chunk unnamed-chunk-56" width="612" style="display: block; margin: auto;" />
+
+&nbsp;
+
+Okay, the points are there, but the have some issues. Let's add some information to improve the quality. Note that we need to rerun the boxplot command to regenerate the base plot before fixing the strip chart issues (otherwise they will just keep adding new points to the current chart and make a mess).
+
+We will make the following changes:
+
+`boxplot()`:
+* `outline = FALSE` prevents outlier points from being plotted (strip chart will be plotting all of the points anyway).
+* `ylab = "Petal Length (cm)"` cleans up our y-axis label.
+
+`stripchart()`:
+* `pch = 16` in `stripchart()` changes the point from an open square to a solid circle, which is easier to see against the box plot.
+* `method = "jitter"` in `stripchart()` offsets each point in the "x" direction by a small random amount so that you can see overlapping points.
+
+
+~~~
+boxplot(Petal.Length ~ Species, data = iris, 
+        outline = FALSE, ylab = "Petal Length (cm)")
+stripchart(Petal.Length ~ Species, data = iris, 
+           pch = 16, method = "jitter",
+           add=TRUE, vert=TRUE)
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-57-1.png" title="plot of chunk unnamed-chunk-57" alt="plot of chunk unnamed-chunk-57" width="612" style="display: block; margin: auto;" />
 
-Values should have been recorded as lowercase 'm' and 'f'. We should correct this.
+&nbsp;
+#### Multipanel plots
+
+Finally, let's look at how we can put multiple related panels in the same plot. This requires going beyond the `plot()` and `boxplot()` functions. 
+
+Take a look at the `?plot` documentation. Notice that there really aren't that many input options, but that there is a "..." listed, which references the `par()` function. This will also introduce you to the `par()` function. Under the surface, there are probably hundreds of tweaks that you can make to plots through arguments.  R has a set of predefined graphical parameters that are all stored in the background. The `par()` function queries and sets these parameters. If you don't give it any arguments, `par()` will return the current settings for all of these variables. We can see what they mean using `?par`.
 
 
 ~~~
-dat$Gender[dat$Gender == 'M'] <- 'm'
+?par
 ~~~
 {: .language-r}
 
-> ## Updating Factors
+
+
+~~~
+plot.options <- par() # this just assigns all of the current background plot options to a variable. Not a bad idea if you are going to be changing things
+head(plot.options) # this is a list with a bunch of graphical related variables
+~~~
+{: .language-r}
+
+
+
+~~~
+$xlog
+[1] FALSE
+
+$ylog
+[1] FALSE
+
+$adj
+[1] 0.5
+
+$ann
+[1] TRUE
+
+$ask
+[1] FALSE
+
+$bg
+[1] "white"
+~~~
+{: .output}
+
+
+
+~~~
+length(plot.options) # there are 72 variables that we can tweak in par() alone, and some have multiple parameters
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 72
+~~~
+{: .output}
+
+&nbsp;
+
+If we want to make a multipanel plot, say with box plots of Petal Length and Petal Width, and then the correlation between them, we can use `par()` before running plot to tell R how many rows and columns of figure panels that we want to create. We use this by passing the argument `mfrow = c(<# of rows>, <# of columns>)` to `par()`. This changes the value of the background graphical parameters. Note that we later have to change this back if we want to make a normal plot.
+
+Once we set `mfrow` we can then run our above plot commands in the order we want them displayed. Let's give it a try:
+
+
+~~~
+# get the current graphical parameters
+old.plot.options <- par() # it never hurts to save a copy of the old parameters, so we can reset them if we break something
+
+# setup a plot with 3 figure panels in a row using the mfrow argument
+par(mfrow = c(1,3)) # 1 row, 3 columns
+
+# Panel 1: Box plot with jittered stripchart points for Petal Length
+boxplot(Petal.Length ~ Species, data = iris, 
+        outline = FALSE, ylab = "Petal Length (cm)")
+stripchart(Petal.Length ~ Species, data = iris, 
+           pch = 16, method = "jitter",
+           add=TRUE, vert=TRUE)
+
+# Panel 2: Box plot with jittered stripchart points for Petal Width
+boxplot(Petal.Width ~ Species, data = iris, 
+        outline = FALSE, ylab = "Petal Width (cm)")
+stripchart(Petal.Width ~ Species, data = iris, 
+           pch = 16, method = "jitter",
+           add=TRUE, vert=TRUE)
+
+# Panel 3: Scatter plot comparing Petal Length to Petal Width
+plot(iris.char$Petal.Length, iris.char$Petal.Width, 
+     xlab = "Petal Length (cm)", ylab = "Petal Width (cm)",
+     col = col.vector)
+legend("bottomright", legend = species.list, col=col.list, pch=1)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-60-1.png" title="plot of chunk unnamed-chunk-60" alt="plot of chunk unnamed-chunk-60" width="612" style="display: block; margin: auto;" />
+
+&nbsp;
+#### Other resources for plotting
+
+This lesson gives you access to the two most common chart types used in biology: scatterplots and box plots (which can usually be used in place of bar charts). This is just the tip of a very large iceberg. R has the capability of producing any visualization you can imagine, and there are full workshops and courses dedicated just to generating graphics in R. The potential applications are as varied as your projects, and the best thing you can do is to sit down and start using the functions with Google search close at hand.
+
+We don't have the time to do everything, but we will be using both of these chart types throughout the course, and introducing several others (histograms, density charts, line graphs, Kaplan-Meier charts, etc).  For now, a few resources that will help you along the way:
+* A cheat sheet for the graphics tools that come with R (aka "R base graphics") can be downloaded [here]({{ page.root }}/fig/BaseGraphicsCheatsheet.pdf).
+* The `lattice` package makes some improvements to R base graphics and functions. The defaults are better for example. 
+* The other commonly graphics package is called `ggplot2`. I have tended toward base graphics, because you can literally do anything with them, but `ggplot2` is easier in some ways, once you get the syntax down (which is very different). Cheat sheet is [here]({{ page.root }}/fig/ggplot2-cheatsheet.pdf). 
+* Google is your friend. There are probably thousands of tutorials, forum Q&As, cheat sheets, etc. to answer your project specific questions. For a taste, go to Google and search "publication quality graphics in R"
+
+***
+### Exercises
+
+> ## On the road -- does what you drive or where you drive it matter?
 >
-> 
-> ~~~
-> plot(x = dat$Gender, y = dat$BloodPressure)
-> ~~~
-> {: .language-r}
-> 
-> <img src="../fig/rmd-03-introduction-to-R-data-plotting-updating-factors-1.png" title="plot of chunk updating-factors" alt="plot of chunk updating-factors" width="612" style="display: block; margin: auto;" />
+> Read in our sample data on car speeds (car-speeds.csv) and visualize differences in car 
+> speed by both state and color.
 >
-> Why does this plot show 4 levels?
->
-> *Hint* how many levels does dat$Gender have?
 > > ## Solution
-> > `dat$Gender` has 4 levels, so the plot shows 4 levels.
+> > 
+> > 
+> > ~~~
+> > # set data and results directories
+> > data.dir <- "data"
+> > results.dir <- "results"
+> > 
+> > # load data
+> > carSpeeds <- read.csv(paste0(data.dir,"/car-speeds.csv"))
+> > 
+> > # setup two panel figure
+> > par(mfrow = c(1,2))
+> > 
+> > # use a box plot with jittered strip chart overlay to plot car speed as a function
+> > # of state
+> > boxplot(Speed ~ State, data = carSpeeds, 
+> >         outline = FALSE, ylab = "Car Speed (mph)")
+> > stripchart(Speed ~ State, data = carSpeeds, 
+> >         pch = 16, method = "jitter",
+> >         add=TRUE, vert=TRUE)
+> > 
+> > # use a box plot with jittered strip chart overlay to plot car speed as a function
+> > # of car color
+> > boxplot(Speed ~ Color, data = carSpeeds, 
+> >         outline = FALSE, ylab = "Car Speed (mph)")
+> > stripchart(Speed ~ Color, data = carSpeeds, 
+> >         pch = 16, method = "jitter",
+> >             add=TRUE, vert=TRUE)
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-61-1.png" title="plot of chunk unnamed-chunk-61" alt="plot of chunk unnamed-chunk-61" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
-We need to tell R that "M" is no longer a valid value for this column.
-We use the `droplevels()` function to remove extra levels.
-
-
-~~~
-dat$Gender <- droplevels(dat$Gender)
-plot(x = dat$Gender, y = dat$BloodPressure)
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-59-1.png" title="plot of chunk unnamed-chunk-59" alt="plot of chunk unnamed-chunk-59" width="612" style="display: block; margin: auto;" />
-
-> ## Adjusting Factor Levels
->
-> Adjusting the `levels()` of a factor provides a useful shortcut for reassigning values in this case.
->
+> ## Blood pressure as a risk factor for aneurism
 > 
-> ~~~
-> levels(dat$Gender)[2] <- 'f'
-> plot(x = dat$Gender, y = dat$BloodPressure)
-> ~~~
-> {: .language-r}
+> Does blood pressure appear to have an impact on aneurism risk?
 > 
-> <img src="../fig/rmd-03-introduction-to-R-data-plotting-adjusting-levels-1.png" title="plot of chunk adjusting-levels" alt="plot of chunk adjusting-levels" width="612" style="display: block; margin: auto;" />
-{: .callout}
+> Examine these questions using the file that we created in the "Correcting Case in Gender"
+> exercise earlier (sample-gendercorrected.csv). What, other than blood pressure, may explain
+> any apparent correlation (or lack there of?).
+> 
+> Save your results to a PDF file.
+>
+> > ## Solution
+> > 
+> > I left this intentionally a bit vague, which means that there are several solutions. But 
+> > that is often the nature of real data in real research. 
+> > 
+> > Since we are trying to gt a general idea here, I am first going to calculate the average
+> > quarterly aneurisms and the total yearly aneurisms (you could also look at each quarter
+> > independently).
+> >
+> > 
+> > ~~~
+> > # set data and results directories
+> > data.dir <- "data"
+> > results.dir <- "results"
+> > 
+> > # load data
+> > data.an <- read.csv(paste0(data.dir,"/sample-gendercorrected.csv"))
+> > 
+> > # define new columns for average quarterly and total annual aneurisms and calculate
+> > data.an$Aneurisms_qmean <- rowMeans(data.an[,6:9])
+> > data.an$Aneurisms_total <- rowSums(data.an[,6:9])
+> > head(data.an)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >       ID Gender      Group BloodPressure  Age Aneurisms_q1 Aneurisms_q2
+> > 1 Sub001      M    Control           132 16.0          114          140
+> > 2 Sub002      M Treatment2           139 17.2          148          209
+> > 3 Sub003      M Treatment2           130 19.5          196          251
+> > 4 Sub004      F Treatment1           105 15.7          199          140
+> > 5 Sub005      M Treatment1           125 19.9          188          120
+> > 6 Sub006      M Treatment2           112 14.3          260          266
+> >   Aneurisms_q3 Aneurisms_q4 Aneurisms_qmean Aneurisms_total
+> > 1          202          237          173.25             693
+> > 2          248          248          213.25             853
+> > 3          122          177          186.50             746
+> > 4          233          220          198.00             792
+> > 5          222          228          189.50             758
+> > 6          320          294          285.00            1140
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # initiate a PDF file and setup two panel figure
+> > pdf(file=paste0(results.dir, "/aneurisms-bloodpressure-chart.pdf"), width = 8, height = 4)
+> > par(mfrow = c(1,2))
+> > 
+> > # use a scatter plot to look for apparent correlation between blood pressure and 
+> > # both summary measures of aneurism (in separate panels)
+> > plot(data.an$BloodPressure, data.an$Aneurisms_qmean, 
+> >      xlab = "Blood Pressure (mmHg)", ylab = "Mean Aneurisms per Quarter")
+> > 
+> > plot(data.an$BloodPressure, data.an$Aneurisms_total, 
+> >      xlab = "Blood Pressure (mmHg)", ylab = "Aneurisms per Year")
+> > 
+> > # turn off PDF device
+> > dev.off()
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > png 
+> >   2 
+> > ~~~
+> > {: .output}
+> > 
+> > There is no apparent correlation, but there are a lot of potential confounders within the
+> > data set that we are not examining in this exercise so far (treatment, gender, age)
+> {: .solution}
+{: .challenge}
+
+> ## Correlations between petal and sepal in iris data
+> 
+> We looked a correlation between petal length and width. What about correlations between petal
+> and sepal? Generate scatter plots to look at length and width correlations, broken down by species.
+>
+> Save your results to a PDF.
+> 
+> > ## Solution
+> > 
+> >  
+> > 
+> > ~~~
+> > # set data and results directories
+> > data.dir <- "data"
+> > results.dir <- "results"
+> > 
+> > # initiate a PDF file and setup two panel figure
+> > pdf(file=paste0(results.dir, "/iris-petal-sepal-correlations.pdf"), width = 8, height = 4)
+> > par(mfrow = c(1,2))
+> > 
+> > # Define colors
+> > col.list <- c("red", "blue", "green") 
+> > 
+> > # And we use the species.index in place of iris$Species to do the indexing and generate
+> > # our color list for each point on the plot
+> > col.vector <- col.list[iris$Species]
+> > 
+> > # Plot petal length x sepal length, then petal width x sepal width in subsequent panels
+> > # we only need one legend, which after an initial look at the data, fits best in the top
+> > # left of the first panel
+> > plot(iris$Petal.Length, iris$Sepal.Length,xlab = "Petal Length (cm)", 
+> >       ylab = "Sepal Length (cm)", col = col.vector)
+> > legend("topleft", legend = levels(iris$Species), col=col.list, pch=1)
+> > plot(iris$Petal.Width, iris$Sepal.Width,xlab = "Petal Width (cm)", 
+> >       ylab = "Sepal Width (cm)", col = col.vector)
+> > 
+> > # turn off the PDF device
+> > dev.off()
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > png 
+> >   2 
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
 
 {% include links.md %}

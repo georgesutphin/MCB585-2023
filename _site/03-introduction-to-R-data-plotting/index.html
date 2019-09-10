@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-09-04 23:37:31 -0700">
+    <meta http-equiv="last-modified" content="2019-09-09 23:54:41 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -216,7 +216,7 @@
 
   <div class="row">
     <div class="col-md-3">
-      <strong>Class Date:</strong> 9/3/2019
+      <strong>Class Date:</strong> 9/9/2019
       <br/>
       <strong>Teaching:</strong> 80 min
       <br/>
@@ -279,7 +279,7 @@
 
 <p>Thankfully, Excel is capable of opening, editing, and saving both .csv and .txt files, so we can go back and forth between R and Excel when we find it convenient.</p>
 
-<p>In this short lesson, we’ll learn how to read external data from a .csv or .txt file, and write data modified or generatated in R to a new .csv or .txt file. We will also explore the <a href="../reference.html#argument">arguments</a> that allow you read and write the data correctly for your needs.</p>
+<p>In this short lesson, we’ll learn how to read external data from a .csv or .txt file, and write data modified or generated in R to a new .csv or .txt file. We will also explore the <a href="../reference.html#argument">arguments</a> that allow you read and write the data correctly for your needs.</p>
 
 <p> </p>
 <h4 id="loading-external-data-into-a-data-frame">Loading external data into a data frame</h4>
@@ -307,10 +307,10 @@
 
 <p>A couple of things to notice:</p>
 <ul>
-  <li>The frist line contains column headers.</li>
+  <li>The first line contains column headers.</li>
   <li>The <code class="highlighter-rouge">,</code> delimiters tell the <code class="highlighter-rouge">read.csv(...)</code> function where the breaks in the data are located; that is, which data to put in which column of the output data frame.</li>
   <li>Each new line is also a delimiter that tells <code class="highlighter-rouge">read.csv(...)</code> which data to put in which row in the output data frame</li>
-  <li>In this case, all strings are contained withing quotation marks <code class="highlighter-rouge">""</code>. This is an optional way to tell the program where character strings start and stop.</li>
+  <li>In this case, all strings are contained within quotation marks <code class="highlighter-rouge">""</code>. This is an optional way to tell the program where character strings start and stop.</li>
 </ul>
 
 <p>On the topic of using quotation marks, open <code class="highlighter-rouge">sample-noquotes.csv</code> in your text editor to see the quote-free option:</p>
@@ -367,8 +367,8 @@ if we tell R that there are no “quote” characters.</p>
   <blockquote class="solution">
     <h2 id="solution">Solution</h2>
 
-    <p>The quotes are now included as part of the character arguments. It also messed up the header formating, apending
-an “X” to the beginning and surrounding text with “.”ss.</p>
+    <p>The quotes are now included as part of the character arguments. It also messed up the header 
+formatting, appending an “X” to the beginning and surrounding text with “.”ss.</p>
   </blockquote>
 </blockquote>
 
@@ -387,14 +387,14 @@ an “X” to the beginning and surrounding text with “.”ss.</p>
 <h4 id="changing-delimiters">Changing Delimiters</h4>
 
 <p>The default delimiter of the <code class="highlighter-rouge">read.csv()</code> function is a comma <code class="highlighter-rouge">,</code>, but you can
-use esentially any set of characters as a delimiter. <code class="highlighter-rouge">read.csv(...)</code> is actually a special case of a broader function called <code class="highlighter-rouge">read.table(...)</code>, with the delimiter argument (which is <code class="highlighter-rouge">sep</code>, for “separator”) set to <code class="highlighter-rouge">c</code> by default. Check out the help file for these functions:</p>
+use essentially any set of characters as a delimiter. <code class="highlighter-rouge">read.csv(...)</code> is actually a special case of a broader function called <code class="highlighter-rouge">read.table(...)</code>, with the delimiter argument (which is <code class="highlighter-rouge">sep</code>, for “separator”) set to <code class="highlighter-rouge">c</code> by default. Check out the help file for these functions:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">read.table</span><span class="w"> </span><span class="c1"># note that `?read.csv` brings up the same help document.</span><span class="w">
 </span></code></pre></div></div>
 
 <p> </p>
 
-<p>Under the <strong>Usage</strong> section there are multiple functions listed, including <code class="highlighter-rouge">read.table(...)</code> and <code class="highlighter-rouge">read.csv(...)</code>. In the parentheses for each function there is a list of arguments. Since <code class="highlighter-rouge">read.table(...)</code> is the parent function, all arguments are listed. Only arguments with different default values (as indicated by the <code class="highlighter-rouge">=</code>) are listed for <code class="highlighter-rouge">read.csv(...)</code>. A default value is the value that each arguement assumes when you do not explicitly enter a value. For example, <code class="highlighter-rouge">read.table(...)</code> assumes that a data file has no header (<code class="highlighter-rouge">header = FALSE</code>) and no delimiting character (<code class="highlighter-rouge">sep = ""</code>) while <code class="highlighter-rouge">read.csv(...)</code> assumes that a data file does have a header (<code class="highlighter-rouge">header = TRUE</code>) and a comma as the delimiting character (<code class="highlighter-rouge">sep = ","</code>), unless you specify otherwise.</p>
+<p>Under the <strong>Usage</strong> section there are multiple functions listed, including <code class="highlighter-rouge">read.table(...)</code> and <code class="highlighter-rouge">read.csv(...)</code>. In the parentheses for each function there is a list of arguments. Since <code class="highlighter-rouge">read.table(...)</code> is the parent function, all arguments are listed. Only arguments with different default values (as indicated by the <code class="highlighter-rouge">=</code>) are listed for <code class="highlighter-rouge">read.csv(...)</code>. A default value is the value that each argument assumes when you do not explicitly enter a value. For example, <code class="highlighter-rouge">read.table(...)</code> assumes that a data file has no header (<code class="highlighter-rouge">header = FALSE</code>) and no delimiting character (<code class="highlighter-rouge">sep = ""</code>) while <code class="highlighter-rouge">read.csv(...)</code> assumes that a data file does have a header (<code class="highlighter-rouge">header = TRUE</code>) and a comma as the delimiting character (<code class="highlighter-rouge">sep = ","</code>), unless you specify otherwise.</p>
 
 <p>If your data is stored in a tab-delimited text file, you will need to use <code class="highlighter-rouge">read.table(...)</code> a different delimiting character, or another of the associated functions called <code class="highlighter-rouge">read.delim(...)</code> which has defaults to a tab-delimited file format. Note that to define a <em>tab</em> as a delimiting character, you have to use <code class="highlighter-rouge">\t</code>.</p>
 
@@ -511,8 +511,7 @@ structure(c(NA, : invalid factor level, NA generated
 
 <p>To see the internal structure, we can use another function, <code class="highlighter-rouge">str()</code>. In this case,
 the dataframe’s internal structure includes the format of each column, which is what
-we are interested in. <code class="highlighter-rouge">str()</code> will be reviewed a little more in the lesson
-<a href="../13-supp-data-structures/">Data Types and Structures</a>.</p>
+we are interested in.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">carSpeeds</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -598,6 +597,8 @@ we are interested in. <code class="highlighter-rouge">str()</code> will be revie
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">write.csv</span><span class="p">(</span><span class="n">carSpeeds</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'data/car-speeds-cleaned.csv'</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
+<p> </p>
+
 <p>Now we see:</p>
 
 <p><img src="../fig/01-supp-csv-without-row-nums.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="350px" style="display: block; margin: auto auto auto 0;" /></p>
@@ -656,321 +657,6 @@ names for a data set without headers. If the data set already has headers
 <p> </p>
 
 <p>This can be useful when exporting data from R in a different program that either does not recognize <code class="highlighter-rouge">NA</code> or uses a different symbol for missing data.</p>
-
-<hr />
-<h3 id="manipulating-data">Manipulating Data</h3>
-
-<p>Now that our data are loaded into R, we can start doing things with them. First, let’s ask what type of thing <code class="highlighter-rouge">dat</code> is:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "data.frame"
-</code></pre></div></div>
-
-<p> </p>
-
-<p>The output tells us that it’s a data frame. As noted in the previous lesson, data frames are the <em>de facto</em> data type in R, and many functions will produce data frames as output.</p>
-
-<p>We can see the shape, or <a href="../reference.html#dimensions-of-an-array">dimensions</a>, of the data frame with the function <code class="highlighter-rouge">dim</code>:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">dim</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 100   9
-</code></pre></div></div>
-
-<p> </p>
-
-<p>This tells us that our data frame, <code class="highlighter-rouge">dat</code>, has 100 rows and 9 columns.</p>
-
-<p>Reviewing the basic types of subsetting, if we want to get a single value from the data frame, we can provide an <a href="../reference.html#index">index</a> in square brackets. The first number specifies the row and the second the column:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first value in dat, row 1, column 1</span><span class="w">
-</span><span class="n">dat</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] Sub001
-100 Levels: Sub001 Sub002 Sub003 Sub004 Sub005 Sub006 Sub007 ... Sub100
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># middle value in dat, row 30, column 6</span><span class="w">
-</span><span class="n">dat</span><span class="p">[</span><span class="m">30</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="p">]</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 103
-</code></pre></div></div>
-
-<p> </p>
-
-<p>Or we can select sequential or non-sequential subsets using the <code class="highlighter-rouge">:</code> operator or <code class="highlighter-rouge">c()</code> function, respectively:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># output the first 4 rows and first 3 columns of dat</span><span class="w">
-</span><span class="n">dat</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">]</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      ID Gender      Group
-1 Sub001      m    Control
-2 Sub002      m Treatment2
-3 Sub003      m Treatment2
-4 Sub004      f Treatment1
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># output rows 1, 3, and, 5, and columsn 2 and 6</span><span class="w">
-</span><span class="n">dat</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">),</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="p">)]</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Gender Aneurisms_q1
-1      m          114
-3      m          196
-5      m          188
-</code></pre></div></div>
-
-<p> </p>
-
-<p>If you want to select all rows or all columns, leave that index value empty.</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># All columns from row 5</span><span class="w">
-</span><span class="n">dat</span><span class="p">[</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      ID Gender      Group BloodPressure  Age Aneurisms_q1 Aneurisms_q2
-5 Sub005      m Treatment1           125 19.9          188          120
-  Aneurisms_q3 Aneurisms_q4
-5          222          228
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># All rows from column 6-8</span><span class="w">
-</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">6</span><span class="o">:</span><span class="m">9</span><span class="p">]</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Aneurisms_q1 Aneurisms_q2 Aneurisms_q3 Aneurisms_q4
-1            114          140          202          237
-2            148          209          248          248
-3            196          251          122          177
-4            199          140          233          220
-5            188          120          222          228
-6            260          266          320          294
-7            135           98          154          245
-8            216          238          279          251
-9            117          215          181          272
-10           188          144          192          185
-11           134          155          247          223
-12           152          177          323          245
-13           112          220          225          195
-14           109          150          177          189
-15           146          140          239          223
-16            97          172          203          207
-17           165          157          200          193
-18           158          265          243          187
-19           178          109          206          182
-20           107          188          167          218
-21           174          160          203          183
-22            97          110          194          133
-23           187          239          281          214
-24           188          191          256          265
-25           114          199          242          195
-26           115          160          158          228
-27           128          249          294          315
-28           112          230          281          126
-29           136          109          105          155
-30           103          148          219          228
-31           132          151          234          162
-32           118          154          260          160
-33           166          176          253          233
-34           152          105          197          299
-35           191          148          166          185
-36           152          178          158          170
-37           161          270          232          284
-38           239          184          317          269
-39           132          137          193          206
-40           168          255          273          274
-41           140          184          239          202
-42           166           85          179          196
-43           141          160          179          239
-44           161          168          212          181
-45           103          111          254          126
-46           231          240          260          310
-47           192          141          180          225
-48           178          180          169          183
-49           167          123          236          224
-50           135          150          208          279
-51           150          166          153          204
-52           192           80          138          222
-53           153          153          236          216
-54           205          264          269          207
-55           117          194          216          211
-56           199          119          183          251
-57           182          129          226          218
-58           180          196          250          294
-59           111          111          244          201
-60           101           98          178          116
-61           166          167          232          241
-62           158          171          237          212
-63           189          178          177          238
-64           189          101          193          172
-65           239          189          297          300
-66           185          224          151          182
-67           224          112          304          288
-68           104          139          211          204
-69           222          199          280          196
-70           107           98          204          138
-71           153          255          218          234
-72           118          165          220          227
-73           102          184          246          222
-74           188          125          191          157
-75           180          283          204          298
-76           178          214          291          240
-77           168          184          184          229
-78           118          170          249          249
-79           169          114          248          233
-80           156          138          218          258
-81           232          211          219          246
-82           188          108          180          136
-83           169          168          180          211
-84           241          233          292          182
-85            65          207          234          235
-86           225          185          195          235
-87           104          116          173          221
-88           179          158          216          244
-89           103          140          209          186
-90           112          130          175          191
-91           226          170          307          244
-92           228          221          316          259
-93           209          142          199          184
-94           153          104          194          214
-95           111          118          173          191
-96           148          132          200          194
-97           141          196          322          273
-98           193          112          123          181
-99           130          226          286          281
-100          126          157          129          160
-</code></pre></div></div>
-
-<p> </p>
-
-<p>Or select columns by name:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># select the BloodPressure data</span><span class="w">
-</span><span class="n">dat</span><span class="o">$</span><span class="n">BloodPressure</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 132 139 130 105 125 112 173 108 131 129 126  96  77 158  81 137 147
- [18] 130 105  92 111 122  97 118  82 123 126  94 135 108 133 108 122 134
- [35] 145 133  90 118 113 115 142 114 139  90 126 109 125  99 122 111 109
- [52] 134 113 105 125 123 155 117 116 133  94 106 144 149 108 116 136  98
- [69] 148  74 147 116 133  97 132 153 151 121 116 104 111  62 124 124 109
- [86] 117  90 158 113 150 115  83 116 141 108 102  90 133  83 122
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># select all rows for the Gender and BloodPressure columns</span><span class="w">
-</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Gender"</span><span class="p">,</span><span class="w"> </span><span class="s2">"BloodPressure"</span><span class="p">)]</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Gender BloodPressure
-1        m           132
-2        m           139
-3        m           130
-4        f           105
-5        m           125
-6        M           112
-7        f           173
-8        m           108
-9        m           131
-10       f           129
-11       m           126
-12       f            96
-13       f            77
-14       m           158
-15       m            81
-16       m           137
-17       f           147
-18       m           130
-19       m           105
-20       F            92
-21       f           111
-22       m           122
-23       f            97
-24       f           118
-25       m            82
-26       M           123
-27       M           126
-28       f            94
-29       m           135
-30       f           108
-31       f           133
-32       m           108
-33       m           122
-34       m           134
-35       m           145
-36       f           133
-37       f            90
-38       m           118
-39       M           113
-40       m           115
-41       f           142
-42       m           114
-43       m           139
-44       m            90
-45       f           126
-46       f           109
-47       M           125
-48       M            99
-49       m           122
-50       m           111
-51       m           109
-52       f           134
-53       f           113
-54       f           105
-55       m           125
-56       f           123
-57       m           155
-58       m           117
-59       m           116
-60       f           133
-61       f            94
-62       f           106
-63       f           144
-64       M           149
-65       f           108
-66       m           116
-67       f           136
-68       f            98
-69       M           148
-70       m            74
-71       m           147
-72       m           116
-73       F           133
-74       m            97
-75       m           132
-76       f           153
-77       M           151
-78       M           121
-79       M           116
-80       f           104
-81       m           111
-82       M            62
-83       M           124
-84       m           124
-85       m           109
-86       f           117
-87       f            90
-88       f           158
-89       m           113
-90       m           150
-91       f           115
-92       m            83
-93       F           116
-94       f           141
-95       m           108
-96       m           102
-97       F            90
-98       m           133
-99       M            83
-100      M           122
-</code></pre></div></div>
-
-<p>If you leave both index values empty (i.e., <code class="highlighter-rouge">dat[,]</code>), you get the entire data frame.</p>
 
 <hr />
 <h3 id="calculating-basic-statistics">Calculating basic statistics</h3>
@@ -1101,7 +787,7 @@ Instead, we can combine the selection and the function call:</p>
 
 <p> </p>
 
-<p>And to obtain the average number of aneurisms for each quater, mean of all of the columns (<code class="highlighter-rouge">MARGIN = 2</code>) of the data frame:</p>
+<p>And to obtain the average number of aneurisms for each quarter, mean of all of the columns (<code class="highlighter-rouge">MARGIN = 2</code>) of the data frame:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">avg_aneurisms_quarter</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="m">6</span><span class="o">:</span><span class="m">9</span><span class="p">],</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -1113,8 +799,8 @@ Instead, we can combine the selection and the function call:</p>
 
   <p>Notice that we did not specify the argument names in <code class="highlighter-rouge">apply()</code>. Looking at the help file, the argument 
 order is <code class="highlighter-rouge">X</code> (indicating the input data), then <code class="highlighter-rouge">MARGIN</code>, then <code class="highlighter-rouge">FUN</code> (for function to apply). So long as you 
-enter arguments in the requested order, you do not need to be explicity about which argument you are 
-referring too. <code class="highlighter-rouge">apply()</code> just assums that the first argument entered is the value for <code class="highlighter-rouge">X</code>, the second is the &gt; value for <code class="highlighter-rouge">MARGIN</code>, and the third is the value for <code class="highlighter-rouge">FUN</code>. You can mix up the order, but then you have to be 
+enter arguments in the requested order, you do not need to be explicitly about which argument you are 
+referring too. <code class="highlighter-rouge">apply()</code> just assumes that the first argument entered is the value for <code class="highlighter-rouge">X</code>, the second is the &gt; value for <code class="highlighter-rouge">MARGIN</code>, and the third is the value for <code class="highlighter-rouge">FUN</code>. You can mix up the order, but then you have to be 
 explicit about which argument you are defining.</p>
 
   <p>For example, this will return an error:</p>
@@ -1419,7 +1105,7 @@ categorical vector:</p>
 used <code class="highlighter-rouge">m</code> and sometimes <code class="highlighter-rouge">M</code> to indicate <code class="highlighter-rouge">male</code>, and similarly <code class="highlighter-rouge">f</code> or <code class="highlighter-rouge">F</code> to 
 indicate <code class="highlighter-rouge">female</code> (or perhaps there were two individuals entering the data
 in slightly different ways). This is a problem, because R is case-sensitive and
-treates <code class="highlighter-rouge">m</code> as a different entry from <code class="highlighter-rouge">M</code>.</p>
+treats <code class="highlighter-rouge">m</code> as a different entry from <code class="highlighter-rouge">M</code>.</p>
 
   <p>Use logical indexing to correct this problem. So we are all on the same page,
 change all entries to capitals. Save your corrected file to the data folder under
@@ -1486,418 +1172,788 @@ specific quarters and patients in the patient dataset.</p>
 
 <p>      <em>“The purpose of computing is insight, not numbers.”</em></p>
 
-<p>The best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R’s plotting features.</p>
+<p>The best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, and we will touch on various aspects of R’s plotting functionality later on in the course, but for now we will introduce a few of R’s plotting features.</p>
 
-<p>Let’s take a look at the average number of aneurisms over time. Recall that we already calculated these values above using <code class="highlighter-rouge">apply(dat[,6:9], 2, mean)</code> and saved them in the variable <code class="highlighter-rouge">avg_aneurisms_quarter</code>.
-Plotting the values is done with the function <code class="highlighter-rouge">plot()</code>.</p>
+<p>The basic plot function in R is called, conveniently, <code class="highlighter-rouge">plot()</code>. Let’s take a quick look:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">avg_aneurisms_quarter</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">plot</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<p>In it’s most basic form, <code class="highlighter-rouge">plot(x,y)</code> function will create a scatter plot with points defined by the vectors <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code>. Let’s start out with the iris data set and look at the relationship between petal length and width:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">,</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Width</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-35-1.png" title="plot of chunk unnamed-chunk-35" alt="plot of chunk unnamed-chunk-35" width="612" style="display: block; margin: auto;" /></p>
+
+<p> </p>
+
+<p>Congratulations! You have plotted your first data in R. So what is going on in the background here? Let’s talk about what R is actually doing when you give it the plot command.</p>
+
+<p> </p>
+<h4 id="graphics-devices">Graphics devices</h4>
+
+<p>When you tell R to run a plot, it actually takes a series of actions:</p>
+
+<ol>
+  <li>Opens a new “graphics device”. This device can be one of several things:
+ a. The “Plot” section in the lower-right panel of RStudio (this is the default in RStudio).
+ b. A blank graphics pane in a new window (this requires the <code class="highlighter-rouge">windows()</code> or <code class="highlighter-rouge">quartz()</code> commands, which we discuss below).
+ c. An external image file (e.g. a new .jpg file).
+ d. An external PDF file (complete with vector graphics!).</li>
+  <li>Draws a series of objects; this part is done “under the hood” of the <code class="highlighter-rouge">plot()</code> function, and includes:
+ a. Axes.
+ b. Tick marks.
+ c. Axis labels.
+ d. Data points.
+ e. Legend(s).
+ f. Chart titles.</li>
+  <li>Leaves the current graphics device open for additional drawing input. This step is important, because it means that you can continue to add things to the image using other functions.</li>
+  <li>Closes the graphics device following a <code class="highlighter-rouge">dev.off()</code> function call. This essentially “finalizes” the image.</li>
+</ol>
+
+<p>Note that you can have multiple graphics devices open at once. R will, by default, write new graphics to the most recently used or created graphics device. Some functions, like <code class="highlighter-rouge">plot()</code> automatically start a new graphics device (or page in the case of the RStudio panel or a PDF), while other functions, like <code class="highlighter-rouge">lines()</code>, will add graphical elements to the most recently used device.</p>
+
+<p>Let’s repeat our above <code class="highlighter-rouge">plot()</code> command in a few different devices to illustrate a few of these points.</p>
+
+<p> </p>
+
+<p><strong>Plotting in a separate window</strong></p>
+
+<p>To plot in a separate window within RStudio (rather than the “Plot” panel), use one of the following platform-dependent functions:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">windows</span><span class="p">()</span><span class="w"> </span><span class="c1"># Windows</span><span class="w">
+</span><span class="n">quartz</span><span class="p">()</span><span class="w"> </span><span class="c1"># MacOS</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<p>Now recreate our above plot:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">,</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Width</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-37-1.png" title="plot of chunk unnamed-chunk-37" alt="plot of chunk unnamed-chunk-37" width="612" style="display: block; margin: auto;" /></p>
+
+<p> </p>
+
+<p>Note that we can now add additional elements to this plot. Let’s add a chart title to demonstrate the point.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">title</span><span class="p">(</span><span class="s2">"Relationship between petal length and petal width"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-38-1.png" title="plot of chunk unnamed-chunk-38" alt="plot of chunk unnamed-chunk-38" width="612" style="display: block; margin: auto;" /></p>
 
-<p>Above, we gave the function <code class="highlighter-rouge">plot()</code> a vector of numbers corresponding to the average inflammation per day across all patients.
-<code class="highlighter-rouge">plot</code> created a scatter plot where the y-axis is the average inflammation level and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 40 days of treatment.
-The result is roughly a linear rise and fall, which is suspicious: based on other studies, we expect a sharper rise and slower fall.
-Let’s have a look at two other statistics: the maximum and minimum inflammation per day.</p>
+<p> </p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">max_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="p">)</span><span class="w">
-</span><span class="n">plot</span><span class="p">(</span><span class="n">max_day_inflammation</span><span class="p">)</span><span class="w">
+<p>We can shutdown the window by either just closing it, or from RStudio using the <code class="highlighter-rouge">dev.off()</code> function.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dev.off</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>null device 
+          1 
 </code></pre></div></div>
 
-<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-39-1.png" title="plot of chunk unnamed-chunk-39" alt="plot of chunk unnamed-chunk-39" width="612" style="display: block; margin: auto;" /></p>
+<p><strong>Plotting to an external file</strong></p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">min_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">min</span><span class="p">)</span><span class="w">
-</span><span class="n">plot</span><span class="p">(</span><span class="n">min_day_inflammation</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
+<p>R has a series of functions designed to open a graphics device that will write directly to an external file. These files can be image files or PDFs.</p>
+<ul>
+  <li><code class="highlighter-rouge">bmp()</code> generates a <em>.bmp</em></li>
+  <li><code class="highlighter-rouge">jpeg()</code> generates a <em>.jpg</em></li>
+  <li><code class="highlighter-rouge">png()</code> generates a <em>.png</em></li>
+  <li><code class="highlighter-rouge">tiff()</code> generates a <em>.tif</em></li>
+  <li><code class="highlighter-rouge">pdf()</code> generates a <em>.pdf</em></li>
+</ul>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion
-</code></pre></div></div>
+<p>The first four are all versions of the same function and behave essentially interchangably. PDF is a separate function. The primary difference between the two is that the non-PDF image files will have a defined resolution, while the PDF files are generated as <em>vector graphics</em>, meaning that they maintain resolution at any size.</p>
 
-<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-40-1.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="612" style="display: block; margin: auto;" /></p>
+<blockquote class="callout">
+  <h2 id="vector-graphics">Vector Graphics</h2>
 
-<p>The maximum value rises and falls perfectly smoothly, while the minimum seems to be a step function. Neither result seems particularly likely, so either there’s a mistake in our calculations or something is wrong with our data.</p>
+  <p>Traditional image formats (e.g. .bmp, .jpg, .tiff, .png) are, in essence, a two dimensional array of color and intensity values (such as 
+red-green-blue, or RGB values). The array has a fixed number of pixels in each dimension, so if you take an image that is 1 in x 1 in with 
+100 pixels in each dimension, and blow it up to 1 ft x ft, it still only has 100 pixels in each dimension. The blowup image will appear 
+blocky, or “pixelated”.</p>
 
-<blockquote class="challenge">
-  <h2 id="plotting-data">Plotting Data</h2>
+  <p>Vector graphics are distinct from traditional graphics in that they are defined by a set of mathematical operations carried out at specified &gt; coordinates. For example, two of the instructions may be something like:</p>
+  <ol>
+    <li>Draw the letter “A” in normal size 10 Arial font at coordinates (10, 10).</li>
+    <li>Draw the an arrow with line weight 2 and arrow head style X size 4 from the point (12, 12) to the point (20, 20).</li>
+  </ol>
 
-  <p>Create a plot showing the standard deviation of the inflammation data for each day across all patients.</p>
+  <p>These instructions are the same for a 1 in x 1 in image and a 1 ft x 1 ft image (or a 1 mile x 1 mile image). Because the shape of the 
+letter and the arrow are defined by the font and the arrow head style, when the image is rendered, they can be drawn with the appropriate 
+number of pixels to appear crisp and smooth at the image size requested.</p>
 
-  <blockquote class="solution">
-    <h2 id="solution-6">Solution</h2>
-
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sd_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">sd</span><span class="p">)</span><span class="w">
-</span><span class="n">plot</span><span class="p">(</span><span class="n">sd_day_inflammation</span><span class="p">)</span><span class="w">
-</span></code></pre></div>    </div>
-  </blockquote>
+  <p>This is how PDF files and other vector graphic formats work. They are really convenient for preparing manuscripts because journals often 
+want a low-res file for review and a high-res file for publication. By starting with a PDF you can generate both categories of graphic with 
+the same underlying file. any modern journals prefer that figures be submitted as PDF or other vector graphics format for this very reason.</p>
 </blockquote>
 
-<h3 id="saving-plots-to-a-file">Saving Plots to a File</h3>
+<p> </p>
 
-<p>So far, we have built a function <code class="highlighter-rouge">analyze</code> to plot summary statistics of the inflammation data:</p>
+<p>Let’s give both types of graphic generation a try by generating our previous plot as a <em>.jpg** and **.PDF</em> file. Take a look at the <code class="highlighter-rouge">jpeg()</code> function to see what it needs:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="c1"># Plots the average, min, and max inflammation over time.</span><span class="w">
-  </span><span class="c1"># Input is character string of a csv file.</span><span class="w">
-  </span><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
-  </span><span class="n">avg_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
-  </span><span class="n">plot</span><span class="p">(</span><span class="n">avg_day_inflammation</span><span class="p">)</span><span class="w">
-  </span><span class="n">max_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="p">)</span><span class="w">
-  </span><span class="n">plot</span><span class="p">(</span><span class="n">max_day_inflammation</span><span class="p">)</span><span class="w">
-  </span><span class="n">min_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">min</span><span class="p">)</span><span class="w">
-  </span><span class="n">plot</span><span class="p">(</span><span class="n">min_day_inflammation</span><span class="p">)</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">jpeg</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<p>And also built the function <code class="highlighter-rouge">analyze_all</code> to automate the processing of each data file:</p>
+<p> </p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze_all</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">folder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="c1"># Runs the function analyze for each file in the given folder</span><span class="w">
-  </span><span class="c1"># that contains the given pattern.</span><span class="w">
-  </span><span class="n">filenames</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">folder</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pattern</span><span class="p">,</span><span class="w"> </span><span class="n">full.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
-  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">filenames</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">analyze</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<p>By default, the function will generate a plot with an automatically generated name in our home directory. Recall that we have already defined a separate <em>MCB585/results</em> folder, stored in memory under the <code class="highlighter-rouge">results.dir</code> variable. First we will generate a file name that contains both the path to our results directory and the name of the file we want. We can write this all out, or use the <code class="highlighter-rouge">paste()</code> function to combine the path and file name into a single <code class="highlighter-rouge">character</code> variable:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">results.dir</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"results"</span><span class="w"> </span><span class="c1"># in case you haven't defined it yet in this lesson</span><span class="w">
+</span><span class="n">petal.cor.file</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste</span><span class="p">(</span><span class="n">results.dir</span><span class="p">,</span><span class="w"> </span><span class="s2">"/petal-width-length-comparison.jpg"</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span><span class="w"> </span><span class="c1"># note that by default, paste() puts a space in between entries whten combining them into a string; thus we have to change the separator to "nothing" by setting sep = ""</span><span class="w">
+
+</span><span class="n">petal.cor.file</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="n">results.dir</span><span class="p">,</span><span class="w"> </span><span class="s2">"/petal-width-length-comparison.jpg"</span><span class="p">)</span><span class="w"> </span><span class="c1"># paste0() is just like paste() with the separator automatically set to "nothing"</span><span class="w">
 </span></code></pre></div></div>
 
-<p>While these are useful in an interactive R session, what if we want to send our results to our collaborators?
-Since we currently have 12 data sets, running <code class="highlighter-rouge">analyze_all</code> creates 36 plots.
-Saving each of these individually would be tedious and error-prone.
-And in the likely situation that we want to change how the data is processed or the look of the plots, we would have to once again save all 36 before sharing the updated results with our collaborators.</p>
+<p> </p>
 
-<p>Here’s how we can save all three plots of the first inflammation data set in a pdf file:</p>
+<p>Also by default, the function will produce a 480 px x 480 px image at 72 pixels per inch (ppi). Note that the actual physical image size will be <strong>size inches = size in pixels/ppi</strong>. Let’s make a 100 ppi <em>.jpg</em> image that is 5 in x 5 in.</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pdf</span><span class="p">(</span><span class="s2">"inflammation-01.pdf"</span><span class="p">)</span><span class="w">
-</span><span class="n">analyze</span><span class="p">(</span><span class="s2">"data/inflammation-01.csv"</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">jpeg</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">petal.cor.file</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">500</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">500</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<p>Now look inside your results folder. If the <code class="highlighter-rouge">jpeg()</code> function worked correctly and our directories were correct, you should now see a new file called <em>petal-width-length-comparison.jpg</em>. What happens when you try to open this file?</p>
+
+<p>You should get an error at this point. This is because the file has been created, but that it is currently black and open in RStudio waiting for more input. We can use the <code class="highlighter-rouge">dev.cur()</code> to confirm that the active graphics device is indeed the JPEG file.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dev.cur</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<p>Let’s give it our earlier <code class="highlighter-rouge">plot()</code> and <code class="highlighter-rouge">title()</code> commands, and then turn off the device (using <code class="highlighter-rouge">dev.off()</code>) to complete and close the file.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">,</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Width</span><span class="p">)</span><span class="w">
+</span><span class="n">title</span><span class="p">(</span><span class="s2">"Relationship between petal length and petal width"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-44-1.png" title="plot of chunk unnamed-chunk-44" alt="plot of chunk unnamed-chunk-44" width="612" style="display: block; margin: auto;" /></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dev.off</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jpeg 
+   3 
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Now try opening the <em>petal-width-length-comparison.jpg</em>. We have our chart in JPG format! Zoom in to check out the resolution. Not great? Generating JPEG or other graphics formats is useful for some applications (e.g. direct output to a webpage, for example), but for generating reports and paper figures, vector graphics are the way to go. That’s why I tend to work almost exclusively in PDF files, and so will we for the rest of the course.</p>
+
+<p>So let’s do it. First let’s take a look at the <code class="highlighter-rouge">pdf()</code> function:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">pdf</span><span class="p">()</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<p>While <code class="highlighter-rouge">pdf()</code> still wants the file name as the <code class="highlighter-rouge">file = </code> argument, we now specify width and height in inches to define the size of the file, and exclude resolution because PDF files are vector graphics and will be generated to the resolution required by the size. This is more intuitive (we just ask for the image size that we way, instead of having to calculate it from pixel number and ppi), and more convenient. WE can now generate any size output we want, including a nice, printable 8.5 in x 11 in standard paper size.</p>
+
+<p>For the moment, we will generate the PDF equivalent of our earlier JPEG, with dimensions of 5 in x 5 in. For fun, let’s also include a second plot that compares sepal length and width:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define the file name</span><span class="w">
+</span><span class="n">petal.cor.pdf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="n">results.dir</span><span class="p">,</span><span class="w"> </span><span class="s2">"/petal-width-length-comparison.pdf"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># generate the PDF file</span><span class="w">
+</span><span class="n">pdf</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">petal.cor.pdf</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># plot petal length vs. width</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">,</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Width</span><span class="p">)</span><span class="w">
+</span><span class="n">title</span><span class="p">(</span><span class="s2">"Relationship between petal length and petal width"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># plot petal length vs. width</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Sepal.Length</span><span class="p">,</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Sepal.Width</span><span class="p">)</span><span class="w">
+</span><span class="n">title</span><span class="p">(</span><span class="s2">"Relationship between sepal length and sepal width"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># finalize the PDF</span><span class="w">
 </span><span class="n">dev.off</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<p>The function <code class="highlighter-rouge">pdf</code> redirects all the plots generated by R into a pdf file, which in this case we have named “inflammation-01.pdf”.
-After we are done generating the plots to be saved in the pdf file, we stop R from redirecting plots with the function <code class="highlighter-rouge">dev.off</code>.</p>
+<p> </p>
 
-<blockquote class="callout">
-  <h2 id="overwriting-plots">Overwriting Plots</h2>
+<p>Notice a couple of important things:</p>
+<ul>
+  <li>Zooming in and out in the PDF does not affect image resulution. It always looks sharp!</li>
+  <li>Running <code class="highlighter-rouge">plot()</code> the second time generated a second page in the PDF file. If you want a new file for every figure, set <code class="highlighter-rouge">onefile = T</code> in the <code class="highlighter-rouge">pdf()</code> function (see the <code class="highlighter-rouge">?pdf</code> documentation for details).</li>
+</ul>
 
-  <p>If you run <code class="highlighter-rouge">pdf</code> multiple times without running <code class="highlighter-rouge">dev.off</code>, you will save plots to the most recently opened file.
-However, you won’t be able to open the previous pdf files because the connections were not closed.
-In order to get out of this situation, you’ll need to run <code class="highlighter-rouge">dev.off</code> until all the pdf connections are closed.
-You can check your current status using the function <code class="highlighter-rouge">dev.cur</code>.
-If it says “pdf”, all your plots are being saved in the last pdf specified.
-If it says “null device” or “RStudioGD”, the plots will be visualized normally.</p>
-</blockquote>
+<p> </p>
+<h4 id="fixing-the-axis-labels">Fixing the axis labels</h4>
 
-<p>We can update the <code class="highlighter-rouge">analyze</code> function so that it always saves the plots in a pdf.
-But that would make it more difficult to interactively test out new changes.
-It would be ideal if <code class="highlighter-rouge">analyze</code> would either save or not save the plots based on its input.</p>
+<p>Okay, so we know how to generate a chart. Clearly the default parameters are not what we want. First, what is up with the axis labels? By default, R will just use the variable name as the axis labels, having nothing else to work with. We can add out own labels with the <code class="highlighter-rouge">xlab</code> and <code class="highlighter-rouge">ylab</code> arguments.</p>
 
-<h3 id="saving-automatically-generated-figures">Saving Automatically Generated Figures</h3>
+<p>For now, we will just use the plot window in RStudio to demonstrate a few of the features of <code class="highlighter-rouge">plot()</code>. To make sure you don’t have any open graphics devices, run <code class="highlighter-rouge">dev.off()</code> a few times before moving forward.</p>
 
-<p>Now that we know how to have R make decisions based on input values,
-let’s update <code class="highlighter-rouge">analyze</code>:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="c1"># Plots the average, min, and max inflammation over time.</span><span class="w">
-  </span><span class="c1"># Input:</span><span class="w">
-  </span><span class="c1">#    filename: character string of a csv file</span><span class="w">
-  </span><span class="c1">#    output: character string of pdf file for saving</span><span class="w">
-  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nf">is.null</span><span class="p">(</span><span class="n">output</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">pdf</span><span class="p">(</span><span class="n">output</span><span class="p">)</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-  </span><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
-  </span><span class="n">avg_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
-  </span><span class="n">plot</span><span class="p">(</span><span class="n">avg_day_inflammation</span><span class="p">)</span><span class="w">
-  </span><span class="n">max_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="p">)</span><span class="w">
-  </span><span class="n">plot</span><span class="p">(</span><span class="n">max_day_inflammation</span><span class="p">)</span><span class="w">
-  </span><span class="n">min_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">min</span><span class="p">)</span><span class="w">
-  </span><span class="n">plot</span><span class="p">(</span><span class="n">min_day_inflammation</span><span class="p">)</span><span class="w">
-  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nf">is.null</span><span class="p">(</span><span class="n">output</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">dev.off</span><span class="p">()</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">,</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Width</span><span class="p">,</span><span class="w">
+     </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Length (cm)"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Width (cm)"</span><span class="p">)</span><span class="w"> </span><span class="c1"># line wrap longer function calls for readability</span><span class="w">
 </span></code></pre></div></div>
 
-<p>We added an argument, <code class="highlighter-rouge">output</code>, that by default is set to <code class="highlighter-rouge">NULL</code>.
-An <code class="highlighter-rouge">if</code> statement at the beginning checks the argument <code class="highlighter-rouge">output</code> to decide whether or not to save the plots to a pdf.
-Let’s break it down.
-The function <code class="highlighter-rouge">is.null</code> returns <code class="highlighter-rouge">TRUE</code> if a variable is <code class="highlighter-rouge">NULL</code> and <code class="highlighter-rouge">FALSE</code> otherwise.
-The exclamation mark, <code class="highlighter-rouge">!</code>, stands for “not”.
-Therefore the line in the <code class="highlighter-rouge">if</code> block is only executed if <code class="highlighter-rouge">output</code> is “not null”.</p>
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-47-1.png" title="plot of chunk unnamed-chunk-47" alt="plot of chunk unnamed-chunk-47" width="612" style="display: block; margin: auto;" /></p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">output</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">NULL</span><span class="w">
-</span><span class="nf">is.null</span><span class="p">(</span><span class="n">output</span><span class="p">)</span><span class="w">
+<p> </p>
+
+<p>That’s better! Now, looking at the data, there does seem to be an odd pattern. There is clearly a distinct group in the lower left corner with smaller petals. Let’s remind ourselves what information we have available:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+</code></pre></div></div>
+
+<p> </p>
+
+<p>The most obvious candidate to explain the separate grouping is species. We can add color to see if that grouping is all one species using the <code class="highlighter-rouge">col</code> argument. R has many color names available by default which can be listed using the <code class="highlighter-rouge">colors()</code> function and called using a simple character string (e.g. <code class="highlighter-rouge">"blue"</code>), which is how we will do it. You can also select colors by hex code or RGB value with other functions, details on which can be found on this helpful <a href="../fig/colorPaletteCheatsheet.pdf">R color guide</a>.</p>
+
+<p>First, we can just specify a color for the whole plot using <code class="highlighter-rouge">col = "&lt;color name&gt;"</code>.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">,</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Width</span><span class="p">,</span><span class="w">
+     </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Length (cm)"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Width (cm)"</span><span class="p">,</span><span class="w">
+     </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-49-1.png" title="plot of chunk unnamed-chunk-49" alt="plot of chunk unnamed-chunk-49" width="612" style="display: block; margin: auto;" /></p>
+
+<p> </p>
+
+<p>Of course, we don’t want all of the points to be blue. The <code class="highlighter-rouge">col</code> argument can also take a list that is the same length of the <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code> arguments that assigns individual color values to each point. Since we know the species order for the point, we can use logical indexing to assign colors to each species.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># iris$Species is a factor, which makes things easier in this case</span><span class="w">
+</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] setosa     setosa     setosa     setosa     setosa     setosa    
+  [7] setosa     setosa     setosa     setosa     setosa     setosa    
+ [13] setosa     setosa     setosa     setosa     setosa     setosa    
+ [19] setosa     setosa     setosa     setosa     setosa     setosa    
+ [25] setosa     setosa     setosa     setosa     setosa     setosa    
+ [31] setosa     setosa     setosa     setosa     setosa     setosa    
+ [37] setosa     setosa     setosa     setosa     setosa     setosa    
+ [43] setosa     setosa     setosa     setosa     setosa     setosa    
+ [49] setosa     setosa     versicolor versicolor versicolor versicolor
+ [55] versicolor versicolor versicolor versicolor versicolor versicolor
+ [61] versicolor versicolor versicolor versicolor versicolor versicolor
+ [67] versicolor versicolor versicolor versicolor versicolor versicolor
+ [73] versicolor versicolor versicolor versicolor versicolor versicolor
+ [79] versicolor versicolor versicolor versicolor versicolor versicolor
+ [85] versicolor versicolor versicolor versicolor versicolor versicolor
+ [91] versicolor versicolor versicolor versicolor versicolor versicolor
+ [97] versicolor versicolor versicolor versicolor virginica  virginica 
+[103] virginica  virginica  virginica  virginica  virginica  virginica 
+[109] virginica  virginica  virginica  virginica  virginica  virginica 
+[115] virginica  virginica  virginica  virginica  virginica  virginica 
+[121] virginica  virginica  virginica  virginica  virginica  virginica 
+[127] virginica  virginica  virginica  virginica  virginica  virginica 
+[133] virginica  virginica  virginica  virginica  virginica  virginica 
+[139] virginica  virginica  virginica  virginica  virginica  virginica 
+[145] virginica  virginica  virginica  virginica  virginica  virginica 
+Levels: setosa versicolor virginica
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">levels</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "setosa"     "versicolor" "virginica" 
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Let's define a list of colors to use in the plot</span><span class="w">
+</span><span class="n">col.list</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="s2">"green"</span><span class="p">)</span><span class="w"> </span><span class="c1"># the color order will be assigned in order of factor levels</span><span class="w">
+</span><span class="n">col.list</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "red"   "blue"  "green"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Recall that when we enter a factor as an index, R sees the underlying nueric representation:</span><span class="w">
+</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ [36] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ [71] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3
+[106] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+[141] 3 3 3 3 3 3 3 3 3 3
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Taking advantage of this, we can direclty index our color list and set up a vector the length of iris$Species</span><span class="w">
+</span><span class="c1"># with a unique color value for each species name</span><span class="w">
+</span><span class="n">col.vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">col.list</span><span class="p">[</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="p">]</span><span class="w">
+</span><span class="n">col.vector</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+  [9] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [17] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [25] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [33] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [41] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [49] "red"   "red"   "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [57] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [65] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [73] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [81] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [89] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [97] "blue"  "blue"  "blue"  "blue"  "green" "green" "green" "green"
+[105] "green" "green" "green" "green" "green" "green" "green" "green"
+[113] "green" "green" "green" "green" "green" "green" "green" "green"
+[121] "green" "green" "green" "green" "green" "green" "green" "green"
+[129] "green" "green" "green" "green" "green" "green" "green" "green"
+[137] "green" "green" "green" "green" "green" "green" "green" "green"
+[145] "green" "green" "green" "green" "green" "green"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># note that the lengths are indeed the same</span><span class="w">
+</span><span class="nf">length</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">col.vector</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
 </code></pre></div></div>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">!</span><span class="nf">is.null</span><span class="p">(</span><span class="n">output</span><span class="p">)</span><span class="w">
+<p> </p>
+
+<p>Now that we have our color assignments stored in the <code class="highlighter-rouge">col.vector</code> variable, we can use that to color our plot by species.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">,</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Width</span><span class="p">,</span><span class="w">
+     </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Length (cm)"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Width (cm)"</span><span class="p">,</span><span class="w">
+     </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col.vector</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-51-1.png" title="plot of chunk unnamed-chunk-51" alt="plot of chunk unnamed-chunk-51" width="612" style="display: block; margin: auto;" /></p>
+
+<p> </p>
+
+<p>As suspected, the lower left grouping is a single species. The other upper right grouping also breaks down nicely by species. But which is which? We can add a legend using the (you guessed it!) <code class="highlighter-rouge">legend()</code> function. First let’s look at the inputs:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">legend</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<p>The <code class="highlighter-rouge">legend()</code> function is not very smart. It does not actually have access to any information about the plot, and requires that we give it all of information about what information to include. This can be annoying for basic plots, but it gives you the flexibility to customize the information in your charts to any degree that you like. At a minimum, we need to give it the following arguments:</p>
+<ul>
+  <li><code class="highlighter-rouge">x</code> tells R where to put the legend on the plot. You can give it simple direction like <code class="highlighter-rouge">"center"</code>, <code class="highlighter-rouge">left</code>, or <code class="highlighter-rouge">bottomright</code>.</li>
+  <li><code class="highlighter-rouge">legend</code> tells R the list of labels for the legend, in this case we want the species names in factor level order (yes, the argument name is the same)</li>
+  <li><code class="highlighter-rouge">col</code> tells R the colors to display. We want to give it the same color order that we used to generate the species-matched color list.</li>
+  <li><code class="highlighter-rouge">pch</code> tells R the type of symbol to display. By default, the <code class="highlighter-rouge">plot()</code> function sets <code class="highlighter-rouge">pch = 1</code>, but this does not have a default value in <code class="highlighter-rouge">legend()</code> for some reason. For now we want <code class="highlighter-rouge">pch = 1</code> to match the <code class="highlighter-rouge">plot()</code> default.</li>
+</ul>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">legend</span><span class="p">(</span><span class="s2">"bottomright"</span><span class="p">,</span><span class="w"> </span><span class="n">legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">levels</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="n">col.list</span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">1</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-53-1.png" title="plot of chunk unnamed-chunk-53" alt="plot of chunk unnamed-chunk-53" width="612" style="display: block; margin: auto;" /></p>
+
+<p> </p>
+
+<p>Now we can see that the setosa species has the small petal size.</p>
+
+<p>What if the iris$Species were saved as a <code class="highlighter-rouge">character</code> instead of a <code class="highlighter-rouge">factor</code>? We can still accomplish the same outcome, it’s just a touch more complicated.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># First let's setup a new data frame with Species converted to a character vector</span><span class="w">
+</span><span class="n">iris.char</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">iris</span><span class="w">
+</span><span class="n">iris.char</span><span class="o">$</span><span class="n">Species</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Now, since we don't have the underlying numeric structure of the factor, we need a </span><span class="w">
+</span><span class="c1"># way to generate the same index list with a character vector. We can do this using</span><span class="w">
+</span><span class="c1"># the match() function.</span><span class="w">
+</span><span class="n">species.list</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">unique</span><span class="p">(</span><span class="n">iris.char</span><span class="o">$</span><span class="n">Species</span><span class="p">)</span><span class="w"> </span><span class="c1"># first grab the species list using unique()</span><span class="w">
+</span><span class="n">species.list</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "setosa"     "versicolor" "virginica" 
 </code></pre></div></div>
 
-<p>Now we can use <code class="highlighter-rouge">analyze</code> interactively, as before,</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze</span><span class="p">(</span><span class="s2">"data/inflammation-01.csv"</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># For each element in the first list, match() essentially asks R, where is this element</span><span class="w">
+</span><span class="c1"># in the second list? It returns the numeric position, or index.</span><span class="w">
+</span><span class="n">species.index</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">match</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="p">,</span><span class="w"> </span><span class="n">species.list</span><span class="p">)</span><span class="w">
+</span><span class="n">species.index</span><span class="w"> 
 </span></code></pre></div></div>
 
-<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-46-1.png" title="plot of chunk unnamed-chunk-46" alt="plot of chunk unnamed-chunk-46" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-46-2.png" title="plot of chunk unnamed-chunk-46" alt="plot of chunk unnamed-chunk-46" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-46-3.png" title="plot of chunk unnamed-chunk-46" alt="plot of chunk unnamed-chunk-46" width="612" style="display: block; margin: auto;" /></p>
-
-<p>but also use it to save plots,</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze</span><span class="p">(</span><span class="s2">"data/inflammation-01.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"inflammation-01.pdf"</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>png 
-  2 
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+ [36] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+ [71] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3
+[106] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+[141] 3 3 3 3 3 3 3 3 3 3
 </code></pre></div></div>
 
-<p>Before going further, we will create a directory <code class="highlighter-rouge">results</code> for saving our plots.
-It is <a href="http://swcarpentry.github.io/good-enough-practices-in-scientific-computing/">good practice</a> in data analysis projects to save all output to a directory separate from the data and analysis code.
-You can create this directory using the shell command <a href="https://swcarpentry.github.io/shell-novice/03-create/">mkdir</a>, or the R function <code class="highlighter-rouge">dir.create()</code></p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># We still need our color list...</span><span class="w">
+</span><span class="n">col.list</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="s2">"green"</span><span class="p">)</span><span class="w"> 
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dir.create</span><span class="p">(</span><span class="s2">"results"</span><span class="p">)</span><span class="w">
+</span><span class="c1"># And we use the species.index in place of iris$Species to do the indexing and generate</span><span class="w">
+</span><span class="c1"># our color list for each point on the plot</span><span class="w">
+</span><span class="n">col.vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">col.list</span><span class="p">[</span><span class="n">species.index</span><span class="p">]</span><span class="w">
+</span><span class="n">col.vector</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in dir.create("results"): 'results' already exists
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+  [9] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [17] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [25] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [33] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [41] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+ [49] "red"   "red"   "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [57] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [65] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [73] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [81] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [89] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+ [97] "blue"  "blue"  "blue"  "blue"  "green" "green" "green" "green"
+[105] "green" "green" "green" "green" "green" "green" "green" "green"
+[113] "green" "green" "green" "green" "green" "green" "green" "green"
+[121] "green" "green" "green" "green" "green" "green" "green" "green"
+[129] "green" "green" "green" "green" "green" "green" "green" "green"
+[137] "green" "green" "green" "green" "green" "green" "green" "green"
+[145] "green" "green" "green" "green" "green" "green"
 </code></pre></div></div>
 
-<p>Now run <code class="highlighter-rouge">analyze</code> and save the plot in the <code class="highlighter-rouge">results</code> directory,</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze</span><span class="p">(</span><span class="s2">"data/inflammation-01.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"results/inflammation-01.pdf"</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Finally, we can generate our plot. Note that we now use "species.list" in place of </span><span class="w">
+</span><span class="c1"># "levels(iris$Species)" for the legend</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">iris.char</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">,</span><span class="w"> </span><span class="n">iris.char</span><span class="o">$</span><span class="n">Petal.Width</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Length (cm)"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Width (cm)"</span><span class="p">,</span><span class="w">
+     </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col.vector</span><span class="p">)</span><span class="w">
+</span><span class="n">legend</span><span class="p">(</span><span class="s2">"bottomright"</span><span class="p">,</span><span class="w"> </span><span class="n">legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">species.list</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="n">col.list</span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">1</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>png 
-  2 
-</code></pre></div></div>
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-54-1.png" title="plot of chunk unnamed-chunk-54" alt="plot of chunk unnamed-chunk-54" width="612" style="display: block; margin: auto;" /></p>
 
-<p>This now works well when we want to process one data file at a time, but how can we specify the output file in <code class="highlighter-rouge">analyze_all</code>?
-We need to do two things:</p>
+<p> </p>
+<h4 id="box-and-whisker-plots">Box and whisker plots</h4>
 
-<ol>
-  <li>Substitute the filename ending “csv” with “pdf”.</li>
-  <li>Save the plot to the <code class="highlighter-rouge">results</code> directory.</li>
-</ol>
+<p>We can now draw a scatter plot in R to look at the relationship between two variables. What if we want to compare a single data type across species? This is (still) most commonly done using bar charts with error bars. There is a movement in the biological sciences community to move away from bar charts and toward box and whisker plots. R is better equipped for the latter case any way, and that’s what we will work with in this course.</p>
 
-<p>To change the extension to “pdf”, we will use the function <code class="highlighter-rouge">sub</code>,</p>
+<blockquote class="callout">
+  <h2 id="why-use-box-and-whisker-charts-instead-of-bar-charts">Why use box and whisker charts instead of bar charts?</h2>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"inflammation-01.csv"</span><span class="w">
-</span><span class="n">sub</span><span class="p">(</span><span class="s2">"csv"</span><span class="p">,</span><span class="w"> </span><span class="s2">"pdf"</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
+  <p>While bar charts are still more common and have their uses, box and whisker plots are
+almost always better. A few problems with bar charts are that they:</p>
+  <ul>
+    <li>only show summary statistics (mean and variation)</li>
+    <li>hide information on the shape of the data distribution</li>
+    <li>can easily be used to misrepresent the size of differences between data</li>
+    <li>do not have standard error bars (standard deviation and standard error are both common)</li>
+  </ul>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "inflammation-01.pdf"
-</code></pre></div></div>
-<p>To add the “results” directory to the filename use the function <code class="highlighter-rouge">file.path</code>,</p>
+  <p>Box and whisker plots provide a lot more detail about the data represented. A typical
+box and whisker plot include:</p>
+  <ul>
+    <li>median (line in the middle of the box)</li>
+    <li>quartiles (the size of the box)</li>
+    <li>95 percentiles (whiskers)</li>
+    <li>outliers (points beyond whiskers)</li>
+    <li>all data points (less common, but a good idea)</li>
+    <li>mean (also less common, but a good idea)</li>
+  </ul>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">file.path</span><span class="p">(</span><span class="s2">"results"</span><span class="p">,</span><span class="w"> </span><span class="n">sub</span><span class="p">(</span><span class="s2">"csv"</span><span class="p">,</span><span class="w"> </span><span class="s2">"pdf"</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">))</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "results/inflammation-01.pdf"
-</code></pre></div></div>
-
-<p>Now let’s update <code class="highlighter-rouge">analyze_all</code>:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze_all</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="c1"># Directory name containing the data</span><span class="w">
-  </span><span class="n">data_dir</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"data"</span><span class="w">
-  </span><span class="c1"># Directory name for results</span><span class="w">
-  </span><span class="n">results_dir</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"results"</span><span class="w">
-  </span><span class="c1"># Runs the function analyze for each file in the current working directory</span><span class="w">
-  </span><span class="c1"># that contains the given pattern.</span><span class="w">
-  </span><span class="n">filenames</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data_dir</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pattern</span><span class="p">)</span><span class="w">
-  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">filenames</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">pdf_name</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">file.path</span><span class="p">(</span><span class="n">results_dir</span><span class="p">,</span><span class="w"> </span><span class="n">sub</span><span class="p">(</span><span class="s2">"csv"</span><span class="p">,</span><span class="w"> </span><span class="s2">"pdf"</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">))</span><span class="w">
-    </span><span class="n">analyze</span><span class="p">(</span><span class="n">file.path</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">),</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pdf_name</span><span class="p">)</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<p>Now we can save all of the results with just one line of code:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze_all</span><span class="p">(</span><span class="s2">"inflammation.*csv"</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<p>Now if we need to make any changes to our analysis, we can edit the <code class="highlighter-rouge">analyze</code> function and quickly regenerate all the figures with <code class="highlighter-rouge">analyze_all</code>.</p>
-
-<blockquote class="challenge">
-  <h2 id="changing-the-behavior-of-the-plot-command">Changing the Behavior of the Plot Command</h2>
-
-  <p>One of your collaborators asks if you can recreate the figures with lines instead of points.
-Find the relevant argument to <code class="highlighter-rouge">plot</code> by reading the documentation (<code class="highlighter-rouge">?plot</code>),
-update <code class="highlighter-rouge">analyze</code>, and then recreate all the figures with <code class="highlighter-rouge">analyze_all</code>.</p>
-
-  <blockquote class="solution">
-    <h2 id="solution-7">Solution</h2>
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="c1"># Plots the average, min, and max inflammation over time.</span><span class="w">
-  </span><span class="c1"># Input:</span><span class="w">
-  </span><span class="c1">#    filename: character string of a csv file</span><span class="w">
-  </span><span class="c1">#    output: character string of pdf file for saving</span><span class="w">
-  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nf">is.null</span><span class="p">(</span><span class="n">output</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">pdf</span><span class="p">(</span><span class="n">output</span><span class="p">)</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-  </span><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">filename</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
-  </span><span class="n">avg_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
-  </span><span class="n">plot</span><span class="p">(</span><span class="n">avg_day_inflammation</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"l"</span><span class="p">)</span><span class="w">
-  </span><span class="n">max_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="p">)</span><span class="w">
-  </span><span class="n">plot</span><span class="p">(</span><span class="n">max_day_inflammation</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"l"</span><span class="p">)</span><span class="w">
-  </span><span class="n">min_day_inflammation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">min</span><span class="p">)</span><span class="w">
-  </span><span class="n">plot</span><span class="p">(</span><span class="n">min_day_inflammation</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"l"</span><span class="p">)</span><span class="w">
-  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nf">is.null</span><span class="p">(</span><span class="n">output</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">dev.off</span><span class="p">()</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>    </div>
-  </blockquote>
 </blockquote>
 
 <p> </p>
-<h4 id="using-factors">Using Factors</h4>
 
-<p>Lets load our example data to see the use of factors:</p>
+<p>We can use the <code class="highlighter-rouge">boxplot()</code> function to generate box and whisker plots in R. To do so, we will usually use <code class="highlighter-rouge">formula</code> notation to enter the data. In this case, the first argument should be a formula indicating which data you want to plot and how your want it broken out, separated by the <code class="highlighter-rouge">~</code> symbol:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'data/sample.csv'</span><span class="p">,</span><span class="w"> </span><span class="n">stringsAsFactors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+<p>     &amp;nbsp<code class="highlighter-rouge">&lt;plot variable&gt; ~ &lt;separator variable&gt;</code></p>
+
+<p>You can also provide the name of the data frame using the <code class="highlighter-rouge">data</code> argument, and then just use the column names directly in the formula. Let’s give it a try for Petal Length separated by Species in the iris dataset:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">boxplot</span><span class="p">(</span><span class="n">Petal.Length</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Species</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<blockquote class="callout">
-  <h2 id="default-behavior">Default Behavior</h2>
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-55-1.png" title="plot of chunk unnamed-chunk-55" alt="plot of chunk unnamed-chunk-55" width="612" style="display: block; margin: auto;" /></p>
 
-  <p><code class="highlighter-rouge">stringsAsFactors = TRUE</code> is the default behavior for R.
-We could leave this argument out.
-It is included here for clarity.</p>
-</blockquote>
+<p> </p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span><span class="w">
+<p>It is a best practice to show all your data points (at least until you have hundreds or thousands) on box plots, which we can add to our plot using the <code class="highlighter-rouge">stripchart()</code> function. The basic format is similar to that for <code class="highlighter-rouge">boxplot()</code>. We need to add a couple of arguments to make it work. The first is <code class="highlighter-rouge">add = TRUE</code>. This tells R to add the points to the current plot, instead of generating a new plot (which is the default behavior). The Second is <code class="highlighter-rouge">vert = TRUE</code>, which tells R that we want the data plotted vertically (horizontal is the default). Let’s try it:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">stripchart</span><span class="p">(</span><span class="n">Petal.Length</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Species</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">vert</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	100 obs. of  9 variables:
- $ ID           : Factor w/ 100 levels "Sub001","Sub002",..: 1 2 3 4 5 6 7 8 9 10 ...
- $ Gender       : Factor w/ 4 levels "f","F","m","M": 3 3 3 1 3 4 1 3 3 1 ...
- $ Group        : Factor w/ 3 levels "Control","Treatment1",..: 1 3 3 2 2 3 1 3 3 1 ...
- $ BloodPressure: int  132 139 130 105 125 112 173 108 131 129 ...
- $ Age          : num  16 17.2 19.5 15.7 19.9 14.3 17.7 19.8 19.4 18.8 ...
- $ Aneurisms_q1 : int  114 148 196 199 188 260 135 216 117 188 ...
- $ Aneurisms_q2 : int  140 209 251 140 120 266 98 238 215 144 ...
- $ Aneurisms_q3 : int  202 248 122 233 222 320 154 279 181 192 ...
- $ Aneurisms_q4 : int  237 248 177 220 228 294 245 251 272 185 ...
-</code></pre></div></div>
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-56-1.png" title="plot of chunk unnamed-chunk-56" alt="plot of chunk unnamed-chunk-56" width="612" style="display: block; margin: auto;" /></p>
 
-<p>Notice the first 3 columns have been converted to factors. These values were text in the data file so R automatically interpreted them as categorical variables.</p>
+<p> </p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">summary</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
+<p>Okay, the points are there, but the have some issues. Let’s add some information to improve the quality. Note that we need to rerun the boxplot command to regenerate the base plot before fixing the strip chart issues (otherwise they will just keep adding new points to the current chart and make a mess).</p>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       ID     Gender        Group    BloodPressure        Age       
- Sub001 : 1   f:35   Control   :30   Min.   : 62.0   Min.   :12.10  
- Sub002 : 1   F: 4   Treatment1:35   1st Qu.:107.5   1st Qu.:14.78  
- Sub003 : 1   m:46   Treatment2:35   Median :117.5   Median :16.65  
- Sub004 : 1   M:15                   Mean   :118.6   Mean   :16.42  
- Sub005 : 1                          3rd Qu.:133.0   3rd Qu.:18.30  
- Sub006 : 1                          Max.   :173.0   Max.   :20.00  
- (Other):94                                                         
-  Aneurisms_q1    Aneurisms_q2    Aneurisms_q3    Aneurisms_q4  
- Min.   : 65.0   Min.   : 80.0   Min.   :105.0   Min.   :116.0  
- 1st Qu.:118.0   1st Qu.:131.5   1st Qu.:182.5   1st Qu.:186.8  
- Median :158.0   Median :162.5   Median :217.0   Median :219.0  
- Mean   :158.8   Mean   :168.0   Mean   :219.8   Mean   :217.9  
- 3rd Qu.:188.0   3rd Qu.:196.8   3rd Qu.:248.2   3rd Qu.:244.2  
- Max.   :260.0   Max.   :283.0   Max.   :323.0   Max.   :315.0  
-                                                                
-</code></pre></div></div>
+<p>We will make the following changes:</p>
 
-<p>Notice the <code class="highlighter-rouge">summary()</code> function handles factors differently to numbers (and strings), the occurrence counts for each value is often more useful information.</p>
+<p><code class="highlighter-rouge">boxplot()</code>:</p>
+<ul>
+  <li><code class="highlighter-rouge">outline = FALSE</code> prevents outlier points from being plotted (strip chart will be plotting all of the points anyway).</li>
+  <li><code class="highlighter-rouge">ylab = "Petal Length (cm)"</code> cleans up our y-axis label.</li>
+</ul>
 
-<blockquote class="callout">
-  <h2 id="the-summary-function">The <code class="highlighter-rouge">summary()</code> Function</h2>
+<p><code class="highlighter-rouge">stripchart()</code>:</p>
+<ul>
+  <li><code class="highlighter-rouge">pch = 16</code> in <code class="highlighter-rouge">stripchart()</code> changes the point from an open square to a solid circle, which is easier to see against the box plot.</li>
+  <li><code class="highlighter-rouge">method = "jitter"</code> in <code class="highlighter-rouge">stripchart()</code> offsets each point in the “x” direction by a small random amount so that you can see overlapping points.</li>
+</ul>
 
-  <p>The <code class="highlighter-rouge">summary()</code> function is a great way of spotting errors in your data (look at the <em>dat$Gender</em> column).
-It’s also a great way for spotting missing data.</p>
-</blockquote>
-
-<blockquote class="challenge">
-  <h2 id="reordering-factors">Reordering Factors</h2>
-
-  <p>The function <code class="highlighter-rouge">table()</code> tabulates observations and can be used to create bar plots quickly. For instance:</p>
-
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">table</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Group</span><span class="p">)</span><span class="w">
-</span></code></pre></div>  </div>
-
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-   Control Treatment1 Treatment2 
-        30         35         35 
-</code></pre></div>  </div>
-
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">barplot</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Group</span><span class="p">))</span><span class="w">
-</span></code></pre></div>  </div>
-
-  <p><img src="../fig/rmd-03-introduction-to-R-data-plotting-reordering-factors-1.png" title="plot of chunk reordering-factors" alt="plot of chunk reordering-factors" width="612" style="display: block; margin: auto;" />
-Use the <code class="highlighter-rouge">factor()</code> command to modify the column dat$Group so that the <em>control</em> group is plotted last.</p>
-  <blockquote class="solution">
-    <h2 id="solution-8">Solution</h2>
-
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="o">$</span><span class="n">Group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Group</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Treatment1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Treatment2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Control"</span><span class="p">))</span><span class="w">
-</span><span class="n">barplot</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Group</span><span class="p">))</span><span class="w">
-</span></code></pre></div>    </div>
-
-    <p><img src="../fig/rmd-03-introduction-to-R-data-plotting-reordering-factors-2-1.png" title="plot of chunk reordering-factors-2" alt="plot of chunk reordering-factors-2" width="612" style="display: block; margin: auto;" /></p>
-  </blockquote>
-</blockquote>
-
-<h4 id="removing-levels-from-a-factor">Removing Levels from a Factor</h4>
-
-<p>Some of the Gender values in our dataset have been coded incorrectly.
-Let’s remove levels from this factor.</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">barplot</span><span class="p">(</span><span class="n">table</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Gender</span><span class="p">))</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">boxplot</span><span class="p">(</span><span class="n">Petal.Length</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Species</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">outline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Length (cm)"</span><span class="p">)</span><span class="w">
+</span><span class="n">stripchart</span><span class="p">(</span><span class="n">Petal.Length</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Species</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">,</span><span class="w"> 
+           </span><span class="n">pch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jitter"</span><span class="p">,</span><span class="w">
+           </span><span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">vert</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-57-1.png" title="plot of chunk unnamed-chunk-57" alt="plot of chunk unnamed-chunk-57" width="612" style="display: block; margin: auto;" /></p>
 
-<p>Values should have been recorded as lowercase ‘m’ and ‘f’. We should correct this.</p>
+<p> </p>
+<h4 id="multipanel-plots">Multipanel plots</h4>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="o">$</span><span class="n">Gender</span><span class="p">[</span><span class="n">dat</span><span class="o">$</span><span class="n">Gender</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'M'</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'m'</span><span class="w">
+<p>Finally, let’s look at how we can put multiple related panels in the same plot. This requires going beyond the <code class="highlighter-rouge">plot()</code> and <code class="highlighter-rouge">boxplot()</code> functions.</p>
+
+<p>Take a look at the <code class="highlighter-rouge">?plot</code> documentation. Notice that there really aren’t that many input options, but that there is a “…” listed, which references the <code class="highlighter-rouge">par()</code> function. This will also introduce you to the <code class="highlighter-rouge">par()</code> function. Under the surface, there are probably hundreds of tweaks that you can make to plots through arguments.  R has a set of predefined graphical parameters that are all stored in the background. The <code class="highlighter-rouge">par()</code> function queries and sets these parameters. If you don’t give it any arguments, <code class="highlighter-rouge">par()</code> will return the current settings for all of these variables. We can see what they mean using <code class="highlighter-rouge">?par</code>.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">par</span><span class="w">
 </span></code></pre></div></div>
 
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot.options</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">par</span><span class="p">()</span><span class="w"> </span><span class="c1"># this just assigns all of the current background plot options to a variable. Not a bad idea if you are going to be changing things</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">plot.options</span><span class="p">)</span><span class="w"> </span><span class="c1"># this is a list with a bunch of graphical related variables</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$xlog
+[1] FALSE
+
+$ylog
+[1] FALSE
+
+$adj
+[1] 0.5
+
+$ann
+[1] TRUE
+
+$ask
+[1] FALSE
+
+$bg
+[1] "white"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">length</span><span class="p">(</span><span class="n">plot.options</span><span class="p">)</span><span class="w"> </span><span class="c1"># there are 72 variables that we can tweak in par() alone, and some have multiple parameters</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 72
+</code></pre></div></div>
+
+<p> </p>
+
+<p>If we want to make a multipanel plot, say with box plots of Petal Length and Petal Width, and then the correlation between them, we can use <code class="highlighter-rouge">par()</code> before running plot to tell R how many rows and columns of figure panels that we want to create. We use this by passing the argument <code class="highlighter-rouge">mfrow = c(&lt;# of rows&gt;, &lt;# of columns&gt;)</code> to <code class="highlighter-rouge">par()</code>. This changes the value of the background graphical parameters. Note that we later have to change this back if we want to make a normal plot.</p>
+
+<p>Once we set <code class="highlighter-rouge">mfrow</code> we can then run our above plot commands in the order we want them displayed. Let’s give it a try:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># get the current graphical parameters</span><span class="w">
+</span><span class="n">old.plot.options</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">par</span><span class="p">()</span><span class="w"> </span><span class="c1"># it never hurts to save a copy of the old parameters, so we can reset them if we break something</span><span class="w">
+
+</span><span class="c1"># setup a plot with 3 figure panels in a row using the mfrow argument</span><span class="w">
+</span><span class="n">par</span><span class="p">(</span><span class="n">mfrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">))</span><span class="w"> </span><span class="c1"># 1 row, 3 columns</span><span class="w">
+
+</span><span class="c1"># Panel 1: Box plot with jittered stripchart points for Petal Length</span><span class="w">
+</span><span class="n">boxplot</span><span class="p">(</span><span class="n">Petal.Length</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Species</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">outline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Length (cm)"</span><span class="p">)</span><span class="w">
+</span><span class="n">stripchart</span><span class="p">(</span><span class="n">Petal.Length</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Species</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">,</span><span class="w"> 
+           </span><span class="n">pch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jitter"</span><span class="p">,</span><span class="w">
+           </span><span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">vert</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Panel 2: Box plot with jittered stripchart points for Petal Width</span><span class="w">
+</span><span class="n">boxplot</span><span class="p">(</span><span class="n">Petal.Width</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Species</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">outline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Width (cm)"</span><span class="p">)</span><span class="w">
+</span><span class="n">stripchart</span><span class="p">(</span><span class="n">Petal.Width</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Species</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">,</span><span class="w"> 
+           </span><span class="n">pch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jitter"</span><span class="p">,</span><span class="w">
+           </span><span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">vert</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Panel 3: Scatter plot comparing Petal Length to Petal Width</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">iris.char</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">,</span><span class="w"> </span><span class="n">iris.char</span><span class="o">$</span><span class="n">Petal.Width</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Length (cm)"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Width (cm)"</span><span class="p">,</span><span class="w">
+     </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col.vector</span><span class="p">)</span><span class="w">
+</span><span class="n">legend</span><span class="p">(</span><span class="s2">"bottomright"</span><span class="p">,</span><span class="w"> </span><span class="n">legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">species.list</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="n">col.list</span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">1</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-60-1.png" title="plot of chunk unnamed-chunk-60" alt="plot of chunk unnamed-chunk-60" width="612" style="display: block; margin: auto;" /></p>
+
+<p> </p>
+<h4 id="other-resources-for-plotting">Other resources for plotting</h4>
+
+<p>This lesson gives you access to the two most common chart types used in biology: scatterplots and box plots (which can usually be used in place of bar charts). This is just the tip of a very large iceberg. R has the capability of producing any visualization you can imagine, and there are full workshops and courses dedicated just to generating graphics in R. The potential applications are as varied as your projects, and the best thing you can do is to sit down and start using the functions with Google search close at hand.</p>
+
+<p>We don’t have the time to do everything, but we will be using both of these chart types throughout the course, and introducing several others (histograms, density charts, line graphs, Kaplan-Meier charts, etc).  For now, a few resources that will help you along the way:</p>
+<ul>
+  <li>A cheat sheet for the graphics tools that come with R (aka “R base graphics”) can be downloaded <a href="../fig/BaseGraphicsCheatsheet.pdf">here</a>.</li>
+  <li>The <code class="highlighter-rouge">lattice</code> package makes some improvements to R base graphics and functions. The defaults are better for example.</li>
+  <li>The other commonly graphics package is called <code class="highlighter-rouge">ggplot2</code>. I have tended toward base graphics, because you can literally do anything with them, but <code class="highlighter-rouge">ggplot2</code> is easier in some ways, once you get the syntax down (which is very different). Cheat sheet is <a href="../fig/ggplot2-cheatsheet.pdf">here</a>.</li>
+  <li>Google is your friend. There are probably thousands of tutorials, forum Q&amp;As, cheat sheets, etc. to answer your project specific questions. For a taste, go to Google and search “publication quality graphics in R”</li>
+</ul>
+
+<hr />
+<h3 id="exercises-1">Exercises</h3>
+
 <blockquote class="challenge">
-  <h2 id="updating-factors">Updating Factors</h2>
+  <h2 id="on-the-road--does-what-you-drive-or-where-you-drive-it-matter">On the road – does what you drive or where you drive it matter?</h2>
 
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dat</span><span class="o">$</span><span class="n">Gender</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dat</span><span class="o">$</span><span class="n">BloodPressure</span><span class="p">)</span><span class="w">
-</span></code></pre></div>  </div>
+  <p>Read in our sample data on car speeds (car-speeds.csv) and visualize differences in car 
+speed by both state and color.</p>
 
-  <p><img src="../fig/rmd-03-introduction-to-R-data-plotting-updating-factors-1.png" title="plot of chunk updating-factors" alt="plot of chunk updating-factors" width="612" style="display: block; margin: auto;" /></p>
-
-  <p>Why does this plot show 4 levels?</p>
-
-  <p><em>Hint</em> how many levels does dat$Gender have?</p>
   <blockquote class="solution">
-    <h2 id="solution-9">Solution</h2>
-    <p><code class="highlighter-rouge">dat$Gender</code> has 4 levels, so the plot shows 4 levels.</p>
+    <h2 id="solution-6">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># set data and results directories</span><span class="w">
+</span><span class="n">data.dir</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"data"</span><span class="w">
+</span><span class="n">results.dir</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"results"</span><span class="w">
+
+</span><span class="c1"># load data</span><span class="w">
+</span><span class="n">carSpeeds</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="n">data.dir</span><span class="p">,</span><span class="s2">"/car-speeds.csv"</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># setup two panel figure</span><span class="w">
+</span><span class="n">par</span><span class="p">(</span><span class="n">mfrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># use a box plot with jittered strip chart overlay to plot car speed as a function</span><span class="w">
+</span><span class="c1"># of state</span><span class="w">
+</span><span class="n">boxplot</span><span class="p">(</span><span class="n">Speed</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">State</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">carSpeeds</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">outline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Car Speed (mph)"</span><span class="p">)</span><span class="w">
+</span><span class="n">stripchart</span><span class="p">(</span><span class="n">Speed</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">State</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">carSpeeds</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">pch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jitter"</span><span class="p">,</span><span class="w">
+        </span><span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">vert</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># use a box plot with jittered strip chart overlay to plot car speed as a function</span><span class="w">
+</span><span class="c1"># of car color</span><span class="w">
+</span><span class="n">boxplot</span><span class="p">(</span><span class="n">Speed</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Color</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">carSpeeds</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">outline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Car Speed (mph)"</span><span class="p">)</span><span class="w">
+</span><span class="n">stripchart</span><span class="p">(</span><span class="n">Speed</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Color</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">carSpeeds</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">pch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jitter"</span><span class="p">,</span><span class="w">
+            </span><span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">vert</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-61-1.png" title="plot of chunk unnamed-chunk-61" alt="plot of chunk unnamed-chunk-61" width="612" style="display: block; margin: auto;" /></p>
   </blockquote>
 </blockquote>
 
-<p>We need to tell R that “M” is no longer a valid value for this column.
-We use the <code class="highlighter-rouge">droplevels()</code> function to remove extra levels.</p>
+<blockquote class="challenge">
+  <h2 id="blood-pressure-as-a-risk-factor-for-aneurism">Blood pressure as a risk factor for aneurism</h2>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="o">$</span><span class="n">Gender</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">droplevels</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Gender</span><span class="p">)</span><span class="w">
-</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dat</span><span class="o">$</span><span class="n">Gender</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dat</span><span class="o">$</span><span class="n">BloodPressure</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
+  <p>Does blood pressure appear to have an impact on aneurism risk?</p>
 
-<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-59-1.png" title="plot of chunk unnamed-chunk-59" alt="plot of chunk unnamed-chunk-59" width="612" style="display: block; margin: auto;" /></p>
+  <p>Examine these questions using the file that we created in the “Correcting Case in Gender”
+exercise earlier (sample-gendercorrected.csv). What, other than blood pressure, may explain
+any apparent correlation (or lack there of?).</p>
 
-<blockquote class="callout">
-  <h2 id="adjusting-factor-levels">Adjusting Factor Levels</h2>
+  <p>Save your results to a PDF file.</p>
 
-  <p>Adjusting the <code class="highlighter-rouge">levels()</code> of a factor provides a useful shortcut for reassigning values in this case.</p>
+  <blockquote class="solution">
+    <h2 id="solution-7">Solution</h2>
 
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">levels</span><span class="p">(</span><span class="n">dat</span><span class="o">$</span><span class="n">Gender</span><span class="p">)[</span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s1">'f'</span><span class="w">
-</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dat</span><span class="o">$</span><span class="n">Gender</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dat</span><span class="o">$</span><span class="n">BloodPressure</span><span class="p">)</span><span class="w">
-</span></code></pre></div>  </div>
+    <p>I left this intentionally a bit vague, which means that there are several solutions. But 
+that is often the nature of real data in real research.</p>
 
-  <p><img src="../fig/rmd-03-introduction-to-R-data-plotting-adjusting-levels-1.png" title="plot of chunk adjusting-levels" alt="plot of chunk adjusting-levels" width="612" style="display: block; margin: auto;" /></p>
+    <p>Since we are trying to gt a general idea here, I am first going to calculate the average
+quarterly aneurisms and the total yearly aneurisms (you could also look at each quarter
+independently).</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># set data and results directories</span><span class="w">
+</span><span class="n">data.dir</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"data"</span><span class="w">
+</span><span class="n">results.dir</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"results"</span><span class="w">
+
+</span><span class="c1"># load data</span><span class="w">
+</span><span class="n">data.an</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="n">data.dir</span><span class="p">,</span><span class="s2">"/sample-gendercorrected.csv"</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># define new columns for average quarterly and total annual aneurisms and calculate</span><span class="w">
+</span><span class="n">data.an</span><span class="o">$</span><span class="n">Aneurisms_qmean</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rowMeans</span><span class="p">(</span><span class="n">data.an</span><span class="p">[,</span><span class="m">6</span><span class="o">:</span><span class="m">9</span><span class="p">])</span><span class="w">
+</span><span class="n">data.an</span><span class="o">$</span><span class="n">Aneurisms_total</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rowSums</span><span class="p">(</span><span class="n">data.an</span><span class="p">[,</span><span class="m">6</span><span class="o">:</span><span class="m">9</span><span class="p">])</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">data.an</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      ID Gender      Group BloodPressure  Age Aneurisms_q1 Aneurisms_q2
+1 Sub001      M    Control           132 16.0          114          140
+2 Sub002      M Treatment2           139 17.2          148          209
+3 Sub003      M Treatment2           130 19.5          196          251
+4 Sub004      F Treatment1           105 15.7          199          140
+5 Sub005      M Treatment1           125 19.9          188          120
+6 Sub006      M Treatment2           112 14.3          260          266
+  Aneurisms_q3 Aneurisms_q4 Aneurisms_qmean Aneurisms_total
+1          202          237          173.25             693
+2          248          248          213.25             853
+3          122          177          186.50             746
+4          233          220          198.00             792
+5          222          228          189.50             758
+6          320          294          285.00            1140
+</code></pre></div>    </div>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># initiate a PDF file and setup two panel figure</span><span class="w">
+</span><span class="n">pdf</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">paste0</span><span class="p">(</span><span class="n">results.dir</span><span class="p">,</span><span class="w"> </span><span class="s2">"/aneurisms-bloodpressure-chart.pdf"</span><span class="p">),</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
+</span><span class="n">par</span><span class="p">(</span><span class="n">mfrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># use a scatter plot to look for apparent correlation between blood pressure and </span><span class="w">
+</span><span class="c1"># both summary measures of aneurism (in separate panels)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">data.an</span><span class="o">$</span><span class="n">BloodPressure</span><span class="p">,</span><span class="w"> </span><span class="n">data.an</span><span class="o">$</span><span class="n">Aneurisms_qmean</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Blood Pressure (mmHg)"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Mean Aneurisms per Quarter"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">plot</span><span class="p">(</span><span class="n">data.an</span><span class="o">$</span><span class="n">BloodPressure</span><span class="p">,</span><span class="w"> </span><span class="n">data.an</span><span class="o">$</span><span class="n">Aneurisms_total</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Blood Pressure (mmHg)"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Aneurisms per Year"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># turn off PDF device</span><span class="w">
+</span><span class="n">dev.off</span><span class="p">()</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>png 
+  2 
+</code></pre></div>    </div>
+
+    <p>There is no apparent correlation, but there are a lot of potential confounders within the
+data set that we are not examining in this exercise so far (treatment, gender, age)</p>
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="correlations-between-petal-and-sepal-in-iris-data">Correlations between petal and sepal in iris data</h2>
+
+  <p>We looked a correlation between petal length and width. What about correlations between petal
+and sepal? Generate scatter plots to look at length and width correlations, broken down by species.</p>
+
+  <p>Save your results to a PDF.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-8">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># set data and results directories</span><span class="w">
+</span><span class="n">data.dir</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"data"</span><span class="w">
+</span><span class="n">results.dir</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"results"</span><span class="w">
+
+</span><span class="c1"># initiate a PDF file and setup two panel figure</span><span class="w">
+</span><span class="n">pdf</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">paste0</span><span class="p">(</span><span class="n">results.dir</span><span class="p">,</span><span class="w"> </span><span class="s2">"/iris-petal-sepal-correlations.pdf"</span><span class="p">),</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
+</span><span class="n">par</span><span class="p">(</span><span class="n">mfrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># Define colors</span><span class="w">
+</span><span class="n">col.list</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="s2">"green"</span><span class="p">)</span><span class="w"> 
+
+</span><span class="c1"># And we use the species.index in place of iris$Species to do the indexing and generate</span><span class="w">
+</span><span class="c1"># our color list for each point on the plot</span><span class="w">
+</span><span class="n">col.vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">col.list</span><span class="p">[</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="p">]</span><span class="w">
+
+</span><span class="c1"># Plot petal length x sepal length, then petal width x sepal width in subsequent panels</span><span class="w">
+</span><span class="c1"># we only need one legend, which after an initial look at the data, fits best in the top</span><span class="w">
+</span><span class="c1"># left of the first panel</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">,</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Sepal.Length</span><span class="p">,</span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Length (cm)"</span><span class="p">,</span><span class="w"> 
+      </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Sepal Length (cm)"</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col.vector</span><span class="p">)</span><span class="w">
+</span><span class="n">legend</span><span class="p">(</span><span class="s2">"topleft"</span><span class="p">,</span><span class="w"> </span><span class="n">legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">levels</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="n">col.list</span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Width</span><span class="p">,</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Sepal.Width</span><span class="p">,</span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Petal Width (cm)"</span><span class="p">,</span><span class="w"> 
+      </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Sepal Width (cm)"</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col.vector</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># turn off the PDF device</span><span class="w">
+</span><span class="n">dev.off</span><span class="p">()</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>png 
+  2 
+</code></pre></div>    </div>
+  </blockquote>
 </blockquote>
 
 
@@ -1909,13 +1965,13 @@ We use the <code class="highlighter-rouge">droplevels()</code> function to remov
     <li><p>Import data from a .csv or .txt file using the <code class="highlighter-rouge">read.table(...)</code>, <code class="highlighter-rouge">read.csv(...)</code>, and <code class="highlighter-rouge">read.delim(...)</code> functions.</p>
 </li>
     
-    <li><p>Understand some of the key arguments available for importing the data properly, including <code class="highlighter-rouge">header</code>, <code class="highlighter-rouge">stringsAsFactors</code>, <code class="highlighter-rouge">as.is</code>, and <code class="highlighter-rouge">strip.white</code>.</p>
+    <li><p>Understand some of the key arguments available for importing the data properly, including <code class="highlighter-rouge">header</code>, and <code class="highlighter-rouge">stringsAsFactors</code>.</p>
 </li>
     
     <li><p>Write data to a new .csv file using the <code class="highlighter-rouge">write.table(...)</code> and <code class="highlighter-rouge">write.csv(...)</code> functions.</p>
 </li>
     
-    <li><p>Understand some of the key arguments available for exporting the data properly, such as <code class="highlighter-rouge">row.names</code>, <code class="highlighter-rouge">col.names</code>, <code class="highlighter-rouge">quote</code>, and <code class="highlighter-rouge">na.strings</code>.</p>
+    <li><p>Understand some of the key arguments available for exporting the data properly, such as <code class="highlighter-rouge">row.names</code>, <code class="highlighter-rouge">col.names</code>, and <code class="highlighter-rouge">quote</code>.</p>
 </li>
     
     <li><p>Use <code class="highlighter-rouge">apply</code> to calculate statistics across the rows or columns of a data frame.</p>
