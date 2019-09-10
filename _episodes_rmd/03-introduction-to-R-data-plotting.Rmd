@@ -1,6 +1,6 @@
 ---
 title: "Introduction to R -- Reading, Writing, and Plotting Data"
-classdate: "9/3/2019"
+classdate: "9/9/2019"
 teaching: 80
 exercises: 25
 questions:
@@ -17,9 +17,9 @@ objectives:
 - "Save plot(s) to a PDF file."
 keypoints:
 - "Import data from a .csv or .txt file using the `read.table(...)`, `read.csv(...)`, and `read.delim(...)` functions."
-- "Understand some of the key arguments available for importing the data properly, including `header`, `stringsAsFactors`, `as.is`, and `strip.white`."
+- "Understand some of the key arguments available for importing the data properly, including `header`, and `stringsAsFactors`."
 - "Write data to a new .csv file using the `write.table(...)` and `write.csv(...)` functions."
-- "Understand some of the key arguments available for exporting the data properly, such as `row.names`, `col.names`, `quote`, and `na.strings`."
+- "Understand some of the key arguments available for exporting the data properly, such as `row.names`, `col.names`, and `quote`."
 - "Use `apply` to calculate statistics across the rows or columns of a data frame."
 - "Use `plot` to create simple visualizations."
 - "Display simple graphs."
@@ -38,7 +38,7 @@ In the majority of cases, your data will be stored in some type of external file
 
 Thankfully, Excel is capable of opening, editing, and saving both .csv and .txt files, so we can go back and forth between R and Excel when we find it convenient. 
 
-In this short lesson, we'll learn how to read external data from a .csv or .txt file, and write data modified or generatated in R to a new .csv or .txt file. We will also explore the [arguments]({{ page.root }}/reference.html#argument) that allow you read and write the data correctly for your needs.
+In this short lesson, we'll learn how to read external data from a .csv or .txt file, and write data modified or generated in R to a new .csv or .txt file. We will also explore the [arguments]({{ page.root }}/reference.html#argument) that allow you read and write the data correctly for your needs.
 
 
 
@@ -67,10 +67,10 @@ Open up the same file using a basic text editor (e.g. *Notepad* in Windows; *Tex
 &nbsp;
 
 A couple of things to notice:
-* The frist line contains column headers.
+* The first line contains column headers.
 * The `,` delimiters tell the `read.csv(...)` function where the breaks in the data are located; that is, which data to put in which column of the output data frame.
 * Each new line is also a delimiter that tells `read.csv(...)` which data to put in which row in the output data frame
-* In this case, all strings are contained withing quotation marks `""`. This is an optional way to tell the program where character strings start and stop. 
+* In this case, all strings are contained within quotation marks `""`. This is an optional way to tell the program where character strings start and stop. 
 
 On the topic of using quotation marks, open `sample-noquotes.csv` in your text editor to see the quote-free option:
 
@@ -109,8 +109,8 @@ Whether to use quotes in your data files is up to you. The default behavior of `
 >
 > > ## Solution
 > > 
-> > The quotes are now included as part of the character arguments. It also messed up the header formating, apending
-> > an "X" to the beginning and surrounding text with "."ss.
+> > The quotes are now included as part of the character arguments. It also messed up the header 
+> > formatting, appending an "X" to the beginning and surrounding text with "."ss.
 > {: .solution}
 {: .challenge}
 
@@ -130,7 +130,7 @@ As with any other function call, if the output is not explicitly assigned, it wi
 #### Changing Delimiters
 
 The default delimiter of the `read.csv()` function is a comma `,`, but you can
-use esentially any set of characters as a delimiter. `read.csv(...)` is actually a special case of a broader function called `read.table(...)`, with the delimiter argument (which is `sep`, for "separator") set to `c` by default. Check out the help file for these functions:
+use essentially any set of characters as a delimiter. `read.csv(...)` is actually a special case of a broader function called `read.table(...)`, with the delimiter argument (which is `sep`, for "separator") set to `c` by default. Check out the help file for these functions:
 
 ```{r, eval=FALSE}
 ?read.table # note that `?read.csv` brings up the same help document.
@@ -138,7 +138,7 @@ use esentially any set of characters as a delimiter. `read.csv(...)` is actually
 
 &nbsp;
 
-Under the **Usage** section there are multiple functions listed, including `read.table(...)` and `read.csv(...)`. In the parentheses for each function there is a list of arguments. Since `read.table(...)` is the parent function, all arguments are listed. Only arguments with different default values (as indicated by the `=`) are listed for `read.csv(...)`. A default value is the value that each arguement assumes when you do not explicitly enter a value. For example, `read.table(...)` assumes that a data file has no header (`header = FALSE`) and no delimiting character (`sep = ""`) while `read.csv(...)` assumes that a data file does have a header (`header = TRUE`) and a comma as the delimiting character (`sep = ","`), unless you specify otherwise. 
+Under the **Usage** section there are multiple functions listed, including `read.table(...)` and `read.csv(...)`. In the parentheses for each function there is a list of arguments. Since `read.table(...)` is the parent function, all arguments are listed. Only arguments with different default values (as indicated by the `=`) are listed for `read.csv(...)`. A default value is the value that each argument assumes when you do not explicitly enter a value. For example, `read.table(...)` assumes that a data file has no header (`header = FALSE`) and no delimiting character (`sep = ""`) while `read.csv(...)` assumes that a data file does have a header (`header = TRUE`) and a comma as the delimiting character (`sep = ","`), unless you specify otherwise. 
 
 If your data is stored in a tab-delimited text file, you will need to use `read.table(...)` a different delimiting character, or another of the associated functions called `read.delim(...)` which has defaults to a tab-delimited file format. Note that to define a *tab* as a delimiting character, you have to use `\t`.
 
@@ -208,8 +208,7 @@ What happened? The colors of the cars were loaded as factors by `read.csv(...)` 
 
 To see the internal structure, we can use another function, `str()`. In this case,
 the dataframe's internal structure includes the format of each column, which is what
-we are interested in. `str()` will be reviewed a little more in the lesson
-[Data Types and Structures]({{ page.root }}/13-supp-data-structures/).
+we are interested in. 
 
 ```{r}
 str(carSpeeds)
@@ -274,6 +273,8 @@ This argument allows us to set the names of the rows in the output data file. R'
 write.csv(carSpeeds, file = 'data/car-speeds-cleaned.csv', row.names = FALSE)
 ```
 
+&nbsp; 
+
 Now we see:
 
 ```{r, fig.align="left", out.width = "350px", echo = FALSE}
@@ -327,74 +328,6 @@ include_graphics("../fig/01-supp-csv-with-special-NA.png")
 &nbsp;
 
 This can be useful when exporting data from R in a different program that either does not recognize `NA` or uses a different symbol for missing data.
-
-***
-### Manipulating Data
-
-Now that our data are loaded into R, we can start doing things with them. First, let's ask what type of thing `dat` is:
-
-```{r}
-class(dat)
-```
-
-&nbsp;
-
-The output tells us that it's a data frame. As noted in the previous lesson, data frames are the *de facto* data type in R, and many functions will produce data frames as output.
-
-We can see the shape, or [dimensions]({{ page.root }}/reference.html#dimensions-of-an-array), of the data frame with the function `dim`:
-
-```{r}
-dim(dat)
-```
-
-&nbsp;
-
-This tells us that our data frame, `dat`, has `r nrow(dat)` rows and `r ncol(dat)` columns.
-
-Reviewing the basic types of subsetting, if we want to get a single value from the data frame, we can provide an [index]({{ page.root }}/reference.html#index) in square brackets. The first number specifies the row and the second the column:
-
-```{r selecting data frame elements}
-# first value in dat, row 1, column 1
-dat[1, 1]
-# middle value in dat, row 30, column 6
-dat[30, 6]
-```
-
-&nbsp;
-
-Or we can select sequential or non-sequential subsets using the `:` operator or `c()` function, respectively:
-
-```{r selecting with c}
-# output the first 4 rows and first 3 columns of dat
-dat[1:4, 1:3]
-# output rows 1, 3, and, 5, and columsn 2 and 6
-dat[c(1, 3, 5), c(2, 6)]
-```
-
-&nbsp;
-
-If you want to select all rows or all columns, leave that index value empty. 
-
-```{r}
-# All columns from row 5
-dat[5, ]
-# All rows from column 6-8
-dat[, 6:9]
-```
-
-&nbsp;
-
-Or select columns by name:
-
-```{r}
-# select the BloodPressure data
-dat$BloodPressure
-# select all rows for the Gender and BloodPressure columns
-dat[, c("Gender", "BloodPressure")]
-```
-
-
-If you leave both index values empty (i.e., `dat[,]`), you get the entire data frame. 
 
 ***
 ### Calculating basic statistics
@@ -484,7 +417,7 @@ avg_aneurisms_subject <- apply(dat[,6:9], 1, mean)
 
 &nbsp;
 
-And to obtain the average number of aneurisms for each quater, mean of all of the columns (`MARGIN = 2`) of the data frame:
+And to obtain the average number of aneurisms for each quarter, mean of all of the columns (`MARGIN = 2`) of the data frame:
 
 ```{r}
 avg_aneurisms_quarter <- apply(dat[,6:9], 2, mean)
@@ -496,8 +429,8 @@ avg_aneurisms_quarter <- apply(dat[,6:9], 2, mean)
 > 
 > Notice that we did not specify the argument names in `apply()`. Looking at the help file, the argument 
 > order is `X` (indicating the input data), then `MARGIN`, then `FUN` (for function to apply). So long as you 
-> enter arguments in the requested order, you do not need to be explicity about which argument you are 
-> referring too. `apply()` just assums that the first argument entered is the value for `X`, the second is the > value for `MARGIN`, and the third is the value for `FUN`. You can mix up the order, but then you have to be 
+> enter arguments in the requested order, you do not need to be explicitly about which argument you are 
+> referring too. `apply()` just assumes that the first argument entered is the value for `X`, the second is the > value for `MARGIN`, and the third is the value for `FUN`. You can mix up the order, but then you have to be 
 > explicit about which argument you are defining.
 >
 > For example, this will return an error:
@@ -579,7 +512,7 @@ avg_aneurisms_quarter <- apply(dat[,6:9], 2, mean)
 > used `m` and sometimes `M` to indicate `male`, and similarly `f` or `F` to 
 > indicate `female` (or perhaps there were two individuals entering the data
 > in slightly different ways). This is a problem, because R is case-sensitive and
-> treates `m` as a different entry from `M`. 
+> treats `m` as a different entry from `M`. 
 >
 > Use logical indexing to correct this problem. So we are all on the same page,
 > change all entries to capitals. Save your corrected file to the data folder under
@@ -647,7 +580,7 @@ The best way to develop insight is often to visualize data. Visualization deserv
 
 The basic plot function in R is called, conveniently, `plot()`. Let's take a quick look:
 
-```{r}
+```{r, eval=F}
 ?plot
 ```
 
@@ -670,7 +603,7 @@ When you tell R to run a plot, it actually takes a series of actions:
 
 1. Opens a new "graphics device". This device can be one of several things:
  a. The "Plot" section in the lower-right panel of RStudio (this is the default in RStudio).
- b. A blank graphics pane in a new window (this requires the `windows()` or `quartzy()` commands, which we discuss below).
+ b. A blank graphics pane in a new window (this requires the `windows()` or `quartz()` commands, which we discuss below).
  c. An external image file (e.g. a new .jpg file).
  d. An external PDF file (complete with vector graphics!).
 2. Draws a series of objects; this part is done "under the hood" of the `plot()` function, and includes:
@@ -695,7 +628,7 @@ To plot in a separate window within RStudio (rather than the "Plot" panel), use 
 
 ```{r, eval=F}
 windows() # Windows
-quartzy() # MacOS
+quartz() # MacOS
 ```
 
 &nbsp;
@@ -736,12 +669,12 @@ The first four are all versions of the same function and behave essentially inte
 
 > ## Vector Graphics
 >
-> Traditional image formats (e.g. .bmp, .jpg, .tiff, .png) are, in essense, a two dimensional array of color and intenxity values (such as 
+> Traditional image formats (e.g. .bmp, .jpg, .tiff, .png) are, in essence, a two dimensional array of color and intensity values (such as 
 > red-green-blue, or RGB values). The array has a fixed number of pixels in each dimension, so if you take an image that is 1 in x 1 in with 
 > 100 pixels in each dimension, and blow it up to 1 ft x ft, it still only has 100 pixels in each dimension. The blowup image will appear 
 > blocky, or "pixelated".
 > 
-> Vector graphics are distinct from traditional graphics in that they are defined by a set of mathematical operations carried out at specified > coordinates. For example, two of the instructions may be somehting like:
+> Vector graphics are distinct from traditional graphics in that they are defined by a set of mathematical operations carried out at specified > coordinates. For example, two of the instructions may be something like:
 > 1. Draw the letter "A" in normal size 10 Arial font at coordinates (10, 10).
 > 2. Draw the an arrow with line weight 2 and arrow head style X size 4 from the point (12, 12) to the point (20, 20).
 > 
@@ -764,7 +697,7 @@ Let's give both types of graphic generation a try by generating our previous plo
 
 &nbsp;
 
-By default, the function will generate a plot with an automatically genearted name in our home directory. Recall that we have already defined a separate *MCB585/results* folder, stored in memory under the `results.dir` variable. First we will generate a file name that contains both the path to our results directory and the name of the file we want. We can write this all out, or use the `paste()` function to combine the path and file name into a single `character` variable:
+By default, the function will generate a plot with an automatically generated name in our home directory. Recall that we have already defined a separate *MCB585/results* folder, stored in memory under the `results.dir` variable. First we will generate a file name that contains both the path to our results directory and the name of the file we want. We can write this all out, or use the `paste()` function to combine the path and file name into a single `character` variable:
 
 ```{r}
 results.dir <- "results" # in case you haven't defined it yet in this lesson
@@ -775,7 +708,7 @@ petal.cor.file <- paste0(results.dir, "/petal-width-length-comparison.jpg") # pa
 
 &nbsp;
 
-Also by default, the function will produce a 480 px x 480 px image at 72 pixels per inch (ppi). Note that the actualy phyical image size will be **size inches = size in pixels/ppi**. Let's make a 100 ppi *.jpg* image that is 5 in x 5 in.
+Also by default, the function will produce a 480 px x 480 px image at 72 pixels per inch (ppi). Note that the actual physical image size will be **size inches = size in pixels/ppi**. Let's make a 100 ppi *.jpg* image that is 5 in x 5 in.
 
 ```{r}
 jpeg(file = petal.cor.file, width = 500, height = 500, res = 100)
@@ -813,7 +746,7 @@ So let's do it. First let's take a look at the `pdf()` function:
 
 &nbsp;
 
-While `pdf()` still wants the file name as the `file = ` argument, we now specify width and height in inches to define the size of the file, and exclude resoultion because PDF files are vector graphics and will be generated to the resulution required by the size. This is more intuitive (we just ask for the image size that we way, instead of having to calculate it from pixel number and ppi), and more convenient. WE can now generate any size output we want, including a nice, printable 8.5 in x 11 in standard paper size.
+While `pdf()` still wants the file name as the `file = ` argument, we now specify width and height in inches to define the size of the file, and exclude resolution because PDF files are vector graphics and will be generated to the resolution required by the size. This is more intuitive (we just ask for the image size that we way, instead of having to calculate it from pixel number and ppi), and more convenient. WE can now generate any size output we want, including a nice, printable 8.5 in x 11 in standard paper size.
 
 For the moment, we will generate the PDF equivalent of our earlier JPEG, with dimensions of 5 in x 5 in. For fun, let's also include a second plot that compares sepal length and width:
 
@@ -921,7 +854,7 @@ As suspected, the lower left grouping is a single species. The other upper right
 
 The `legend()` function is not very smart. It does not actually have access to any information about the plot, and requires that we give it all of information about what information to include. This can be annoying for basic plots, but it gives you the flexibility to customize the information in your charts to any degree that you like. At a minimum, we need to give it the following arguments:
 * `x` tells R where to put the legend on the plot. You can give it simple direction like `"center"`, `left`, or `bottomright`.
-* `legend` tells R the list of labels for the legend, in this case we want the species names in factor level order (yes, the argument name is the sam)
+* `legend` tells R the list of labels for the legend, in this case we want the species names in factor level order (yes, the argument name is the same)
 * `col` tells R the colors to display. We want to give it the same color order that we used to generate the species-matched color list.
 * `pch` tells R the type of symbol to display. By default, the `plot()` function sets `pch = 1`, but this does not have a default value in `legend()` for some reason. For now we want `pch = 1` to match the `plot()` default.
 
@@ -997,7 +930,7 @@ We can now draw a scatter plot in R to look at the relationship between two vari
 
 &nbsp;
 
-We can use the `boxplot()` function to generate box and whisker plots in R. To do so, we will usually use `formula` notation to enter the data. In this case, the first argument should be a formumla indicating which data you want to plot and how your want it separted out, separated by the `~` symbol:
+We can use the `boxplot()` function to generate box and whisker plots in R. To do so, we will usually use `formula` notation to enter the data. In this case, the first argument should be a formula indicating which data you want to plot and how your want it broken out, separated by the `~` symbol:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp`<plot variable> ~ <separator variable>`
 
@@ -1045,11 +978,15 @@ Finally, let's look at how we can put multiple related panels in the same plot. 
 
 Take a look at the `?plot` documentation. Notice that there really aren't that many input options, but that there is a "..." listed, which references the `par()` function. This will also introduce you to the `par()` function. Under the surface, there are probably hundreds of tweaks that you can make to plots through arguments.  R has a set of predefined graphical parameters that are all stored in the background. The `par()` function queries and sets these parameters. If you don't give it any arguments, `par()` will return the current settings for all of these variables. We can see what they mean using `?par`.
 
-```{r, eval = -1}
+```{r, eval=FALSE}
+?par
+```
+
+
+```{r}
 plot.options <- par() # this just assigns all of the current background plot options to a variable. Not a bad idea if you are going to be changing things
 head(plot.options) # this is a list with a bunch of graphical related variables
 length(plot.options) # there are 72 variables that we can tweak in par() alone, and some have multiple parameters
-?par
 ```
 
 &nbsp;
@@ -1195,7 +1132,7 @@ We don't have the time to do everything, but we will be using both of these char
 > ## Correlations between petal and sepal in iris data
 > 
 > We looked a correlation between petal length and width. What about correlations between petal
-> and sepal? Generate scatter plots to look at length and width correlations, borken down by species.
+> and sepal? Generate scatter plots to look at length and width correlations, broken down by species.
 >
 > Save your results to a PDF.
 > 

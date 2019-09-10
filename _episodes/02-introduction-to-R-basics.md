@@ -265,6 +265,8 @@ dat <- read.csv(file = "/Users/Karthik/Documents/sannic-project/files/dataset-20
 ~~~
 {: .language-r}
 
+&nbsp;
+
 {:start="4"}
 4. R can run into memory issues. It is a common problem to run out of memory after running R scripts for a long time. To inspect the objects in your current R environment, you can list the objects, search current packages, and remove objects that are currently not in use. A good practice when running long lines of computationally intensive code is to remove temporary objects after they have served their purpose. However, sometimes, R will not clean up unused memory for a while after you delete objects. You can force R to tidy up its memory by using `gc()`.
 
@@ -4475,6 +4477,3 @@ F | F
 > {: .solution}
 {: .challenge}
 
-
-
-{% include links.md %}
