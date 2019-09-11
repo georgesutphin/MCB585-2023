@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-09-09 23:54:41 -0700">
+    <meta http-equiv="last-modified" content="2019-09-11 16:29:52 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -1954,6 +1954,71 @@ and sepal? Generate scatter plots to look at length and width correlations, brok
   2 
 </code></pre></div>    </div>
   </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="exploring-plot-options">Exploring plot options</h2>
+
+  <p>R has hundreds of ways to change the way plots are displayed. The only way to 
+really learn how to manipulate charts is to start playing with the options to
+see what they do. Below are a range of options that I have used at one point
+or another.</p>
+
+  <p>Try starting with one of the plots with today’s lesson, change one
+or more of the following parameters, then rerun the plot script to see what
+changed. A good way to do this is to plot two charts with a single argument change
+to the RStudio plot panel. The arrows at the top left of the panel let you look
+through previous charts and see what changed. Alternatively, write the two charts
+to subsequent pages of a PDF file for comparison.</p>
+
+  <p><strong>Arguments to the <code class="highlighter-rouge">plot()</code> function</strong>
+<em>Remember that default values can be found in <code class="highlighter-rouge">?plot</code> or by running <code class="highlighter-rouge">par()</code> with no arguments, and argument descriptions can be accessed in <code class="highlighter-rouge">?par</code>.</em></p>
+  <ul>
+    <li><em>bty</em></li>
+    <li><em>border</em></li>
+    <li><em>col</em></li>
+    <li><em>lty</em></li>
+    <li><em>lwd</em></li>
+    <li><em>main</em></li>
+    <li><em>sub</em></li>
+    <li><em>type</em></li>
+    <li><em>xlab</em>, <em>ylab</em></li>
+    <li><em>xlim</em>, <em>ylim</em></li>
+    <li><em>xaxs</em>, <em>yaxs</em></li>
+    <li><em>xaxt</em>, <em>yaxt</em></li>
+    <li><em>xlog</em>, <em>ylog</em></li>
+    <li><em>xpd</em></li>
+  </ul>
+
+  <p><strong>Arguments to the <code class="highlighter-rouge">par()</code> function</strong>
+*Note that these are typically passed to <code class="highlighter-rouge">par()</code> prior to running running a plot
+function. Run <code class="highlighter-rouge">par()</code> for defaults and <code class="highlighter-rouge">?par</code> for argument descriptions.</p>
+  <ul>
+    <li><em>cex</em></li>
+    <li><em>mar</em></li>
+    <li><em>mfrow</em></li>
+    <li><em>oma</em></li>
+    <li><em>tcl</em></li>
+  </ul>
+
+  <p><em>You can set most of the arguments listed above in <code class="highlighter-rouge">plot()</code> using the <code class="highlighter-rouge">par()</code>
+function as well, and it will set the default for future charts.</em></p>
+
+  <p><strong>Functions that add elements to existing plots</strong>
+<em>For this set, first generate a plot (e.g. with <code class="highlighter-rouge">plot()</code> or <code class="highlighter-rouge">boxplot()</code>)
+and then call the following functions. Use <code class="highlighter-rouge">?</code> to see what arguments are
+required for each</em></p>
+  <ul>
+    <li><code class="highlighter-rouge">abline()</code></li>
+    <li><code class="highlighter-rouge">axis()</code></li>
+    <li><code class="highlighter-rouge">box()</code></li>
+    <li><code class="highlighter-rouge">legend()</code></li>
+    <li><code class="highlighter-rouge">lines()</code></li>
+    <li><code class="highlighter-rouge">mtext()</code></li>
+    <li><code class="highlighter-rouge">points()</code></li>
+    <li><code class="highlighter-rouge">text()</code></li>
+    <li><code class="highlighter-rouge">title()</code></li>
+  </ul>
 </blockquote>
 
 

@@ -2065,4 +2065,63 @@ We don't have the time to do everything, but we will be using both of these char
 > {: .solution}
 {: .challenge}
 
+> ## Exploring plot options
+> 
+> R has hundreds of ways to change the way plots are displayed. The only way to 
+> really learn how to manipulate charts is to start playing with the options to
+> see what they do. Below are a range of options that I have used at one point
+> or another. 
+>
+> Try starting with one of the plots with today's lesson, change one
+> or more of the following parameters, then rerun the plot script to see what
+> changed. A good way to do this is to plot two charts with a single argument change
+> to the RStudio plot panel. The arrows at the top left of the panel let you look
+> through previous charts and see what changed. Alternatively, write the two charts
+> to subsequent pages of a PDF file for comparison.
+> 
+> **Arguments to the `plot()` function**
+> *Remember that default values can be found in `?plot` or by running `par()` with no arguments, and argument descriptions can be accessed in `?par`.*
+> * *bty*
+> * *border*
+> * *col*
+> * *lty*
+> * *lwd*
+> * *main*
+> * *sub*
+> * *type*
+> * *xlab*, *ylab*
+> * *xlim*, *ylim*
+> * *xaxs*, *yaxs*
+> * *xaxt*, *yaxt*
+> * *xlog*, *ylog*
+> * *xpd*
+> 
+> **Arguments to the `par()` function**
+> *Note that these are typically passed to `par()` prior to running running a plot
+> function. Run `par()` for defaults and `?par` for argument descriptions.
+> * *cex*
+> * *mar*
+> * *mfrow*
+> * *oma*
+> * *tcl*
+>
+> *You can set most of the arguments listed above in `plot()` using the `par()`
+> function as well, and it will set the default for future charts.*
+>
+> **Functions that add elements to existing plots**
+> *For this set, first generate a plot (e.g. with `plot()` or `boxplot()`)
+> and then call the following functions. Use `?` to see what arguments are
+> required for each*
+> * `abline()`
+> * `axis()`
+> * `box()`
+> * `legend()`
+> * `lines()`
+> * `mtext()`
+> * `points()`
+> * `text()`
+> * `title()`
+{: .challenge}
+
+
 {% include links.md %}
