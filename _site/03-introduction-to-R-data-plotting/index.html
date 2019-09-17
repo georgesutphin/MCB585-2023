@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-09-11 22:38:21 -0700">
+    <meta http-equiv="last-modified" content="2019-09-16 22:53:18 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -1361,7 +1361,7 @@ the same underlying file. any modern journals prefer that figures be submitted a
 <p>For the moment, we will generate the PDF equivalent of our earlier JPEG, with dimensions of 5 in x 5 in. For fun, let’s also include a second plot that compares sepal length and width:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define the file name</span><span class="w">
-</span><span class="n">petal.cor.pdf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="n">results.dir</span><span class="p">,</span><span class="w"> </span><span class="s2">"/petal-width-length-comparison.pdf"</span><span class="p">)</span><span class="w">
+</span><span class="n">petal.cor.pdf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"results/petal-width-length-comparison.pdf"</span><span class="w">
 
 </span><span class="c1"># generate the PDF file</span><span class="w">
 </span><span class="n">pdf</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">petal.cor.pdf</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w">
@@ -1783,6 +1783,88 @@ $bg
 <p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-60-1.png" title="plot of chunk unnamed-chunk-60" alt="plot of chunk unnamed-chunk-60" width="612" style="display: block; margin: auto;" /></p>
 
 <p> </p>
+<h4 id="box-plots-with-multiple-independent-variables--getting-to-publication-quality">Box plots with multiple independent variables – getting to publication quality</h4>
+
+<p>Box plots begin to tax the default behavior of R when it comes to things like axis labeling. Let’s use the gender-corrected version of our aneurism data (“sample-gendercorrected.csv”) to take a look at plotting when multiple independent variables are in play. First, load the data:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data.an</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"data/sample-gendercorrected.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">data.an</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      ID Gender      Group BloodPressure  Age Aneurisms_q1 Aneurisms_q2
+1 Sub001      M    Control           132 16.0          114          140
+2 Sub002      M Treatment2           139 17.2          148          209
+3 Sub003      M Treatment2           130 19.5          196          251
+4 Sub004      F Treatment1           105 15.7          199          140
+5 Sub005      M Treatment1           125 19.9          188          120
+6 Sub006      M Treatment2           112 14.3          260          266
+  Aneurisms_q3 Aneurisms_q4
+1          202          237
+2          248          248
+3          122          177
+4          233          220
+5          222          228
+6          320          294
+</code></pre></div></div>
+
+<p> </p>
+
+<p>What if we want to plot quarter 1 aneurisms broken down by both gender and treatment group. The <code class="highlighter-rouge">formula</code> notation used in <code class="highlighter-rouge">boxplot()</code> makes this pretty straightforward:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># use the '+' to indicate multiple grouping variables</span><span class="w">
+</span><span class="n">boxplot</span><span class="p">(</span><span class="n">Aneurisms_q1</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Group</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Gender</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.an</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-62-1.png" title="plot of chunk unnamed-chunk-62" alt="plot of chunk unnamed-chunk-62" width="612" style="display: block; margin: auto;" /></p>
+
+<p> </p>
+
+<p>We have the data in the right place, but the group labels are all horizontal, so they can’t be displayed. There is also no clear visual way to distinguish how the treatment groups and gender groups are separated.</p>
+
+<p>We can take several steps to improve the look in chart:</p>
+<ul>
+  <li>Use the <code class="highlighter-rouge">at</code> argument to change the box spacing. By default, boxes are drawn centered over the integers 1, 2, 3, …, n, where n is the number of boxes. By redefining these locations and skipping numbers, you can add spaces between groups.</li>
+  <li>Use box colors to indicate treatment groups (<code class="highlighter-rouge">col</code> argument plus the <code class="highlighter-rouge">legend()</code> function) and x-axis labels to indicate gender. There are other ways to do this, but this is one of the more visually appealing.</li>
+  <li>Tick marks are often not useful in box plots. To turn them off, we will use the <code class="highlighter-rouge">xaxt</code> to run off all x-axis feature, and then use the separate function <code class="highlighter-rouge">axis()</code> to add the ones we want back (sans tick marks).</li>
+  <li>Make the y-axis label look better with <code class="highlighter-rouge">ylab</code>.</li>
+  <li>Add all points with <code class="highlighter-rouge">stripchart()</code>.</li>
+</ul>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># draw the box plot first</span><span class="w">
+</span><span class="n">boxplot</span><span class="p">(</span><span class="n">Aneurisms_q1</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Group</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Gender</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.an</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">xaxt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"n"</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="c1"># turn off all x-axis labeling (so we can redraw it below)</span><span class="w">
+        </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"# Aneurisms (Q1)"</span><span class="p">,</span><span class="w"> </span><span class="c1"># y axis label</span><span class="w">
+        </span><span class="n">at</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="m">6</span><span class="p">,</span><span class="m">7</span><span class="p">),</span><span class="w"> </span><span class="c1"># leave a space between gender groups</span><span class="w">
+        </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"grey"</span><span class="p">,</span><span class="s2">"blue"</span><span class="p">,</span><span class="s2">"red"</span><span class="p">))</span><span class="w"> </span><span class="c1"># color boxes by treatment for legend</span><span class="w">
+        
+</span><span class="c1"># now add the points with stripchart with the same parameters as box</span><span class="w">
+</span><span class="n">stripchart</span><span class="p">(</span><span class="n">Aneurisms_q1</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Group</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Gender</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.an</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">vert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="c1"># add the points to the current boxplot vertically</span><span class="w">
+        </span><span class="n">at</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="m">6</span><span class="p">,</span><span class="m">7</span><span class="p">),</span><span class="w"> </span><span class="c1"># leave a space between gender groups</span><span class="w">
+        </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"black"</span><span class="p">),</span><span class="w"> </span><span class="n">pch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="c1"># color and symbol for points</span><span class="w">
+        </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jitter"</span><span class="p">)</span><span class="w"> </span><span class="c1"># jitter the points</span><span class="w">
+
+</span><span class="n">axis</span><span class="p">(</span><span class="n">side</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="c1"># add axis labels to the x-axis</span><span class="w">
+     </span><span class="n">at</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">6</span><span class="p">),</span><span class="w"> </span><span class="c1"># place the labels under the middle boxes of each group</span><span class="w">
+     </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"female"</span><span class="p">,</span><span class="s2">"male"</span><span class="p">),</span><span class="w"> </span><span class="c1"># gender labels</span><span class="w">
+     </span><span class="n">tick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w"> </span><span class="c1"># do not add tick marks</span><span class="w">
+
+</span><span class="c1"># now add a legend to indicate</span><span class="w">
+</span><span class="n">legend</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"top"</span><span class="p">,</span><span class="w"> </span><span class="n">inset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-0.13</span><span class="p">,</span><span class="w"> </span><span class="c1"># place the legend on top, but nudge it up a bit</span><span class="w">
+       </span><span class="n">xpd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="c1"># allow the legend to be drawn outside the plot area</span><span class="w">
+       </span><span class="n">bty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"n"</span><span class="p">,</span><span class="w"> </span><span class="c1"># don't draw a box around the legend</span><span class="w">
+       </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="c1"># use 3 columns (one row, since we have 3 groups)</span><span class="w">
+       </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"grey"</span><span class="p">,</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="s2">"red"</span><span class="p">),</span><span class="w"> </span><span class="c1"># fill boxes with the same colors as boxplot</span><span class="w">
+       </span><span class="n">legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">levels</span><span class="p">(</span><span class="n">data.an</span><span class="o">$</span><span class="n">Group</span><span class="p">))</span><span class="w"> </span><span class="c1"># labels by treatement group</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-63-1.png" title="plot of chunk unnamed-chunk-63" alt="plot of chunk unnamed-chunk-63" width="612" style="display: block; margin: auto;" /></p>
+
+<p> </p>
+
+<p>This ends up with a fairly complex script for a single chart, but when you start to directly generate publication quality graphics in R, this is what it tends to look like. Once you go through the process of setting up a plot that you like once, you can always copy that whole chunk of code into the next project (or write a custom plot function with your own defaults!). Over time, you build up a sort of personal “library” of code chunks and can make really nice graphics in relatively little time.</p>
+
+<p> </p>
 <h4 id="other-resources-for-plotting">Other resources for plotting</h4>
 
 <p>This lesson gives you access to the two most common chart types used in biology: scatterplots and box plots (which can usually be used in place of bar charts). This is just the tip of a very large iceberg. R has the capability of producing any visualization you can imagine, and there are full workshops and courses dedicated just to generating graphics in R. The potential applications are as varied as your projects, and the best thing you can do is to sit down and start using the functions with Google search close at hand.</p>
@@ -1834,7 +1916,7 @@ speed by both state and color.</p>
             </span><span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="n">vert</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-61-1.png" title="plot of chunk unnamed-chunk-61" alt="plot of chunk unnamed-chunk-61" width="612" style="display: block; margin: auto;" /></p>
+    <p><img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-64-1.png" title="plot of chunk unnamed-chunk-64" alt="plot of chunk unnamed-chunk-64" width="612" style="display: block; margin: auto;" /></p>
   </blockquote>
 </blockquote>
 
