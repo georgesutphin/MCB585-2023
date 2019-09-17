@@ -1333,7 +1333,7 @@ For the moment, we will generate the PDF equivalent of our earlier JPEG, with di
 
 ~~~
 # define the file name
-petal.cor.pdf <- paste0(results.dir, "/petal-width-length-comparison.pdf")
+petal.cor.pdf <- "results/petal-width-length-comparison.pdf"
 
 # generate the PDF file
 pdf(file = petal.cor.pdf, width = 5, height = 5)
@@ -1872,6 +1872,99 @@ legend("bottomright", legend = species.list, col=col.list, pch=1)
 <img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-60-1.png" title="plot of chunk unnamed-chunk-60" alt="plot of chunk unnamed-chunk-60" width="612" style="display: block; margin: auto;" />
 
 &nbsp;
+#### Box plots with multiple independent variables -- getting to publication quality
+
+Box plots begin to tax the default behavior of R when it comes to things like axis labeling. Let's use the gender-corrected version of our aneurism data ("sample-gendercorrected.csv") to take a look at plotting when multiple independent variables are in play. First, load the data:
+
+
+~~~
+data.an <- read.csv("data/sample-gendercorrected.csv")
+head(data.an)
+~~~
+{: .language-r}
+
+
+
+~~~
+      ID Gender      Group BloodPressure  Age Aneurisms_q1 Aneurisms_q2
+1 Sub001      M    Control           132 16.0          114          140
+2 Sub002      M Treatment2           139 17.2          148          209
+3 Sub003      M Treatment2           130 19.5          196          251
+4 Sub004      F Treatment1           105 15.7          199          140
+5 Sub005      M Treatment1           125 19.9          188          120
+6 Sub006      M Treatment2           112 14.3          260          266
+  Aneurisms_q3 Aneurisms_q4
+1          202          237
+2          248          248
+3          122          177
+4          233          220
+5          222          228
+6          320          294
+~~~
+{: .output}
+
+&nbsp;
+
+What if we want to plot quarter 1 aneurisms broken down by both gender and treatment group. The `formula` notation used in `boxplot()` makes this pretty straightforward:
+
+
+~~~
+# use the '+' to indicate multiple grouping variables
+boxplot(Aneurisms_q1 ~ Group + Gender, data = data.an)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-62-1.png" title="plot of chunk unnamed-chunk-62" alt="plot of chunk unnamed-chunk-62" width="612" style="display: block; margin: auto;" />
+
+&nbsp;
+
+We have the data in the right place, but the group labels are all horizontal, so they can't be displayed. There is also no clear visual way to distinguish how the treatment groups and gender groups are separated. 
+
+We can take several steps to improve the look in chart:
+* Use the `at` argument to change the box spacing. By default, boxes are drawn centered over the integers 1, 2, 3, ..., n, where n is the number of boxes. By redefining these locations and skipping numbers, you can add spaces between groups.
+* Use box colors to indicate treatment groups (`col` argument plus the `legend()` function) and x-axis labels to indicate gender. There are other ways to do this, but this is one of the more visually appealing.
+* Tick marks are often not useful in box plots. To turn them off, we will use the `xaxt` to run off all x-axis feature, and then use the separate function `axis()` to add the ones we want back (sans tick marks).
+* Make the y-axis label look better with `ylab`.
+* Add all points with `stripchart()`.
+
+
+~~~
+# draw the box plot first
+boxplot(Aneurisms_q1 ~ Group + Gender, data = data.an, 
+        xaxt = "n", xlab = "", # turn off all x-axis labeling (so we can redraw it below)
+        ylab = "# Aneurisms (Q1)", # y axis label
+        at = c(1,2,3, 5,6,7), # leave a space between gender groups
+        col = c("grey","blue","red")) # color boxes by treatment for legend
+        
+# now add the points with stripchart with the same parameters as box
+stripchart(Aneurisms_q1 ~ Group + Gender, data = data.an, 
+        add = TRUE, vert = TRUE, # add the points to the current boxplot vertically
+        at = c(1,2,3, 5,6,7), # leave a space between gender groups
+        col = c("black"), pch = 16, # color and symbol for points
+        method = "jitter") # jitter the points
+
+axis(side = 1, # add axis labels to the x-axis
+     at = c(2,6), # place the labels under the middle boxes of each group
+     labels = c("female","male"), # gender labels
+     tick = FALSE) # do not add tick marks
+
+# now add a legend to indicate
+legend(x = "top", inset = -0.13, # place the legend on top, but nudge it up a bit
+       xpd = T, # allow the legend to be drawn outside the plot area
+       bty = "n", # don't draw a box around the legend
+       ncol = 3, # use 3 columns (one row, since we have 3 groups)
+       fill = c("grey", "blue", "red"), # fill boxes with the same colors as boxplot
+       legend = levels(data.an$Group)) # labels by treatement group
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-63-1.png" title="plot of chunk unnamed-chunk-63" alt="plot of chunk unnamed-chunk-63" width="612" style="display: block; margin: auto;" />
+ 
+ &nbsp;
+ 
+This ends up with a fairly complex script for a single chart, but when you start to directly generate publication quality graphics in R, this is what it tends to look like. Once you go through the process of setting up a plot that you like once, you can always copy that whole chunk of code into the next project (or write a custom plot function with your own defaults!). Over time, you build up a sort of personal "library" of code chunks and can make really nice graphics in relatively little time.
+
+&nbsp;
 #### Other resources for plotting
 
 This lesson gives you access to the two most common chart types used in biology: scatterplots and box plots (which can usually be used in place of bar charts). This is just the tip of a very large iceberg. R has the capability of producing any visualization you can imagine, and there are full workshops and courses dedicated just to generating graphics in R. The potential applications are as varied as your projects, and the best thing you can do is to sit down and start using the functions with Google search close at hand.
@@ -1922,7 +2015,7 @@ We don't have the time to do everything, but we will be using both of these char
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-61-1.png" title="plot of chunk unnamed-chunk-61" alt="plot of chunk unnamed-chunk-61" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-03-introduction-to-R-data-plotting-unnamed-chunk-64-1.png" title="plot of chunk unnamed-chunk-64" alt="plot of chunk unnamed-chunk-64" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 

@@ -280,7 +280,7 @@ carSpeeds$Color
 > >   if (length(x) > threshold) {
 > >     boxplot(x)
 > >   } else {
-> >     stripchart(x)
+> >     stripchart(x, vert=T)
 > >   }
 > > }
 > > ~~~
@@ -291,15 +291,15 @@ carSpeeds$Color
 > ## Histograms Instead
 >
 > One of your collaborators prefers to see the distributions of the larger vectors
-> as a histogram instead of as a boxplot.
-> In order to choose between a histogram and a boxplot
-> we will edit the function `plot_dist` and add an additional argument `use_boxplot`.
-> By default we will set `use_boxplot` to `TRUE`
-> which will create a boxplot when the vector is longer than `threshold`.
-> When `use_boxplot` is set to `FALSE`,
-> `plot_dist` will instead plot a histogram for the larger vectors.
-> As before, if the length of the vector is shorter than `threshold`,
-> `plot_dist` will create a stripchart.
+> as a histogram instead of as a boxplot. In order to choose between a histogram 
+> and a boxplot we will edit the function `plot_dist` and add an additional argument 
+> `use_boxplot`.  By default we will set `use_boxplot` to `TRUE` which will create a 
+> boxplot when the vector is longer than `threshold`. 
+> 
+> When `use_boxplot` is set to `FALSE`, `plot_dist` will instead plot a histogram for 
+> the larger vectors. As before, if the length of the vector is shorter than 
+> `threshold`, `plot_dist` will create a stripchart. 
+> 
 > A histogram is made with the `hist` command in R.
 >
 > 
@@ -333,7 +333,7 @@ carSpeeds$Color
 > >    } else if (length(x) > threshold && !use_boxplot) {
 > >        hist(x)
 > >    } else {
-> >        stripchart(x)
+> >        stripchart(x, vert=T)
 > >    }
 > > }
 > > ~~~
@@ -342,81 +342,14 @@ carSpeeds$Color
 {: .challenge}
 
 ***
-### Vectorization
-
-In R you have multiple options when repeating calculations: vectorized operations, `for` loops, and `apply` functions.
-
-This lesson is an extension of [Analyzing Multiple Data Sets]({{ page.root }}/03-loops-R/).
-In that lesson, we introduced how to run a custom function, `analyze`, over multiple data files:
-
-
-~~~
-analyze <- function(filename) {
-  # Plots the average, min, and max inflammation over time.
-  # Input is character string of a csv file.
-  dat <- read.csv(file = filename, header = FALSE)
-  avg_day_inflammation <- apply(dat, 2, mean)
-  plot(avg_day_inflammation)
-  max_day_inflammation <- apply(dat, 2, max)
-  plot(max_day_inflammation)
-  min_day_inflammation <- apply(dat, 2, min)
-  plot(min_day_inflammation)
-}
-~~~
-{: .language-r}
-
-
-~~~
-filenames <- list.files(path = "data", pattern = "inflammation-[0-9]{2}.csv", full.names = TRUE)
-~~~
-{: .language-r}
-
 ### Using **for** Loops to repeat simple tasks
 
-We have created a function called `analyze` that creates graphs of the minimum, average, and maximum daily inflammation rates for a single data set:
-
-
-~~~
-analyze <- function(filename) {
-  # Plots the average, min, and max inflammation over time.
-  # Input is character string of a csv file.
-  dat <- read.csv(file = filename, header = FALSE)
-  avg_day_inflammation <- apply(dat, 2, mean)
-  plot(avg_day_inflammation)
-  max_day_inflammation <- apply(dat, 2, max)
-  plot(max_day_inflammation)
-  min_day_inflammation <- apply(dat, 2, min)
-  plot(min_day_inflammation)
-}
-
-analyze("data/inflammation-01.csv")
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-inflammation-01-1.png" title="plot of chunk inflammation-01" alt="plot of chunk inflammation-01" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-inflammation-01-2.png" title="plot of chunk inflammation-01" alt="plot of chunk inflammation-01" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-inflammation-01-3.png" title="plot of chunk inflammation-01" alt="plot of chunk inflammation-01" width="612" style="display: block; margin: auto;" />
-
-We can use it to analyze other data sets one by one:
-
-
-~~~
-analyze("data/inflammation-02.csv")
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-inflammation-02-1.png" title="plot of chunk inflammation-02" alt="plot of chunk inflammation-02" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-inflammation-02-2.png" title="plot of chunk inflammation-02" alt="plot of chunk inflammation-02" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-inflammation-02-3.png" title="plot of chunk inflammation-02" alt="plot of chunk inflammation-02" width="612" style="display: block; margin: auto;" />
-
-but we have a dozen data sets right now and more on the way.
-We want to create plots for all our data sets with a single statement.
-To do that, we'll have to teach the computer how to repeat things.
-
-### For Loops
-
-Suppose we want to print each word in a sentence.
-One way is to use six `print` statements:
+Suppose we want to print each word in a sentence. One way is to use six `print` statements:
 
 
 ~~~
 best_practice <- c("Let", "the", "computer", "do", "the", "work")
+
 print_words <- function(sentence) {
   print(sentence[1])
   print(sentence[2])
@@ -441,6 +374,8 @@ print_words(best_practice)
 [1] "work"
 ~~~
 {: .output}
+
+&nbsp;
 
 but that's a bad approach for two reasons:
 
@@ -480,14 +415,7 @@ print_words(best_practice[-6])
 ~~~
 {: .output}
 
-> ## Not Available
->
-> R has has a special variable, `NA`, for designating missing values that are
-> **N**ot **A**vailable in a data set. See `?NA` and [An Introduction to R][na]
-> for more details.
-{: .callout}
-
-[na]: https://cran.r-project.org/doc/manuals/r-release/R-intro.html#Missing-values
+&nbsp;
 
 Here's a better approach:
 
@@ -515,6 +443,8 @@ print_words(best_practice)
 ~~~
 {: .output}
 
+&nbsp;
+
 This is shorter - certainly shorter than something that prints every character in a hundred-letter string - and more robust as well:
 
 
@@ -534,7 +464,10 @@ print_words(best_practice[-6])
 ~~~
 {: .output}
 
+&nbsp;
+
 The improved version of `print_words` uses a [for loop]({{ page.root }}/reference.html#for-loop) to repeat an operation---in this case, printing---once for each thing in a collection.
+
 The general form of a loop is:
 
 
@@ -545,15 +478,15 @@ for (variable in collection) {
 ~~~
 {: .language-r}
 
-We can name the [loop variable]({{ page.root }}/reference.html#loop-variable) anything we like (with a few [restrictions][], e.g. the name of the variable cannot start with a digit).
+&nbsp;
+
+We can name the [loop variable]({{ page.root }}/reference.html#loop-variable) anything we like (with a few [restrictions](https://cran.r-project.org/doc/manuals/R-intro.html#R-commands_003b-case-sensitivity-etc), e.g. the name of the variable cannot start with a digit).
 `in` is part of the `for` syntax.
+
 Note that the condition (`variable in collection`) is enclosed in parentheses,
-and the body of the loop is enclosed in curly braces `{ }`.
-For a single-line loop body, as here, the braces aren't needed, but it is good practice to include them as we did.
+and the body of the loop is enclosed in curly braces `{ }`. For a single-line loop body, as here, the braces aren't needed, but it is good practice to include them as we did.
 
-[restrictions]: https://cran.r-project.org/doc/manuals/R-intro.html#R-commands_003b-case-sensitivity-etc
-
-Here's another loop that repeatedly updates a variable:
+Here's another loop that repeatedly updates a variable and completes the same task as the `length()` function:
 
 
 ~~~
@@ -574,12 +507,14 @@ len
 ~~~
 {: .output}
 
-It's worth tracing the execution of this little program step by step.
-Since there are five elements in the vector `vowels`, the statement inside the loop will be executed five times.
-The first time around, `len` is zero (the value assigned to it on line 1) and `v` is `"a"`.
-The statement adds 1 to the old value of `len`, producing 1, and updates `len` to refer to that new value.
-The next time around, `v` is `"e"` and `len` is 1, so `len` is updated to be 2.
-After three more updates, `len` is 5; since there is nothing left in the vector `vowels` for R to process, the loop finishes.
+&nbsp;
+
+It's worth tracing the execution of this little program step by step:
+ 1. Since there are five elements in the vector `vowels`, the statement inside the loop will be executed five times.
+ 2. The first time around, `len` is zero (the value assigned to it on line 1) and `v` is `"a"`.
+ 3. The statement adds 1 to the old value of `len`, producing 1, and updates `len` to refer to that new value.
+ 4. The next time around, `v` is `"e"` and `len` is 1, so `len` is updated to be 2.
+ 5. After three more updates, `len` is 5; since there is nothing left in the vector `vowels` for R to process, the loop finishes.
 
 Note that a loop variable is just a variable that's being used to record progress in a loop.
 It still exists after the loop is over, and we can re-use variables previously defined as loop variables as well:
@@ -617,27 +552,16 @@ letter
 ~~~
 {: .output}
 
-Note also that finding the length of a vector is such a common operation that R actually has a built-in function to do it called `length`:
+&nbsp;
 
+Note that `length()` is much faster than any R function we could write ourselves, and much easier to read than a two-line loop; it will also give us the length of many other things that we haven't met yet, so we should always use it when we can.
 
-~~~
-length(vowels)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 5
-~~~
-{: .output}
-
-`length` is much faster than any R function we could write ourselves, and much easier to read than a two-line loop; it will also give us the length of many other things that we haven't met yet, so we should always use it when we can (see this [lesson]({{ page.root }}/13-supp-data-structures/) to learn more about the different ways to store data in R).
-
+&nbsp;
+#### Exercises
 
 > ## Printing Numbers
 >
-> R has a built-in function called `seq` that creates a list of numbers:
+> R has a built-in function called `seq()` that creates a list of numbers:
 >
 > 
 > ~~~
@@ -652,7 +576,7 @@ length(vowels)
 > ~~~
 > {: .output}
 >
-> Using `seq`, write a function that prints the first **N** natural numbers, one per line:
+> Using `seq()`, write a function that prints the first **N** natural numbers, one per line:
 >
 > 
 > ~~~
@@ -684,10 +608,12 @@ length(vowels)
 
 > ## Summing Values
 >
-> Write a function called `total` that calculates the sum of the values in a vector.
-> (R has a built-in function called `sum` that does this for you.
-> Please don't use it for this exercise.)
->
+> Write a function called `total()` that calculates the sum of the values in a vector.
+> 
+> Yes, R has a built-in function called `sum()` that does this for you. Please don't
+> use it for this exercise. The goal is to understand how this type of function might 
+> work under the surface.
+> 
 > 
 > ~~~
 > ex_vec <- c(4, 8, 15, 16, 23, 42)
@@ -733,8 +659,8 @@ length(vowels)
 > [1] 16
 > ~~~
 > {: .output}
->
-> Write a function called `expo` that uses a loop to calculate the same result.
+> Write a function called `expo()` that uses a loop to calculate the same result without
+> using the `^` operator.
 >
 > 
 > ~~~
@@ -763,20 +689,113 @@ length(vowels)
 > {: .solution}
 {: .challenge}
 
-### Processing Multiple Files
+***
+### Using `for` loops to process multiple files
 
-We now have almost everything we need to process all our data files.
-The only thing that's missing is a function that finds files whose names match a pattern.
-We do not need to write it ourselves because R already has a function to do this called `list.files`.
+In many real world data sets, you will want to process a series of files that contain data in the same format using the same set of analysis steps. `for` loops are a useful tool for this purpose. 
 
-If we run the function without any arguments, `list.files()`, it returns every file in the current working directory.
-We can understand this result by reading the help file (`?list.files`).
-The first argument, `path`, is the path to the directory to be searched, and it has the default value of `"."`
-(recall from the [lesson]({{ site.swc_pages }}/shell-novice/02-filedir/) on the Unix Shell that `"."` is shorthand for the current working directory).
-The second argument, `pattern`, is the pattern being searched, and it has the default value of `NULL`.
-Since no pattern is specified to filter the files, all files are returned.
+In the *data* folder we have a series of files containing information about inflammation. These files give data on patients treated with a new drug for arthritis. Each file contains a series of patients (in rows) with a series of inflammation measurements on subsequent days (in columns). Each file contains information from the same set of patients on different rounds of treatment. We looked at the first file in this series previously. Let's read in the file to recall the data format:
 
-So to list all the csv files, we could run either of the following:
+
+~~~
+inflam1 <- read.csv("data/inflammation-01.csv", header=F)
+head(inflam1)
+~~~
+{: .language-r}
+
+
+
+~~~
+  V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14 V15 V16 V17 V18 V19 V20
+1  0  0  1  3  1  2  4  7  8   3   3   3  10   5   7   4   7   7  12  18
+2  0  1  2  1  2  1  3  2  2   6  10  11   5   9   4   4   7  16   8   6
+3  0  1  1  3  3  2  6  2  5   9   5   7   4   5   4  15   5  11   9  10
+4  0  0  2  0  4  2  2  1  6   7  10   7   9  13   8   8  15  10  10   7
+5  0  1  1  3  3  1  3  5  2   4   4   7   6   5   3  10   8  10   6  17
+6  0  0  1  2  2  4  2  1  6   4   7   6   6   9   9  15   4  16  18  12
+  V21 V22 V23 V24 V25 V26 V27 V28 V29 V30 V31 V32 V33 V34 V35 V36 V37 V38
+1   6  13  11  11   7   7   4   6   8   8   4   4   5   7   3   4   2   3
+2  18   4  12   5  12   7  11   5  11   3   3   5   4   4   5   5   1   1
+3  19  14  12  17   7  12  11   7   4   2  10   5   4   2   2   3   2   2
+4  17   4   4   7   6  15   6   4   9  11   3   5   6   3   3   4   2   3
+5   9  14   9   7  13   9  12   6   7   7   9   6   3   2   2   4   2   0
+6  12   5  18   9   5   3  10   3  12   7   8   4   7   3   5   4   4   3
+  V39 V40
+1   0   0
+2   0   1
+3   1   1
+4   2   1
+5   1   1
+6   2   1
+~~~
+{: .output}
+
+&nbsp;
+
+To begin, let's calculate and plot the minimum, maximum, and mean inflamation across patients for each day:
+
+
+~~~
+# use apply to calculate min, max, and mean inflammation for each day
+# and save them to variables
+avg_day_inflam <- apply(inflam1, 2, mean)
+max_day_inflam <- apply(inflam1, 2, max)
+min_day_inflam <- apply(inflam1, 2, min)
+
+# ------------------------------------------------------------------------
+# Plot min, max, and mean on the same chart (using different line colors)
+
+# First we need to grab the overall maximum and minimum values in our data
+# set to be sure we make the plot window big enough
+y_min <- min(inflam1)
+y_max <- max(inflam1)
+
+# first initiat the plot with "min" data
+plot(min_day_inflam, # plot minimum first
+     type = "l", col = "blue", # plot the minimum in blue
+     xlab = "Day", ylab = "Inflammation", # axis labels
+     ylim = c(y_min, y_max)) # define plot limits
+
+# use the lines() funciton to add max and mean to the current plot
+lines(avg_day_inflam, # plot mean second
+      col = "black") # draw mean in black
+lines(max_day_inflam, # plot maximum second
+      col = "red") # draw maximum in red
+
+# add a legend
+legend(x = "topright", # place the legend in the empty space in the upper right corner
+       lty = 1, # this tells R to make lines, rather than symbols
+       legend = c("Maximum", "Mean", "Minimum"), # order the labels
+       col = c("red","black","blue")) # define the colors in the label order
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-inflammation-01-1.png" title="plot of chunk inflammation-01" alt="plot of chunk inflammation-01" width="612" style="display: block; margin: auto;" />
+
+&nbsp;
+
+Okay, so the chart looks good, but something appears to be strange with the data. The maximum measurement across patients appears to increase exactly linearly up to day 20, then decline exactly linearly thereafter. The minimum value looks to stair-step up to day 20, then stair-step down thereafter. 
+
+Does this happen with all the files? Let's write a script to run the above analysis on all files and save the resulting report to a PDF file. For this, we can use our `for` loop capability to carry out the following steps:
+1. Identify a list of files with a similar naming pattern.
+2. Initiate a PDF file for capturing the output plots.
+3. Set up a `for` loop to process each file in the list.
+4. For each file, complete the following steps:
+ a. Calculate minimum, mean, and maximum across patients for each day.
+ b. Generate a plot of minimum, mean, and maximum inflammation across the time course for each file.
+5. Finalize the PDF file with `dev.off()`.
+
+The first point requires that we have some way to recognize patterns in file names. This can be accomplished with the `list.files()` function, which we looked at briefly in an earlier lesson. 
+
+
+~~~
+?list.files
+~~~
+{: .language-r}
+
+&nbsp;
+
+We can use the `pattern` argument to specify a search pattern using [regular expressions](https://www.aivosto.com/articles/regex.html), which is a systematic language for searching strings of text. For, example, we can use the `pattern` argument to look for all files containing "csv":
 
 
 ~~~
@@ -788,19 +807,22 @@ list.files(path = "data", pattern = "csv")
 
 ~~~
  [1] "car-speeds-cleaned.csv"     "car-speeds.csv"            
- [3] "inflammation-01.csv"        "inflammation-02.csv"       
- [5] "inflammation-03.csv"        "inflammation-04.csv"       
- [7] "inflammation-05.csv"        "inflammation-06.csv"       
- [9] "inflammation-07.csv"        "inflammation-08.csv"       
-[11] "inflammation-09.csv"        "inflammation-10.csv"       
-[13] "inflammation-11.csv"        "inflammation-12.csv"       
-[15] "Nadeau2_table.csv"          "sample-gendercorrected.csv"
-[17] "sample-noquotes.csv"        "sample.csv"                
-[19] "small-01.csv"               "small-02.csv"              
-[21] "small-03.csv"              
+ [3] "combined-inflammation.csv"  "inflammation-01.csv"       
+ [5] "inflammation-02.csv"        "inflammation-03.csv"       
+ [7] "inflammation-04.csv"        "inflammation-05.csv"       
+ [9] "inflammation-06.csv"        "inflammation-07.csv"       
+[11] "inflammation-08.csv"        "inflammation-09.csv"       
+[13] "inflammation-10.csv"        "inflammation-11.csv"       
+[15] "inflammation-12.csv"        "Nadeau2_table.csv"         
+[17] "sample-gendercorrected.csv" "sample-noquotes.csv"       
+[19] "sample.csv"                 "small-01.csv"              
+[21] "small-02.csv"               "small-03.csv"              
 ~~~
 {: .output}
 
+&nbsp;
+
+or "inflammation":
 
 
 ~~~
@@ -811,10 +833,90 @@ list.files(path = "data", pattern = "inflammation")
 
 
 ~~~
- [1] "inflammation-01.csv" "inflammation-02.csv" "inflammation-03.csv"
- [4] "inflammation-04.csv" "inflammation-05.csv" "inflammation-06.csv"
- [7] "inflammation-07.csv" "inflammation-08.csv" "inflammation-09.csv"
-[10] "inflammation-10.csv" "inflammation-11.csv" "inflammation-12.csv"
+ [1] "combined-inflammation.csv" "inflammation-01.csv"      
+ [3] "inflammation-02.csv"       "inflammation-03.csv"      
+ [5] "inflammation-04.csv"       "inflammation-05.csv"      
+ [7] "inflammation-06.csv"       "inflammation-07.csv"      
+ [9] "inflammation-08.csv"       "inflammation-09.csv"      
+[11] "inflammation-10.csv"       "inflammation-11.csv"      
+[13] "inflammation-12.csv"      
+~~~
+{: .output}
+
+&nbsp;
+
+If we want to be more specific, the search string gets a bit more complicated. If we want to extract all examples from a list that start with "inflammation-" and end in ".csv", (but contain anything else in between), we can use the following:
+
+
+~~~
+inflam.files <- list.files(path = "data", 
+                        pattern = "^inflammation-.*.csv$",
+                        full.names = TRUE)
+~~~
+{: .language-r}
+
+&nbsp;
+
+For the `pattern` argument, we use several regular expression operators that tell R what to look for. The `^` indicates that this is where the file name begins. We are essentially saying "begins with *'inflammation'*". The `.*` is a wildcard (i.e. "anything can go here"). The `$` indicates the end of the file name. Now we have a way to pull just the "inflammation" file names out automatically and assign them to a variable, which we can use later.
+
+Now that we have the last piece of the puzzle, we can build our loop.
+
+
+~~~
+# First, grab our file list using pattern matching
+inflam.files <- list.files(path = "data", 
+                        pattern = "^inflammation-.*.csv$",
+                        full.names = TRUE)
+
+# Initiate the PDF file to store the graphs
+pdf(file = "results/inflammation-by-file.pdf",
+    height = 5, width = 5)
+
+# Start the for loop to cycle through the files
+for(file.c in inflam.files) {
+  # read in the current file
+  inflam.c <- read.csv(file = file.c, header = FALSE)
+  
+  # calculate min, mean, and max values by day
+  avg_day_inflam <- apply(inflam.c, 2, mean)
+  max_day_inflam <- apply(inflam.c, 2, max)
+  min_day_inflam <- apply(inflam.c, 2, min)
+  
+  # Plot min, max, and mean on the same chart for this day
+  
+  # look up max and min values for complete day to set plot size
+  y_min <- min(inflam1)
+  y_max <- max(inflam1)
+  
+  # first initiate the plot with "min" data
+  plot(min_day_inflam, # plot minimum first
+       type = "l", col = "blue", # plot the minimum in blue
+       xlab = "Day", ylab = "Inflammation", # axis labels
+       ylim = c(y_min, y_max)) # define plot limits
+  
+  # use the lines() function to add max and mean to the current plot
+  lines(avg_day_inflam, # plot mean second
+        col = "black") # draw mean in black
+  lines(max_day_inflam, # plot maximum second
+        col = "red") # draw maximum in red
+  
+  # add a legend
+  legend(x = "topright", 
+         lty = 1, # use lines of style 1 (solid)
+         legend = c("Maximum", "Mean", "Minimum"), # order the labels
+         col = c("red","black","blue")) # define colors in label order
+}
+
+# finalize the PDF file by turning off the graphics device
+dev.off()
+~~~
+{: .language-r}
+
+
+
+~~~
+png 
+  2 
 ~~~
 {: .output}
 
@@ -825,153 +927,21 @@ list.files(path = "data", pattern = "inflammation")
 > one for the code, and one for the results like figures. We have done that here
 > to some extent, putting all of our data files into the subdirectory "data".
 > For more advice on this topic, you can read [A quick guide to organizing
-> computational biology projects][Noble2009] by William Stafford Noble.
+> computational biology projects](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000424) by William Stafford Noble.
 {: .callout}
 
-[Noble2009]: http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000424
+&nbsp;
+#### `for` or `apply`?
 
+A `for` loop is used to apply the same function calls to a collection of objects. R has a family of functions, the `apply` family, which can be used in much the same way.
 
-As these examples show, `list.files` result is a vector of strings, which means we can loop over it to do something with each filename in turn.
-In our case, the "something" we want is our `analyze` function.
-
-Because we have put our data in a separate subdirectory, if we want to access these files
-using the output of `list.files` we also need to include the "path" portion of the file name.
-We can do that by using the argument `full.names = TRUE`.
-
-
-~~~
-list.files(path = "data", pattern = "csv", full.names = TRUE)
-~~~
-{: .language-r}
-
-
-
-~~~
- [1] "data/car-speeds-cleaned.csv"     "data/car-speeds.csv"            
- [3] "data/inflammation-01.csv"        "data/inflammation-02.csv"       
- [5] "data/inflammation-03.csv"        "data/inflammation-04.csv"       
- [7] "data/inflammation-05.csv"        "data/inflammation-06.csv"       
- [9] "data/inflammation-07.csv"        "data/inflammation-08.csv"       
-[11] "data/inflammation-09.csv"        "data/inflammation-10.csv"       
-[13] "data/inflammation-11.csv"        "data/inflammation-12.csv"       
-[15] "data/Nadeau2_table.csv"          "data/sample-gendercorrected.csv"
-[17] "data/sample-noquotes.csv"        "data/sample.csv"                
-[19] "data/small-01.csv"               "data/small-02.csv"              
-[21] "data/small-03.csv"              
-~~~
-{: .output}
-
-
-
-~~~
-list.files(path = "data", pattern = "inflammation", full.names = TRUE)
-~~~
-{: .language-r}
-
-
-
-~~~
- [1] "data/inflammation-01.csv" "data/inflammation-02.csv"
- [3] "data/inflammation-03.csv" "data/inflammation-04.csv"
- [5] "data/inflammation-05.csv" "data/inflammation-06.csv"
- [7] "data/inflammation-07.csv" "data/inflammation-08.csv"
- [9] "data/inflammation-09.csv" "data/inflammation-10.csv"
-[11] "data/inflammation-11.csv" "data/inflammation-12.csv"
-~~~
-{: .output}
-
-
-Let's test out running our `analyze` function by using it on the first three files in the vector returned by `list.files`:
-
-
-
-~~~
-filenames <- list.files(path = "data",  
-                        # Now follows a regular expression that matches:
-                        pattern = "inflammation-[0-9]{2}.csv",
-                        #          |            |        the standard file extension of comma-separated values
-                        #          |            the variable parts (two digits, each between 0 and 9)
-                        #          the static part of the filenames
-                        full.names = TRUE)
-filenames <- filenames[1:3]
-for (f in filenames) {
-  print(f)
-  analyze(f)
-}
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "data/inflammation-01.csv"
-~~~
-{: .output}
-
-<img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-loop-analyze-1.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-loop-analyze-2.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-loop-analyze-3.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" width="612" style="display: block; margin: auto;" />
-
-~~~
-[1] "data/inflammation-02.csv"
-~~~
-{: .output}
-
-<img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-loop-analyze-4.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-loop-analyze-5.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-loop-analyze-6.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" width="612" style="display: block; margin: auto;" />
-
-~~~
-[1] "data/inflammation-03.csv"
-~~~
-{: .output}
-
-<img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-loop-analyze-7.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-loop-analyze-8.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" width="612" style="display: block; margin: auto;" /><img src="../fig/rmd-04-introduction-to-R-decisions-and-loops-loop-analyze-9.png" title="plot of chunk loop-analyze" alt="plot of chunk loop-analyze" width="612" style="display: block; margin: auto;" />
-
-Sure enough, the maxima of these data sets show exactly the same ramp as the first, and their minima show the same staircase structure.
-
-> ## Other Ways to Do It
->
-> In this lesson we saw how to use a simple `for` loop to repeat an operation.
-> As you progress with R, you will learn that there are multiple ways to
-> accomplish this. Sometimes the choice of one method over another is more a
-> matter of personal style, but other times it can have consequences for the
-> speed of your code. For instruction on best practices, see this supplementary
-> [lesson]({{ page.root }}/15-supp-loops-in-depth/) that demonstrates how to properly repeat
-> operations in R.
-{: .callout}
-
-> ## Using Loops to Analyze Multiple Files
->
-> Write a function called `analyze_all` that takes a folder path and 
-> a filename pattern as its arguments
-> and runs `analyze` for each file whose name matches the pattern.
->
-> > ## Solution
-> > ~~~
-> > analyze_all <- function(folder = "data", pattern) {
-> >   # Runs the function analyze for each file in the given folder
-> >   # that contains the given pattern.
-> >   filenames <- list.files(path = folder, pattern = pattern, full.names = TRUE)
-> >   for (f in filenames) {
-> >     analyze(f)
-> >   }
-> > }
-> > ~~~
-> > {: .language-r}
-> {: .solution}
-{: .challenge}
-
-### `for` or `apply`?
-
-A `for` loop is used to apply the same function calls to a collection of objects.
-R has a family of functions, the `apply` family, which can be used in much the same way.
-You've already used one of the family, `apply` in the first [lesson]({{ page.root }}/01-starting-with-data/).
-The `apply` family members include
-
+You've already used one of the family, `apply`. The `apply` family members include:
  * `apply`  - apply over the margins of an array (e.g. the rows or columns of a matrix)
  * `lapply` - apply over an object and return list
  * `sapply` - apply over an object and return a simplified object (an array) if possible
  * `vapply` - similar to `sapply` but you specify the type of object returned by the iterations
 
-Each of these has an argument `FUN` which takes a function to apply to each element of the object.
-Instead of looping over `filenames` and calling `analyze`, as you did earlier, you could `sapply` over `filenames` with `FUN = analyze`:
+Each of these has an argument `FUN` which takes a function to apply to each element of the object. Instead of looping over `filenames` and calling `analyze`, as you did earlier, you could `sapply` over `filenames` with `FUN = analyze`:
 
 
 ~~~
@@ -979,67 +949,89 @@ sapply(filenames, FUN = analyze)
 ~~~
 {: .language-r}
 
-Deciding whether to use `for` or one of the `apply` family is really personal preference.
-Using an `apply` family function forces to you encapsulate your operations as a function rather than separate calls with `for`.
-`for` loops are often more natural in some circumstances; for several related operations, a `for` loop will avoid you having to pass in a lot of extra arguments to your function.
+Deciding whether to use `for` or one of the `apply` family is really personal preference. Using an `apply` family function forces to you encapsulate your operations as a function rather than separate calls with `for`. `for` loops are often more natural in some circumstances; for several related operations, a `for` loop will avoid you having to pass in a lot of extra arguments to your function.
 
-### Loops in R Are Slow
+&nbsp;
+#### Loops in R Are Slow
 
-No, they are not! *If* you follow some golden rules:
-
+You will probably hear this at some point if you keep using R, or see it in a forum. In point of fact, loops are not slow *if* you follow some golden rules:
  1. Don't use a loop when a vectorized alternative exists
  2. Don't grow objects (via `c`, `cbind`, etc) during the loop - R has to create a new object and copy across the information just to add a new element or row/column
- 3. Allocate an object to hold the results and fill it in during the loop
+ 3. Instead, pre-allocate an object to hold the results and fill it in during the loop
 
-As an example, we'll create a new version of `analyze` that will return the mean inflammation per day (column) of each file.
+As an example, we could 'll create a new function called `analyze` that will return the mean inflammation per day (column) of each file. We will start by breaking rule 2, and grow our output by adding new data to a growing dataframe using `cbind()`
 
 
 ~~~
-analyze2 <- function(filenames) {
+analyze <- function(filenames) {
   for (f in seq_along(filenames)) {
     fdata <- read.csv(filenames[f], header = FALSE)
     res <- apply(fdata, 2, mean)
+    
+    # check if this is the first iteration
     if (f == 1) {
+      # if so, the current result is the only line of output
       out <- res
     } else {
-      # The loop is slowed by this call to cbind that grows the object
+      # If this is not the first iteration, add the result to the
+      # established result as a new column
       out <- cbind(out, res)
     }
   }
   return(out)
 }
-
-system.time(avg2 <- analyze2(filenames))
 ~~~
 {: .language-r}
 
+&nbsp;
+
+Note how we add a new column to `out` at each iteration? This is a cardinal sin of writing a `for` loop in R.
+
+Instead, we can create an empty matrix with the right dimensions (rows/columns) to hold the results. Then we loop over the files but this time we fill in the `f`th column of our results matrix `out`. This time there is no copying/growing for R to deal with.
 
 
 ~~~
-   user  system elapsed 
-   0.02    0.00    0.02 
-~~~
-{: .output}
-
-Note how we add a new column to `out` at each iteration?
-This is a cardinal sin of writing a `for` loop in R.
-
-Instead, we can create an empty matrix with the right dimensions (rows/columns) to hold the results.
-Then we loop over the files but this time we fill in the `f`th column of our results matrix `out`.
-This time there is no copying/growing for R to deal with.
-
-
-~~~
-analyze3 <- function(filenames) {
-  out <- matrix(ncol = length(filenames), nrow = 40) # assuming 40 here from files
+analyze2 <- function(filenames) {
+  # pre-allocate the right number of rows and columns for the data
+  out <- matrix(ncol = length(filenames), nrow = 40) 
+  
+  # run the for loop to cycle through the files
   for (f in seq_along(filenames)) {
+    # read the current file 
     fdata <- read.csv(filenames[f], header = FALSE)
+    
+    # instead of using cbind, now we just overwrite the row of 
+    # the pre-allocated matrix
     out[, f] <- apply(fdata, 2, mean)
   }
   return(out)
 }
+~~~
+{: .language-r}
 
-system.time(avg3 <- analyze3(filenames))
+&nbsp;
+
+Now we can use the function `system.time()` to find out how long it takes to run each of these functions:
+
+
+~~~
+gc() # clean things up first
+~~~
+{: .language-r}
+
+
+
+~~~
+          used (Mb) gc trigger (Mb) max used (Mb)
+Ncells  583218 31.2    1254921 67.1  1254921 67.1
+Vcells 1125494  8.6    8388608 64.0  2278615 17.4
+~~~
+{: .output}
+
+
+
+~~~
+system.time(avg <- analyze(inflam.files))
 ~~~
 {: .language-r}
 
@@ -1047,13 +1039,28 @@ system.time(avg3 <- analyze3(filenames))
 
 ~~~
    user  system elapsed 
-   0.01    0.00    0.01 
+   0.05    0.00    0.05 
 ~~~
 {: .output}
 
-In this simple example there is little difference in the compute time of `analyze2` and `analyze3`.
-This is because we are only iterating over 12 files and hence we only incur 12 copy/grow operations.
-If we were doing this over more files or the data objects we were growing were larger, the penalty for copying/growing would be much larger.
+
+
+~~~
+system.time(avg <- analyze2(inflam.files))
+~~~
+{: .language-r}
+
+
+
+~~~
+   user  system elapsed 
+   0.03    0.00    0.03 
+~~~
+{: .output}
+
+&nbsp;
+
+In this simple example there is little difference in the compute time of `analyze` and `analyze2`. This is because we are only iterating over 12 files and hence we only incur 12 copy/grow operations. If we were doing this over more files or the data objects we were growing were larger, the penalty for copying/growing would be much larger. This demonstrates how to evaluate efficiency when it starts to matter.
 
 Note that `apply` handles these memory allocation issues for you, but then you have to write the loop part as a function to pass to `apply`.
 At its heart, `apply` is just a `for` loop with extra convenience.
@@ -1063,8 +1070,7 @@ At its heart, `apply` is just a `for` loop with extra convenience.
 
 > ## Find the Maximum Inflammation Score
 >
-> Find the file containing the patient with the highest average inflammation score.
-> Print the file name, the patient number (row number) and the value of the maximum average inflammation score.
+> Find the file containing the patient with the highest average inflammation score. Print the file name, the patient number (row number) and the value of the maximum average inflammation score.
 >
 > Tips:
 >
@@ -1075,7 +1081,7 @@ At its heart, `apply` is just a `for` loop with extra convenience.
 >
 > 
 > ~~~
-> filenames <- list.files(path = "data", pattern = "inflammation-[0-9]{2}.csv", full.names = TRUE)
+> filenames <- list.files(path = "data", pattern = "^inflammation-.*.csv$", full.names = TRUE)
 > filename_max <- "" # filename where the maximum average inflammation patient is found
 > patient_max <- 0 # index (row number) for this patient in this file
 > average_inf_max <- 0 # value of the average inflammation score for this patient
@@ -1103,6 +1109,138 @@ At its heart, `apply` is just a `for` loop with extra convenience.
 > > }
 > > ~~~
 > > {: .language-r}
+> {: .solution}
+{: .challenge}
+
+> ## Comparing inflammation across trials
+> 
+> We want to compare how inflammation for an individual patient changes across
+> trials. Write a script that plots inflammation for the first patient from each trial
+> (i.e. from each file) in the same line graph.
+> 
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> > # Indicate the patient (aka row) number that we want to extract
+> > patient.id <- 1
+> > 
+> > # First, grab our file list using pattern matching
+> > inflam.files <- list.files(path = "data", 
+> >                         pattern = "^inflammation-.*.csv$",
+> >                         full.names = TRUE)
+> > 
+> > # We can't just plot away, because we don't know the minimum and maximum values.
+> > # First, we should cycle through the files and collect the data we need into
+> > # a data frame
+> > 
+> > # Initialize matrix for data collection (numeric matrix with a row for each file
+> > # and 40 columns for number of days)
+> > trial.data <- matrix(nrow = length(inflam.files), ncol = 40)
+> > 
+> > # Start the for loop to cycle through the files
+> > for(i.file in 1:length(inflam.files)) { # this time we use a numeric index
+> >   # grab file name
+> >   file.c <- inflam.files[i.file]
+> >   
+> >   # read in the current file
+> >   inflam.c <- read.csv(file = file.c, header = FALSE)
+> >   
+> >   # assign selected patient to collection file row
+> >   trial.data[i.file,] <- as.numeric(inflam.c[patient.id,])
+> > }
+> > 
+> > # Initiate the PDF file to store the graphs
+> > pdf(file = paste0("results/inflammation-patient",patient.id,"-by-trial.pdf"),
+> >     height = 5, width = 5)
+> > 
+> > # look up max and min values for complete day to set plot size
+> > y_min <- min(trial.data)
+> > y_max <- max(trial.data)
+> > 
+> > # first initiat the plot with no data, but define the size and labels
+> > plot(NA, # plot minimum first
+> >      xlab = "Day", ylab = "Inflammation", # axis labels
+> >      xlim = c(1,40), ylim = c(y_min, y_max)) # define plot limits
+> > 
+> > # select colors with the rainbow() function
+> > col.list <- rainbow(length(inflam.files))
+> > 
+> > # now that we have the plot limits set, use another for loop to cycle through > > # and plot each trials inflammation
+> > for(i.plot in 1:dim(trial.data)[1]) { # index down the number of rows
+> >   lines(trial.data[i.plot,], # plot current trial
+> >       col = col.list[i.plot]) # choose current color in list
+> > }
+> > 
+> > # finalize the PDF file by turning off the graphics device
+> > dev.off()
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > png 
+> >   2 
+> > ~~~
+> > {: .output}
+> > 
+> > As code becomes more complex, the ways to achieve a given solution multiply. This
+> > is just one solution of many possibilities.
+> {: .solution}
+{: .challenge}
+
+> ## Gathering data
+> 
+> There is interest in examining the inflammation data in a more complete analysis.
+> To examine effects of treatments across trials, we first need to collect our data
+> into a single file. 
+> 
+> Gather all of the data from the various inflammation files into a single data frame
+> with the appropriate labels indicating where each data point originated. Make sure
+> that your script is robust enough to run on any number of inflammation data files.
+>
+> > ## Solution
+> > 
+> > 
+> > 
+> > ~~~
+> > # First, grab our file list using pattern matching
+> > inflam.files <- list.files(path = "data", 
+> >                        pattern = "^inflammation-.*.csv$",
+> >                        full.names = TRUE)
+> > 
+> > # Start the for loop to cycle through the files
+> > for(i.file in 1:length(inflam.files)) { # this time we use a numeric index
+> >   # grab file name
+> >   file.c <- inflam.files[i.file]
+> >   
+> >   # read in the current file
+> >   inflam.c <- read.csv(file = file.c, header = FALSE)
+> >   
+> >   # name the columns
+> >   names(inflam.c) <- paste0("Inflammation.D",1:40)
+> >   
+> >   # add columns for Patient ID and Trial ID
+> >   inflam.c <- cbind(Patient.ID = 1:60, Trial.ID = i.file, inflam.c)
+> >   
+> >   # if this is the first iteration, the combined file is the same as the current file
+> >   if(i.file == 1) {
+> >     inflam.combined <- inflam.c
+> >   
+> >   # otherwise, add the rows of inflam.c to the growing combined data frame
+> >   } else {
+> >     inflam.combined <- rbind(inflam.combined, inflam.c)
+> >   }
+> > }
+> > 
+> > # save file
+> > write.csv(inflam.combined, file = "data/combined-inflammation.csv",
+> >           quote = FALSE, row.names = FALSE)
+> > ~~~
+> > {: .language-r}
+> > 
+> > Is there a more efficient way to do this?
 > {: .solution}
 {: .challenge}
 
