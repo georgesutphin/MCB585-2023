@@ -3,26 +3,21 @@ title: "Distributions and assessing normality"
 teaching: 80
 exercises: 25
 questions:
-- "What is the difference between the population and sampling distribution?"
-- "Which distribution is more important for hypothesis testing?"
-- "What is the normal distribution and what are its attributes?"
-- "How can I tell if my data is normally distributed?"
-- "What options do I have if my data is not normally distributed?"
+- "What is the formal process for hypothesis testing?"
+- "How does hypothesis testing relate to the population and sampling distributions?"
+- "What are the assumptions of a t-test?"
+- "What does a P-value mean?"
+- "What is the right statistical test to use for my data?"
 objectives:
-- "Describe the difference between a population and a sample."
-- "Understand the parameters of the population distribution."
-- "Understand the statistics of the sampling distribution."
-- "Plot the distribution of sample data."
-- "Assess whether a sample is normally distributed both visually and quantitatively."
-- "Carry out simple reversible data transformations to normalize data."
-- "Know where to go for more advanced data transformations."
+- "Describe the steps of developing and testing a model."
+- "Formulate simple hypotheses."
+- "Conceptually describe the operations performed during a statistical test."
+- "Describe the assumptions of various statistcal tests."
+- "Understand different types of variables."
+- "Conduct basic statistical tests in R."
 keypoints:
-- "Samples are sets of observations drawn from a population."
-- "The population distribution describes the characteristics of the observed phenotype in the population of interest."
-- "The sampling distribution describes the characteristics of all possible samples of a given size."
-- "Use hist(), density(), dnorm(), qqnorm(), and qqline() to visually assess whether a sample is normally distributed."
-- "Use shapiro.test() to perform at Shapiro-Wilk test of normality."
-- "Simple manipulations such as taking the logarithm or the square root of a sample can reversibly transform the observations into a more normal distribution."
+- "Understand basic model development and testing."
+- "All statistical tests make assumptions about your sample and population. Understanding these assumptions is critical to running a valid test."
 source: Rmd
 ---
 
@@ -462,6 +457,9 @@ mtext("1/x", side = 3, line = -2, adj = 0.1, font = 2, cex = 1.5)
 While it is always good to look at your data first, there is a statistical test for normality called the [Shapiro-Wilk test](https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test), originally published in 1965. The Shapiro-Wilk test sets up the following hypothesis test:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$H_0$$: *The sample belongs to a normally distribution.*
+
+&nbsp;
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$H_1$$: *The sample does not belong to a normally distribution.*
 
 Essentially the test looks for statistical deviation from the corresponding theoretical normal distribution. We can run the test in R using the `shapiro.test()` function:
@@ -483,7 +481,6 @@ shapiro.test(exp(b6$bw_start))
 Now that we have the tools, a question to consider: is it worth running a statistical test for normality?
 
 > ## To test or not to test
-> 
 > When you start to read about testing normality, you get a lot of hand-wavy answers
 > that amount to "just look at the Q-Q plot". Is there value in running something like > the Shapiro-Wilk test? 
 > 
@@ -501,6 +498,7 @@ Now that we have the tools, a question to consider: is it worth running a statis
 > statistical answer will be obvious in the Q-Q plot, and a close answer should, at 
 > most, make you a bit more skeptical of your 0.049 t-test p-value (which you should 
 > be anyway). 
+{: .callout}
 
 &nbsp;
 #### Transforming highly non-normal data
@@ -526,7 +524,7 @@ shapiro.test(log(b6$TG))
 &nbsp;
 
 That's much better! Now we can continue with our analysis using log(TG) as our random variable, rather than the raw value of TG. This is an ideal case, because taking the logarithm of a value is a *reversible* data transformation. We can easily reverse the process by raising e to log(TG) power (note that by default, `log()` in R takes the natural logarithm of the input). Therefore, not information if lost when performing the transformation. Other reversible transformations include:
-* square root ($$\sqrt{x}$$)
+* square root: $$\sqrt{x}$$
 * polynomial powers ($$x^2$$)
 * inverse ($$\frac{1}{x}$$)
 * exponential ($$e^x$$)
