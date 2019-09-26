@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-09-25 22:56:02 -0700">
+    <meta http-equiv="last-modified" content="2019-09-26 01:37:21 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -123,6 +123,8 @@
             
             <li><a href="../05-distributions/index.html">Distributions and assessing normality</a></li>
             
+            <li><a href="../06-hypothesis-testing/index.html">Hypothesis testing in R</a></li>
+            
 	    <li role="separator" class="divider"></li>
             <li><a href="../aio.html">All in one page (Beta)</a></li>
           </ul>
@@ -197,7 +199,7 @@
   <div class="col-xs-1">
     <h3 class="text-right">
       
-      <a href="../"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span><span class="sr-only">lesson home</span></a>
+      <a href="../06-hypothesis-testing/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
       
     </h3>
   </div>
@@ -230,19 +232,19 @@
       <strong>Questions</strong>
       <ul>
 	
-	<li><p>What is the difference between the population and sampling distribution?</p>
+	<li><p>What is the formal process for hypothesis testing?</p>
 </li>
 	
-	<li><p>Which distribution is more important for hypothesis testing?</p>
+	<li><p>How does hypothesis testing relate to the population and sampling distributions?</p>
 </li>
 	
-	<li><p>What is the normal distribution and what are its attributes?</p>
+	<li><p>What are the assumptions of a t-test?</p>
 </li>
 	
-	<li><p>How can I tell if my data is normally distributed?</p>
+	<li><p>What does a P-value mean?</p>
 </li>
 	
-	<li><p>What options do I have if my data is not normally distributed?</p>
+	<li><p>What is the right statistical test to use for my data?</p>
 </li>
 	
       </ul>
@@ -256,25 +258,22 @@
       <strong>Objectives</strong>
       <ul>
 	
-	<li><p>Describe the difference between a population and a sample.</p>
+	<li><p>Describe the steps of developing and testing a model.</p>
 </li>
 	
-	<li><p>Understand the parameters of the population distribution.</p>
+	<li><p>Formulate simple hypotheses.</p>
 </li>
 	
-	<li><p>Understand the statistics of the sampling distribution.</p>
+	<li><p>Conceptually describe the operations performed during a statistical test.</p>
 </li>
 	
-	<li><p>Plot the distribution of sample data.</p>
+	<li><p>Describe the assumptions of various statistcal tests.</p>
 </li>
 	
-	<li><p>Assess whether a sample is normally distributed both visually and quantitatively.</p>
+	<li><p>Understand different types of variables.</p>
 </li>
 	
-	<li><p>Carry out simple reversible data transformations to normalize data.</p>
-</li>
-	
-	<li><p>Know where to go for more advanced data transformations.</p>
+	<li><p>Conduct basic statistical tests in R.</p>
 </li>
 	
       </ul>
@@ -815,8 +814,11 @@ Data: b6$bw_start (96 obs.);	Bandwidth 'bw' = 0.5924
 
 <p>While it is always good to look at your data first, there is a statistical test for normality called the <a href="https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test">Shapiro-Wilk test</a>, originally published in 1965. The Shapiro-Wilk test sets up the following hypothesis test:</p>
 
-<p>      <script type="math/tex">H_0</script>: <em>The sample belongs to a normally distribution.</em>
-      <script type="math/tex">H_1</script>: <em>The sample does not belong to a normally distribution.</em></p>
+<p>      <script type="math/tex">H_0</script>: <em>The sample belongs to a normally distribution.</em></p>
+
+<p> </p>
+
+<p>      <script type="math/tex">H_1</script>: <em>The sample does not belong to a normally distribution.</em></p>
 
 <p>Essentially the test looks for statistical deviation from the corresponding theoretical normal distribution. We can run the test in R using the <code class="highlighter-rouge">shapiro.test()</code> function:</p>
 
@@ -848,9 +850,8 @@ W = 0.56719, p-value = 2.251e-15
 
 <p>Now that we have the tools, a question to consider: is it worth running a statistical test for normality?</p>
 
-<blockquote>
+<blockquote class="callout">
   <h2 id="to-test-or-not-to-test">To test or not to test</h2>
-
   <p>When you start to read about testing normality, you get a lot of hand-wavy answers
 that amount to “just look at the Q-Q plot”. Is there value in running something like &gt; the Shapiro-Wilk test?</p>
 
@@ -915,7 +916,7 @@ W = 0.97882, p-value = 0.1227
 
 <p>That’s much better! Now we can continue with our analysis using log(TG) as our random variable, rather than the raw value of TG. This is an ideal case, because taking the logarithm of a value is a <em>reversible</em> data transformation. We can easily reverse the process by raising e to log(TG) power (note that by default, <code class="highlighter-rouge">log()</code> in R takes the natural logarithm of the input). Therefore, not information if lost when performing the transformation. Other reversible transformations include:</p>
 <ul>
-  <li>square root (<script type="math/tex">\sqrt{x}</script>)</li>
+  <li>square root: <script type="math/tex">\sqrt{x}</script></li>
   <li>polynomial powers (<script type="math/tex">x^2</script>)</li>
   <li>inverse (<script type="math/tex">\frac{1}{x}</script>)</li>
   <li>exponential (<script type="math/tex">e^x</script>)</li>
@@ -1141,22 +1142,10 @@ the t-test more robust.</p>
   <h2>Key Points</h2>
   <ul>
     
-    <li><p>Samples are sets of observations drawn from a population.</p>
+    <li><p>Understand basic model development and testing.</p>
 </li>
     
-    <li><p>The population distribution describes the characteristics of the observed phenotype in the population of interest.</p>
-</li>
-    
-    <li><p>The sampling distribution describes the characteristics of all possible samples of a given size.</p>
-</li>
-    
-    <li><p>Use hist(), density(), dnorm(), qqnorm(), and qqline() to visually assess whether a sample is normally distributed.</p>
-</li>
-    
-    <li><p>Use shapiro.test() to perform at Shapiro-Wilk test of normality.</p>
-</li>
-    
-    <li><p>Simple manipulations such as taking the logarithm or the square root of a sample can reversibly transform the observations into a more normal distribution.</p>
+    <li><p>All statistical tests make assumptions about your sample and population. Understanding these assumptions is critical to running a valid test.</p>
 </li>
     
   </ul>
@@ -1193,7 +1182,7 @@ the t-test more robust.</p>
   <div class="col-xs-1">
     <h3 class="text-right">
       
-      <a href="../"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span><span class="sr-only">lesson home</span></a>
+      <a href="../06-hypothesis-testing/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
       
     </h3>
   </div>
