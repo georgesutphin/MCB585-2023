@@ -248,21 +248,430 @@ As we suspected from our plot, the P-value is highly significant, and we can rej
 ***
 ### Choosing the right statistical test
 
-What are the critical factors?
+One of the more common errors you see in hypothesis testing is application of the wrong statisitcal test to a given data set. By "wrong", I just mean that the assumptions of the test are violated by some aspect of the underlying data. 
+
+What are the critical factors when selecting your test?
+* Number of dependent variables.
+* Type(s) of dependent variable(s).
+* Number of independent variables.
+* Type(s) of independent variable(s).
+* Distribution of the dependent variable.
+* Sample size.
+* Paired vs. unpaired observations between variables.
+
+&nbsp;
+#### Variable types
+
+The nature of your variables is the first thing to consider when selecting a statistical test. In most situations, there are two broad categories of variable type (*categorical* and *numeric*), with sub-categories:
 
 Variable type:
  * **Categorical** variables are those with discrete or qualitative. They are divided into three types: 
- * *Nominal* variables have two or more categories, but no intrinsic order. For example, flower color ("red", "green", "blue") or state of residence ("Washington", "Arizona", "Maine") are considered nominal variables.
- * *Dichotomous* variables are a subcategory of nominal variables with exactly two categories. For most studies, biological sex or gender ("female" or "male") is considered dichotomous, as are questions with binary answers, e.g. "do you own a smart phone?" ("Yes" or "No"), censoring variables (0 = not censored, 1 = censored), or variables about current status ("Alive" or "Dead").
- * *Ordinal* are similar to nominal, except with a clear order to the values (e.g. inflammation may be characterized as "none", "low", "moderate", or "high").
-* **Numerical** variables are quantifiable and meaningfully representable by numbers. To be considered "numerical", the relative value must be numerically meaningful. Note that categories can be coded as numbers (see the censoring example under dichotomous variables above), but are not considered "numerical" because the relative value is not meaningful.
- * *Discrete* variables denote quantities that are represented by whole numbers or counts. The number of items purchased at a store or the number of children in a family (i.e. "1" and "5" are meaningful, but "2.3"" is not) are discrete variables.
- * *Continuous* variables are quantities that can be represented on a continuous number line and are not limited to discrete values. These can be further subdivided based on what type of comparison between two values is meaningful.
-  * *Interval* variables have a consistent distance between numbered values. For example, the difference between 40 and 50 degrees Fahrenheit is the same as the difference between 90 and 100 degrees Fahrenheit.
-  * *Ratio* variables have the same properties as interval variables, except that the point 0.0 is clearly defined, such that the ratio between two values is meaningful. For example, 50 degrees Fahrenheit is not twice as hot as 25 degrees Fahrenheit, while a person who is 6 feet tall can be considered "twice as tall" as a person who is 3 feet tall. Degrees Fahrenheit is thus an interval variable, but not a ratio variable, while height is both. 
+    + *Nominal* variables have two or more categories, but no intrinsic order. For example, flower color ("red", "green", "blue") or state of residence ("Washington", "Arizona", "Maine") are considered nominal variables.
+    + *Dichotomous* variables are a subcategory of nominal variables with exactly two categories. For most studies, biological sex or gender ("female" or "male") is considered dichotomous, as are questions with binary answers, e.g. "do you own a smart phone?" ("Yes" or "No"), censoring variables (0 = not censored, 1 = censored), or variables about current status ("Alive" or "Dead").
+    + *Ordinal* are similar to nominal, except with a clear order to the values (e.g. inflammation may be characterized as "none", "low", "moderate", or "high").
 
-* [UCLA Institute for Digital Research & Education](https://stats.idre.ucla.edu/other/mult-pkg/whatstat/)
-* [Handbook of Biological Statistics](http://www.biostathandbook.com/testchoice.html)
+* **Numeric** variables are quantifiable and meaningfully representable by numbers. To be considered "numerical", the relative value must be numerically meaningful. Note that categories can be coded as numbers (see the censoring example under dichotomous variables above), but are not considered "numerical" because the relative value is not meaningful.
+    + *Discrete* variables denote quantities that are represented by whole numbers or counts. The number of items purchased at a store or the number of children in a family (i.e. "1" and "5" are meaningful, but "2.3"" is not) are discrete variables.
+    + *Continuous* variables are quantities that can be represented on a continuous number line and are not limited to discrete values. These can be further subdivided based on what type of comparison between two values is meaningful.
+    + *Interval* variables have a consistent distance between numbered values. For example, the difference between 40 and 50 degrees Fahrenheit is the same as the difference between 90 and 100 degrees Fahrenheit.
+    + *Ratio* variables have the same properties as interval variables, except that the point 0.0 is clearly defined, such that the ratio between two values is meaningful. For example, 50 degrees Fahrenheit is not twice as hot as 25 degrees Fahrenheit, while a person who is 6 feet tall can be considered "twice as tall" as a person who is 3 feet tall. Degrees Fahrenheit is thus an interval variable, but not a ratio variable, while height is both. 
+
+> ## Time-to-event data.
+> 
+> There are special cases that require different considerations. 
+> Time-to-event (aka survival) data does not fit cleanly into the above 
+> categories. While the variable it putatively numeric 
+> (*how long did it take the event to occur?*) there is an oft-hidden 
+> underlying aspect to the data that is categorical (*did the event occur?*). 
+> Analysis of time-to-event data also generally requires a means to censor 
+> data, for example if a death was observed, but not from the cause of 
+> interest, or if a patient dropped out of a study. We will examine analysis 
+> of time-to-event data in a later lesson.
+{: .callout}
+
+&nbsp;
+#### Sample size and the distribution of the dependent variable
+
+We have spent a fair amount of time talking about distributions and what they say about our data. The primary place that this can matter is in fulfilling the assumptions of our selected statistical tests. Types of tests can be categorized as *parametric* or *nonparametric*. While there is not a hard-and-fast definition for these terms *per se*, generally these terms are used as follows:
+
+* **Parametric tests** make an assumption about the underlying *parameter*, or *statistic*, in a data set to calculate probabilities. In most cases, the assumption is that the statistic is drawn from a particular distribution (e.g. the normal distribution). The t-test is the most common example of this sort of test.
+
+* **Nonparametric tests** do not make assumptions about the underlying parameters or parameter distributions and use other means to calculate probabilities. Often they will rely on the rank-order of the data (e.g. the Log-Rank test).
+
+Nonparametric tests are more robust than parametric tests in that they make fewer assumptions. However, they also have less statistical power to detect real differences (i.e. they are more conservative). Thus you have a trade-off if you have relatively low sample size (say <30) and data that is not clearly normally distributed.
+
+For the most part, if you have a large sample size the distribution becomes less important. Parametric tests tend to be robust to non-normal data distributions with large sample sizes, while the reduction of power for nonparametric tests becomes less severe. 
+
+> ## How many is enough?
+> 
+> While there are is no hard and fast rule for sample size, the Central Limit Theorem tends
+> to hold for n > 30 (so long as the population is much larger), allowing the assumption of
+> normality to be safely adopted in most cases. If your data is dramatically skewed, try a 
+> transformation, use a nonparametric test, or adopt a more conservative interpretation.
+{: .callout}
+
+&nbsp;
+# Paired vs. unpaired data
+
+In some cases, data is paired between the two test groups. That is, there is a specific observation in one group that corresponds to a specific observation in another groups. This can most easily be illustrated by an couple of examples:
+* **Unpaired:** Comparing body weight between two different strains of mouse. There is no specific relationship between one individual in *Strain A* and a particular individual in *Strain B*.
+* **Paired:** Comparing body weight of mice before and after being provided a particular diet for some time frame. In this case, you have body weight data from the same set of mice before and after the diet. The body weight for *Mouse A* before the diet is paired to the body weight for *Mouse A* after the diet.
+
+If you have a data structure that allows for paired testing, it provides quite a bit more power to detect difference between groups. Most data is not paired. 
+
+&nbsp;
+#### Available statistical tests
+
+There are many, many resources that provide information on selecting statistical tests from data. You should now have the basic information needed to find the right test. Pick your favorite table or flow chart to select your test. Here are some options:
+
+* [UCLA Institute for Digital Research & Education](https://stats.idre.ucla.edu/other/mult-pkg/whatstat/) provides a table to guide the correct choice of test with handy links to the corresponding functions in R and other analysis tools.
+* [Handbook of Biological Statistics](http://www.biostathandbook.com/testchoice.html) provides a table with a different organization and links to more detailed descriptions of each test.
+
+Here is an example of a flow chart for choosing a test. Many different versions of this type of charg are available online (original [here](http://www.pnrjournal.com/article.asp?issn=0976-9234;year=2010;volume=1;issue=2;spage=61;epage=63;aulast=Jaykaran)):
+
+<img src="../fig/Statistical_Test_Flow_Chart.jpg" alt="Which test?" />
+
+&nbsp;
+#### Exercises
+
+> ## Petal length by species?
+> 
+> Is there a significant difference ($$\alpha < 0.05$$) in petal length among species in 
+> the `iris` dataset?
+> 
+> > ## Solution
+> > 
+> > Petal length is a continuous variable while species is categorical with 3 groups. First 
+> > we can look at whether our data is normally distributed:
+> > Using the
+> > above chart, we shoud use an 
+> >
+> > 
+> > ~~~
+> > qqnorm(iris$Petal.Length)
+> > qqline(iris$Petal.Length)
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-hypothesis-testing-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" />
+> > 
+> > Not really close to normal... We can first try transforming the data to see if we can get the > > distribution to a more normal state. 
+> > 
+> > 
+> > ~~~
+> > qqnorm(log(iris$Petal.Length))
+> > qqline(log(iris$Petal.Length))
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-hypothesis-testing-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > qqnorm(exp(iris$Petal.Length))
+> > qqline(exp(iris$Petal.Length))
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-hypothesis-testing-unnamed-chunk-8-2.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > qqnorm(1/iris$Petal.Length)
+> > qqline(1/iris$Petal.Length)
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-hypothesis-testing-unnamed-chunk-8-3.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > qqnorm((iris$Petal.Length)^2)
+> > qqline((iris$Petal.Length)^2)
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-hypothesis-testing-unnamed-chunk-8-4.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > qqnorm((iris$Petal.Length)^(1/2))
+> > qqline((iris$Petal.Length)^(1/2))
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-hypothesis-testing-unnamed-chunk-8-5.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+> > 
+> > Nothing really helps, so that means nonparametric testing!
+> > 
+> > Referencing the above chart, the best fir is the non-parametric ANOVA, also called the 
+> > Kruskal-Wallis rank sum test. From the UCLA site above, we can find the appropriate R 
+> > function:
+> > 
+> > 
+> > ~~~
+> > kruskal.test(Petal.Length ~ Species, data = iris)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > 
+> > 	Kruskal-Wallis rank sum test
+> > 
+> > data:  Petal.Length by Species
+> > Kruskal-Wallis chi-squared = 130.41, df = 2, p-value < 2.2e-16
+> > ~~~
+> > {: .output}
+> > 
+> > We conclude that species does affect petal length in irises.
+> {: .solution}
+{: .challenge}
 
 
+> ## Does diet affect body weight?
+> 
+> In our mouse diet data set (*b6.aj.hfhs.diet.txt*), is the impact of diet on body weight 
+> statistically significant ($$\alpha < 0.05$$)?
+>
+> > ## Solution
+> > 
+> > First load the data and remind ourselves of the structure:
+> > 
+> > 
+> > ~~~
+> > data.diet <- read.delim("./data/b6.aj.hfhs.diet.txt")
+> > str(data.diet)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > 'data.frame':	191 obs. of  17 variables:
+> >  $ strain         : Factor w/ 2 levels "A/J","C57BL/6J": 1 1 1 1 1 1 1 1 1 1 ...
+> >  $ sex            : Factor w/ 1 level "m": 1 1 1 1 1 1 1 1 1 1 ...
+> >  $ animal_id      : int  16 17 18 19 20 21 22 23 24 25 ...
+> >  $ animal_facility: Factor w/ 2 levels "ARC","WAF": 1 1 1 1 1 1 1 1 1 1 ...
+> >  $ bw_start       : num  19.6 18.9 17.8 17.1 17.4 ...
+> >  $ bw_end         : num  33.1 32.6 29.6 25.9 28.1 ...
+> >  $ bw_gain        : num  13.51 13.74 11.73 8.85 10.66 ...
+> >  $ body_length    : num  10.8 10.9 10.8 10.1 10.1 10.1 9.8 10.1 10.2 10.1 ...
+> >  $ BMI            : num  0.28 0.27 0.25 0.25 0.28 0.28 0.31 0.28 0.29 0.3 ...
+> >  $ GLU            : num  9.49 11.71 11.32 10.66 9.71 ...
+> >  $ INS            : num  35.1 62.5 24.9 40.3 106.2 ...
+> >  $ HOMA_IR        : num  2.09 4.58 1.77 2.69 6.46 2.25 8.88 5.23 3.07 4.45 ...
+> >  $ CHOL           : num  3.17 3.15 2.63 3.38 2.76 2.65 3.43 2.86 3.12 3.07 ...
+> >  $ TG             : num  1.07 1.54 0.86 0.66 0.8 0.66 1.07 1.47 0.76 0.8 ...
+> >  $ liver_wt       : num  0.95 0.96 0.92 0.94 0.82 0.82 0.84 0.85 0.8 0.86 ...
+> >  $ liver_TG       : int  114 95 107 67 109 79 49 36 60 104 ...
+> >  $ liver_TG_tot   : num  108.3 91.4 98.5 63.1 89.3 ...
+> > ~~~
+> > {: .output}
+> > 
+> > Next examine the distribution of the before and after diet body weights.
+> > 
+> > 
+> > ~~~
+> > qqnorm(data.diet$bw_start)
+> > qqline(data.diet$bw_start)
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-hypothesis-testing-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > qqnorm(data.diet$bw_end)
+> > qqline(data.diet$bw_end)
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-hypothesis-testing-unnamed-chunk-11-2.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" />
+> > 
+> > Staring body weight looks okay, but ending body weight looks very skewed. Perhaps this 
+> > is a strain effect? Let's break it down further and recheck.
+> > 
+> > 
+> > ~~~
+> > qqnorm(data.diet$bw_start[data.diet$strain == "C57BL/6J"])
+> > qqline(data.diet$bw_start[data.diet$strain == "C57BL/6J"])
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-hypothesis-testing-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > qqnorm(data.diet$bw_end[data.diet$strain == "C57BL/6J"])
+> > qqline(data.diet$bw_end[data.diet$strain == "C57BL/6J"])
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-hypothesis-testing-unnamed-chunk-12-2.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > qqnorm(data.diet$bw_start[data.diet$strain == "A/J"])
+> > qqline(data.diet$bw_start[data.diet$strain == "A/J"])
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-hypothesis-testing-unnamed-chunk-12-3.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
+> > 
+> > ~~~
+> > qqnorm(data.diet$bw_end[data.diet$strain == "A/J"])
+> > qqline(data.diet$bw_end[data.diet$strain == "A/J"])
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-hypothesis-testing-unnamed-chunk-12-4.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
+> > 
+> > That looks a lot closer (still a bit skewed on the high body weight side for C57BL/6J, 
+> > but we have almost 100 mice, so we will go ahead with the normal assumption).
+> > 
+> > Our data is paired, our independent variable is categorical (before vs. after HF-HS diet) 
+> > and our dependent variable is continuous numeric. Since we are assuming normality, we can 
+> > use a paired t-test (again broken down by strain, because that's where are data are 
+> > normal):
+> > 
+> > 
+> > ~~~
+> > t.test(data.diet$bw_start[data.diet$strain == "C57BL/6J"],
+> >        data.diet$bw_end[data.diet$strain == "C57BL/6J"],
+> >        paired = T, alternative = "two.sided")
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > 
+> > 	Paired t-test
+> > 
+> > data:  data.diet$bw_start[data.diet$strain == "C57BL/6J"] and data.diet$bw_end[data.diet$strain == "C57BL/6J"]
+> > t = -44.553, df = 95, p-value < 2.2e-16
+> > alternative hypothesis: true difference in means is not equal to 0
+> > 95 percent confidence interval:
+> >  -25.14135 -22.99636
+> > sample estimates:
+> > mean of the differences 
+> >               -24.06885 
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > t.test(data.diet$bw_start[data.diet$strain == "A/J"],
+> >        data.diet$bw_end[data.diet$strain == "A/J"],
+> >        paired = T, alternative = "two.sided")
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > 
+> > 	Paired t-test
+> > 
+> > data:  data.diet$bw_start[data.diet$strain == "A/J"] and data.diet$bw_end[data.diet$strain == "A/J"]
+> > t = -31.834, df = 94, p-value < 2.2e-16
+> > alternative hypothesis: true difference in means is not equal to 0
+> > 95 percent confidence interval:
+> >  -10.544198  -9.306118
+> > sample estimates:
+> > mean of the differences 
+> >               -9.925158 
+> > ~~~
+> > {: .output}
+> > 
+> > Diet does significantly effect body weight in both strain backgrounds.
+> {: .solution}
+{: .challenge}
+
+> ## Does strain affect body weight in mice?
+> 
+> A large study of different inbred strains was conducted in mice across lifespan. This data
+> is stored in a file called *inbred.body.composition.txt*. Does strain background affect 
+> body weight in mice?
+> 
+> > ## Solution
+> > 
+> > 
+> > Load the data and look at the structure:
+> > 
+> > 
+> > ~~~
+> > data.bodycomp <- read.delim("./data/inbred.body.composition.txt")
+> > str(data.bodycomp)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > 'data.frame':	1187 obs. of  10 variables:
+> >  $ strain       : Factor w/ 32 levels "129S1/SvImJ",..: 1 1 1 1 1 1 1 1 1 1 ...
+> >  $ sex          : Factor w/ 2 levels "f","m": 1 1 1 1 1 1 1 1 2 2 ...
+> >  $ animal_id    : Factor w/ 1186 levels "SC-10014","SC-10015",..: 1076 1078 1079 1074 1073 1072 1075 1077 1154 1153 ...
+> >  $ age          : int  6 6 6 6 6 6 6 6 6 6 ...
+> >  $ body_weight_g: num  20.2 22.8 22.5 23.1 21.6 19.6 24 27.4 29.4 28.3 ...
+> >  $ BMI          : num  2.66 2.88 2.97 2.92 2.85 2.71 2.96 3.38 3.33 3.49 ...
+> >  $ percent_fat  : num  22.1 22.2 22.6 22.8 23.1 24 24.3 28.3 17.6 17.7 ...
+> >  $ total_mass_g : num  17.9 19.8 19.4 20.6 18.9 17.3 21.3 25.1 26.5 25.9 ...
+> >  $ lean_mass_g  : Factor w/ 218 levels "10","10.1","10.2",..: 34 49 45 54 40 26 56 75 113 108 ...
+> >  $ fat_mass_g   : num  4.45 5.08 5.08 5.27 4.99 4.69 5.84 7.76 5.16 5 ...
+> > ~~~
+> > {: .output}
+> > 
+> > First look at normality within the body weight data.
+> > 
+> > 
+> > ~~~
+> > qqnorm(data.bodycomp$body_weight_g)
+> > qqline(data.bodycomp$body_weight_g)
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-hypothesis-testing-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" />
+> > 
+> > Looks like a deviation toward the higher body weight. Let's try a log transformation.
+> > 
+> > 
+> > ~~~
+> > qqnorm(log(data.bodycomp$body_weight_g))
+> > qqline(log(data.bodycomp$body_weight_g))
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-hypothesis-testing-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="612" style="display: block; margin: auto;" />
+> > 
+> > That looks better. Not perfect, but given the large sample size (n = 1187), we are 
+> > going to assume that the sampling distribution is normal).
+> > 
+> > Our dependent variable is continous, numeric (ratio) with an (assumed) normal 
+> > distribution and our independent variable is catagroical with many levels. We can 
+> > use an ANOVA test (`aov()` in R, rom the UCLA site). Note from the UCLA notes that 
+> > you have to request the `summary()` of the object created by `aov()` to see the 
+> > P-values.
+> > 
+> > 
+> > ~~~
+> > anova.bodycomp <- aov(body_weight_g ~ strain, data = data.bodycomp)
+> > summary(anova.bodycomp)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >               Df Sum Sq Mean Sq F value Pr(>F)    
+> > strain        31  52618  1697.4   59.66 <2e-16 ***
+> > Residuals   1151  32745    28.4                   
+> > ---
+> > Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> > 4 observations deleted due to missingness
+> > ~~~
+> > {: .output}
+> > 
+> > The impact of strain on body weight is highly significant.
+> {: .solution}
+{: .challenge}
+
+{% include links.md %}
 
