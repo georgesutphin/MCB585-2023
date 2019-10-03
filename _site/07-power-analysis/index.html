@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-10-01 01:48:49 -0700">
+    <meta http-equiv="last-modified" content="2019-10-02 23:46:27 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -395,7 +395,7 @@ one of two ways:</p>
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="s1">'pwr'</span> <span class="n">successfully</span> <span class="n">unpacked</span> <span class="k">and</span> <span class="n">MD5</span> <span class="n">sums</span> <span class="n">checked</span>
 
 <span class="n">The</span> <span class="n">downloaded</span> <span class="n">binary</span> <span class="n">packages</span> <span class="n">are</span> <span class="k">in</span>
-	<span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sutph</span><span class="p">\</span><span class="n">AppData</span><span class="p">\</span><span class="n">Local</span><span class="p">\</span><span class="n">Temp</span><span class="p">\</span><span class="n">RtmpaClfMb</span><span class="p">\</span><span class="n">downloaded_packages</span>
+	<span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sutph</span><span class="p">\</span><span class="n">AppData</span><span class="p">\</span><span class="n">Local</span><span class="p">\</span><span class="n">Temp</span><span class="p">\</span><span class="n">Rtmp4clB3g</span><span class="p">\</span><span class="n">downloaded_packages</span>
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
@@ -586,7 +586,7 @@ unequal variance for instance:</p>
 
 <p> </p>
 
-<p>That’s much bigger than the sample size needed for body weight! Lifespan data has a much higher variability than body weight data, so a similar detection change requires a bigger sample size to acheive the same power at the same significance level.</p>
+<p>That’s much bigger than the sample size needed for body weight! Lifespan data has a much higher variability than body weight data, so a similar detection change requires a bigger sample size to achieve the same power at the same significance level.</p>
 
 <blockquote class="challenge">
   <h2 id="aj-lifespan">A/J lifespan</h2>
@@ -636,6 +636,506 @@ unequal variance for instance:</p>
 
     <p>That’s a lot of mice! Decreasing the detectable change and the significance 
 level had a big impact even though we reduced power to detect a bit.</p>
+  </blockquote>
+</blockquote>
+
+<hr />
+<h3 id="generating-power-reference-charts">Generating power reference charts</h3>
+
+<p>The previous examples give us an idea of what to expect when we have a clear idea about our desired effect size, power, and significance level going in. Okay, so we know that with 30 C57BL/6J mice per group, we have 95% power to detect a 20% change. But what power do we have to detect a 30% change? How much do we need to increase the sample size to have the same power to detect a 10% change?</p>
+
+<p>It is often useful, particularly in early-stage planning, to have an idea of what the relationship looks like between sample size, power, and effect size. We can plot these by repeating the power analysis to calculate sample size requirements over a range of power values.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># set desired change and significance</span><span class="w">
+</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.05</span><span class="w">
+</span><span class="n">change</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.2</span><span class="w">
+
+</span><span class="c1"># we next use our pilot data to estimate the distribution shape parameters (mean, sd)</span><span class="w">
+</span><span class="n">mu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">surv.b6</span><span class="o">$</span><span class="n">lifespan_days</span><span class="p">)</span><span class="w">
+</span><span class="n">sigma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">surv.b6</span><span class="o">$</span><span class="n">lifespan_days</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># from the mean and the desired percent change we can calculate the effect size</span><span class="w">
+</span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">change</span><span class="o">*</span><span class="n">mu</span><span class="w">
+
+</span><span class="c1"># set up a vector with a range of values for power</span><span class="w">
+</span><span class="n">power.vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.99</span><span class="p">,</span><span class="m">0.01</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># initialize an empty vector with the same length as power where we will store calculated</span><span class="w">
+</span><span class="c1"># sample size values</span><span class="w">
+</span><span class="n">n.vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">numeric</span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">power.vec</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># cycle through all power values using a for loop</span><span class="w">
+</span><span class="c1"># and calculate n for each</span><span class="w">
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i.pwr</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">power.vec</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># grab the current power value</span><span class="w">
+  </span><span class="n">power.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">power.vec</span><span class="p">[</span><span class="n">i.pwr</span><span class="p">]</span><span class="w">
+  
+  </span><span class="c1"># display current iteration</span><span class="w">
+  </span><span class="n">print</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s2">"Calculating n for power"</span><span class="p">,</span><span class="n">power.c</span><span class="p">))</span><span class="w">
+  
+  </span><span class="c1"># calculate sample size for current power</span><span class="w">
+  </span><span class="n">pwr.test.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pwr.t.test</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="kc">NULL</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="n">delta</span><span class="o">/</span><span class="n">sigma</span><span class="p">,</span><span class="n">sig.level</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span><span class="n">power</span><span class="o">=</span><span class="n">power.c</span><span class="p">,</span><span class="w">
+                         </span><span class="n">type</span><span class="o">=</span><span class="s2">"two.sample"</span><span class="p">,</span><span class="n">alternative</span><span class="o">=</span><span class="s2">"two.sided"</span><span class="p">)</span><span class="w">
+  
+  </span><span class="c1"># save value to sample size vector</span><span class="w">
+  </span><span class="n">n.vec</span><span class="p">[</span><span class="n">i.pwr</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pwr.test.c</span><span class="o">$</span><span class="n">n</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating n for power 0.5"
+[1] "Calculating n for power 0.51"
+[1] "Calculating n for power 0.52"
+[1] "Calculating n for power 0.53"
+[1] "Calculating n for power 0.54"
+[1] "Calculating n for power 0.55"
+[1] "Calculating n for power 0.56"
+[1] "Calculating n for power 0.57"
+[1] "Calculating n for power 0.58"
+[1] "Calculating n for power 0.59"
+[1] "Calculating n for power 0.6"
+[1] "Calculating n for power 0.61"
+[1] "Calculating n for power 0.62"
+[1] "Calculating n for power 0.63"
+[1] "Calculating n for power 0.64"
+[1] "Calculating n for power 0.65"
+[1] "Calculating n for power 0.66"
+[1] "Calculating n for power 0.67"
+[1] "Calculating n for power 0.68"
+[1] "Calculating n for power 0.69"
+[1] "Calculating n for power 0.7"
+[1] "Calculating n for power 0.71"
+[1] "Calculating n for power 0.72"
+[1] "Calculating n for power 0.73"
+[1] "Calculating n for power 0.74"
+[1] "Calculating n for power 0.75"
+[1] "Calculating n for power 0.76"
+[1] "Calculating n for power 0.77"
+[1] "Calculating n for power 0.78"
+[1] "Calculating n for power 0.79"
+[1] "Calculating n for power 0.8"
+[1] "Calculating n for power 0.81"
+[1] "Calculating n for power 0.82"
+[1] "Calculating n for power 0.83"
+[1] "Calculating n for power 0.84"
+[1] "Calculating n for power 0.85"
+[1] "Calculating n for power 0.86"
+[1] "Calculating n for power 0.87"
+[1] "Calculating n for power 0.88"
+[1] "Calculating n for power 0.89"
+[1] "Calculating n for power 0.9"
+[1] "Calculating n for power 0.91"
+[1] "Calculating n for power 0.92"
+[1] "Calculating n for power 0.93"
+[1] "Calculating n for power 0.94"
+[1] "Calculating n for power 0.95"
+[1] "Calculating n for power 0.96"
+[1] "Calculating n for power 0.97"
+[1] "Calculating n for power 0.98"
+[1] "Calculating n for power 0.99"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># visualize the relationship between power and animal number</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">n.vec</span><span class="p">,</span><span class="n">power.vec</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"l"</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Power to detect 20% change in lifespan"</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"# Animals Required"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-07-power-analysis-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" /></p>
+
+<p> </p>
+
+<p>The relationship between sample size and power is not linear. This chart gives a good illustration about how sample size has diminishing returns when trying to improve power. Increasing sample size from 10 to 20 gives you a %30% boost in power, while increasing sample size from 20 to 30 only gives an additional ~12%.</p>
+
+<p>We can go a step farther and look at the relationship between effect size, power, and sample size:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># set desired significance</span><span class="w">
+</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.05</span><span class="w">
+
+</span><span class="c1"># we next use our pilot data to estimate the distribution shape parameters (mean, sd)</span><span class="w">
+</span><span class="n">mu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">surv.b6</span><span class="o">$</span><span class="n">lifespan_days</span><span class="p">)</span><span class="w">
+</span><span class="n">sigma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">surv.b6</span><span class="o">$</span><span class="n">lifespan_days</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Define vectors containing the range of effect size and power that we are interested in</span><span class="w">
+</span><span class="n">change.vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span><span class="m">0.3</span><span class="p">,</span><span class="m">0.01</span><span class="p">)</span><span class="w">
+</span><span class="n">power.vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.8</span><span class="p">,</span><span class="m">0.9</span><span class="p">,</span><span class="m">0.95</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># initialize a numeric matrix of the proper size to capture different effect sizes (in rows)</span><span class="w">
+</span><span class="c1"># and powers (in columns)</span><span class="w">
+</span><span class="n">n.mat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">change.vec</span><span class="p">),</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">power.vec</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># cycle through all power and change values using a for loop</span><span class="w">
+</span><span class="c1"># and calculate n for each</span><span class="w">
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i.pwr</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">power.vec</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># grab current value for power</span><span class="w">
+  </span><span class="n">power.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">power.vec</span><span class="p">[</span><span class="n">i.pwr</span><span class="p">]</span><span class="w">
+  
+  </span><span class="c1"># print current step</span><span class="w">
+  </span><span class="n">print</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s2">"Calculating sample size for power"</span><span class="p">,</span><span class="n">power.c</span><span class="p">))</span><span class="w">
+  
+  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i.change</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">change.vec</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c1"># grab the current effect size</span><span class="w">
+    </span><span class="n">change.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">change.vec</span><span class="p">[</span><span class="n">i.change</span><span class="p">]</span><span class="w">
+    
+    </span><span class="c1"># calculate delta from mu and current change value</span><span class="w">
+    </span><span class="n">delta.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">change.c</span><span class="o">*</span><span class="n">mu</span><span class="w">
+    
+    </span><span class="c1"># calculate sample size for current power</span><span class="w">
+    </span><span class="n">pwr.test.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pwr.t.test</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="kc">NULL</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="n">delta.c</span><span class="o">/</span><span class="n">sigma</span><span class="p">,</span><span class="n">sig.level</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span><span class="n">power</span><span class="o">=</span><span class="n">power.c</span><span class="p">,</span><span class="w">
+                     </span><span class="n">type</span><span class="o">=</span><span class="s2">"two.sample"</span><span class="p">,</span><span class="n">alternative</span><span class="o">=</span><span class="s2">"two.sided"</span><span class="p">)</span><span class="w">
+    
+    </span><span class="c1"># save value to sample size vector</span><span class="w">
+    </span><span class="n">n.mat</span><span class="p">[</span><span class="n">i.change</span><span class="p">,</span><span class="w"> </span><span class="n">i.pwr</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pwr.test.c</span><span class="o">$</span><span class="n">n</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating sample size for power 0.5"
+[1] "Calculating sample size for power 0.8"
+[1] "Calculating sample size for power 0.9"
+[1] "Calculating sample size for power 0.95"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># list colors for plot</span><span class="w">
+</span><span class="n">col.list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"black"</span><span class="p">,</span><span class="s2">"blue"</span><span class="p">,</span><span class="s2">"green"</span><span class="p">,</span><span class="s2">"red"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># setup the plot limits to include all</span><span class="w">
+</span><span class="n">x.lim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">change.vec</span><span class="p">),</span><span class="nf">max</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">change.vec</span><span class="p">))</span><span class="w">
+</span><span class="n">y.lim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">n.mat</span><span class="p">),</span><span class="nf">max</span><span class="p">(</span><span class="n">n.mat</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># initialize empty plot with defined limits </span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">xlim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x.lim</span><span class="p">,</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y.lim</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"% Change in Lifespan"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"# Animals Required"</span><span class="p">,</span><span class="w">
+     </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Power analysis for C57BL/6J Lifespan, p &lt; 0.05"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># add a legend for the power values</span><span class="w">
+</span><span class="n">legend</span><span class="p">(</span><span class="s2">"topright"</span><span class="p">,</span><span class="w"> </span><span class="n">legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">power.vec</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col.list</span><span class="p">,</span><span class="w"> </span><span class="n">title</span><span class="o">=</span><span class="s2">"Power"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># finally, add a separate line for each power level</span><span class="w">
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i.pwr</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">power.vec</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">lines</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">change.vec</span><span class="p">,</span><span class="n">n.mat</span><span class="p">[,</span><span class="n">i.pwr</span><span class="p">],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col.list</span><span class="p">[</span><span class="n">i.pwr</span><span class="p">])</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><img src="../fig/rmd-07-power-analysis-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" /></p>
+
+<blockquote class="challenge">
+  <h2 id="how-much-does-strain-background-matter-for-power">How much does strain background matter for power?</h2>
+
+  <p>We now have power data for C57BL/6J mice. How different are the power 
+profiles for A/J mice?</p>
+
+  <p>Generate sample size vs. effect size charts for the same range of power 
+values that we used above (50%, 80%, 90%, 95%).</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-2">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load power library</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># load data and grab aj data subset</span><span class="w">
+</span><span class="n">data.surv</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/inbred.lifespan.txt"</span><span class="p">)</span><span class="w">
+</span><span class="n">surv.aj</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.surv</span><span class="p">[</span><span class="n">data.surv</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"A/J"</span><span class="p">,]</span><span class="w">
+
+</span><span class="c1"># set desired significance</span><span class="w">
+</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.05</span><span class="w">
+
+</span><span class="c1"># we next use our pilot data to estimate the distribution shape parameters (mean, sd)</span><span class="w">
+</span><span class="n">mu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">surv.aj</span><span class="o">$</span><span class="n">lifespan_days</span><span class="p">)</span><span class="w">
+</span><span class="n">sigma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">surv.aj</span><span class="o">$</span><span class="n">lifespan_days</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Define vectors containing the range of effect size and power that we are interested in</span><span class="w">
+</span><span class="n">change.vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span><span class="m">0.3</span><span class="p">,</span><span class="m">0.01</span><span class="p">)</span><span class="w">
+</span><span class="n">power.vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.8</span><span class="p">,</span><span class="m">0.9</span><span class="p">,</span><span class="m">0.95</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># initialize a numeric matrix of the proper size to capture different effect sizes (in rows)</span><span class="w">
+</span><span class="c1"># and powers (in columns)</span><span class="w">
+</span><span class="n">n.mat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">change.vec</span><span class="p">),</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">power.vec</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># cycle through all power and change values using a for loop</span><span class="w">
+</span><span class="c1"># and calculate n for each</span><span class="w">
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i.pwr</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">power.vec</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># grab current value for power</span><span class="w">
+  </span><span class="n">power.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">power.vec</span><span class="p">[</span><span class="n">i.pwr</span><span class="p">]</span><span class="w">
+  
+  </span><span class="c1"># print current step</span><span class="w">
+  </span><span class="n">print</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s2">"Calculating sample size for power"</span><span class="p">,</span><span class="n">power.c</span><span class="p">))</span><span class="w">
+  
+  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i.change</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">change.vec</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c1"># grab the current effect size</span><span class="w">
+    </span><span class="n">change.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">change.vec</span><span class="p">[</span><span class="n">i.change</span><span class="p">]</span><span class="w">
+    
+    </span><span class="c1"># calculate delta from mu and current change value</span><span class="w">
+    </span><span class="n">delta.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">change.c</span><span class="o">*</span><span class="n">mu</span><span class="w">
+    
+    </span><span class="c1"># calculate sample size for current power</span><span class="w">
+    </span><span class="n">pwr.test.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pwr.t.test</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="kc">NULL</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="n">delta.c</span><span class="o">/</span><span class="n">sigma</span><span class="p">,</span><span class="n">sig.level</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span><span class="n">power</span><span class="o">=</span><span class="n">power.c</span><span class="p">,</span><span class="w">
+                     </span><span class="n">type</span><span class="o">=</span><span class="s2">"two.sample"</span><span class="p">,</span><span class="n">alternative</span><span class="o">=</span><span class="s2">"two.sided"</span><span class="p">)</span><span class="w">
+    
+    </span><span class="c1"># save value to sample size vector</span><span class="w">
+    </span><span class="n">n.mat</span><span class="p">[</span><span class="n">i.change</span><span class="p">,</span><span class="w"> </span><span class="n">i.pwr</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pwr.test.c</span><span class="o">$</span><span class="n">n</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating sample size for power 0.5"
+[1] "Calculating sample size for power 0.8"
+[1] "Calculating sample size for power 0.9"
+[1] "Calculating sample size for power 0.95"
+</code></pre></div>    </div>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># list colors for plot</span><span class="w">
+</span><span class="n">col.list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"black"</span><span class="p">,</span><span class="s2">"blue"</span><span class="p">,</span><span class="s2">"green"</span><span class="p">,</span><span class="s2">"red"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># setup the plot limits to include all</span><span class="w">
+</span><span class="n">x.lim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">change.vec</span><span class="p">),</span><span class="nf">max</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">change.vec</span><span class="p">))</span><span class="w">
+</span><span class="n">y.lim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">n.mat</span><span class="p">),</span><span class="nf">max</span><span class="p">(</span><span class="n">n.mat</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># initialize empty plot with defined limits </span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">xlim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x.lim</span><span class="p">,</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y.lim</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"% Change in Lifespan"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"# Animals Required"</span><span class="p">,</span><span class="w">
+     </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Power analysis for A/J Lifespan, p &lt; 0.05"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># add a legend for the power values</span><span class="w">
+</span><span class="n">legend</span><span class="p">(</span><span class="s2">"topright"</span><span class="p">,</span><span class="w"> </span><span class="n">legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">power.vec</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col.list</span><span class="p">,</span><span class="w"> </span><span class="n">title</span><span class="o">=</span><span class="s2">"Power"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># finally, add a separate line for each power level</span><span class="w">
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i.pwr</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">power.vec</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">lines</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">change.vec</span><span class="p">,</span><span class="n">n.mat</span><span class="p">[,</span><span class="n">i.pwr</span><span class="p">],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col.list</span><span class="p">[</span><span class="n">i.pwr</span><span class="p">])</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-07-power-analysis-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" /></p>
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="is-power-to-detect-lifespan-different-for-males-and-females">Is power to detect lifespan different for males and females?</h2>
+
+  <p>We looked at the combined population of male and female C57BL/6J mice. 
+How different is the power prediction for each sex independently?</p>
+
+  <p>Calculate the sample size vs. effect size charts for 95% power for male 
+and female C57BL/6J mice and present them on the same chart for comparison.</p>
+
+  <p>What might account for differences in sample size estimates (if any)?</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-3">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load power library</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># load data and grab aj data subset</span><span class="w">
+</span><span class="n">data.surv</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/inbred.lifespan.txt"</span><span class="p">)</span><span class="w">
+</span><span class="n">surv.b6.f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.surv</span><span class="p">[</span><span class="n">data.surv</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">data.surv</span><span class="o">$</span><span class="n">sex</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"f"</span><span class="p">,]</span><span class="w">
+</span><span class="n">surv.b6.m</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.surv</span><span class="p">[</span><span class="n">data.surv</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">data.surv</span><span class="o">$</span><span class="n">sex</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"m"</span><span class="p">,]</span><span class="w">
+
+</span><span class="c1"># set desired significance and power</span><span class="w">
+</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.05</span><span class="w">
+</span><span class="n">power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.95</span><span class="w">
+
+</span><span class="c1"># we next use our pilot data to estimate the distribution shape parameters (mean, sd)</span><span class="w">
+</span><span class="n">mu.f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">surv.b6.f</span><span class="o">$</span><span class="n">lifespan_days</span><span class="p">)</span><span class="w">
+</span><span class="n">sigma.f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">surv.b6.f</span><span class="o">$</span><span class="n">lifespan_days</span><span class="p">)</span><span class="w">
+
+</span><span class="n">mu.m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">surv.b6.m</span><span class="o">$</span><span class="n">lifespan_days</span><span class="p">)</span><span class="w">
+</span><span class="n">sigma.m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">surv.b6.m</span><span class="o">$</span><span class="n">lifespan_days</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Define vector containing the range of effect size that we are interested in</span><span class="w">
+</span><span class="n">change.vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span><span class="m">0.3</span><span class="p">,</span><span class="m">0.01</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># initialize a numeric matrix of the proper size to capture different effect sizes (in rows)</span><span class="w">
+</span><span class="c1"># and sex (in columns)</span><span class="w">
+</span><span class="n">n.mat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">change.vec</span><span class="p">),</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># cycle through all power and change values using a for loop</span><span class="w">
+</span><span class="c1"># and calculate n for each</span><span class="w">
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i.change</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">change.vec</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># grab current value for change</span><span class="w">
+  </span><span class="n">change.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">change.vec</span><span class="p">[</span><span class="n">i.change</span><span class="p">]</span><span class="w">
+  
+  </span><span class="c1"># print current step</span><span class="w">
+  </span><span class="n">print</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s2">"Calculating sample size for change"</span><span class="p">,</span><span class="n">change.c</span><span class="p">))</span><span class="w">
+  
+  </span><span class="c1"># calculate delta from mu and current change value</span><span class="w">
+  </span><span class="n">delta.f.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">change.c</span><span class="o">*</span><span class="n">mu.f</span><span class="w">
+  </span><span class="n">delta.m.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">change.c</span><span class="o">*</span><span class="n">mu.m</span><span class="w">
+    
+  </span><span class="c1"># calculate sample size for current power</span><span class="w">
+  </span><span class="n">pwr.test.f.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pwr.t.test</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="o">=</span><span class="n">delta.f.c</span><span class="o">/</span><span class="n">sigma.f</span><span class="p">,</span><span class="n">sig.level</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">power</span><span class="o">=</span><span class="n">power</span><span class="p">,</span><span class="w">
+                   </span><span class="n">type</span><span class="o">=</span><span class="s2">"two.sample"</span><span class="p">,</span><span class="n">alternative</span><span class="o">=</span><span class="s2">"two.sided"</span><span class="p">)</span><span class="w">
+  </span><span class="n">pwr.test.m.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pwr.t.test</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="o">=</span><span class="n">delta.m.c</span><span class="o">/</span><span class="n">sigma.m</span><span class="p">,</span><span class="n">sig.level</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">power</span><span class="o">=</span><span class="n">power</span><span class="p">,</span><span class="w">
+                   </span><span class="n">type</span><span class="o">=</span><span class="s2">"two.sample"</span><span class="p">,</span><span class="n">alternative</span><span class="o">=</span><span class="s2">"two.sided"</span><span class="p">)</span><span class="w">
+
+  </span><span class="c1"># save value to sample size vector</span><span class="w">
+  </span><span class="n">n.mat</span><span class="p">[</span><span class="n">i.change</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pwr.test.f.c</span><span class="o">$</span><span class="n">n</span><span class="w">
+  </span><span class="n">n.mat</span><span class="p">[</span><span class="n">i.change</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pwr.test.m.c</span><span class="o">$</span><span class="n">n</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating sample size for change 0.1"
+[1] "Calculating sample size for change 0.11"
+[1] "Calculating sample size for change 0.12"
+[1] "Calculating sample size for change 0.13"
+[1] "Calculating sample size for change 0.14"
+[1] "Calculating sample size for change 0.15"
+[1] "Calculating sample size for change 0.16"
+[1] "Calculating sample size for change 0.17"
+[1] "Calculating sample size for change 0.18"
+[1] "Calculating sample size for change 0.19"
+[1] "Calculating sample size for change 0.2"
+[1] "Calculating sample size for change 0.21"
+[1] "Calculating sample size for change 0.22"
+[1] "Calculating sample size for change 0.23"
+[1] "Calculating sample size for change 0.24"
+[1] "Calculating sample size for change 0.25"
+[1] "Calculating sample size for change 0.26"
+[1] "Calculating sample size for change 0.27"
+[1] "Calculating sample size for change 0.28"
+[1] "Calculating sample size for change 0.29"
+[1] "Calculating sample size for change 0.3"
+</code></pre></div>    </div>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># setup the plot limits to include all</span><span class="w">
+</span><span class="n">x.lim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">change.vec</span><span class="p">),</span><span class="nf">max</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">change.vec</span><span class="p">))</span><span class="w">
+</span><span class="n">y.lim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">n.mat</span><span class="p">),</span><span class="nf">max</span><span class="p">(</span><span class="n">n.mat</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># initialize empty plot with defined limits </span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">xlim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x.lim</span><span class="p">,</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y.lim</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"% Change in Lifespan"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"# Animals Required"</span><span class="p">,</span><span class="w">
+     </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Power analysis for C57BL/6J Lifespan, p &lt; 0.05"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># add a legend for the power values</span><span class="w">
+</span><span class="n">legend</span><span class="p">(</span><span class="s2">"topright"</span><span class="p">,</span><span class="w"> </span><span class="n">legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"female"</span><span class="p">,</span><span class="w"> </span><span class="s2">"male"</span><span class="p">),</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"red"</span><span class="p">,</span><span class="s2">"blue"</span><span class="p">),</span><span class="w"> </span><span class="n">title</span><span class="o">=</span><span class="s2">"Sex"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># finally, add a separate line for each power level</span><span class="w">
+</span><span class="n">lines</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">change.vec</span><span class="p">,</span><span class="n">n.mat</span><span class="p">[,</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">)</span><span class="w">
+</span><span class="n">lines</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">change.vec</span><span class="p">,</span><span class="n">n.mat</span><span class="p">[,</span><span class="m">2</span><span class="p">],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-07-power-analysis-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" /></p>
+
+    <p>Why is it so much more difficult to detect a lifespan change in female mice? Let’s take
+a look at the population parameter estimate:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mu.f</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 812.9375
+</code></pre></div>    </div>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mu.m</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 894.2812
+</code></pre></div>    </div>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sigma.f</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 222.6933
+</code></pre></div>    </div>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sigma.m</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 113.8831
+</code></pre></div>    </div>
+
+    <p>The standard deviation in female lifespan is nearly double that of males. We need a 
+substantially larger sample size to detect a change in a naturally variable population.</p>
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="power-to-detect-dietary-effects-on-body-weight">Power to detect dietary effects on body weight</h2>
+
+  <p>Generate power charts for our ability to detect a change in body weight following
+a high-fat high-sucrose diet in C57BL/6J mice.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-4">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load power library</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># load data and grab aj data subset</span><span class="w">
+</span><span class="n">data.diet</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/b6.aj.hfhs.diet.txt"</span><span class="p">)</span><span class="w">
+</span><span class="n">data.b6</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.diet</span><span class="p">[</span><span class="n">data.surv</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">,]</span><span class="w">
+
+</span><span class="c1"># set desired significance</span><span class="w">
+</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.05</span><span class="w">
+
+</span><span class="c1"># we next use our pilot data to estimate the distribution shape parameters (mean, sd)</span><span class="w">
+</span><span class="n">mu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
+</span><span class="n">sigma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># Define vectors containing the range of effect size and power that we are interested in</span><span class="w">
+</span><span class="n">change.vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="m">0.05</span><span class="p">,</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.01</span><span class="p">)</span><span class="w">
+</span><span class="n">power.vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="m">0.8</span><span class="p">,</span><span class="m">0.9</span><span class="p">,</span><span class="m">0.95</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># initialize a numeric matrix of the proper size to capture different effect sizes (in rows)</span><span class="w">
+</span><span class="c1"># and powers (in columns)</span><span class="w">
+</span><span class="n">n.mat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">change.vec</span><span class="p">),</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">power.vec</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># cycle through all power and change values using a for loop</span><span class="w">
+</span><span class="c1"># and calculate n for each</span><span class="w">
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i.pwr</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">power.vec</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># grab current value for power</span><span class="w">
+  </span><span class="n">power.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">power.vec</span><span class="p">[</span><span class="n">i.pwr</span><span class="p">]</span><span class="w">
+  
+  </span><span class="c1"># print current step</span><span class="w">
+  </span><span class="n">print</span><span class="p">(</span><span class="n">paste</span><span class="p">(</span><span class="s2">"Calculating sample size for power"</span><span class="p">,</span><span class="n">power.c</span><span class="p">))</span><span class="w">
+  
+  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i.change</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">change.vec</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c1"># grab the current effect size</span><span class="w">
+    </span><span class="n">change.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">change.vec</span><span class="p">[</span><span class="n">i.change</span><span class="p">]</span><span class="w">
+    
+    </span><span class="c1"># calculate delta from mu and current change value</span><span class="w">
+    </span><span class="n">delta.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">change.c</span><span class="o">*</span><span class="n">mu</span><span class="w">
+    
+    </span><span class="c1"># calculate sample size for current power</span><span class="w">
+    </span><span class="n">pwr.test.c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pwr.t.test</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="kc">NULL</span><span class="p">,</span><span class="n">d</span><span class="o">=</span><span class="n">delta.c</span><span class="o">/</span><span class="n">sigma</span><span class="p">,</span><span class="n">sig.level</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span><span class="n">power</span><span class="o">=</span><span class="n">power.c</span><span class="p">,</span><span class="w">
+                     </span><span class="n">type</span><span class="o">=</span><span class="s2">"paired"</span><span class="p">,</span><span class="n">alternative</span><span class="o">=</span><span class="s2">"two.sided"</span><span class="p">)</span><span class="w">
+    
+    </span><span class="c1"># save value to sample size vector</span><span class="w">
+    </span><span class="n">n.mat</span><span class="p">[</span><span class="n">i.change</span><span class="p">,</span><span class="w"> </span><span class="n">i.pwr</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pwr.test.c</span><span class="o">$</span><span class="n">n</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating sample size for power 0.5"
+[1] "Calculating sample size for power 0.8"
+[1] "Calculating sample size for power 0.9"
+[1] "Calculating sample size for power 0.95"
+</code></pre></div>    </div>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># list colors for plot</span><span class="w">
+</span><span class="n">col.list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"black"</span><span class="p">,</span><span class="s2">"blue"</span><span class="p">,</span><span class="s2">"green"</span><span class="p">,</span><span class="s2">"red"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># setup the plot limits to include all</span><span class="w">
+</span><span class="n">x.lim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">change.vec</span><span class="p">),</span><span class="nf">max</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">change.vec</span><span class="p">))</span><span class="w">
+</span><span class="n">y.lim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">n.mat</span><span class="p">),</span><span class="nf">max</span><span class="p">(</span><span class="n">n.mat</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># initialize empty plot with defined limits </span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">xlim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x.lim</span><span class="p">,</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y.lim</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"% Change in Body Weight"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"# Animals Required"</span><span class="p">,</span><span class="w">
+     </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Power analysis for C57BL/6J Body Weight following HFHS diet, p &lt; 0.05"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># add a legend for the power values</span><span class="w">
+</span><span class="n">legend</span><span class="p">(</span><span class="s2">"topright"</span><span class="p">,</span><span class="w"> </span><span class="n">legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">power.vec</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col.list</span><span class="p">,</span><span class="w"> </span><span class="n">title</span><span class="o">=</span><span class="s2">"Power"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># finally, add a separate line for each power level</span><span class="w">
+</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i.pwr</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">power.vec</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">lines</span><span class="p">(</span><span class="m">100</span><span class="o">*</span><span class="n">change.vec</span><span class="p">,</span><span class="n">n.mat</span><span class="p">[,</span><span class="n">i.pwr</span><span class="p">],</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col.list</span><span class="p">[</span><span class="n">i.pwr</span><span class="p">])</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-07-power-analysis-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" /></p>
+
+    <p>The variation in body weight is relatively small in C57BL/6J mice. Thus we can detect very 
+small (5%) changes in body weight with only a few mice.</p>
   </blockquote>
 </blockquote>
 
