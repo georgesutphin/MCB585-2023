@@ -126,7 +126,7 @@ install.packages("pwr")
 package 'pwr' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\RtmpaClfMb\downloaded_packages
+	C:\Users\sutph\AppData\Local\Temp\Rtmp4clB3g\downloaded_packages
 ~~~
 {: .output}
 
@@ -323,6 +323,7 @@ surv.b6 = data.surv[data.surv$strain %in% "C57BL/6J",]
 
 Okay, we are in business. Let's see if the data is normal.
 
+
 ~~~
 qqnorm(surv.b6$lifespan_days)
 qqline(surv.b6$lifespan_days)
@@ -365,7 +366,7 @@ n.t$n
  
  &nbsp;
  
- That's much bigger than the sample size needed for body weight! Lifespan data has a much higher variability than body weight data, so a similar detection change requires a bigger sample size to acheive the same power at the same significance level.
+ That's much bigger than the sample size needed for body weight! Lifespan data has a much higher variability than body weight data, so a similar detection change requires a bigger sample size to achieve the same power at the same significance level.
 
 
 > ## A/J lifespan
@@ -423,6 +424,591 @@ n.t$n
 > > 
 > > That's a lot of mice! Decreasing the detectable change and the significance 
 > > level had a big impact even though we reduced power to detect a bit.
+> {: .solution}
+{: .challenge}
+
+***
+### Generating power reference charts
+
+The previous examples give us an idea of what to expect when we have a clear idea about our desired effect size, power, and significance level going in. Okay, so we know that with 30 C57BL/6J mice per group, we have 95% power to detect a 20% change. But what power do we have to detect a 30% change? How much do we need to increase the sample size to have the same power to detect a 10% change?
+
+It is often useful, particularly in early-stage planning, to have an idea of what the relationship looks like between sample size, power, and effect size. We can plot these by repeating the power analysis to calculate sample size requirements over a range of power values.
+
+
+~~~
+# set desired change and significance
+alpha = 0.05
+change = 0.2
+
+# we next use our pilot data to estimate the distribution shape parameters (mean, sd)
+mu = mean(surv.b6$lifespan_days)
+sigma = sd(surv.b6$lifespan_days)
+
+# from the mean and the desired percent change we can calculate the effect size
+delta = change*mu
+
+# set up a vector with a range of values for power
+power.vec = seq(0.5,0.99,0.01)
+
+# initialize an empty vector with the same length as power where we will store calculated
+# sample size values
+n.vec = numeric(length = length(power.vec))
+
+# cycle through all power values using a for loop
+# and calculate n for each
+for (i.pwr in 1:length(power.vec)) {
+  # grab the current power value
+  power.c = power.vec[i.pwr]
+  
+  # display current iteration
+  print(paste("Calculating n for power",power.c))
+  
+  # calculate sample size for current power
+  pwr.test.c = pwr.t.test(n=NULL,d=delta/sigma,sig.level=alpha,power=power.c,
+                         type="two.sample",alternative="two.sided")
+  
+  # save value to sample size vector
+  n.vec[i.pwr] = pwr.test.c$n
+}
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Calculating n for power 0.5"
+[1] "Calculating n for power 0.51"
+[1] "Calculating n for power 0.52"
+[1] "Calculating n for power 0.53"
+[1] "Calculating n for power 0.54"
+[1] "Calculating n for power 0.55"
+[1] "Calculating n for power 0.56"
+[1] "Calculating n for power 0.57"
+[1] "Calculating n for power 0.58"
+[1] "Calculating n for power 0.59"
+[1] "Calculating n for power 0.6"
+[1] "Calculating n for power 0.61"
+[1] "Calculating n for power 0.62"
+[1] "Calculating n for power 0.63"
+[1] "Calculating n for power 0.64"
+[1] "Calculating n for power 0.65"
+[1] "Calculating n for power 0.66"
+[1] "Calculating n for power 0.67"
+[1] "Calculating n for power 0.68"
+[1] "Calculating n for power 0.69"
+[1] "Calculating n for power 0.7"
+[1] "Calculating n for power 0.71"
+[1] "Calculating n for power 0.72"
+[1] "Calculating n for power 0.73"
+[1] "Calculating n for power 0.74"
+[1] "Calculating n for power 0.75"
+[1] "Calculating n for power 0.76"
+[1] "Calculating n for power 0.77"
+[1] "Calculating n for power 0.78"
+[1] "Calculating n for power 0.79"
+[1] "Calculating n for power 0.8"
+[1] "Calculating n for power 0.81"
+[1] "Calculating n for power 0.82"
+[1] "Calculating n for power 0.83"
+[1] "Calculating n for power 0.84"
+[1] "Calculating n for power 0.85"
+[1] "Calculating n for power 0.86"
+[1] "Calculating n for power 0.87"
+[1] "Calculating n for power 0.88"
+[1] "Calculating n for power 0.89"
+[1] "Calculating n for power 0.9"
+[1] "Calculating n for power 0.91"
+[1] "Calculating n for power 0.92"
+[1] "Calculating n for power 0.93"
+[1] "Calculating n for power 0.94"
+[1] "Calculating n for power 0.95"
+[1] "Calculating n for power 0.96"
+[1] "Calculating n for power 0.97"
+[1] "Calculating n for power 0.98"
+[1] "Calculating n for power 0.99"
+~~~
+{: .output}
+
+
+
+~~~
+# visualize the relationship between power and animal number
+plot(n.vec,power.vec, type = "l", 
+     ylab = "Power to detect 20% change in lifespan", xlab = "# Animals Required")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-07-power-analysis-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" />
+
+&nbsp;
+
+The relationship between sample size and power is not linear. This chart gives a good illustration about how sample size has diminishing returns when trying to improve power. Increasing sample size from 10 to 20 gives you a %30% boost in power, while increasing sample size from 20 to 30 only gives an additional ~12%.
+
+We can go a step farther and look at the relationship between effect size, power, and sample size:
+
+
+~~~
+# set desired significance
+alpha = 0.05
+
+# we next use our pilot data to estimate the distribution shape parameters (mean, sd)
+mu = mean(surv.b6$lifespan_days)
+sigma = sd(surv.b6$lifespan_days)
+
+# Define vectors containing the range of effect size and power that we are interested in
+change.vec = seq(0.1,0.3,0.01)
+power.vec = c(0.5,0.8,0.9,0.95)
+
+# initialize a numeric matrix of the proper size to capture different effect sizes (in rows)
+# and powers (in columns)
+n.mat = matrix(NA, nrow = length(change.vec), ncol = length(power.vec))
+
+# cycle through all power and change values using a for loop
+# and calculate n for each
+for (i.pwr in 1:length(power.vec)) {
+  # grab current value for power
+  power.c = power.vec[i.pwr]
+  
+  # print current step
+  print(paste("Calculating sample size for power",power.c))
+  
+  for (i.change in 1:length(change.vec)) {
+    # grab the current effect size
+    change.c = change.vec[i.change]
+    
+    # calculate delta from mu and current change value
+    delta.c = change.c*mu
+    
+    # calculate sample size for current power
+    pwr.test.c = pwr.t.test(n=NULL,d=delta.c/sigma,sig.level=alpha,power=power.c,
+                     type="two.sample",alternative="two.sided")
+    
+    # save value to sample size vector
+    n.mat[i.change, i.pwr] = pwr.test.c$n
+  }
+
+}
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Calculating sample size for power 0.5"
+[1] "Calculating sample size for power 0.8"
+[1] "Calculating sample size for power 0.9"
+[1] "Calculating sample size for power 0.95"
+~~~
+{: .output}
+
+
+
+~~~
+# list colors for plot
+col.list = c("black","blue","green","red")
+
+# setup the plot limits to include all
+x.lim = c(min(100*change.vec),max(100*change.vec))
+y.lim = c(min(n.mat),max(n.mat))
+
+# initialize empty plot with defined limits 
+plot(NA, xlim = x.lim, ylim = y.lim, 
+     xlab = "% Change in Lifespan", ylab = "# Animals Required",
+     main = "Power analysis for C57BL/6J Lifespan, p < 0.05")
+
+# add a legend for the power values
+legend("topright", legend = power.vec, fill = col.list, title="Power")
+
+# finally, add a separate line for each power level
+for (i.pwr in 1:length(power.vec)) {
+  lines(100*change.vec,n.mat[,i.pwr], col = col.list[i.pwr])
+}
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-07-power-analysis-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" />
+
+> ## How much does strain background matter for power?
+> 
+> We now have power data for C57BL/6J mice. How different are the power 
+> profiles for A/J mice?
+> 
+> Generate sample size vs. effect size charts for the same range of power 
+> values that we used above (50%, 80%, 90%, 95%).
+> 
+> > ## Solution
+> > 
+> > 
+> > 
+> > ~~~
+> > # load power library
+> > library("pwr")
+> > 
+> > # load data and grab aj data subset
+> > data.surv <- read.delim("./data/inbred.lifespan.txt")
+> > surv.aj <- data.surv[data.surv$strain == "A/J",]
+> > 
+> > # set desired significance
+> > alpha = 0.05
+> > 
+> > # we next use our pilot data to estimate the distribution shape parameters (mean, sd)
+> > mu = mean(surv.aj$lifespan_days)
+> > sigma = sd(surv.aj$lifespan_days)
+> > 
+> > # Define vectors containing the range of effect size and power that we are interested in
+> > change.vec = seq(0.1,0.3,0.01)
+> > power.vec = c(0.5,0.8,0.9,0.95)
+> > 
+> > # initialize a numeric matrix of the proper size to capture different effect sizes (in rows)
+> > # and powers (in columns)
+> > n.mat = matrix(NA, nrow = length(change.vec), ncol = length(power.vec))
+> > 
+> > # cycle through all power and change values using a for loop
+> > # and calculate n for each
+> > for (i.pwr in 1:length(power.vec)) {
+> >   # grab current value for power
+> >   power.c = power.vec[i.pwr]
+> >   
+> >   # print current step
+> >   print(paste("Calculating sample size for power",power.c))
+> >   
+> >   for (i.change in 1:length(change.vec)) {
+> >     # grab the current effect size
+> >     change.c = change.vec[i.change]
+> >     
+> >     # calculate delta from mu and current change value
+> >     delta.c = change.c*mu
+> >     
+> >     # calculate sample size for current power
+> >     pwr.test.c = pwr.t.test(n=NULL,d=delta.c/sigma,sig.level=alpha,power=power.c,
+> >                      type="two.sample",alternative="two.sided")
+> >     
+> >     # save value to sample size vector
+> >     n.mat[i.change, i.pwr] = pwr.test.c$n
+> >   }
+> > }
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "Calculating sample size for power 0.5"
+> > [1] "Calculating sample size for power 0.8"
+> > [1] "Calculating sample size for power 0.9"
+> > [1] "Calculating sample size for power 0.95"
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # list colors for plot
+> > col.list = c("black","blue","green","red")
+> > 
+> > # setup the plot limits to include all
+> > x.lim = c(min(100*change.vec),max(100*change.vec))
+> > y.lim = c(min(n.mat),max(n.mat))
+> > 
+> > # initialize empty plot with defined limits 
+> > plot(NA, xlim = x.lim, ylim = y.lim, 
+> >      xlab = "% Change in Lifespan", ylab = "# Animals Required",
+> >      main = "Power analysis for A/J Lifespan, p < 0.05")
+> > 
+> > # add a legend for the power values
+> > legend("topright", legend = power.vec, fill = col.list, title="Power")
+> > 
+> > # finally, add a separate line for each power level
+> > for (i.pwr in 1:length(power.vec)) {
+> >   lines(100*change.vec,n.mat[,i.pwr], col = col.list[i.pwr])
+> > }
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-07-power-analysis-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
+
+
+
+> ## Is power to detect lifespan different for males and females?
+> 
+> We looked at the combined population of male and female C57BL/6J mice. 
+> How different is the power prediction for each sex independently? 
+> 
+> Calculate the sample size vs. effect size charts for 95% power for male 
+> and female C57BL/6J mice and present them on the same chart for comparison.
+> 
+> What might account for differences in sample size estimates (if any)?
+> 
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> > # load power library
+> > library("pwr")
+> > 
+> > # load data and grab aj data subset
+> > data.surv <- read.delim("./data/inbred.lifespan.txt")
+> > surv.b6.f <- data.surv[data.surv$strain == "C57BL/6J" & data.surv$sex == "f",]
+> > surv.b6.m <- data.surv[data.surv$strain == "C57BL/6J" & data.surv$sex == "m",]
+> > 
+> > # set desired significance and power
+> > alpha = 0.05
+> > power = 0.95
+> > 
+> > # we next use our pilot data to estimate the distribution shape parameters (mean, sd)
+> > mu.f = mean(surv.b6.f$lifespan_days)
+> > sigma.f = sd(surv.b6.f$lifespan_days)
+> > 
+> > mu.m = mean(surv.b6.m$lifespan_days)
+> > sigma.m = sd(surv.b6.m$lifespan_days)
+> > 
+> > # Define vector containing the range of effect size that we are interested in
+> > change.vec = seq(0.1,0.3,0.01)
+> > 
+> > # initialize a numeric matrix of the proper size to capture different effect sizes (in rows)
+> > # and sex (in columns)
+> > n.mat = matrix(NA, nrow = length(change.vec), ncol = 2)
+> > 
+> > # cycle through all power and change values using a for loop
+> > # and calculate n for each
+> > for (i.change in 1:length(change.vec)) {
+> >   # grab current value for change
+> >   change.c = change.vec[i.change]
+> >   
+> >   # print current step
+> >   print(paste("Calculating sample size for change",change.c))
+> >   
+> >   # calculate delta from mu and current change value
+> >   delta.f.c = change.c*mu.f
+> >   delta.m.c = change.c*mu.m
+> >     
+> >   # calculate sample size for current power
+> >   pwr.test.f.c = pwr.t.test(n=NULL, d=delta.f.c/sigma.f,sig.level=alpha, power=power,
+> >                    type="two.sample",alternative="two.sided")
+> >   pwr.test.m.c = pwr.t.test(n=NULL, d=delta.m.c/sigma.m,sig.level=alpha, power=power,
+> >                    type="two.sample",alternative="two.sided")
+> > 
+> >   # save value to sample size vector
+> >   n.mat[i.change, 1] = pwr.test.f.c$n
+> >   n.mat[i.change, 2] = pwr.test.m.c$n
+> > }
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "Calculating sample size for change 0.1"
+> > [1] "Calculating sample size for change 0.11"
+> > [1] "Calculating sample size for change 0.12"
+> > [1] "Calculating sample size for change 0.13"
+> > [1] "Calculating sample size for change 0.14"
+> > [1] "Calculating sample size for change 0.15"
+> > [1] "Calculating sample size for change 0.16"
+> > [1] "Calculating sample size for change 0.17"
+> > [1] "Calculating sample size for change 0.18"
+> > [1] "Calculating sample size for change 0.19"
+> > [1] "Calculating sample size for change 0.2"
+> > [1] "Calculating sample size for change 0.21"
+> > [1] "Calculating sample size for change 0.22"
+> > [1] "Calculating sample size for change 0.23"
+> > [1] "Calculating sample size for change 0.24"
+> > [1] "Calculating sample size for change 0.25"
+> > [1] "Calculating sample size for change 0.26"
+> > [1] "Calculating sample size for change 0.27"
+> > [1] "Calculating sample size for change 0.28"
+> > [1] "Calculating sample size for change 0.29"
+> > [1] "Calculating sample size for change 0.3"
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # setup the plot limits to include all
+> > x.lim = c(min(100*change.vec),max(100*change.vec))
+> > y.lim = c(min(n.mat),max(n.mat))
+> > 
+> > # initialize empty plot with defined limits 
+> > plot(NA, xlim = x.lim, ylim = y.lim, 
+> >      xlab = "% Change in Lifespan", ylab = "# Animals Required",
+> >      main = "Power analysis for C57BL/6J Lifespan, p < 0.05")
+> > 
+> > # add a legend for the power values
+> > legend("topright", legend = c("female", "male"), fill = c("red","blue"), title="Sex")
+> > 
+> > # finally, add a separate line for each power level
+> > lines(100*change.vec,n.mat[,1], col = "red")
+> > lines(100*change.vec,n.mat[,2], col = "blue")
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-07-power-analysis-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" />
+> > 
+> > Why is it so much more difficult to detect a lifespan change in female mice? Let's take
+> > a look at the population parameter estimate:
+> > 
+> > 
+> > ~~~
+> > mu.f
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 812.9375
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > mu.m
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 894.2812
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > sigma.f
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 222.6933
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > sigma.m
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 113.8831
+> > ~~~
+> > {: .output}
+> > 
+> > The standard deviation in female lifespan is nearly double that of males. We need a 
+> > substantially larger sample size to detect a change in a naturally variable population.
+> {: .solution}
+{: .challenge}
+
+
+
+> ## Power to detect dietary effects on body weight
+> 
+> Generate power charts for our ability to detect a change in body weight following
+> a high-fat high-sucrose diet in C57BL/6J mice.
+> 
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> > # load power library
+> > library("pwr")
+> > 
+> > # load data and grab aj data subset
+> > data.diet <- read.delim("./data/b6.aj.hfhs.diet.txt")
+> > data.b6 <- data.diet[data.surv$strain == "C57BL/6J",]
+> > 
+> > # set desired significance
+> > alpha = 0.05
+> > 
+> > # we next use our pilot data to estimate the distribution shape parameters (mean, sd)
+> > mu = mean(data.diet$bw_start)
+> > sigma = sd(data.diet$bw_start)
+> > 
+> > # Define vectors containing the range of effect size and power that we are interested in
+> > change.vec = seq(0.05,0.5,0.01)
+> > power.vec = c(0.5,0.8,0.9,0.95)
+> > 
+> > # initialize a numeric matrix of the proper size to capture different effect sizes (in rows)
+> > # and powers (in columns)
+> > n.mat = matrix(NA, nrow = length(change.vec), ncol = length(power.vec))
+> > 
+> > # cycle through all power and change values using a for loop
+> > # and calculate n for each
+> > for (i.pwr in 1:length(power.vec)) {
+> >   # grab current value for power
+> >   power.c = power.vec[i.pwr]
+> >   
+> >   # print current step
+> >   print(paste("Calculating sample size for power",power.c))
+> >   
+> >   for (i.change in 1:length(change.vec)) {
+> >     # grab the current effect size
+> >     change.c = change.vec[i.change]
+> >     
+> >     # calculate delta from mu and current change value
+> >     delta.c = change.c*mu
+> >     
+> >     # calculate sample size for current power
+> >     pwr.test.c = pwr.t.test(n=NULL,d=delta.c/sigma,sig.level=alpha,power=power.c,
+> >                      type="paired",alternative="two.sided")
+> >     
+> >     # save value to sample size vector
+> >     n.mat[i.change, i.pwr] = pwr.test.c$n
+> >   }
+> > }
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "Calculating sample size for power 0.5"
+> > [1] "Calculating sample size for power 0.8"
+> > [1] "Calculating sample size for power 0.9"
+> > [1] "Calculating sample size for power 0.95"
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # list colors for plot
+> > col.list = c("black","blue","green","red")
+> > 
+> > # setup the plot limits to include all
+> > x.lim = c(min(100*change.vec),max(100*change.vec))
+> > y.lim = c(min(n.mat),max(n.mat))
+> > 
+> > # initialize empty plot with defined limits 
+> > plot(NA, xlim = x.lim, ylim = y.lim, 
+> >      xlab = "% Change in Body Weight", ylab = "# Animals Required",
+> >      main = "Power analysis for C57BL/6J Body Weight following HFHS diet, p < 0.05")
+> > 
+> > # add a legend for the power values
+> > legend("topright", legend = power.vec, fill = col.list, title="Power")
+> > 
+> > # finally, add a separate line for each power level
+> > for (i.pwr in 1:length(power.vec)) {
+> >   lines(100*change.vec,n.mat[,i.pwr], col = col.list[i.pwr])
+> > }
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-07-power-analysis-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
+> > 
+> > The variation in body weight is relatively small in C57BL/6J mice. Thus we can detect very 
+> > small (5%) changes in body weight with only a few mice.
 > {: .solution}
 {: .challenge}
 
