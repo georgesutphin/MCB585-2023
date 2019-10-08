@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-10-02 23:46:27 -0700">
+    <meta http-equiv="last-modified" content="2019-10-08 01:12:06 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -126,6 +126,8 @@
             <li><a href="../06-hypothesis-testing/index.html">Hypothesis testing in R</a></li>
             
             <li><a href="../07-power-analysis/index.html">Power Analysis</a></li>
+            
+            <li><a href="../08-multiple-test-correction/index.html">Multiple Comparisons</a></li>
             
 	    <li role="separator" class="divider"></li>
             <li><a href="../aio.html">All in one page (Beta)</a></li>
@@ -1076,15 +1078,15 @@ computational biology projects</a> by William Stafford Noble.</p>
 </span></code></pre></div></div>
 
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells  583218 31.2    1254921 67.1  1254921 67.1
-Vcells 1125494  8.6    8388608 64.0  2278615 17.4
+Ncells  583315 31.2    1257275 67.2  1257275 67.2
+Vcells 1125567  8.6    8388608 64.0  2280525 17.4
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system.time</span><span class="p">(</span><span class="n">avg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">analyze</span><span class="p">(</span><span class="n">inflam.files</span><span class="p">))</span><span class="w">
 </span></code></pre></div></div>
 
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   user  system elapsed 
-   0.05    0.00    0.05 
+   0.03    0.00    0.03 
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system.time</span><span class="p">(</span><span class="n">avg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">analyze2</span><span class="p">(</span><span class="n">inflam.files</span><span class="p">))</span><span class="w">

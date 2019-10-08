@@ -126,7 +126,7 @@ install.packages("pwr")
 package 'pwr' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\Rtmp4clB3g\downloaded_packages
+	C:\Users\sutph\AppData\Local\Temp\RtmpOW63td\downloaded_packages
 ~~~
 {: .output}
 
@@ -205,7 +205,8 @@ So, we only need to test ~7 mice per groups to detect a 20% change in body weigh
 
 > ## Changing strains
 >
-> Calculate the sample size needed to detect a 10% change in A/J body weight with 95% power at 0.5 significance
+> Calculate the sample size needed to detect a 10% change in A/J body weight with 95% power at 0.05 
+> significance
 >
 > > ## Solution
 > > 

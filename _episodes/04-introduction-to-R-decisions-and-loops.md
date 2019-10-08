@@ -1023,8 +1023,8 @@ gc() # clean things up first
 
 ~~~
           used (Mb) gc trigger (Mb) max used (Mb)
-Ncells  583218 31.2    1254921 67.1  1254921 67.1
-Vcells 1125494  8.6    8388608 64.0  2278615 17.4
+Ncells  583315 31.2    1257275 67.2  1257275 67.2
+Vcells 1125567  8.6    8388608 64.0  2280525 17.4
 ~~~
 {: .output}
 
@@ -1039,7 +1039,7 @@ system.time(avg <- analyze(inflam.files))
 
 ~~~
    user  system elapsed 
-   0.05    0.00    0.05 
+   0.03    0.00    0.03 
 ~~~
 {: .output}
 
