@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-10-02 23:46:27 -0700">
+    <meta http-equiv="last-modified" content="2019-10-08 01:12:06 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -126,6 +126,8 @@
             <li><a href="../06-hypothesis-testing/index.html">Hypothesis testing in R</a></li>
             
             <li><a href="../07-power-analysis/index.html">Power Analysis</a></li>
+            
+            <li><a href="../08-multiple-test-correction/index.html">Multiple Comparisons</a></li>
             
 	    <li role="separator" class="divider"></li>
             <li><a href="../aio.html">All in one page (Beta)</a></li>
@@ -743,11 +745,17 @@ causing the errors?</p>
 </span><span class="n">list.files</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "01-R-RStudio-setup.Rmd"                
-[2] "02-introduction-to-R-basics.Rmd"       
-[3] "03-introduction-to-R-data-plotting.Rmd"
-[4] "data"                                  
-[5] "results"                               
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "01-R-RStudio-setup.Rmd"                      
+ [2] "02-introduction-to-R-basics.Rmd"             
+ [3] "03-introduction-to-R-data-plotting.Rmd"      
+ [4] "04-introduction-to-R-decisions-and-loops.Rmd"
+ [5] "05-distributions.Rmd"                        
+ [6] "06-hypothesis-testing.Rmd"                   
+ [7] "07-power-analysis.Rmd"                       
+ [8] "08-multiple-test-correction.Rmd"             
+ [9] "data"                                        
+[10] "inflammation-01.pdf"                         
+[11] "results"                                     
 </code></pre></div></div>
 
 <p> </p>
@@ -786,7 +794,7 @@ The following error message indicates that R has failed to set the working direc
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="s1">'pwr'</span> <span class="n">successfully</span> <span class="n">unpacked</span> <span class="k">and</span> <span class="n">MD5</span> <span class="n">sums</span> <span class="n">checked</span>
 
 <span class="n">The</span> <span class="n">downloaded</span> <span class="n">binary</span> <span class="n">packages</span> <span class="n">are</span> <span class="k">in</span>
-	<span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sutph</span><span class="p">\</span><span class="n">AppData</span><span class="p">\</span><span class="n">Local</span><span class="p">\</span><span class="n">Temp</span><span class="p">\</span><span class="n">RtmpGS4OK8</span><span class="p">\</span><span class="n">downloaded_packages</span>
+	<span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sutph</span><span class="p">\</span><span class="n">AppData</span><span class="p">\</span><span class="n">Local</span><span class="p">\</span><span class="n">Temp</span><span class="p">\</span><span class="n">RtmpW6f8hu</span><span class="p">\</span><span class="n">downloaded_packages</span>
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Load required packages into memory</span><span class="w">

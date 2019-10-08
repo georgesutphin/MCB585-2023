@@ -654,11 +654,17 @@ list.files()
 
 
 ~~~
-[1] "01-R-RStudio-setup.Rmd"                
-[2] "02-introduction-to-R-basics.Rmd"       
-[3] "03-introduction-to-R-data-plotting.Rmd"
-[4] "data"                                  
-[5] "results"                               
+ [1] "01-R-RStudio-setup.Rmd"                      
+ [2] "02-introduction-to-R-basics.Rmd"             
+ [3] "03-introduction-to-R-data-plotting.Rmd"      
+ [4] "04-introduction-to-R-decisions-and-loops.Rmd"
+ [5] "05-distributions.Rmd"                        
+ [6] "06-hypothesis-testing.Rmd"                   
+ [7] "07-power-analysis.Rmd"                       
+ [8] "08-multiple-test-correction.Rmd"             
+ [9] "data"                                        
+[10] "inflammation-01.pdf"                         
+[11] "results"                                     
 ~~~
 {: .output}
 
@@ -699,7 +705,7 @@ install.packages("pwr")
 package 'pwr' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\RtmpGS4OK8\downloaded_packages
+	C:\Users\sutph\AppData\Local\Temp\RtmpW6f8hu\downloaded_packages
 ~~~
 {: .output}
 

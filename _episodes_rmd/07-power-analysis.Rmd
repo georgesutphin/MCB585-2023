@@ -173,7 +173,8 @@ So, we only need to test ~7 mice per groups to detect a 20% change in body weigh
 
 > ## Changing strains
 >
-> Calculate the sample size needed to detect a 10% change in A/J body weight with 95% power at 0.5 significance
+> Calculate the sample size needed to detect a 10% change in A/J body weight with 95% power at 0.05 
+> significance
 >
 > > ## Solution
 > > ```{r}
