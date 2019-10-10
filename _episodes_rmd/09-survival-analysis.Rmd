@@ -1,0 +1,489 @@
+---
+title: "Survival Analysis"
+classdate: "10/10/2019"
+teaching: 80
+exercises: 25
+questions:
+- "How is time-to-event data structured?"
+- "What are the elements that separate time-to-event data from single-point observations?"
+- "How do we visualize and analyze time-to-event data?"
+objectives:
+- "Describe the basic structure of time-to-event data." 
+- "Understand censoring and how it affects time-to-event data."
+- "Use the `survival() package to generate survival curves, age-specific mortality plots, and perform Log-Rank tests."
+keypoints:
+- "Time-to-event data includes a hybrid of an observation (event vs. no event) and a series of observation times."
+- "Time-to-event data analysis violates several assumptions made by standard tests, including normality and independence of observations."
+- "Censoring complicates analysis and is not handled by standard statistical tests. Instead, we use the Log-Rank test for basic survival comparisons."
+- "Unlike the survival function, age-specific mortality at any given time does not depend on previous observations."
+source: Rmd
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("09-survival-analysis-")
+```
+
+So far we have mostly been dealing with data that meets that basic assumptions of a t-test or other common statistical tests. In this class, we are going to look at a category of data that requires special consideration. Time-to-event data (e.g. survival or lifespan data) violates several assumptions made by many of our standard tests:
+
+* It is not generally normally distributed.
+* Observations are not independent (more below on this).
+* Data is often censored.
+
+In the following sections we will examine common methods for formatting, displaying, and analyzing time-to-event data, and how to implement these methods in R.
+
+***
+#### Missing data and censoring
+
+When you are dealing with time-to-event data, subjects are selected (aka sampled) and observed repeatedly until some event occurs (or does not occur). This opens the possibility that a study will be completed without an observation occurring. This can happen for a few reasons:
+
+* A subject is removed from the study (e.g. a patient in a drug trial stops taking the drug on their own)
+* A related event occurs that precludes occurrence of the event of interest (e.g. a patient in a cancer drug trial is killed in a car accident; this prevents the event of interest, "death from cancer" from occurring)
+* The study completed before an event occurred for a subject (but the subject is still in the study)
+
+There are three types of censoring:
+
+1. Right-censoring: the event of interest occurs after some time *t*, but the specific time of is unknown.
+ + e.g. subject dies of an unrelated cause 
+ + e.g. subject is still alive at the end of the study
+2. Left-censoring: an individual’s entry date is unknown (e.g. birthdate in lifespan studies).
+ + e.g. a subject infected with a pathogen enters a study, but the infection date is unknown 3. Interval-censoring: the vent of interest occurred in a known interval, but the precise time is unknown.
+ + e.g. a patient is diagnosed with the disease of interest during a follow-up visit after a study concludes
+
+Right-censoring is the most common (particularly when using a model organism in the lab, where birthdate or other entry criteria can be tightly controlled, but an individual exiting a study can happen for various reasons). We will examine right-censoring in this class.
+
+> ## Why not just exclude censored data?
+> 
+> One option for dealing with an unexpected event (e.g. your mouse escapes 18 months 
+> into your lifespan study) is to just leave out the data for that individual. This has
+> at least two problems for your analysis:
+> 
+> * What if the unexpected event is correlated with you outcome of interest? For example,
+> perhaps only mice that are still healthy and likely to have a long remaining lifespan
+> will be capable of escaping at 18 months of age. By not considering these mice, you will 
+> shift the distribution.
+> * Because the procedure in these studies is to (1) select a sample, and (2) make repeated
+> observations until the event occurs, we already have observations collected up until 
+> the time point when an individual is censored. Removing the individual from the analysis
+> removes potentially valuable data (e.g. the mouse live at least 18 months).
+{: .callout}
+
+***
+### Survival curves
+
+The most common form of data presented for time-to-event data is the survival curve. The curve shows the fraction or percentage of the population surviving at a given time. The time measure can be age (as is the case for lifespan) or some other relevant defined point (e.g. diagnosis with a disease, cancer remission, time of treatment). 
+
+<img src="../fig/generic-survival-curve.png" alt="Survival Curve" />
+
+Of course, we generally don't know the survival for every individual in the population and need to draw a best estimate from our sample data. To deal with this issue, we use two tools called the *Life Table*, to generate information about the survival characteristics over time, and *Kaplan-Meier curves* to draw approximate survival curves from sample data.
+
+&nbsp;
+#### The Life Table
+
+The *Life Table* is a systematic way to tabulate observations and estimate survival parameters based on sample data. A Life Table has the following basic information:
+
+<img src="../fig/life-table-partial.png" alt="Partial Life Table" />
+
+* $$t_0$$ start time, relative to the time period of interest (e.g. for lifespan data, each individual's birth is set to time 0, even if they were born on different dates) 
+* $$t$$ observation time 
+* $$d_t$$ number of events observed at at time t
+* $$n_0 = \sum d_t$$ original sample size (number of individuals in the sample prior to censoring or events)
+* $$n_t = n_0 - \sum_{x = 0}^{t-1} d_x$$ number of individuals at risk at time t (e.g. sampled, uncensored individuals with no event by time t)
+* $$l_t = \frac{n_t}{n_0}$$ fraction of the sample remaining at risk by time t
+* $$S(t) \approx l_t$$ survival function, the fraction of the population at risk (aka "surviving to") time t 
+
+We estimate the survival function by plotting $$l_t$$ vs. age $$t$$. Let's examine the survival of the US population as an example. The life table is stored in `S2011.life.table.txt`.
+
+```{r}
+lt <- read.delim("./data/US2011.life.table.txt")
+str(lt)
+```
+
+&nbsp; 
+
+Note that what I called $$n_t$$ this particular data set calls $$l_x$$ (and that all subscripts are "x" instead of "t"). Some of the above variables (e.g. our $$l_t$$) are missing. To start, let's rename the variables to match our convention and calculate $$l_t$$:
+
+```{r}
+# rename life table variables
+names(lt) = c("t","qt","nt","dt","Lt","Tt","et")
+
+# calculate l{t}
+lt$lt = lt$nt/max(lt$nt)
+head(lt)
+```
+
+&nbsp; 
+
+Now we can plot the survival curve:
+
+```{r}
+plot(lt$t,lt$lt, type = "l",
+     main="US Survival 2011",
+     xlab="Age (years)",ylab="Fraction Surviving")
+```
+
+&nbsp; 
+
+Great! That looks like a standard survival curve to me. We can see that median lifespan is around 85 years and maximum is out around 100. The tip of the tail, which won't appear on this chart, which only has ~100,000 people, is really out at 122 or so.
+
+From the equation for $$l_t$$, we can see that it depends on $$n_t$$, which in turn depends on all of the previously observed events ($$d_0$$ to $$d_t-1$$). Thus the survival function cannot be considered an variable with independent observations. This is one reason we can't use a t-test to make comparisons. For that we need to look at a different aspect of time-to-event data. A complete life table will have a few more columns:
+
+<img src="../fig/life-table-full.png" alt="Full Life Table" />
+
+* $$p_t = l_{t+1}/l_t$$ probability that someone with no event at time t will still have no event by time t + 1.
+* $$q_t = 1 - p_t$$ probability that someone with no event at time t will experience the event by time t + 1.
+* $$\lambda(t) = -\frac{\delta}{dx} ln[S(x)] \approx -ln(p_t)$$ instantaneous rate at which the event occurs at time t; the slope of the log of the survival function.
+
+The last variable, $$\lambda(t)$$ is called the hazard function (aka hazard rate, $$h(x)$$), or in the context of survival data, age-specific mortality or force of mortality ($$\mu_x$$). Conceptually, age-specific mortality represents the change of an individual dying at that specific age. 
+
+$$\lambda(t)$$, while not normally distributed, does not depend on previous observations, and can thus be considered a variable for which observations are independent. This allows us to make statistical comparisons. Let's look at how $$\lambda(t)$$ behaves.
+
+```{r}
+# calculate pt and lambdat
+lt$pt = 1 - lt$qt
+lt$lambdat = -log(lt$pt)
+
+# plot age specific mortality -- does the shape look familiar?
+plot(lt$t, lt$lambdat, type = "l",
+     main="US Age-Specific Mortality 2011",
+     xlab="Age (years)", ylab="Age-Specific Mortality")
+```
+
+&nbsp;
+
+Does that shape look familiar? It appears to increase exponentially with age. Try plotting the y-axis on a log-scale (using the `log = "y"` argument in plot) (alternatively, we could also plot `log(lt$lambdat)`:
+
+```{r}
+plot(lt$t, lt$lambdat, type = "l", log="y",
+     main="US Age-Specific Mortality 2011",
+     xlab="Age (years)",
+     ylab="Age-Specific Mortality")
+```
+
+&nbsp;
+
+Despite the some odd behavior during the early part of life, age-specific mortality appears to increase linearly during the majority of adulthood. That looks like something we can model!
+
+> ## Minimum age-specific mortality
+>
+> As an aside, what is up with that minimum point? At what age does that occur?
+> 
+> ```{r}
+> lt$t[which.min(lt$lambdat)]
+> ```
+>
+> &nbsp;
+> 
+> What happens to humans at roughly 10 years of age? Puberty! Thinking from an 
+> evolutionary perspective, it makes sense that the minimum change of dying should
+> occur at the point of maximum reproductive potential. Ability to reproduce is 
+> a primary driver of species survival, and remaining reproductive potential only
+> decreases with increasing age. 
+> 
+> Incidentally, this is one of the major categories of theory for why we age in 
+> the first place. It isn't so much that aging is selected for, but that the decline
+> in "remaining reproductive potential" decreases as we get older, and thus the selection
+> pressure steadily reduces. If an allele gives us a boost to reproduction or health 
+> early in life, it may be selected for even if it causes a fatal disease later in life. 
+{: .callout}
+
+&nbsp;
+#### Kaplan-Meier curves
+
+We never actually know the "real" shape of the survival curve for our population, or even our sample, because of the structure of time-to-event data. This is true for two reasons:
+
+* We often have missing data that requires censoring (i.e. the event was never observed)
+* Subjects are only observed at discrete time points, so we don't have access to the exact time that the event occurred. We instead know that the event had not occurred at some time *t - 1*, but that the event had occurred by time *t*. 
+
+There is a type of survival curve estimator called the Kaplan-Meier curve which allows us to approximate the shape of the survival curve for a given set of time-to-event observations. Kaplan-Meier curves have the following properties.
+
+* Estimates true survival curve when data is missing (i.e. when one or more observations is censored)
+* Assumes that no deaths occur between observation times (i.e. approximates that each event occurred at the observation time, rather than at some unknown time between observations)
+* Tick marks are used to indicate time at which a subject was censored for missing data.
+* For the purposes of drawing the curve, censored individuals are included in the "total" or "at risk" sample size up until the time point where they were censored. After that point, the change in curve height for a new event occurrence is dependent on the reduced sample size with out the censored individual.
+
+This is because the pool of patients remaining "at risk" for the event drops when either an event is experienced or when a patient is censored.
+
+<img src="../fig/kaplan-meier-curve.jpg" alt="Kaplan-Meier Curve" />
+
+When an event occurs, the curve drops by a fraction of the remaining "at risk" pool *at that time point*. As patients are censored without an observed event, the remaining "at risk" pool decreases. Thus subsequent events drop the remaining % remaining by a larger and larger margin. A good step-by-step guide to how Kaplan-Meier curves are drawn can be found [here](https://towardsdatascience.com/kaplan-meier-curves-c5768e349479).
+
+Let's look at our inbred mouse data for an example. Make sure that the `survival` package is loaded, and read in the mouse lifespan data. For our purposes, let's look specifically at the strain BUB/BnJ, which has some mice censored.
+
+```{r}
+# load survival package
+library("survival")
+
+# read in inbred strain lifespan data
+data.surv <- read.delim("data/inbred.lifespan.txt")
+
+# grab the subset of data for BUB/BnJ 
+surv.bub <- data.surv[data.surv$strain == "BUB/BnJ",]
+```
+
+&nbsp;
+
+For survival analysis, the survival packages uses an odd notation for simulating the survival curve. In order to include data censoring, instead of using `lifespan_days` directly as the dependent variable, we use the notation `Surv(time, event status)`. This tells R that we have a set of censored survival data with observed event times (`lifespan_days`), and some mice that were censored and not observed to have died (`censor`). 
+
+In our case, we use the `lifespan_days` as the time that we observed the event, and `censor` as our status variable. An important note: what `Surv()` wants for status is whether the event occurred. In this particular data set, the event was assumed to occur unless something odd happened (e.g. the mouse escaped), so `censor` is "0" when the mouse died (the event occurred) and "1" when something else happened (e.g. the mouse was "censored" and removed from the study because death, the event, was never observed). Thus we need to tell R that `censor == 0` means "the event occurred". 
+
+The `survfit()` function builds the life table that we need for our analyses. We embed the `Surv()` object as the dependent variable in side the `survfit()` function. `survfit()` *always* needs an independent variable. If you want to just plot all of the data as a single curve, you can just give it "1":
+
+```{r}
+# calculate life table for BUB/BnJ mice
+survfit.bub <- survfit(Surv(lifespan_days, censor == 0) ~ 1, data=surv.bub)
+
+# use summary() to look at the life table
+summary(survfit.bub)
+```
+
+&nbsp;
+
+Now that we have the survival function, the `plot()` function knows what we want to do with it: plot the Kaplan-Meier curve:
+
+```{r}
+# Plot the Kaplan-Meier curve
+plot(survfit.bub, xlab = "Time (days)", 
+     ylab="Fraction surviving", 
+     conf.int=FALSE,              # turn of confidence intervals
+     mark.time = TRUE,            # mark time of censor
+     main="BUB/BnJ Survival")
+```
+
+&nbsp;
+
+We can also break the data down into the two sexes. We do this using the dependent variable at the `survfit()` step:
+
+```{r}
+# calculate life table for BUB/BnJ mice
+survfit.bub.sex <- survfit(Surv(lifespan_days, censor == 0) ~ sex, data=surv.bub)
+
+# use summary() to look at the life table
+summary(survfit.bub.sex)
+```
+
+&nbsp;
+
+And now `plot()` to generate the Kaplan-Meier curves:
+
+
+```{r}
+# Plot the Kaplan-Meier curve
+plot(survfit.bub.sex, xlab = "Time (days)", 
+     ylab="Fraction surviving", 
+     col = c("red","blue"),
+     conf.int=FALSE,              # turn of confidence intervals
+     mark.time = TRUE,            # mark time of censor
+     main="BUB/BnJ Survival")
+
+# add legend
+legend("topright", lty = 1,
+       col = c("red","blue"),
+       legend = c("f","m"))
+```
+
+***
+### The Log-Rank Test 
+
+Now we can visualize our lifespan data. How doe we compare different groups? The most common test for lifespan data is the Log-Rank Test (aka the Mantel-Cox Test). The Log-Rank Test makes the assumption that the survival functions ($$S(t)$$) are the same for the two groups under the null hypothesis (essentially, this means that any censoring is correlated with survival). What the test does it:
+
+1. Assume that the survival is equal and that any censoring does not impact the survival function.
+2. At each observation point, calculate the difference in the number of observed events between comparison groups.
+3. Sum the differences across time points to calculate the test statistics: $$z = \frac{\sum_{j=1}^{J} (O_{1j} - O_{2j})}{\sqrt{\sum_{j=1}^{J} V_j}}$$
+4. This test statistic is approximately normally distributed and can be used to calculate the probability that the observed difference represents a sample from the null distribution (or not) at a given $$\alpha$$.
+
+In R, the `survdiff()` function performs a Log-Rank test using the same dependent and independent variable format as `survfit()`. Let's use it to see if there are differences in lifespan between male and female BUB/BnJ mice:
+
+```{r}
+survdiff(Surv(lifespan_days, censor == 0) ~ sex, data = surv.bub)
+```
+
+> ## Summary of survival package notation in R
+> 
+> * Surv(age, event) ~ groups
+>  + Creates a “survival object” that is basically just a function that indicates the 
+>  comparison we are interested in making
+>  + “age” = age that the event occurred
+>  + “event” = had the event (e.g. death) occurred at observation (1 = yes, 0 = no)
+>  + “groups” = data subsets to compare (e.g. sex, genotype)
+>
+> * survfit(Surv(age, event) ~ groups)
+>  + Generates a life table from a survival object, separated by groups
+>  + Used for plotting survival curves
+>
+> * survdiff(Surv(age, event) ~ groups))
+>  + Conducts a log-rank test between groups
+{: .callout}
+
+*** 
+### Exercises
+
+> ## Differences in male vs. female survival and mortality in moder US humans
+> 
+> Earlier we looked at survival and mortality in the US population. Now let's
+> see how these differ by sex. Plot male and female survival and age-specific 
+> mortality  on the same plot for comparison. The life tables are stored in 
+> `US2011.life.table.male.txt` and `US2011.life.table.female.txt`, respectively.
+> 
+> > ## Solution
+> > 
+> > ```{r}
+> > # load data
+> > lt.male <- read.delim("./data/US2011.life.table.male.txt")
+> > lt.female <- read.delim("./data/US2011.life.table.female.txt")
+> > 
+> > # change names to our convention
+> > names(lt.male) = c("t","qt","nt","dt","Lt","Tt","et")
+> > 
+> > # calculate lt, pt, and lambdat
+> > lt.male$lt = lt.male$nt/max(lt.male$nt)
+> > lt.male$pt = 1 - lt.male$qt
+> > lt.male$lambdat = -log(lt.male$pt)
+> > 
+> > # change names to our convention (lx -> nx)
+> > names(lt.female) = c("t","qt","nt","dt","Lt","Tt","et")
+> > 
+> > # calculate lt, pt, and lambdat
+> > lt.female$lt = lt.female$nt/max(lt.female$nt)
+> > lt.female$pt = 1 - lt.female$qt
+> > lt.female$lambdat = -log(lt.female$pt)
+> > 
+> > # plot survival curves
+> > plot(lt.female$t, lt.female$lt, type = "l", col = "red",
+> >      main="US Survival 2011",
+> >      xlab="Age (years)",ylab="Fraction Surviving")
+> > lines(lt.male$t, lt.male$lt,col="blue")
+> > 
+> > # plot age-specific mortality
+> > plot(lt.female$t, lt.female$lambdat, type = "l",
+> >      col="red",log="y",
+> >      main="US Age-Specific Mortality 2011",
+> >      xlab="Age (years)", ylab="Age-Specific mortality")
+> > lines(lt.male$t, lt.male$lambdat, col="blue")
+> > ```
+> {: .solution}
+{: .challenge}
+
+> ## Example 3: Leukemia -- log-rank test (survdiff function)
+> 
+> The survival package includes the Acute Myelogenous Leukemia (AML) survival dataset.
+> Open the help for `aml` for a description of the data. the "x" column indicates whether
+> a particular chemotherapy treatment was continued/maintained or discontinued.
+> 
+> 1. Open and examine the data, and plot a Kaplan-Meier curve for all data.
+> 2. Plot the Kaplan-Meier curves broken down by treatment, and calculate the
+> Log-Rank P-value to determine whether the differences are signifcant.
+> 3. Extra challenge: extract the life tables for treated and untreated individuals
+> and plot age-specific morality
+> 
+> The data is stored in the `aml` dataframe, which is loaded with the `survival package.
+> 
+> *Note: unlike our mouse data, the `status` variable indicates whether a patient has died,
+> not patients that were censored. Be sure to indicate this appropriately in the `Surv()` 
+> object: `Surv(time, status == 1).
+> 
+> > ## Solution
+> > 
+> > 
+> > ```{r}
+> > # load the survival package
+> > library("survival")
+> > 
+> > # Examine the data
+> > head(aml)
+> > 
+> > # Create the life table for the aml data (all combined)
+> > survfit.aml <- survfit(Surv(time, status == 1) ~ 1, data=aml)
+> > 
+> > summary(survfit.aml)
+> > 
+> > # Plot the basic Kaplan-Meier curve for aml. Don't print the confidence interval.
+> > # We'll leave the 95% confidence intervals in place for fun.
+> > plot(survfit.aml, xlab = "Time (weeks)", 
+> >      ylab="Fraction surviving", 
+> >      mark.time = TRUE, 
+> >      main="Survival in AML")
+> > 
+> > # Create aml life tables and KM plots broken out by treatment (x,  "Maintained" vs. "Not maintained")
+> > survfit.aml.by.rx <- survfit(Surv(time, status == 1) ~ x, data = aml)
+> > summary(survfit.aml.by.rx)
+> > 
+> > # Plot KM broken out by treatment 
+> > plot(survfit.aml.by.rx, xlab = "Time", ylab="Survival",
+> >      col = c("black", "red"), lty = 1:2, 
+> >      main = "Kaplan-Meier Survival vs. Maintenance in AML")
+> > 
+> > # Add a legend so we know which is which
+> > legend("topright", c("Maintained", "Not maintained"), 
+> >        lty = 1:2, col=c("black", "red"))
+> > 
+> > # Perform the log rank test using the R function survdiff().
+> > aml.survdiff <- survdiff(Surv(time, status == 1) ~ x, 
+> >                         data=aml)
+> > aml.survdiff
+> > ```
+> > 
+> > Extra challenge: there is no function in R to directly plot $$\lambda(t)$$, so we have 
+> > to extract the life tables manually. The object created by taking a `summary()` of the `survfit()` 
+> > object has a variable called `strata` that defines the groups by which the comparison is broken down. 
+> > You can use this to subset the life table. 
+> > 
+> > ```{r}
+> > # first we need to assign the life table summary to an object
+> > aml.lt <- summary(survfit.aml.by.rx)
+> > 
+> > # extract age, and number of deaths and number at risk at each age from the
+> > # survfit object. We'll do the "Maintained" group first. For some reason the summary
+> > # is formatted in rows with a weird notation. It creates a new variable that combines
+> > # the header from our original input data with the value in the column; in this case
+> > # "x=Maintained" and "x=Nonmaintained". We have to use this to separate out the data
+> > age.main <- aml.lt$time[aml.lt$strata == "x=Maintained"]
+> > n.event.main <- aml.lt$n.event[aml.lt$strata == "x=Maintained"]
+> > n.risk.main <- aml.lt$n.risk[aml.lt$strata == "x=Maintained"]
+> > 
+> > # calculate qt; note that this is an alternative way to get qx from using the lx and
+> > # lx+1 values. If you rearrange the life table equations you can derive this form.
+> > qx.main <- n.event.main/n.risk.main
+> > 
+> > # now calculate px and mux (mu is age-specific mortality)
+> > px.main <- 1 - qx.main
+> > mux.main <- -log(px.main)
+> > 
+> > # for the non-maintenance group, I am just going to combine the above few steps
+> > # into a single step.
+> > age.nomain <- aml.lt$time[aml.lt$strata == "x=Nonmaintained"]
+> > mux.nomain <- -log(1 - aml.lt$n.event[aml.lt$strata == "x=Nonmaintained"]/aml.lt$n.risk[aml.lt$strata 
+> > == "x=Nonmaintained"])
+> > 
+> > # Now we can finally plot. Someone should write a function to do this...
+> > # Remember to put the y-axis on a log scale.
+> > plot(age.main,mux.main, col = "blue", log = "y", type="o", pch = 16, lwd = 1.7,  
+> >      xlab = "Age", ylab = "Age-Specific Mortality",
+> >      xlim = c(min(aml.lt$time),max(aml.lt$time)))
+> > lines(age.nomain,mux.nomain, col = "red", type="o", pch = 16, lwd = 1.7)
+> > legend("bottomright",legend = c("Maintained","Nonmaintained"), fill = c("blue","red"))
+> > ```
+> {: .solution}
+{: .challenge}
+
+> ## Comparison of female vs. male lifespan across strains
+>
+> We saw that lifespan was not significanlty different between female and male BUB/BnJ mice.
+> Is this universally true for different mouse strains?
+>
+> Write a script that does the following using the `inbred.lifespan.txt` data:
+> 1. Generate a PDF.
+> 2. On each page, plot female vs. male lifespan and mortality curves for one strain. Include
+> the following on each plot (hint: use the `text()` function):
+>  + strain name
+>  + Log-Rank P-value
+>  + Tick marks to indicate time of censoring
+>  + Legend to show female vs. male colors
+>
+> > ## Solution
+> > 
+> > [[UNDER CONSTRUCTION]]
+> {: .solution}
+{: .challenge}
+
+{% include links.md %}
