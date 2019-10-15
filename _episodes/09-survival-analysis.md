@@ -238,7 +238,7 @@ Despite the some odd behavior during the early part of life, age-specific mortal
 > early in life, it may be selected for even if it causes a fatal disease later in life. 
 {: .callout}
 
-nbsp;
+&nbsp;
 #### Kaplan-Meier curves
 
 We never actually know the "real" shape of the survival curve for our population, or even our sample, because of the structure of time-to-event data. This is true for two reasons:
@@ -473,7 +473,8 @@ In R, the `survdiff()` function performs a Log-Rank test using the same dependen
 
 
 ~~~
-survdiff(Surv(lifespan_days, censor == 0) ~ sex, data = surv.bub)
+logrank.bub <- survdiff(Surv(lifespan_days, censor == 0) ~ sex, data = surv.bub)
+logrank.bub
 ~~~
 {: .language-r}
 
@@ -490,6 +491,59 @@ sex=m 32       24     23.9  0.000893   0.00189
  Chisq= 0  on 1 degrees of freedom, p= 1 
 ~~~
 {: .output}
+
+So there is no difference in lifespan between male and female BUB/BnJ mice. There is a quirk with the `survdiff()` funciton in R. How do you extract the P-value? Looking at the survdiff object, there doesn't seem to be a clear way:
+
+
+~~~
+str(logrank.bub)
+~~~
+{: .language-r}
+
+
+
+~~~
+List of 6
+ $ n    : 'table' int [1:2(1d)] 32 32
+  ..- attr(*, "dimnames")=List of 1
+  .. ..$ groups: chr [1:2] "sex=f" "sex=m"
+ $ obs  : num [1:2] 24 24
+ $ exp  : num [1:2] 24.1 23.9
+ $ var  : num [1:2, 1:2] 11.3 -11.3 -11.3 11.3
+ $ chisq: num 0.00189
+ $ call : language survdiff(formula = Surv(lifespan_days, censor == 0) ~ sex, data = surv.bub)
+ - attr(*, "class")= chr "survdiff"
+~~~
+{: .output}
+
+&nbsp;
+
+Similar to how a t-test uses the t-distrubution (which is a modified normal distribution) to calculate a P-value based on the area under a well-defined portion of the probability density curve, the log-rank test calculates a different statisitcs, called $$\chi$$, and uses another well-defined distribution, the $$\chi^2$$ distribution, to calculate P-values.  
+
+For an obscure and mathematcially dense reason, the creator of the `survdiff()` function decided not to directly report the P-value in the output of the function. However, he did include the cacluated value of $$\chi^2$$, and R includes a function that defines the $$\chi^2$$ distrubtion, so we can realtively easily calculate it for ourselves.
+
+
+~~~
+# extract the value of the chi-squared statistic from the survdiff object
+# we also need the number of samples in each comparison group, 
+# which defines the degrees of freedom for the test
+chisq.bub <- logrank.bub$chisq
+n.bub <- logrank.bub$n
+
+# use the chisq statistic to calculate the P-value
+P.bub <- pchisq(chisq.bub, length(n.bub) - 1, lower.tail = F)
+
+P.bub
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 0.9653378
+~~~
+{: .output}
+
 
 > ## Summary of survival package notation in R
 > 
@@ -550,7 +604,7 @@ sex=m 32       24     23.9  0.000893   0.00189
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-09-survival-analysis-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-09-survival-analysis-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="612" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > # plot age-specific mortality
@@ -562,7 +616,7 @@ sex=m 32       24     23.9  0.000893   0.00189
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-09-survival-analysis-unnamed-chunk-14-2.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-09-survival-analysis-unnamed-chunk-16-2.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -656,7 +710,7 @@ sex=m 32       24     23.9  0.000893   0.00189
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-09-survival-analysis-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-09-survival-analysis-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > # Create aml life tables and KM plots broken out by treatment (x,  "Maintained" vs. "Not maintained")
@@ -708,7 +762,7 @@ sex=m 32       24     23.9  0.000893   0.00189
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-09-survival-analysis-unnamed-chunk-15-2.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-09-survival-analysis-unnamed-chunk-17-2.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
 > > 
 > > ~~~
 > > # Perform the log rank test using the R function survdiff().
@@ -775,7 +829,7 @@ sex=m 32       24     23.9  0.000893   0.00189
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-09-survival-analysis-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-09-survival-analysis-unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -797,6 +851,6 @@ sex=m 32       24     23.9  0.000893   0.00189
 > > 
 > > [[UNDER CONSTRUCTION]]
 > {: .solution}
-{: .challenge
+{: .challenge}
 
 {% include links.md %}

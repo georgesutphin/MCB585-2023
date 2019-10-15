@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2019-10-10 01:32:22 -0700">
+    <meta http-equiv="last-modified" content="2019-10-15 00:11:49 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -131,6 +131,8 @@
             
             <li><a href="../09-survival-analysis/index.html">Survival Analysis</a></li>
             
+            <li><a href="../10-simulating-experiments/index.html">Simulating Experiments</a></li>
+            
 	    <li role="separator" class="divider"></li>
             <li><a href="../aio.html">All in one page (Beta)</a></li>
           </ul>
@@ -205,7 +207,7 @@
   <div class="col-xs-1">
     <h3 class="text-right">
       
-      <a href="../"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span><span class="sr-only">lesson home</span></a>
+      <a href="../10-simulating-experiments/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
       
     </h3>
   </div>
@@ -478,7 +480,7 @@ pressure steadily reduces. If an allele gives us a boost to reproduction or heal
 early in life, it may be selected for even if it causes a fatal disease later in life.</p>
 </blockquote>
 
-<p>nbsp;</p>
+<p> </p>
 <h4 id="kaplan-meier-curves">Kaplan-Meier curves</h4>
 
 <p>We never actually know the “real” shape of the survival curve for our population, or even our sample, because of the structure of time-to-event data. This is true for two reasons:</p>
@@ -693,7 +695,8 @@ early in life, it may be selected for even if it causes a fatal disease later in
 
 <p>In R, the <code class="highlighter-rouge">survdiff()</code> function performs a Log-Rank test using the same dependent and independent variable format as <code class="highlighter-rouge">survfit()</code>. Let’s use it to see if there are differences in lifespan between male and female BUB/BnJ mice:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">survdiff</span><span class="p">(</span><span class="n">Surv</span><span class="p">(</span><span class="n">lifespan_days</span><span class="p">,</span><span class="w"> </span><span class="n">censor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">sex</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">surv.bub</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">logrank.bub</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">survdiff</span><span class="p">(</span><span class="n">Surv</span><span class="p">(</span><span class="n">lifespan_days</span><span class="p">,</span><span class="w"> </span><span class="n">censor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">sex</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">surv.bub</span><span class="p">)</span><span class="w">
+</span><span class="n">logrank.bub</span><span class="w">
 </span></code></pre></div></div>
 
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Call:
@@ -704,6 +707,44 @@ sex=f 32       24     24.1  0.000882   0.00189
 sex=m 32       24     23.9  0.000893   0.00189
 
  Chisq= 0  on 1 degrees of freedom, p= 1 
+</code></pre></div></div>
+
+<p>So there is no difference in lifespan between male and female BUB/BnJ mice. There is a quirk with the <code class="highlighter-rouge">survdiff()</code> funciton in R. How do you extract the P-value? Looking at the survdiff object, there doesn’t seem to be a clear way:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">logrank.bub</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>List of 6
+ $ n    : 'table' int [1:2(1d)] 32 32
+  ..- attr(*, "dimnames")=List of 1
+  .. ..$ groups: chr [1:2] "sex=f" "sex=m"
+ $ obs  : num [1:2] 24 24
+ $ exp  : num [1:2] 24.1 23.9
+ $ var  : num [1:2, 1:2] 11.3 -11.3 -11.3 11.3
+ $ chisq: num 0.00189
+ $ call : language survdiff(formula = Surv(lifespan_days, censor == 0) ~ sex, data = surv.bub)
+ - attr(*, "class")= chr "survdiff"
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Similar to how a t-test uses the t-distrubution (which is a modified normal distribution) to calculate a P-value based on the area under a well-defined portion of the probability density curve, the log-rank test calculates a different statisitcs, called <script type="math/tex">\chi</script>, and uses another well-defined distribution, the <script type="math/tex">\chi^2</script> distribution, to calculate P-values.</p>
+
+<p>For an obscure and mathematcially dense reason, the creator of the <code class="highlighter-rouge">survdiff()</code> function decided not to directly report the P-value in the output of the function. However, he did include the cacluated value of <script type="math/tex">\chi^2</script>, and R includes a function that defines the <script type="math/tex">\chi^2</script> distrubtion, so we can realtively easily calculate it for ourselves.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># extract the value of the chi-squared statistic from the survdiff object</span><span class="w">
+</span><span class="c1"># we also need the number of samples in each comparison group, </span><span class="w">
+</span><span class="c1"># which defines the degrees of freedom for the test</span><span class="w">
+</span><span class="n">chisq.bub</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">logrank.bub</span><span class="o">$</span><span class="n">chisq</span><span class="w">
+</span><span class="n">n.bub</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">logrank.bub</span><span class="o">$</span><span class="n">n</span><span class="w">
+
+</span><span class="c1"># use the chisq statistic to calculate the P-value</span><span class="w">
+</span><span class="n">P.bub</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pchisq</span><span class="p">(</span><span class="n">chisq.bub</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">n.bub</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">lower.tail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span><span class="w">
+
+</span><span class="n">P.bub</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0.9653378
 </code></pre></div></div>
 
 <blockquote class="callout">
@@ -769,7 +810,7 @@ mortality  on the same plot for comparison. The life tables are stored in
 </span><span class="n">lines</span><span class="p">(</span><span class="n">lt.male</span><span class="o">$</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">lt.male</span><span class="o">$</span><span class="n">lt</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s2">"blue"</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <p><img src="../fig/rmd-09-survival-analysis-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" /></p>
+    <p><img src="../fig/rmd-09-survival-analysis-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="612" style="display: block; margin: auto;" /></p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># plot age-specific mortality</span><span class="w">
 </span><span class="n">plot</span><span class="p">(</span><span class="n">lt.female</span><span class="o">$</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">lt.female</span><span class="o">$</span><span class="n">lambdat</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"l"</span><span class="p">,</span><span class="w">
@@ -779,7 +820,7 @@ mortality  on the same plot for comparison. The life tables are stored in
 </span><span class="n">lines</span><span class="p">(</span><span class="n">lt.male</span><span class="o">$</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">lt.male</span><span class="o">$</span><span class="n">lambdat</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s2">"blue"</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <p><img src="../fig/rmd-09-survival-analysis-unnamed-chunk-14-2.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" /></p>
+    <p><img src="../fig/rmd-09-survival-analysis-unnamed-chunk-16-2.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="612" style="display: block; margin: auto;" /></p>
   </blockquote>
 </blockquote>
 
@@ -857,7 +898,7 @@ object: `Surv(time, status == 1).</p>
      </span><span class="n">main</span><span class="o">=</span><span class="s2">"Survival in AML"</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <p><img src="../fig/rmd-09-survival-analysis-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" /></p>
+    <p><img src="../fig/rmd-09-survival-analysis-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" /></p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create aml life tables and KM plots broken out by treatment (x,  "Maintained" vs. "Not maintained")</span><span class="w">
 </span><span class="n">survfit.aml.by.rx</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">survfit</span><span class="p">(</span><span class="n">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aml</span><span class="p">)</span><span class="w">
@@ -899,7 +940,7 @@ object: `Surv(time, status == 1).</p>
        </span><span class="n">lty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s2">"black"</span><span class="p">,</span><span class="w"> </span><span class="s2">"red"</span><span class="p">))</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <p><img src="../fig/rmd-09-survival-analysis-unnamed-chunk-15-2.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" /></p>
+    <p><img src="../fig/rmd-09-survival-analysis-unnamed-chunk-17-2.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" /></p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Perform the log rank test using the R function survdiff().</span><span class="w">
 </span><span class="n">aml.survdiff</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">survdiff</span><span class="p">(</span><span class="n">Surv</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> 
@@ -957,11 +998,11 @@ You can use this to subset the life table.</p>
 </span><span class="n">legend</span><span class="p">(</span><span class="s2">"bottomright"</span><span class="p">,</span><span class="n">legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Maintained"</span><span class="p">,</span><span class="s2">"Nonmaintained"</span><span class="p">),</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"blue"</span><span class="p">,</span><span class="s2">"red"</span><span class="p">))</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <p><img src="../fig/rmd-09-survival-analysis-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="612" style="display: block; margin: auto;" /></p>
+    <p><img src="../fig/rmd-09-survival-analysis-unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" width="612" style="display: block; margin: auto;" /></p>
   </blockquote>
 </blockquote>
 
-<blockquote>
+<blockquote class="challenge">
   <h2 id="comparison-of-female-vs-male-lifespan-across-strains">Comparison of female vs. male lifespan across strains</h2>
 
   <p>We saw that lifespan was not significanlty different between female and male BUB/BnJ mice.
@@ -986,7 +1027,6 @@ the following on each plot (hint: use the <code class="highlighter-rouge">text()
 
     <p>[[UNDER CONSTRUCTION]]</p>
   </blockquote>
-  <p>{: .challenge</p>
 </blockquote>
 
 
@@ -1041,7 +1081,7 @@ the following on each plot (hint: use the <code class="highlighter-rouge">text()
   <div class="col-xs-1">
     <h3 class="text-right">
       
-      <a href="../"><span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span><span class="sr-only">lesson home</span></a>
+      <a href="../10-simulating-experiments/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
       
     </h3>
   </div>
