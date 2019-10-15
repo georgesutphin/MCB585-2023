@@ -295,8 +295,35 @@ Now we can visualize our lifespan data. How doe we compare different groups? The
 In R, the `survdiff()` function performs a Log-Rank test using the same dependent and independent variable format as `survfit()`. Let's use it to see if there are differences in lifespan between male and female BUB/BnJ mice:
 
 ```{r}
-survdiff(Surv(lifespan_days, censor == 0) ~ sex, data = surv.bub)
+logrank.bub <- survdiff(Surv(lifespan_days, censor == 0) ~ sex, data = surv.bub)
+logrank.bub
 ```
+
+So there is no difference in lifespan between male and female BUB/BnJ mice. There is a quirk with the `survdiff()` funciton in R. How do you extract the P-value? Looking at the survdiff object, there doesn't seem to be a clear way:
+
+```{r}
+str(logrank.bub)
+```
+
+&nbsp;
+
+Similar to how a t-test uses the t-distrubution (which is a modified normal distribution) to calculate a P-value based on the area under a well-defined portion of the probability density curve, the log-rank test calculates a different statisitcs, called $$\chi$$, and uses another well-defined distribution, the $$\chi^2$$ distribution, to calculate P-values.  
+
+For an obscure and mathematcially dense reason, the creator of the `survdiff()` function decided not to directly report the P-value in the output of the function. However, he did include the cacluated value of $$\chi^2$$, and R includes a function that defines the $$\chi^2$$ distrubtion, so we can realtively easily calculate it for ourselves.
+
+```{r}
+# extract the value of the chi-squared statistic from the survdiff object
+# we also need the number of samples in each comparison group, 
+# which defines the degrees of freedom for the test
+chisq.bub <- logrank.bub$chisq
+n.bub <- logrank.bub$n
+
+# use the chisq statistic to calculate the P-value
+P.bub <- pchisq(chisq.bub, length(n.bub) - 1, lower.tail = F)
+
+P.bub
+```
+
 
 > ## Summary of survival package notation in R
 > 
