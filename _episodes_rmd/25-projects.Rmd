@@ -1,6 +1,6 @@
 ---
 title: "Projects"
-classdate: "12/3/2019"
+classdate: "12/3/2019, 12/5/2019, 12/10/2019"
 teaching: 80
 exercises: 25
 questions:
