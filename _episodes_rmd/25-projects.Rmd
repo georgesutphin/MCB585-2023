@@ -1,6 +1,6 @@
 ---
 title: "Projects"
-classdate: "10/15/2019"
+classdate: "12/3/2019"
 teaching: 80
 exercises: 25
 questions:
@@ -17,11 +17,11 @@ source("../bin/chunk-options.R")
 knitr_fig_path("10-simulating-experiments-")
 ```
 
-MCB585 will culminate in the completion of individual final projects for each student. The goal of these projects will be to apply the skills learned in this course to a novel large dataset to evaluate a hypothesis, design an experiment, or explore the bahavior of a system.
+MCB585 will culminate in the completion of individual final projects for each student. The goal of these projects will be to apply the skills learned in this course to a novel large dataset to evaluate a hypothesis, design an experiment, or explore the behavior of a system.
 
 Each project will consist of three parts:
 
-1. **Proposal.** Each student should submit a written proposal (<1 page) that outlines the following:
+1. **Proposal (due 11/5/2019).** Each student should submit a written proposal (<1 page) that outlines the following:
  + The question being addressed. 
  + The dataset(s) to be used, with a descriptive details (e.g. number of samples, variables of interest, potential confounding variables). If a novel dataset is being used, the data should be included with the proposal.
  + The proposed analysis plan, including which tools/skills from the MCB585 coursework will be employed.
@@ -29,9 +29,9 @@ Each project will consist of three parts:
  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Note: The main purpose of the proposal is to allow the intructors to judge the scope of the project and provide feedback prior to the students beginning analysis.*
 
-2. **Report and Code.** A brief (<2 pages) report describing the findings of the project should be turned in once analysis is complete. The report should include (as a separate attachment in addition to the report) well-documented R or Matlab script or scripts that can be run to reproduce the analysis presented.
+2. **Report and Code (due 12/3/2019).** A brief (<2 pages) report describing the findings of the project should be turned in once analysis is complete. The report should include (as a separate attachment in addition to the report) well-documented R or Matlab script or scripts that can be run to reproduce the analysis presented.
 
-3. **Presentation.** During the last 3 days of class, each student will give a 10-15 minute presentation describing:
+3. **Presentations (12/3/2019, 12/5/2019, 12/10/2019).** During the last 3 days of class, each student will give a 10-15 minute presentation describing:
  + The question that they chose to explore.
  + The approach that they used in their analysis.
  + What they discovered.
@@ -61,6 +61,8 @@ Each project will consist of three parts:
 >    + [D. John Rasp's Datasets for Classroom Use](https://www2.stetson.edu/~jrasp/data.htm)
 >    + [Berkeley Library Health Statistics & Data Datasets](https://guides.lib.berkeley.edu/publichealth/healthstatistics/rawdata)
 >    + [Stanford Statweb Public Data Repositories](http://statweb.stanford.edu/~sabatti/data.html)
+>    + [LINCS Data Portal Datasets](http://lincsportal.ccs.miami.edu/datasets/)
+
 
 ***
 ### Examples
@@ -70,7 +72,7 @@ Here are a few examples projects. Feel free to use one of these or some modifed 
 
 1. **Inbred mouse power charts.** Using the inbred mouse lifespan data, construct a series of power charts to use as a reference for mouse aging studies. Consider potential confounding factors, and compare the t-test method to the simulation method for determining sample size.
 
-2. **Re-examination of observation frequency in lifespan analysis.** In 2017, the Dana Miller (University of Washington) and Michael Petrascheck (Scripps Research Institute) published a joint paper examining how several technical aspects of experimental design affect reproducibility. They used a large set of wild-type *C. elegans* lifespan observations modeled using a Gompertz distribution. Reproduce this analysis using a novel dataset ("CHARGE.screen.lifespan.data.txt" in [MCB585-sample-data.zip]({{ page.root }}/data/MCB585-sample-data.zip), updated 10/21/2019) and at Weibull distribution.
+2. **Re-examination of observation frequency in lifespan analysis.** In 2017, the Dana Miller (University of Washington) and Michael Petrascheck (Scripps Research Institute) published a joint paper examining how several technical aspects of experimental design affect reproducibility ([Petrascheck & Miller, 2017](https://www.ncbi.nlm.nih.gov/pubmed/28713422)). They used a large set of wild-type *C. elegans* lifespan observations modeled using a Gompertz distribution. Reproduce this analysis using a novel dataset ("CHARGE.screen.lifespan.data.txt" in [MCB585-sample-data.zip]({{ page.root }}/data/MCB585-sample-data.zip), updated 10/21/2019) modeled using a Weibull distribution.
 
 3. **Demonstrate the predictions of the Central Limit Theorem.** We have repeatedly discussed the prediction of the Central Limit Theorem that, regardless of the shape of the population distribution, the sampling distribution for a phenotype will be approximately normal for large samples. Using a variety of shapes and extremes (e.g. highly skewed) simulated population distributions, explore the relationship between sample size and normality of the sampling distribution. For the set of distributions provided by default in R, see `?distributions`. 
 
