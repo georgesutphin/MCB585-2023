@@ -1,0 +1,45 @@
+---
+title: "This is only a test"
+classdate: "9/20/2020"
+teaching: 42
+exercises: 14
+questions:
+- "Why are we here?"
+objectives:
+- "Try and take over the world!."
+keypoints:
+- "Never start a land war in Asia."
+source: Rmd
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("10-simulating-experiments-")
+```
+
+Principles of world domination:
+* Just *don't*
+* Too much `pwr`
+
+***
+### Simulating power
+
+That was actually a real title in the class. Very different context.
+
+1. Do this:
+ + Don't do that.
+ + Just this.
+2. Stop. $$\alpha$$ $$\beta$$
+
+
+```{r}
+# load libraries
+library("survival")
+
+# Just because
+print("Hello World!")
+```
+
+This line intentionally left blank. **doh**
+
+{% include links.md %}
