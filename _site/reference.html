@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-04 16:42:11 -0700">
+    <meta http-equiv="last-modified" content="2020-08-13 23:11:33 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -113,29 +113,19 @@
           <a href="./" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
           <ul class="dropdown-menu">
             
-            <li><a href="./01-R-RStudio-setup/index.html">Getting started with R and RStudio</a></li>
+            <li><a href="./01-class-introduction/index.html">Getting started with R and RStudio</a></li>
             
-            <li><a href="./02-introduction-to-R-basics/index.html">Introduction to R -- Best Practices, Data Types, and Data Structures</a></li>
+            <li><a href="./01-oyo-introduction/index.html">Getting started with R and RStudio -- More Information</a></li>
             
-            <li><a href="./03-introduction-to-R-data-plotting/index.html">Introduction to R -- Reading, Writing, and Plotting Data</a></li>
+            <li><a href="./02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
-            <li><a href="./04-introduction-to-R-decisions-and-loops/index.html">Introduction to R -- Decisions and Loops</a></li>
+            <li><a href="./02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a></li>
             
-            <li><a href="./05-distributions/index.html">Distributions and assessing normality</a></li>
+            <li><a href="./03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="./06-hypothesis-testing/index.html">Hypothesis testing in R</a></li>
+            <li><a href="./03-oyo-Lists/index.html">Lists and Data Frames</a></li>
             
-            <li><a href="./07-power-analysis/index.html">Power Analysis</a></li>
-            
-            <li><a href="./08-multiple-test-correction/index.html">Multiple Comparisons</a></li>
-            
-            <li><a href="./09-survival-analysis/index.html">Survival Analysis</a></li>
-            
-            <li><a href="./10-simulating-experiments/index.html">Simulating Experiments</a></li>
-            
-            <li><a href="./11-testing-testing/index.html">This is only a test</a></li>
-            
-            <li><a href="./25-projects/index.html">Projects</a></li>
+            <li><a href="./99-projects/index.html">Final Projects</a></li>
             
 	    <li role="separator" class="divider"></li>
             <li><a href="./aio.html">All in one page (Beta)</a></li>
@@ -214,7 +204,7 @@
   
     <tr>
       <td class="col-md-3">
-        <a href="./01-R-RStudio-setup/index.html">Getting started with R and RStudio</a>
+        <a href="./01-class-introduction/index.html">Getting started with R and RStudio</a>
       </td>
       <td class="col-md-9">
         <ul>
@@ -242,78 +232,24 @@
   
     <tr>
       <td class="col-md-3">
-        <a href="./02-introduction-to-R-basics/index.html">Introduction to R -- Best Practices, Data Types, and Data Structures</a>
+        <a href="./01-oyo-introduction/index.html">Getting started with R and RStudio -- More Information</a>
       </td>
       <td class="col-md-9">
         <ul>
         
-        <li><p>Use <code class="highlighter-rouge">#</code> to add comments to programs.</p>
+        <li><p>R is the programming language; RStudio is a user friendly environment for interacting with R.</p>
 </li>
         
-        <li><p>Annotate your code!</p>
+        <li><p>Using RStudio can make programming in R much more productive.</p>
 </li>
         
-        <li><p>Name and style code consistently.</p>
+        <li><p>Consider what working directory you are in when sourcing a script.</p>
 </li>
         
-        <li><p>Break code into small, discrete pieces.</p>
+        <li><p>Use help() and ? to get basic information about functions.</p>
 </li>
         
-        <li><p>Factor out common operations rather than repeating them.</p>
-</li>
-        
-        <li><p>Keep all of the source files for a project in one directory and use relative paths to access them.</p>
-</li>
-        
-        <li><p>Keep track of session information in your project folder.</p>
-</li>
-        
-        <li><p>Start each program with a description of what it does.</p>
-</li>
-        
-        <li><p>Then load all required packages.</p>
-</li>
-        
-        <li><p>Use comments to mark off sections of code.</p>
-</li>
-        
-        <li><p>R’s basic data types are character, numeric, integer, complex, and logical.</p>
-</li>
-        
-        <li><p>R’s basic data structures include the vector, list, matrix, data frame, and factors. Some of these structures require that all members be of the same data type (e.g. vectors, matrices) while others permit multiple data types (e.g. lists, data frames).</p>
-</li>
-        
-        <li><p>Objects may have attributes, such as name, dimension, and class.</p>
-</li>
-        
-        <li><p>Factors are used to represent categorical data.</p>
-</li>
-        
-        <li><p>Factors can be <em>ordered</em> or <em>unordered</em>.</p>
-</li>
-        
-        <li><p>Some R functions have special methods for handling factors.</p>
-</li>
-        
-        <li><p>The function <code class="highlighter-rouge">dim</code> gives the dimensions of a data frame.</p>
-</li>
-        
-        <li><p>Use <code class="highlighter-rouge">object[x, y]</code> to select a single element from a data frame.</p>
-</li>
-        
-        <li><p>Use <code class="highlighter-rouge">from:to</code> to specify a sequence that includes the indices from <code class="highlighter-rouge">from</code> to <code class="highlighter-rouge">to</code>.</p>
-</li>
-        
-        <li><p>All the indexing and subsetting that works on data frames also works on vectors.</p>
-</li>
-        
-        <li><p>Arguments can be passed by matching based on name, by position, or by omitting them (in which case the default value is used).</p>
-</li>
-        
-        <li><p>Data in data frames can be addressed by index (subsetting), by logical vector, or by name (columns only).</p>
-</li>
-        
-        <li><p>Use the <code class="highlighter-rouge">$</code> operator to address a column by name.</p>
+        <li><p>Online forums have the answers to almost any R-related question you can come up with. Know how to Google your question!</p>
 </li>
         
         </ul>
@@ -324,33 +260,12 @@
   
     <tr>
       <td class="col-md-3">
-        <a href="./03-introduction-to-R-data-plotting/index.html">Introduction to R -- Reading, Writing, and Plotting Data</a>
+        <a href="./02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a>
       </td>
       <td class="col-md-9">
         <ul>
         
-        <li><p>Import data from a .csv or .txt file using the <code class="highlighter-rouge">read.table(...)</code>, <code class="highlighter-rouge">read.csv(...)</code>, and <code class="highlighter-rouge">read.delim(...)</code> functions.</p>
-</li>
-        
-        <li><p>Understand some of the key arguments available for importing the data properly, including <code class="highlighter-rouge">header</code>, and <code class="highlighter-rouge">stringsAsFactors</code>.</p>
-</li>
-        
-        <li><p>Write data to a new .csv file using the <code class="highlighter-rouge">write.table(...)</code> and <code class="highlighter-rouge">write.csv(...)</code> functions.</p>
-</li>
-        
-        <li><p>Understand some of the key arguments available for exporting the data properly, such as <code class="highlighter-rouge">row.names</code>, <code class="highlighter-rouge">col.names</code>, and <code class="highlighter-rouge">quote</code>.</p>
-</li>
-        
-        <li><p>Use <code class="highlighter-rouge">apply</code> to calculate statistics across the rows or columns of a data frame.</p>
-</li>
-        
-        <li><p>Use <code class="highlighter-rouge">plot</code> to create simple visualizations.</p>
-</li>
-        
-        <li><p>Display simple graphs.</p>
-</li>
-        
-        <li><p>Save a plot in a pdf file using <code class="highlighter-rouge">pdf(...)</code> and stop writing to the pdf file with <code class="highlighter-rouge">dev.off()</code>.</p>
+        <li><p>Class keypoints.</p>
 </li>
         
         </ul>
@@ -361,39 +276,12 @@
   
     <tr>
       <td class="col-md-3">
-        <a href="./04-introduction-to-R-decisions-and-loops/index.html">Introduction to R -- Decisions and Loops</a>
+        <a href="./02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a>
       </td>
       <td class="col-md-9">
         <ul>
         
-        <li><p>Use <code class="highlighter-rouge">length(thing)</code> to determine the length of something that contains other values.</p>
-</li>
-        
-        <li><p>Use <code class="highlighter-rouge">if (condition)</code> to start a conditional statement, <code class="highlighter-rouge">else if (condition)</code> to provide additional tests, and <code class="highlighter-rouge">else</code> to provide a default.</p>
-</li>
-        
-        <li><p>The bodies of conditional statements must be surrounded by curly braces <code class="highlighter-rouge">{ }</code>.</p>
-</li>
-        
-        <li><p>Use <code class="highlighter-rouge">==</code> to test for equality.</p>
-</li>
-        
-        <li><p><code class="highlighter-rouge">X &amp;&amp; Y</code> is only true if both X and Y are true.</p>
-</li>
-        
-        <li><p><code class="highlighter-rouge">X || Y</code> is true if either X or Y, or both, are true.</p>
-</li>
-        
-        <li><p>Use <code class="highlighter-rouge">for (variable in collection)</code> to process the elements of a collection one at a time.</p>
-</li>
-        
-        <li><p>The body of a <code class="highlighter-rouge">for</code> loop is surrounded by curly braces (<code class="highlighter-rouge">{}</code>).</p>
-</li>
-        
-        <li><p>Use functions such as <code class="highlighter-rouge">apply</code> instead of <code class="highlighter-rouge">for</code> loops to operate on the values in a data structure.</p>
-</li>
-        
-        <li><p>Use <code class="highlighter-rouge">list.files(path = "path", pattern = "pattern", full.names = TRUE)</code> to create a list of files whose names match a pattern.</p>
+        <li><p>Class keypoints.</p>
 </li>
         
         </ul>
@@ -404,15 +292,12 @@
   
     <tr>
       <td class="col-md-3">
-        <a href="./05-distributions/index.html">Distributions and assessing normality</a>
+        <a href="./03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a>
       </td>
       <td class="col-md-9">
         <ul>
         
-        <li><p>Understand basic model development and testing.</p>
-</li>
-        
-        <li><p>All statistical tests make assumptions about your sample and population. Understanding these assumptions is critical to running a valid test.</p>
+        <li><p>Class keypoints.</p>
 </li>
         
         </ul>
@@ -423,15 +308,12 @@
   
     <tr>
       <td class="col-md-3">
-        <a href="./06-hypothesis-testing/index.html">Hypothesis testing in R</a>
+        <a href="./03-oyo-Lists/index.html">Lists and Data Frames</a>
       </td>
       <td class="col-md-9">
         <ul>
         
-        <li><p>Understand basic model development and testing.</p>
-</li>
-        
-        <li><p>All statistical tests make assumptions about your sample and population. Understanding these assumptions is critical to running a valid test.</p>
+        <li><p>Class keypoints.</p>
 </li>
         
         </ul>
@@ -442,114 +324,7 @@
   
     <tr>
       <td class="col-md-3">
-        <a href="./07-power-analysis/index.html">Power Analysis</a>
-      </td>
-      <td class="col-md-9">
-        <ul>
-        
-        <li><p>The goal of experimental design is to minimize hypothesis testing errors.</p>
-</li>
-        
-        <li><p>The primary tool for improving statistical power is sample size.</p>
-</li>
-        
-        <li><p>R has basic tools for power analysis in the <code class="highlighter-rouge">pwr</code> package.</p>
-</li>
-        
-        </ul>
-      </td>
-    </tr>
-  
-
-  
-    <tr>
-      <td class="col-md-3">
-        <a href="./08-multiple-test-correction/index.html">Multiple Comparisons</a>
-      </td>
-      <td class="col-md-9">
-        <ul>
-        
-        <li><p>Running multiple comparisons increases you chance of making a Type I Error.</p>
-</li>
-        
-        <li><p>Different multiple test correction strategies correct for different types of errors (Type I vs. Type II) using different strategies.</p>
-</li>
-        
-        <li><p>The basic outcome of a multiple test correction is to lower the P-value threshold (<script type="math/tex">lpha</script>) below which you reject the null hypothesis.</p>
-</li>
-        
-        </ul>
-      </td>
-    </tr>
-  
-
-  
-    <tr>
-      <td class="col-md-3">
-        <a href="./09-survival-analysis/index.html">Survival Analysis</a>
-      </td>
-      <td class="col-md-9">
-        <ul>
-        
-        <li><p>Time-to-event data includes a hybrid of an observation (event vs. no event) and a series of observation times.</p>
-</li>
-        
-        <li><p>Time-to-event data analysis violates several assumptions made by standard tests, including normality and independence of observations.</p>
-</li>
-        
-        <li><p>Censoring complicates analysis and is not handled by standard statistical tests. Instead, we use the Log-Rank test for basic survival comparisons.</p>
-</li>
-        
-        <li><p>Unlike the survival function, age-specific mortality at any given time does not depend on previous observations.</p>
-</li>
-        
-        </ul>
-      </td>
-    </tr>
-  
-
-  
-    <tr>
-      <td class="col-md-3">
-        <a href="./10-simulating-experiments/index.html">Simulating Experiments</a>
-      </td>
-      <td class="col-md-9">
-        <ul>
-        
-        <li><p>Experiment simulations can be used to understand the behavior of an idealized system (i.e. a system lacking noise from sources like subjective observation and measurement error).</p>
-</li>
-        
-        <li><p>Power analyses can be conducted using pilot data and (potentially) removing assumptions about distribution.</p>
-</li>
-        
-        <li><p>In essence, an experiment simulation is used to build a ‘real’ sampling distribution from which to draw statistical parameters like significance and power.</p>
-</li>
-        
-        </ul>
-      </td>
-    </tr>
-  
-
-  
-    <tr>
-      <td class="col-md-3">
-        <a href="./11-testing-testing/index.html">This is only a test</a>
-      </td>
-      <td class="col-md-9">
-        <ul>
-        
-        <li><p>Never start a land war in Asia.</p>
-</li>
-        
-        </ul>
-      </td>
-    </tr>
-  
-
-  
-    <tr>
-      <td class="col-md-3">
-        <a href="./25-projects/index.html">Projects</a>
+        <a href="./99-projects/index.html">Final Projects</a>
       </td>
       <td class="col-md-9">
         <ul>

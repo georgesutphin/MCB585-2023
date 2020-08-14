@@ -6,7 +6,7 @@ root: .
 
 To participate in both in-class exercises and homework, you will need access to a computer with the current versions of the following installed:
 
-1. the [R software](https://cran.r-project.org/mirrors.html) itself, and
+1. the [R software](https://cran.r-project.org/) itself, and
 1. [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/#download).
 
 You also need to download some files to follow this lesson:

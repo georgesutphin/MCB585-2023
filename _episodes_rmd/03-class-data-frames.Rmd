@@ -1,0 +1,567 @@
+---
+title: "Data Frames, Basic Indexing, Reading/Writing Data"
+classdate: "9/2/2020 -- In Class"
+teaching: 90
+exercises: 30
+questions:
+- "Class questions."
+objectives:
+- "Class objectives."
+keypoints:
+- "Class keypoints."
+source: Rmd
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("03-class-data-frames-")
+```
+
+***
+## In Class
+
+***
+### Lists
+
+Lists in R act as containers. Unlike atomic vectors, the contents of a list are
+not restricted to a single mode and can encompass any mixture of data
+types. Lists are sometimes called "generic vectors"", because the elements of a
+list can by of any type of R object, even lists containing further lists. This
+property makes them fundamentally different from atomic vectors.
+
+A list is a special type of vector. Each element can be a different type, and is not restricted to a single value.
+
+Create lists using `list()` or coerce other objects using `as.list()`. An empty
+list of the required length can be created using `vector()`
+
+```{r}
+x <- list(1, "a", TRUE, 1+4i)
+x # A list does not print to the console like a vector. Instead, each element of the list starts on a new line.
+
+x <- vector("list", length = 5) # empty list
+length(x)
+x 
+```
+
+&nbsp;
+
+Vectors can be coerced to lists as follows:
+
+```{r}
+x <- 1:10
+x <- as.list(x)
+length(x)
+```
+
+&nbsp;
+#### Indexing lists
+
+Indexing works a bit differently for lists. The content of elements of a list can be retrieved by using double square brackets `[[n]]`, as opposed to the single square brackets `[n]` used for vectors and matrices.
+
+```{r}
+x[[1]]
+```
+
+
+> ## Examining Lists
+>
+> 1. What is the class of `x[1]`?
+> 2. What is the class of `x[[1]]`?
+>
+> > ## Solution
+> > 1. 
+> >     ```{r examine-lists-1}
+> >     class(x[1])
+> >     ```
+> > 2. 
+> >     ```{r examine-lists-2}
+> >     class(x[[1]])
+> >     ```
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+Elements of a list can be named (i.e. lists can have the `names` attribute)
+
+```{r}
+xlist <- list(a = "Karthik Ram", b = 1:10, data = head(iris))
+xlist
+names(xlist)
+attributes(xlist)
+```
+
+&nbsp;
+
+You can use the `$` operator to directly refer to named list elements by their name:
+
+```{r}
+xlist[[1]]
+xlist$a
+```
+
+> ## Examining Named Lists
+>
+> 1. What is the length of the `xlist` object?
+> 2. What is its structure?
+>
+> > ## Solution
+> > 1. 
+> >     ```{r examine-named-lists-1}
+> >     length(xlist)
+> >     ```
+> > 2. 
+> >     ```{r examine-named-lists-2}
+> >     str(xlist)
+> >     ```
+> {: .solution}
+{: .challenge} 
+
+&nbsp;
+#### Lists of lists!
+
+A list can even have vectors (or other lists!) as one element of a list:
+
+```{r}
+x <- 1:10
+y <- c(T, F, T, T) # "T" can be used in place of "TRUE"; "F" can be used in place of "FALSE"
+z <- list(1, "a", TRUE, 1+4i)
+
+my.list <- list(x, y, z)
+my.list
+
+my.list[[1]]
+class(my.list[[1]])
+class(my.list[[2]])
+
+my.list <- list(x = x, y = y, z = x) # use the `=` to name your list elements
+my.list$x
+```
+
+&nbsp;
+#### Lists and functions
+
+Lists can be extremely useful inside functions. Because the functions in R are 
+able to return only a single object, you can "staple" together lots of different
+kinds of results into a single object that a function can return.
+
+Elements are indexed by double brackets. Double brackets return the object inside the indexed list element, while single brackets will just return a(nother) list containing the indicated elements. 
+
+```{r}
+my.list[1]
+my.list[[1]]
+```
+
+
+&nbsp;
+
+Again, if the elements of a list are named, they can be referenced by
+the `$` notation (i.e. `xlist$data`). This can be useful if a function runs a complex analysis. It can export a lot of different types of information as different elements in a single list (raw data, processes data, analysis summary, analysis statistics, etc.)
+
+
+***
+### Data Frames
+
+The data frame is the most important data type in R. It is the *de facto*
+data structure for most tabular data and what we use for statistics. At its heart, the data frame is a *special type of list* where every element of the list has same length (i.e. data frame is a "rectangular" list).
+
+Data frames can have additional attributes such as `rownames()`, which can be
+useful for annotating data, like `subject_id` or `sample_id`. But most of the
+time they are not used.
+
+Data frame characteristics:
+* Each column must contain a single data type
+* Different columns can have different data types
+* All columns must have the same number of elements
+* Like lists, column names can be directly called using the `$` operator
+* Like matrices, data frames can be indexed using the `df[row,column]` notation.
+
+Some additional information on data frames:
+
+* Created by the `read.csv()` and `read.table()` when importing the data into R.
+* Assuming all columns in a data frame are of same type, data frame can be converted to a matrix with data.matrix() (preferred) or as.matrix(). Otherwise type coercion will be enforced and the results may not always be what you expect.
+* Can be created *de novo* with the `data.frame()` or `as.data.frame()` functions.
+* Like matrices, the number of rows and columns can be queried with `nrow(dat)` and `ncol(dat)`, respectively.
+* Rownames are often automatically generated and look like 1, 2, ..., n. Consistency in numbering of rownames may not be honored when rows are reshuffled or subset.
+* A common way to use data frames is with columns as "variables" (e.g. body weight, blood pressure) and rows as "patients" or "observations" (e.g. "subject 1", "subject 2", ...).
+
+The following table summarizes the one-dimensional and two-dimensional data structures in 
+R in relation to diversity of data types they can contain.
+
+| Dimensions | Homogenous | Heterogeneous |
+| ------- | ---- | ---- |
+| 1-D | atomic vector | list |
+| 2-D | matrix | data frame |
+
+&nbsp;
+#### Creating Data Frames by Hand
+
+To create data frames by hand:
+
+```{r}
+dat <- data.frame(id = letters[1:10], x = 1:10, y = 11:20)
+dat
+```
+
+&nbsp;
+
+See that it is actually a special list:
+
+```{r}
+is.list(dat)
+is.data.frame(dat) # "data.frame" is a sub-class of "list"
+class(dat)
+```
+
+&nbsp;
+#### Sample data in R
+
+R includes a default dataset that can be used for examples caused `iris`. The `iris` data frame is already defined and loaded in memory. We will use this data frame to learn how to interact with data frames. 
+
+Let's get some information on the `iris` data set:
+```{r eval=FALSE}
+?iris
+```
+
+&nbsp;
+#### Useful function for examining and extracting information from data frames
+
+There are many ways to interact with data frames and get information about their contents.
+
+> ## Useful Data Frame Functions
+>
+> * `head()` - shows first 6 rows
+> * `tail()` - shows last 6 rows
+> * `dim()` - returns the dimensions of data frame (i.e. number of rows and number of columns)
+> * `nrow()` - number of rows
+> * `ncol()` - number of columns
+> * `str()` - structure of data frame - name, type and preview of data in each column
+> * `names()` or `colnames()` - both show the `names` attribute for a data frame
+> * `sapply(dataframe, class)` - shows the class of each column in the data frame
+{: .callout}
+
+&nbsp;
+
+I find `head()`, which displays the first 6 rows and all columns of the data frame, particularly useful to get a feel for the contents and organization of a new data frame. Let's take a quick look at `iris` with `head()` and `dim()`:
+
+```{r}
+head(iris)
+head(iris, 2) # you can look at more or fewer rows if 6 is not what you want
+dim(iris)
+```
+
+> ## Column Types in Data Frames
+>
+> Knowing that data frames are lists, can columns be of different type?
+>
+> What type of structure do you expect to see when you explore the structure of the `iris` data 
+> frame? Hint: Use `str()`.
+>
+> > ## Solution
+> > The Sepal.Length, Sepal.Width, Petal.Length and Petal.Width columns are all
+> > numeric types, while Species is a Factor.
+> > Lists can have elements of different types.
+> > Since a Data Frame is just a special type of list, it can have columns of
+> > differing type (although, remember that type must be consistent within each column!).
+> > ```{r column-types}
+> > str(iris)
+> > ```
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+#### Indexing data frames
+
+R is a powerful language for data manipulation. There are three main ways for addressing data inside R objects.
+
+* By index (subsetting)
+* By name (columns only)
+* By logical vector
+
+&nbsp;
+
+**By index**
+
+Because data frames are rectangular, elements of data frame can be referenced by specifying 
+the row and the column index in single square brackets (similar to matrix).
+
+```{r}
+iris[1, 3]
+```
+
+&nbsp;
+
+Like matrices, we can also ask for multiple columns and rows using the `:` operator:
+```{r}
+iris[1:20, 2:3]
+```
+
+&nbsp;
+
+Or for non-contiguous subsets using lists of indices:
+```{r}
+iris[c(1:10,20:25), c(1,3)] # note the use of sequences within the `c()` list
+```
+
+&nbsp;
+
+What if we only ask for one dimension in data frame?
+
+> ## Asking for a single index from a data frame
+> 
+> What do you expect if we query `iris` with just one index?
+> 
+> ```{r, eval=FALSE}
+> iris[3]
+> ```
+> > ## Solution
+> > ```{r}
+> > iris[3]
+> > ```
+> > Because the data frame is a list at heart, just asking for a single index returns 
+> > the indicated column.
+> >
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+What if we include the `,`, but don't give an actual index?
+
+> ## Selecting More Values
+>
+> What will be returned by `dat[, 2]`?
+>
+> > ## Solution
+> > ```{r select-values-2}
+> > dat[, 2]
+> > ```
+> >
+> > If we leave out a dimension R will interpret this as a request for all values in 
+> > that dimension.
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+**By name (columns only)**
+
+As data frames are also lists, it is possible to refer to columns (which are elements of
+such list) using the list notation, i.e. either double square brackets or a `$`.
+
+```{r}
+# These all return the same vector:
+iris[[1]]
+iris[["Sepal.Length"]]
+iris$Sepal.Length
+```
+
+&nbsp;
+
+We can ask for a set of columns using `c()`:
+
+```{r}
+iris[1:10, c("Sepal.Length","Petal.Length")]
+```
+
+&nbsp;
+
+Named vectors can also be used in vectorized mathematical operations:
+
+```{r}
+iris$Sepal.Length + iris$Petal.Length
+```
+
+> ## Default Names
+>
+> If column names are not specified, `V1, V2, ..., Vn` are automatically used as the defaults. For example, if we convert a matrix to a data frame:
+> 
+> ```{r}
+> m = matrix(1:10, nrow = 2)
+> m.data = as.data.frame(m)
+> m.data
+> ``` 
+{: .callout}
+
+&nbsp;
+
+**By logical vector**
+
+Recall that a logical vector contains only the special values `TRUE` and `FALSE`.
+
+```{r logical_vectors}
+c(TRUE, TRUE, FALSE, FALSE, TRUE)
+```
+
+&nbsp;
+
+Logical vectors can be created using `relational operators`:
+* `<` = less than
+* `>` = greater than
+* `<=` = less than or equal to
+* `>=` = greater than or equal to
+* `==` = exactly equal to
+* `!=` = not equal to
+* `%in%` = is present in (to as if the value on the left is present in the vector/matrix on the right)
+
+A few single variable examples:
+```{r logical_variable_example}
+1 == 1
+1 == 2
+1 != 1
+4 > 7
+18 %in% 1:10
+18 %in% 15:25
+```
+
+&nbsp;
+
+We can use these operators to query entire vectors and generate logical vectors:
+
+```{r logical_vector_example}
+# creating logical vectors from numeric data
+x <- c(1, 2, 3, 11, 12, 13)
+x < 10
+x %in% 1:10
+```
+
+&nbsp;
+
+We can use logical vectors to select data from a data frame.
+
+```{r logical_vectors_indexing}
+index <- iris$Species == 'setosa'
+index
+iris[index,]
+```
+
+&nbsp;
+
+Often this operation is written as one line of code:
+
+```{r logical_vectors_indexing2}
+iris[iris$Species == 'setosa', ]
+```
+
+> ## Using logical indices
+>
+> Create a new data frame that is the subset of `iris` with sepal length greater than or
+> equal to 5.0.
+> 
+> > ## Solution
+> > ```{r}
+> > iris.new = iris[iris$Sepal.Length > 5,]
+> > ```
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+In addition to the numeric comparisons, there are a set of operators that compare logical variables and output a new logical variable:
+* `!` = NOT (changes `TRUE` to `FALSE` and vice versa)
+* `&` = element-wise AND (both are true; outputs vector for vector input comparing elements)
+* `&&` = logical AND (both are true; only considers first index of a vector)
+* `|` = element-wise OR (one or both are true; outputs vector for vector input comparing elements)
+* `&&` = logical OR (both are true; only considers first index of a vector)
+
+```{r}
+truth = c(TRUE, FALSE, TRUE, TRUE)
+lie = !truth
+truth
+lie
+
+T & T
+T & F
+T | F
+F | F
+```
+
+***
+### Exercises
+
+> ## Using logical indices
+>
+> Create a new data frame that is the subset of `iris` with sepal length greater than or > equal to 5.0 for the setosa species.
+> 
+> > ## Solution
+> > ```{r}
+> > iris.new = iris[iris$Sepal.Length > 5 & iris$Species == "setosa",]
+> > ```
+> {: .solution}
+{: .challenge}
+
+> ## Subsetting using a vector or name
+>
+> Use the colon operator to index the first five observations of just the sepal  
+> length and species from `iris`
+>
+> > ## Solution
+> > Two options:
+> > ```{r}
+> > iris[1:5, c(1,5)]
+> > iris[1:5,c("Sepal.Length","Species")]
+> > ```
+> {: .solution}
+{: .challenge}
+
+> ## Subsetting with Sequences
+>
+> Use the colon operator to index just the data on sepal size from `iris`
+>
+> > ## Solution
+> > ```{r subset-sequence}
+> > iris[, 1:2]
+> > ```
+> {: .solution}
+{: .challenge}
+
+> ## Adding a new variable
+>
+> We want to add a variable called "Petal.Color" the `iris` data frame to record a new set of 
+> observations. Let's first define a new data frame 'iris.update' (so as not to modify our original raw data).
+> 
+> ```{r}
+> iris.update = iris
+> ```
+> 
+> Now, to initialize the variable, add a new character column to your data frame populated with
+> no values to indicate that we have not recorded any observations.
+> 
+> > ## Solution
+> > 
+> > We have a couple of options:
+> > 
+> > 1) Define the vector and append it to the data frame using `cbind()`:
+> > 
+> > ```{r}
+> > Petal.Color = character(length = dim(iris.update)[1]) # use the dim function to figure out how long to make the new vector
+> > iris.update = cbind(iris.update, Petal.Color)
+> > head(iris.update)
+> > ```
+> > 2) Directly populate the new column while creating it:
+> > 
+> > ```{r}
+> > iris.update$Petal.Color = as.character("")
+> > head(iris.update)
+> > ```
+> > 
+> > There are also other ways to accomplish this task.
+> {: .solution}
+{: .challenge}
+
+> ## Updating a Subset of Values
+>
+> Update the `iris.update` data frame by indicating that the "setosa" species had purple petals (without
+> changing the values for the other species).
+> 
+> > ## Solution
+> > ```{r}
+> > iris.update[iris.update$Species == "setosa", ]$Petal.Color <- "purple"
+> > iris.update
+> > ```
+> {: .solution}
+{: .challenge}
+
+***
+
+{% include links.md %}
