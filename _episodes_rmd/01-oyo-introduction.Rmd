@@ -1,0 +1,210 @@
+---
+title: "Getting started with R and RStudio -- More Information"
+classdate: "8/26/2020 -- On Your Own"
+teaching: 90
+exercises: 30
+questions:
+- "What is R? What is RStudio?"
+- "How do I use the RStudio graphical user interface?"
+- "How do I perform basic calculations in R?"
+- "How do I assign values to variables in R?"
+- "What are functions, and how are they used in R?"
+- "Where can I get help?"
+objectives:
+- "Get familiar with RStudio interface."
+- "Understand the difference between scripts and the console."
+- "Understand how to input and read out basic information in R."
+- "Assign values to variables."
+- "Execute functions."
+- "Demonstrate useful shortcuts."
+- "Know when to use setwd()."
+- "Know how to install and load packages."
+- "Know what resources are available if you get stuck."
+keypoints:
+- "R is the programming language; RStudio is a user friendly environment for interacting with R."
+- "Using RStudio can make programming in R much more productive."
+- "Consider what working directory you are in when sourcing a script."
+- "Use help() and ? to get basic information about functions."
+- "Online forums have the answers to almost any R-related question you can come up with. Know how to Google your question!"
+source: Rmd
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("01-oyo-introduction-")
+```
+
+***
+## On Your Own
+
+&nbsp;
+### Cleaning up
+
+You can use the `ls()` command to list all variables currently defined in your workspace.
+
+```{r}
+# first define a couple of variables
+x <- 1
+y <- 100
+
+# now look at what we have defined
+ls()
+```
+
+Try clicking on the brush icon in the Environment panel and clicking <kbd>Yes</kbd> in the pop-up box. What happened to your variable? What happens if you try to display the variable in the console?
+
+```{r, eval=FALSE}
+x
+y
+```
+
+You can also remove variables one at a time.
+
+```{r, eval=FALSE}
+x = 3
+y = x + 2
+z1 = x - y
+z2 = x + y
+
+rm(x)
+rm(y)
+rm(list = ls()) # remove all variables currently in environment
+```
+
+&nbsp;
+
+Often when you get into more complex analyses in R, you end up with a lot of data stored in memory. In some cases, clearing the variable with `rm()` does not completely release all of the memory that R has allocated for that variable immediately. You can force R to release that memory using the `gc()` function, which stands for "Garbage Collection".
+
+```{r, eval=FALSE}
+# Calling gc() is simple and forces R to release memory to the operating system
+gc()
+```
+
+Don't get bogged down in the details, but we can check memory usage, before 
+creating, after creating, and after removing a large vector. The memory usage at 
+each stage is indicated by "Vcells" (the V stands for "Vector"). Removing the object
+and running gc() frees up some of the memory. Note that `gc()` also gives you a memory usage report.
+
+```{r, eval=FALSE}
+# check memory before creating vector
+gc() 
+```
+
+```{r, eval=FALSE}
+# create a big vector (this can take some time) and recheck memory with 
+# vector loaded; Vcells used (MB) goes up
+x <- integer(100000); for(i in 1:100000) x <- c(x, i)
+```
+```{r, eval=FALSE}
+# remove vector and check memory a final time; Vcells used (MB) returns to
+# it's original value
+rm(x)
+gc()
+
+```
+
+&nbsp;
+
+You may find that this speeds up processing when you have a script that is repeatedly loading and releasing large data files.
+
+It is generally good practice to start off each session with a clean slate. When you start RStudio, the Environment will be clear (unless you load a previously saved workspace). If you are finished with one analysis and starting another, it is a good idea to clear you Environment. That way if you reuse a variable name (e.g. `x`) you won't accidentally end up using the value stored in your workspace during the previous analysis.
+
+
+&nbsp;
+#### Writing your own functions
+
+Let's define a new function `fahrenheit_to_kelvin` that converts a temperature value in Fahrenheit (the *argument*) to Celsius (the *output*):
+
+```{r}
+FtoC <- function(temp_F) {
+  temp_C <- (temp_F - 32) * (5 / 9)
+  return(temp_C)
+}
+```
+
+&nbsp;
+
+Now let's give is a try:
+```{r}
+FtoC(32) # output to console
+Temp_C <- FtoC(32) # assign the output to a new variable called Temp_C
+Temp_C
+```
+
+
+
+&nbsp;
+#### Installing and loading packages
+
+R comes preloaded with a decently wide range of functions for basic data manipulation, but you will inevitably want to do something more interesting. There are many, many 'packages' that are available online for download. Each package is a set of related functions designed for a specific area of analysis. For example, later in the course we will use specialized packages that contain functions for power analysis (the `pwr` package) and survival analysis (the `survival` package). 
+
+To use a package, you have to do two things:
+1. **Install** -- Download the package from an external source, and make the functions accessible to R and RStudio. This is accomplished with the `install.packages()` function and only has to be done just per computer.
+2. **Load** -- Installing the package does not immediately allow you to access the associated functions. You first have to load the package into your local workspace. This is done with the `library()` function.
+
+Let's give it a try by installing and loading the `pwr` package:
+
+```{r}
+# Install required packages
+install.packages("pwr")
+```
+
+```{r}
+# Load required packages into memory
+library("pwr")
+```
+
+&nbsp;
+
+Generally, a Google search will let you find packages for just about any type of analysis. These usually come from one of two sources (which R mostly takes care of automatically, with a few exceptions):
+* [CRAN](https://cran.r-project.org/) for basic R packages
+* [Bioconductor](https://www.bioconductor.org/) for biological packages
+
+***
+### Resources -- where to turn for help
+
+There are a variety of resources available when you have questions. Here are a few places to look:
+
+&nbsp;
+#### Getting help in R
+
+R has a built in function called `help()` that provides basic information about specific functions. You can either use this function like any other function, or use the `?` operator. Let's give it a try to get more detailed information on how the `setwd()` function works.
+
+```{r, eval=FALSE}
+help(setwd)
+?setwd
+```
+
+&nbsp;
+
+When you enter either command, notice that the **Help** panel opens (lower right panel in RStudio). This panel provides information on the purpose, inputs, and outputs of the queried function. It also provides useful examples of how to use the function at the end of the documentation. `help()` is usually a good first place to look to get a feel for what a function is doing.
+
+&nbsp;
+#### Online Forums
+
+Perhaps the most valuable resource available to both basic and advanced R users is the vast online community. Many people are actively using the R language for a variety of analysis tasks. You will find that most questions have already been asked and answered on one of the various online forums. If you can't find the answer, sign up for a forum and post your question. You will generally get an answer (or a pointer to another forum where the question has already been answered) within a day or two.
+
+To find answers, the simplest way is to just type what you are trying to do into Google. Preceedign your question with "R" will tend to find questions within the R community: 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*R calculate standard deviation*
+
+There are many online forums with R user discussions, but I find the most common to be [stackoverflow](https://stackoverflow.com/).
+
+&nbsp;
+#### The Carpentries
+
+[The Carpentries](https://carpentries.org/) and [Software Carpentry](https://software-carpentry.org/) in particular offer free online introductory programming lessons for R and other languages. Much of the material in the early part of this course is based on the Software Carpentry material. They are a good resource for beginners.
+
+&nbsp;
+#### Resources at the University of Arizona
+
+The University of Arizona has several resources for both statistics and programming:
+* [Statistics resources](https://it.arizona.edu/documentation/statistical-resources)
+* [Statistics consulting](https://it.arizona.edu/service/statistical-consulting) (pay service, free consultation)
+* [BIO5 StatLab](https://statlab.bio5.org/) (pay service, free consultation)
+* [Cancer Center biostatistics](https://cancercenter.arizona.edu/researchers/shared-resources/biostatistics)
+* [Cancer Center bioinformatics](https://cancercenter.arizona.edu/researchers/shared-resources/bioinformatics)
+
+***
+
+{% include links.md %}

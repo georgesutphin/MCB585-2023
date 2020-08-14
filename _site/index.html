@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-04 16:42:11 -0700">
+    <meta http-equiv="last-modified" content="2020-08-13 23:11:33 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -113,29 +113,19 @@
           <a href="./" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Episodes <span class="caret"></span></a>
           <ul class="dropdown-menu">
             
-            <li><a href="./01-R-RStudio-setup/index.html">Getting started with R and RStudio</a></li>
+            <li><a href="./01-class-introduction/index.html">Getting started with R and RStudio</a></li>
             
-            <li><a href="./02-introduction-to-R-basics/index.html">Introduction to R -- Best Practices, Data Types, and Data Structures</a></li>
+            <li><a href="./01-oyo-introduction/index.html">Getting started with R and RStudio -- More Information</a></li>
             
-            <li><a href="./03-introduction-to-R-data-plotting/index.html">Introduction to R -- Reading, Writing, and Plotting Data</a></li>
+            <li><a href="./02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
-            <li><a href="./04-introduction-to-R-decisions-and-loops/index.html">Introduction to R -- Decisions and Loops</a></li>
+            <li><a href="./02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a></li>
             
-            <li><a href="./05-distributions/index.html">Distributions and assessing normality</a></li>
+            <li><a href="./03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="./06-hypothesis-testing/index.html">Hypothesis testing in R</a></li>
+            <li><a href="./03-oyo-Lists/index.html">Lists and Data Frames</a></li>
             
-            <li><a href="./07-power-analysis/index.html">Power Analysis</a></li>
-            
-            <li><a href="./08-multiple-test-correction/index.html">Multiple Comparisons</a></li>
-            
-            <li><a href="./09-survival-analysis/index.html">Survival Analysis</a></li>
-            
-            <li><a href="./10-simulating-experiments/index.html">Simulating Experiments</a></li>
-            
-            <li><a href="./11-testing-testing/index.html">This is only a test</a></li>
-            
-            <li><a href="./25-projects/index.html">Projects</a></li>
+            <li><a href="./99-projects/index.html">Final Projects</a></li>
             
 	    <li role="separator" class="divider"></li>
             <li><a href="./aio.html">All in one page (Beta)</a></li>
@@ -196,12 +186,13 @@
 <article>
   <p>Welcome to MCB 585! This course is offered by the Molecular &amp; Cellular Biology Department at the University of Arizona.</p>
 
-<p>MCB585 is an advanced graduate course focused on quantitative approaches to biological questions. Students will learn how to acquire, access, and interact with large biological datasets. The course relies heavily on learning and utilizing the R Statistical Programing language, but students are not expected to have programing experience upon entering the course. The course is broken up into two parts. The first part will focus on introducing R, using R in basic statistical operations, and approaching and manipulating large datasets. This section incorporates elements of experimental design and appropriate application of statistical tests as a frame for learning R. The second section focuses on extracting quantitative information from image data and applying the statistical tools from the first section on this data.</p>
+<p>MCB585 is an advanced graduate course focused on quantitative approaches to biological questions. Students will learn how to acquire, access, and interact with large biological datasets. The course relies heavily on learning and utilizing the R Statistical Programing language, but students are not expected to have programing experience upon entering the course. The course is broken up into three units. The first unit will focus on introducing R and using R in basic statistical operations. This section incorporates elements of experimental design and appropriate application of statistical tests as a frame for learning R. In the second unit we will focus on quantitative approaches to ‘omics data, covering RNA-seq analysis, basic machine learning techniques, network biology, and a survey of emerging technologies and multi-‘omic datasets. The third section focuses on extracting quantitative information from image data and applying the statistical tools from the first section on this data.</p>
 
 <p><strong>Instructors:</strong></p>
 
 <ul>
   <li><strong>George Sutphin</strong>, Assistant Professor, Molecule &amp; Cellular Biology</li>
+  <li><strong>Megha Padi</strong>, Assistant Professor, Molecule &amp; Cellular Biology</li>
   <li><strong>Andrew Paek</strong>, Assistant Professor, Molecule &amp; Cellular Biology</li>
 </ul>
 
@@ -212,6 +203,8 @@
   <li>Use the R programing environment to approach basic problems biological sciences.</li>
   <li>Apply basic biostatistics methods, such as selecting and employing an appropriate statistical test and conducting a power analysis based on preliminary data.</li>
   <li>Access, manipulate, and analyze large biological datasets.</li>
+  <li>Perform RNA-sequencing analysis starting from raw reads all the way to differential expression and functional enrichment.</li>
+  <li>Understand how approaches from statistics, machine learning and network biology can be used to integrate multi-‘omics data.</li>
   <li>Segment and extract quantitative information from imaging data.</li>
 </ol>
 
@@ -221,12 +214,13 @@
   <li>Participation in discussions and in-class exercises.</li>
   <li>Reading assignments, completed before class.</li>
   <li>Computer exercises before and during class.</li>
+  <li>Completion of final project..</li>
 </ol>
 
 <p><strong>Grading Summary:</strong></p>
 <ul>
   <li>67% discussion and exercise participation, assignments</li>
-  <li>33% student research final project proposals, code, and presentation</li>
+  <li>33% student research final project proposals, final report with code, and presentation</li>
 </ul>
 
 <h2 id="prerequisites">Prerequisites</h2>
@@ -275,16 +269,6 @@
     
   
     
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
   -->
   
 
@@ -301,10 +285,10 @@
     
     <tr>
       
-      <td class="col-md-2">8/27/2019</td><!--00:00</td>-->
+      <td class="col-md-2">8/26/2020 -- In Class</td><!--00:00</td>-->
       <td class="col-md-3">
         
-	1. <a href="./01-R-RStudio-setup/index.html">Getting started with R and RStudio</a>
+	1. <a href="./01-class-introduction/index.html">Getting started with R and RStudio</a>
       </td>
       <td class="col-md-7">
         
@@ -355,52 +339,46 @@
     
     <tr>
       
-      <td class="col-md-2">8/29/2019</td><!--00:55</td>-->
+      <td class="col-md-2">8/26/2020 -- On Your Own</td><!--02:00</td>-->
       <td class="col-md-3">
         
-	2. <a href="./02-introduction-to-R-basics/index.html">Introduction to R -- Best Practices, Data Types, and Data Structures</a>
+	2. <a href="./01-oyo-introduction/index.html">Getting started with R and RStudio -- More Information</a>
       </td>
       <td class="col-md-7">
         
           
             
-              How can I write R code that other people can understand and use?
+              What is R? What is RStudio?
 
               
               <br/>
               
             
-              What are the different data types in R?
+              How do I use the RStudio graphical user interface?
 
               
               <br/>
               
             
-              What are the different data structures in R?
+              How do I perform basic calculations in R?
 
               
               <br/>
               
             
-              How do I access data within the various data structures?
+              How do I assign values to variables in R?
 
               
               <br/>
               
             
-              How do I work with factors?
+              What are functions, and how are they used in R?
 
               
               <br/>
               
             
-              What is a data frame?
-
-              
-              <br/>
-              
-            
-              How do I access subsets of a data frame?
+              Where can I get help?
 
               
             
@@ -415,40 +393,16 @@
     
     <tr>
       
-      <td class="col-md-2">9/9/2019</td><!--02:40</td>-->
+      <td class="col-md-2">8/28/2020 -- In Class</td><!--04:00</td>-->
       <td class="col-md-3">
         
-	3. <a href="./03-introduction-to-R-data-plotting/index.html">Introduction to R -- Reading, Writing, and Plotting Data</a>
+	3. <a href="./02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a>
       </td>
       <td class="col-md-7">
         
           
             
-              How do I read data from a .csv or .txt file into R?
-
-              
-              <br/>
-              
-            
-              How do I write data to a .csv or .txt file?
-
-              
-              <br/>
-              
-            
-              How do I calculate simple statistics from my data?
-
-              
-              <br/>
-              
-            
-              How can I plot my data?
-
-              
-              <br/>
-              
-            
-              How do I save my plots to a PDF file?
+              Class questions.
 
               
             
@@ -463,46 +417,16 @@
     
     <tr>
       
-      <td class="col-md-2"></td><!--04:25</td>-->
+      <td class="col-md-2">8/28/2020 -- On Your Own</td><!--06:00</td>-->
       <td class="col-md-3">
         
-	4. <a href="./04-introduction-to-R-decisions-and-loops/index.html">Introduction to R -- Decisions and Loops</a>
+	4. <a href="./02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a>
       </td>
       <td class="col-md-7">
         
           
             
-              How do I write code to make decisions about data?
-
-              
-              <br/>
-              
-            
-              How do I use the same code to treat different data sets in different ways?
-
-              
-              <br/>
-              
-            
-              How can I do the same thing to multiple data sets?
-
-              
-              <br/>
-              
-            
-              How do I write a for loop?
-
-              
-              <br/>
-              
-            
-              How can I do the same thing multiple times more efficiently in R?
-
-              
-              <br/>
-              
-            
-              Should I use a loop or an apply statement?
+              Class questions.
 
               
             
@@ -517,40 +441,16 @@
     
     <tr>
       
-      <td class="col-md-2"></td><!--06:10</td>-->
+      <td class="col-md-2">9/2/2020 -- In Class</td><!--08:00</td>-->
       <td class="col-md-3">
         
-	5. <a href="./05-distributions/index.html">Distributions and assessing normality</a>
+	5. <a href="./03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a>
       </td>
       <td class="col-md-7">
         
           
             
-              What is the formal process for hypothesis testing?
-
-              
-              <br/>
-              
-            
-              How does hypothesis testing relate to the population and sampling distributions?
-
-              
-              <br/>
-              
-            
-              What are the assumptions of a t-test?
-
-              
-              <br/>
-              
-            
-              What does a P-value mean?
-
-              
-              <br/>
-              
-            
-              What is the right statistical test to use for my data?
+              Class questions.
 
               
             
@@ -565,40 +465,16 @@
     
     <tr>
       
-      <td class="col-md-2"></td><!--07:55</td>-->
+      <td class="col-md-2">9/2/2020 -- On Your Own</td><!--10:00</td>-->
       <td class="col-md-3">
         
-	6. <a href="./06-hypothesis-testing/index.html">Hypothesis testing in R</a>
+	6. <a href="./03-oyo-Lists/index.html">Lists and Data Frames</a>
       </td>
       <td class="col-md-7">
         
           
             
-              What is the formal process for hypothesis testing?
-
-              
-              <br/>
-              
-            
-              How does hypothesis testing relate to the population and sampling distributions?
-
-              
-              <br/>
-              
-            
-              What are the assumptions of a t-test?
-
-              
-              <br/>
-              
-            
-              What does a P-value mean?
-
-              
-              <br/>
-              
-            
-              What is the right statistical test to use for my data?
+              Class questions.
 
               
             
@@ -613,178 +489,10 @@
     
     <tr>
       
-      <td class="col-md-2">10/1/2019</td><!--09:40</td>-->
+      <td class="col-md-2">12/2/2020, 12/4/2020, 12/9/2020</td><!--12:00</td>-->
       <td class="col-md-3">
         
-	7. <a href="./07-power-analysis/index.html">Power Analysis</a>
-      </td>
-      <td class="col-md-7">
-        
-          
-            
-              What is power analysis and what is its primary goal?
-
-              
-              <br/>
-              
-            
-              What aspects of an experimental design can be tweaked to prepare for statistical testing?
-
-              
-              <br/>
-              
-            
-              What is our primary too for increasing power to detect?
-
-              
-            
-          
-        
-      </td>
-    </tr>
-    
-  
-    
-    
-    
-    <tr>
-      
-      <td class="col-md-2">10/10/2019</td><!--11:25</td>-->
-      <td class="col-md-3">
-        
-	8. <a href="./08-multiple-test-correction/index.html">Multiple Comparisons</a>
-      </td>
-      <td class="col-md-7">
-        
-          
-            
-              What is the consequence of running multiple statistical comparisons?
-
-              
-              <br/>
-              
-            
-              How do we define a family of tests?
-
-              
-              <br/>
-              
-            
-              What are the strategies for controlling error in multiple testing?
-
-              
-            
-          
-        
-      </td>
-    </tr>
-    
-  
-    
-    
-    
-    <tr>
-      
-      <td class="col-md-2">10/10/2019</td><!--13:10</td>-->
-      <td class="col-md-3">
-        
-	9. <a href="./09-survival-analysis/index.html">Survival Analysis</a>
-      </td>
-      <td class="col-md-7">
-        
-          
-            
-              How is time-to-event data structured?
-
-              
-              <br/>
-              
-            
-              What are the elements that separate time-to-event data from single-point observations?
-
-              
-              <br/>
-              
-            
-              How do we visualize and analyze time-to-event data?
-
-              
-            
-          
-        
-      </td>
-    </tr>
-    
-  
-    
-    
-    
-    <tr>
-      
-      <td class="col-md-2">10/15/2019</td><!--14:55</td>-->
-      <td class="col-md-3">
-        
-	10. <a href="./10-simulating-experiments/index.html">Simulating Experiments</a>
-      </td>
-      <td class="col-md-7">
-        
-          
-            
-              What is a simulated experiment?
-
-              
-              <br/>
-              
-            
-              What are the applications for simulated experiments?
-
-              
-              <br/>
-              
-            
-              How can we use simulation to improve (and generalize) power analysis?
-
-              
-            
-          
-        
-      </td>
-    </tr>
-    
-  
-    
-    
-    
-    <tr>
-      
-      <td class="col-md-2">9/20/2020</td><!--16:40</td>-->
-      <td class="col-md-3">
-        
-	11. <a href="./11-testing-testing/index.html">This is only a test</a>
-      </td>
-      <td class="col-md-7">
-        
-          
-            
-              Why are we here?
-
-              
-            
-          
-        
-      </td>
-    </tr>
-    
-  
-    
-    
-    
-    <tr>
-      
-      <td class="col-md-2">12/3/2019, 12/5/2019, 12/10/2019</td><!--17:36</td>-->
-      <td class="col-md-3">
-        
-	12. <a href="./25-projects/index.html">Projects</a>
+	7. <a href="./99-projects/index.html">Final Projects</a>
       </td>
       <td class="col-md-7">
         
@@ -804,7 +512,7 @@
   
   <!--<tr>
     
-    <td class="col-md-2">19:21</td>
+    <td class="col-md-2">14:25</td>
     <td class="col-md-3">Finish</td>
     <td class="col-md-7"></td>
   </tr>-->

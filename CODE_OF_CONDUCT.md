@@ -11,7 +11,7 @@ We refer you to the [Code of Academic Integrity][ua_coc_site] set forth by the U
 
 **Expectations for student behavior**
 
-We refer you to the policy regarding [Threatening Behavior by Students][student_behavior_site] set forth by the University of Arizona as a strict expectation for MCB585. In addition, the use of cell phones and computers for activities outside of coursework are prohibited during class meetings.
+We refer you to the policy regarding [Threatening Behavior by Students][http://policy.arizona.edu/education-and-student-affairs/threatening-behavior-students] set forth by the University of Arizona as a strict expectation for MCB585. In addition, the use of cell phones and computers for activities outside of coursework are prohibited during class meetings.
 
 **Expectations specific to MCB585**
 
