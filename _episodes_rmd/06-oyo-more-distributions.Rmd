@@ -1,0 +1,29 @@
+---
+title: "Distributions and Normality -- Additional Detail"
+classdate: "9/11/2020 -- On Your Own"
+teaching: 90
+exercises: 30
+questions:
+- "What."
+objectives:
+- "Describe."
+keypoints:
+- "Samples."
+source: Rmd
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("06-oyo-more-distributions-")
+```
+
+***
+## On Your Own
+
+
+
+
+
+***
+
+{% include links.md %}

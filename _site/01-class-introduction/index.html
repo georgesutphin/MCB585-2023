@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-13 23:11:33 -0700">
+    <meta http-equiv="last-modified" content="2020-08-17 13:01:04 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -115,7 +115,7 @@
             
             <li><a href="../01-class-introduction/index.html">Getting started with R and RStudio</a></li>
             
-            <li><a href="../01-oyo-introduction/index.html">Getting started with R and RStudio -- More Information</a></li>
+            <li><a href="../01-oyo-introduction/index.html">Getting started with R and RStudio -- Additional Detail</a></li>
             
             <li><a href="../02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
@@ -124,6 +124,28 @@
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
             <li><a href="../03-oyo-Lists/index.html">Lists and Data Frames</a></li>
+            
+            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation</a></li>
+            
+            <li><a href="../05-class-decisions-loops/index.html">Decision Making and Loops</a></li>
+            
+            <li><a href="../05-oyo-more-decisions-loops/index.html">Decision Making and Loops -- Additional Detail</a></li>
+            
+            <li><a href="../06-class-distributions/index.html">Distributions and Normality</a></li>
+            
+            <li><a href="../06-oyo-more-distributions/index.html">Distributions and Normality -- Additional Detail</a></li>
+            
+            <li><a href="../07-class-hypothesis-testing/index.html">Hypothesis Testing</a></li>
+            
+            <li><a href="../07-oyo-multiple-test-correction/index.html">Multiple Test Correction</a></li>
+            
+            <li><a href="../08-class-survival-analysis/index.html">Survival Analysis</a></li>
+            
+            <li><a href="../08-oyo-advanced-survival-analysis/index.html">Advanced Survival Analysis</a></li>
+            
+            <li><a href="../09-class-power-analysis/index.html">Power Analysis</a></li>
+            
+            <li><a href="../09-oyo-simulation/index.html">Simulating Experiments</a></li>
             
             <li><a href="../99-projects/index.html">Final Projects</a></li>
             
@@ -249,9 +271,6 @@
 	<li><p>What are functions, and how are they used in R?</p>
 </li>
 	
-	<li><p>Where can I get help?</p>
-</li>
-	
       </ul>
     </div>
   </div>
@@ -284,12 +303,6 @@
 	<li><p>Know when to use setwd().</p>
 </li>
 	
-	<li><p>Know how to install and load packages.</p>
-</li>
-	
-	<li><p>Know what resources are available if you get stuck.</p>
-</li>
-	
       </ul>
     </div>
   </div>
@@ -301,24 +314,24 @@
 <p> </p>
 <h3 id="introduction-to-r-and-rstudio">Introduction to R and RStudio</h3>
 
-<p>If we only had one data set to analyze, it would probably be faster to load the file into a spreadsheet and use that to plot some simple statistics.</p>
+<p>If we only had one data set to analyze, it would probably be faster to load the file into a spreadsheet, calculate some simple statisitcs, and generate a plot or two.</p>
 
-<p>But what if we have twelve files to check? What if we are running analysis that we will be repeating in the future?</p>
+<p>But what if we have twelve files to analyze in the same way? Or 100? 10,000? What if we are running an analysis that we will be repeating on future datasets?</p>
 
 <p><strong>What is R?</strong></p>
 
-<p>R is a statistical programming language widely used by working scientists that provides a broad spectrum of tools for data manipulation, statistical analysis, machine learning, and more. R is one of the fastest growing programming languages and new tools are being created all the time.</p>
+<p>R is a statistical programming language widely used by working scientists that provides a broad spectrum of tools for data manipulation, statistical analysis, machine learning, graphical data representation, and more. R is one of the fastest growing programming languages and new tools are being created all the time.</p>
 
 <p>Advantages of R:</p>
 <ul>
-  <li><strong>Versatility</strong> – you can do just about anything in the data analysis world</li>
+  <li><strong>Versatility</strong> – You can do just about anything in the data analysis world.</li>
   <li><strong>Repeatability</strong> – Because R is a programming language, a properly designed script can be repeated and automated.</li>
   <li><strong>Community</strong> – Because R is widely used, there is a large and active online community producing resources, answering questions, and trying to solve new problems.</li>
 </ul>
 
 <p>Disadvantages of R:</p>
 <ul>
-  <li><strong>Learning Curve</strong> – R is a programming language. If you don’t have programming experience, it can be a bit daunting.</li>
+  <li><strong>Learning Curve</strong> – R is a programming language. If you don’t have programming experience, it can be a bit daunting to begin using. The major goal of this course is to guide you through the difficult first stage. At the end, we hope that you are familiar enough with the basic workings of R to be comfortable picking it up and try to apply it to new analysis problems in the future.</li>
   <li><strong>Slow for one-time operations</strong> – R is great of any analysis that you plan to perform more than once. Other tools are better for quick, one-time projects.</li>
 </ul>
 
@@ -355,43 +368,59 @@ with a new folder called <code class="highlighter-rouge">data</code>.</li>
 
 <ul>
   <li>Code and workflow are more reproducible if we can document everything that we do.</li>
-  <li>Our end goal is not just to “do stuff” but to do it in a way that anyone can
-easily and exactly replicate our workflow and results.</li>
-  <li>The best way to achieve this is to write scripts. RStudio provides an
-environment that allows you to do that.</li>
+  <li>Our end goal is not just to “do stuff” but to do it in a way that anyone can easily and exactly replicate our workflow and results.</li>
+  <li>The best way to achieve this is to write scripts. RStudio provides an environment that allows you to do that.</li>
 </ul>
 
 <p> </p>
 <h4 id="interacting-with-r-using-rstudio">Interacting with R using RStudio</h4>
 
-<p>There are two main ways of interacting with R: using the console or using
-script files (plain text files that contain your code).</p>
+<p>There are two main ways of interacting with R within RStudio: using the console or using script files (plain text files that contain your code).</p>
 
-<p><strong>Console:</strong> The console window (bottom left panel in RStudio) is the place where R is
-waiting for you to tell it what to do, and where it will show the results of a
-command.  You can type commands directly into the console, but they will be
-forgotten when you close the session.</p>
+<p><strong>Console:</strong> The console window (bottom left panel in RStudio) is the place where R is waiting for you to tell it what to do, and where it will show the results of a command.  You can type commands directly into the console, but they will be forgotten when you close the session. At some point in your analysis you may want to check the content of variable or the structure of an object, without necessarily keep a record of it in your script. You can type these commands directly in the console.</p>
 
-<p><strong>Script:</strong> The script window (top left panel) It is better to enter the commands in the
-script editor, and save the script. This way, you have a complete record of what
-you did, you can easily show others how you did it and you can do it again later
-on if needed. To run commands from script, you can either copy-paste them into the R console, or you can use the script window to ‘send’ the current line or the currently selected text to the R console using the <kbd>Ctrl</kbd>+<kbd>Return</kbd> (Mac) or <kbd>Ctrl</kbd>+<kbd>Enter</kbd> (Windows) keyboard shortcut.</p>
+<p><strong>Script:</strong> The script window (top left panel) It is better to enter the commands in the script editor, and save the script. This way, you have a complete record of what you did, you can easily show others how you did it and you can do it again later on if needed. To run commands from script, you can either copy-paste them into the R console, or you can use the script window to ‘send’ the current line or the currently selected text to the R console using the following shortcut:</p>
+<ul>
+  <li>iOS/Mac: <kbd>Ctrl</kbd>+<kbd>Return</kbd></li>
+  <li>Windows: <kbd>Ctrl</kbd>+<kbd>Enter</kbd></li>
+</ul>
 
-<p>At some point in your analysis you may want to check the content of variable or
-the structure of an object, without necessarily keep a record of it in your
-script. You can type these commands directly in the console. RStudio provides
-the <kbd>Ctrl</kbd>+<kbd>1</kbd> and <kbd>Ctrl</kbd>+<kbd>2</kbd> shortcuts allow you to jump between the script and the
-console windows.</p>
+<p>There are many panels that provide useful information. In general, beyond <strong>Script</strong> and <strong>Console</strong>, we will spend time using the following panels:</p>
 
-<p>If R is ready to accept commands, the R console shows a <code class="highlighter-rouge">&gt;</code> prompt. If it
-receives a command (by typing, copy-pasting or sent from the script editor using
-<kbd>Ctrl</kbd>+<kbd>Return</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd>, R will try to execute it, and when ready, show the results and come back with a new <code class="highlighter-rouge">&gt;</code>-prompt to wait for new commands.</p>
+<p><strong>Environment:</strong> The Environment panel (upper-right by default) provides a table with all variables currently loaded into memory, and their value (or type for more complex veriables). Clicking on a complex veriable will load a table in the Script panel showing the structure and values in that variable.</p>
 
-<p>If R is still waiting for you to enter more data because the command you entered is not yet complete, the console will show a <code class="highlighter-rouge">+</code> prompt. This means that you haven’t finished entering
-a complete command, perhaps because you haven’t ‘closed’ a parenthesis or quotation. If you’re in RStudio and this happens, either complete the command and press <kbd>Enter</kbd> or click inside the console window and press <kbd>Esc</kbd> to cancel the current command. That should help you out of trouble.</p>
+<p><strong>Files:</strong> The first tab on the lower-right panel provides a file explorer system that defaults to the working directory of the currently open R project (more on this later).</p>
+
+<p><strong>Plots:</strong> By default, any charts or graphics that you produce will be displayed in the Plots panel (second table of the lower-right panel).</p>
+
+<p><strong>Help:</strong> The Help tab on the lower-right panel let’s you browse the built-in documentation for R functions. If you request documentation on a function (e.g. <code class="highlighter-rouge">?sum</code>), the help file will appear in this panel.</p>
+
+<p> </p>
+<blockquote class="callout">
+  <h2 id="quickly-switch-between-panels">Quickly switch between panels:</h2>
+
+  <p>RStudio provides an easy set of keyboard shortcuts for rapidly switching between panels:</p>
+  <ul>
+    <li><strong>Script</strong> – <kbd>Ctrl</kbd>+<kbd>1</kbd></li>
+    <li><strong>Console</strong> – <kbd>Ctrl</kbd>+<kbd>2</kbd></li>
+    <li><strong>Help</strong> – <kbd>Ctrl</kbd>+<kbd>3</kbd></li>
+    <li><strong>Files</strong> – <kbd>Ctrl</kbd>+<kbd>5</kbd></li>
+    <li><strong>Plot</strong> – <kbd>Ctrl</kbd>+<kbd>6</kbd></li>
+    <li><strong>Environment</strong> – <kbd>Ctrl</kbd>+<kbd>8</kbd></li>
+  </ul>
+
+  <p>For a complete list of keyboard shortcuts in RStudio navigate to the following menu:
+      <em>Tools</em> &gt; <em>Keyboard Shortcuts Help</em></p>
+
+  <p>(or use the keyboard shortcut <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>.)</p>
+</blockquote>
 
 <hr />
 <h3 id="interacting-with-the-console">Interacting with the console</h3>
+
+<p>If R is ready to accept commands, the R console shows a <code class="highlighter-rouge">&gt;</code> prompt. If it receives a command (by typing, copy-pasting or sent from the script editor using <kbd>Ctrl</kbd>+<kbd>Return</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd>, R will try to execute it, and when ready, show the results and come back with a new <code class="highlighter-rouge">&gt;</code>-prompt to wait for new commands.</p>
+
+<p>If R is still waiting for you to enter more data because the command you entered is not yet complete, the console will show a <code class="highlighter-rouge">+</code> prompt. This means that you haven’t finished entering a complete command, perhaps because you haven’t ‘closed’ a parenthesis or quotation. If you’re in RStudio and this happens, either complete the command and press <kbd>Enter</kbd> or click inside the console window and press <kbd>Esc</kbd> to cancel the current command. That should help you out of trouble.</p>
 
 <p> </p>
 <h4 id="basic-commands">Basic commands</h4>
@@ -697,17 +726,29 @@ causing the errors?</p>
 </span><span class="n">list.files</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "01-class-introduction.Rmd"           
- [2] "01-oyo-introduction.Rmd"             
- [3] "02-class-R-data-types-structures.Rmd"
- [4] "02-oyo-R-data-types-structures.Rmd"  
- [5] "03-class-data-frames.Rmd"            
- [6] "03-oyo-Lists.Rmd"                    
- [7] "25-projects.Rmd"                     
- [8] "ClassTest.html"                      
- [9] "data"                                
-[10] "inflammation-01.pdf"                 
-[11] "results"                             
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "01-class-introduction.Rmd"              
+ [2] "01-oyo-introduction.Rmd"                
+ [3] "02-class-R-data-types-structures.Rmd"   
+ [4] "02-oyo-R-data-types-structures.Rmd"     
+ [5] "03-class-data-frames.Rmd"               
+ [6] "03-oyo-Lists.Rmd"                       
+ [7] "04-class-manipulating-plotting-data.Rmd"
+ [8] "04-oyo-advanced-data-manipulation.Rmd"  
+ [9] "05-class-decisions-loops.Rmd"           
+[10] "05-oyo-more-decisions-loops.Rmd"        
+[11] "06-class-distributions.Rmd"             
+[12] "06-oyo-more-distributions.Rmd"          
+[13] "07-class-hypothesis-testing.Rmd"        
+[14] "07-oyo-multiple-test-correction.Rmd"    
+[15] "08-class-survival-analysis.Rmd"         
+[16] "08-oyo-advanced-survival-analysis.Rmd"  
+[17] "09-class-power-analysis.Rmd"            
+[18] "09-oyo-simulation.Rmd"                  
+[19] "99-projects.Rmd"                        
+[20] "ClassTest.html"                         
+[21] "data"                                   
+[22] "inflammation-01.pdf"                    
+[23] "results"                                
 </code></pre></div></div>
 
 <p> </p>
@@ -928,13 +969,7 @@ and running gc() frees up some of the memory. Note that <code class="highlighter
     <li><p>Using RStudio can make programming in R much more productive.</p>
 </li>
     
-    <li><p>Consider what working directory you are in when sourcing a script.</p>
-</li>
-    
-    <li><p>Use help() and ? to get basic information about functions.</p>
-</li>
-    
-    <li><p>Online forums have the answers to almost any R-related question you can come up with. Know how to Google your question!</p>
+    <li><p>Consider what working directory you are in when sourcing a script and loading data.</p>
 </li>
     
   </ul>

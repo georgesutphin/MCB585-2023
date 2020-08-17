@@ -1,0 +1,409 @@
+---
+title: "Hypothesis Testing"
+classdate: "9/16/2020 -- In Class"
+teaching: 90
+exercises: 30
+questions:
+  - "What is the formal process for hypothesis testing?"
+  - "How does hypothesis testing relate to the population and sampling distributions?"
+  - "What are the assumptions of a t-test?"
+  - "What does a P-value mean?"
+  - "What is the right statistical test to use for my data?"
+objectives:
+  - "Describe the steps of developing and testing a model."
+  - "Formulate simple hypotheses."
+  - "Conceptually describe the operations performed during a statistical test."
+  - "Describe the assumptions of various statistical tests."
+  - "Understand different types of variables."
+  - "Conduct basic statistical tests in R."
+keypoints:
+  - "Understand basic model development and testing."
+  - "All statistical tests make assumptions about your sample and population. Understanding these assumptions is critical to running a valid test."
+source: Rmd
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("07-class-hypothesis-testing-")
+```
+
+***
+## In Class
+
+In the last class we looked at what we are actually doing statistically when take a sample from a population to run an experiment. In this lesson, we will look specifically at hypothesis testing, defining the formal process of formulating and testing a set of hypotheses, and what the critical factors are for selecting the appropriate statistical tool for a given set of data.
+
+*** 
+### Formulating a hypothesis
+
+There is a basic process that we undertake as scientists to build our understanding of how a system works. This process comprises the following steps:
+
+1. Develop a model.
+2. Formulate a hypothesis (and corresponding null hypothesis) based on that model.
+3. Collect a data sample.
+4. Run a statistical test to test the null hypothesis.
+5. Interpret the statistical test.
+6. Accept the null hypothesis or reject it in favor of the alternative.
+
+Let's use the mouse study looking the role of a high-fat, high-sucrose diet on metabolism to look at each step. First, let's load the data:
+
+```{r}
+data.diet <- read.delim("./data/b6.aj.hfhs.diet.txt")
+```
+
+For a simple starting example, let's say we are interested in the impact of genetic background on body weight. A first-order model can be simply stated:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Model:** *Body weight is determined, at least in part, by genetic background.*
+
+This model predicts that different genetic backgrounds should have different body weights at the same age. We can thus generate a hypothesis ($$H_1$$) and a corresponding null hypothesis ($$H_0$$). Note that a properly formed hypothesis should be a specific, falsifiable prediction about a change in an experimentally testable dependent variable following a change in an independent variable:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$H_1$$: *Age-matched mice from genetically distinct strain backgrounds will have different body weights on average.*
+
+&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $$H_0$$: *Age-matched mice from genetically distinct strain backgrounds will not have different body weights on average.*
+
+Our high-fat, high-sucrose diet data set includes body weight measurements for two different strains, C57BL/6 and A/J, so we have a set of observations that can be used to test the hypothesis. The idealized version of these hypotheses can be visualized as follows:
+
+<img src="../fig/hypotheses.png" alt="Hypotheses" />
+
+We are actually taking two samples, one from the C57BL/6J strain and one from the A/J strain. In essence, the null hypothesis is that the observations from each sample are drawn from the same effective population with respect to the measured phenotype (or at least populations with the same phenotype mean), while the alternative hypothesis is that the samples are drawn for populations with a distinct distribution for the measured phenotype. 
+
+First, we will examine the two distributions to see if there is a visual difference. There are a few ways to do this. Let's start by plotting the density functions for the starting body weights for the two strains;
+
+```{r}
+# define the density functions
+dens.bw.b6 <- density(data.diet$bw_start[data.diet$strain == "C57BL/6J"])
+dens.bw.aj <- density(data.diet$bw_start[data.diet$strain == "A/J"])
+
+# define the plot limits
+x.lim <- c(min(dens.bw.b6$x, dens.bw.aj$x), max(dens.bw.b6$x, dens.bw.aj$x))
+y.lim <- c(0, max(dens.bw.b6$y, dens.bw.aj$y))
+
+# plot density functions
+plot(dens.bw.b6, type = "l",
+     col = "black", main = "", xlab = "Body Weight (g)",
+     xlim = x.lim, ylim = y.lim)
+
+lines(dens.bw.aj, col = "blue")
+```
+
+&nbsp;
+
+Alternatively, we may want to look at the box and whisker plot for this data:
+
+```{r}
+boxplot(data.diet$bw_start ~ data.diet$strain,     # formula notation to plot body weight by strain
+        xlab = "Strain", ylab = "Body Weight (g)", # add some axis labels
+        outline = F)                                # turn off outlier points
+        
+stripchart(data.diet$bw_start ~ data.diet$strain,     # formula notation to plot body weight by strain
+        pch=20, col=c("blue","red"),                  # change the point type and color
+        method = "jitter",                            # spread out the points in the x direction (instead of drawing them over eachother)
+        vert=T,add=T)                                 # draw the points vertically to match the direction of boxplot, and add to the current plot
+```
+
+&nbsp;
+
+Well, the certainly look like distributions with different mean values. But to determine whether the difference is enough to reject the null hypothesis, we need to run a statistical test. 
+
+What are we actually doing when we run a statistical test? In the simplest form, we have a sample with a set of samples and an observed mean for our phenotype of interest. The goal of the test is to determine how likely it is that our sample came from the population that we are comparing too (in this case the population from the comparison sample). In our example, we are asking: 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*How likely is it that the sample of C57BL/6 body weight observations came from the same population as the A/J body weight observations?*
+
+Because of this framing, we are actually testing the *null hypothesis*, and choosing to accept it or reject it in favor of the alternative hypothesis. In running the statistical test, we make an assumption about the shape of the sampling distribution of the phenotype in the comparison population  for the sample size and simply ask how likely it would be to observe the mean from the measured sample given that assumption. Because of the Central Limit Theorem, the assumption that the sampling distribution is normally distributed is usually valid for large sample size (n). 
+
+Because we know the distribution of all possible samples for a normally distributed sample population, we can calculate the probability that our sample is drawn from the assumed sampling distribution (this is the P-value). The general rule of thumb is that if the probability is greater than 0.05 we accept the null hypothesis, while if the probability is less than 0.05, we reject the null hypothesis in favor of the alternative hypothesis. 
+
+We can visualize this procedure:
+
+<img src="../fig/hypothesis-test.png" alt="Hypotheses" />
+
+&nbsp;
+
+Each statistical test has an underlying set of assumptions. The t-test is the most common test used in biological sciences (though not always in the correct situations!). These assumptions must be met for the output of the test to be valid. The t-test makes the following assumptions:
+* The independent variable is bivariate (i.e. categorical with two categories)
+* The dependent variable is continuous
+* The mean of the sampling distributions for the two populations sampled follow a normal distribution (approximately true for large sample sizes under the Central Limit Theorem)
+* Each observation of the dependent variable is independent of all other observations of the dependent variable (this is broken by, for example, cluster sampling or time-to-event variables)
+* For the classical Student's t-test, the two populations must have equal variance (i.e. the same standard deviation). However, Welch's t-test generalizes the operation to populations with unequal variance. Unless you *know* that your populations have equal variance, assume unequal variance.
+
+We can check normality using the Q-Q plot and the Shapiro-Wilk test from last class:
+```{r}
+qqnorm(data.diet$bw_start[data.diet$strain == "C57BL/6J"])
+qqline(data.diet$bw_start[data.diet$strain == "C57BL/6J"])
+shapiro.test(data.diet$bw_start[data.diet$strain == "C57BL/6J"])
+
+qqnorm(data.diet$bw_start[data.diet$strain == "A/J"])
+qqline(data.diet$bw_start[data.diet$strain == "A/J"])
+shapiro.test(data.diet$bw_start[data.diet$strain == "A/J"])
+
+```
+
+&nbsp;
+
+Our data meet all of the other assumptions of the t-test. We can run a t-test using the `t.test()` function in R:
+
+```{r, eval = -1}
+?t.test
+
+# We can either use formula notation...
+t.test(data.diet$bw_start ~ data.diet$strain,     
+       alternative = "two.sided")               # specify that we want a two-sided test
+
+# ... or by explicitly entering the two data sets
+t.test(data.diet$bw_start[data.diet$strain == "C57BL/6J"], 
+       data.diet$bw_start[data.diet$strain == "A/J"],                # explicitly specifying the data sets gives the same answer  
+       alternative = "two.sided")
+```
+
+&nbsp;
+
+As we suspected from our plot, the P-value is highly significant, and we can reject the null hypothesis in favor of the alternative hypothesis.
+
+***
+### Choosing the right statistical test
+
+One of the more common errors you see in hypothesis testing is application of the wrong statisitcal test to a given data set. By "wrong", I just mean that the assumptions of the test are violated by some aspect of the underlying data. 
+
+What are the critical factors when selecting your test?
+* Number of dependent variables.
+* Type(s) of dependent variable(s).
+* Number of independent variables.
+* Type(s) of independent variable(s).
+* Distribution of the dependent variable.
+* Sample size.
+* Paired vs. unpaired observations between variables.
+
+&nbsp;
+#### Variable types
+
+The nature of your variables is the first thing to consider when selecting a statistical test. In most situations, there are two broad categories of variable type (*categorical* and *numeric*), with sub-categories:
+
+Variable type:
+ * **Categorical** variables are those with discrete or qualitative. They are divided into three types: 
+    + *Nominal* variables have two or more categories, but no intrinsic order. For example, flower color ("red", "green", "blue") or state of residence ("Washington", "Arizona", "Maine") are considered nominal variables.
+    + *Dichotomous* variables are a subcategory of nominal variables with exactly two categories. For most studies, biological sex or gender ("female" or "male") is considered dichotomous, as are questions with binary answers, e.g. "do you own a smart phone?" ("Yes" or "No"), censoring variables (0 = not censored, 1 = censored), or variables about current status ("Alive" or "Dead").
+    + *Ordinal* are similar to nominal, except with a clear order to the values (e.g. inflammation may be characterized as "none", "low", "moderate", or "high").
+
+* **Numeric** variables are quantifiable and meaningfully representable by numbers. To be considered "numerical", the relative value must be numerically meaningful. Note that categories can be coded as numbers (see the censoring example under dichotomous variables above), but are not considered "numerical" because the relative value is not meaningful.
+    + *Discrete* variables denote quantities that are represented by whole numbers or counts. The number of items purchased at a store or the number of children in a family (i.e. "1" and "5" are meaningful, but "2.3"" is not) are discrete variables.
+    + *Continuous* variables are quantities that can be represented on a continuous number line and are not limited to discrete values. These can be further subdivided based on what type of comparison between two values is meaningful.
+    + *Interval* variables have a consistent distance between numbered values. For example, the difference between 40 and 50 degrees Fahrenheit is the same as the difference between 90 and 100 degrees Fahrenheit.
+    + *Ratio* variables have the same properties as interval variables, except that the point 0.0 is clearly defined, such that the ratio between two values is meaningful. For example, 50 degrees Fahrenheit is not twice as hot as 25 degrees Fahrenheit, while a person who is 6 feet tall can be considered "twice as tall" as a person who is 3 feet tall. Degrees Fahrenheit is thus an interval variable, but not a ratio variable, while height is both. 
+
+> ## Time-to-event data.
+> 
+> There are special cases that require different considerations. 
+> Time-to-event (aka survival) data does not fit cleanly into the above 
+> categories. While the variable it putatively numeric 
+> (*how long did it take the event to occur?*) there is an oft-hidden 
+> underlying aspect to the data that is categorical (*did the event occur?*). 
+> Analysis of time-to-event data also generally requires a means to censor 
+> data, for example if a death was observed, but not from the cause of 
+> interest, or if a patient dropped out of a study. We will examine analysis 
+> of time-to-event data in a later lesson.
+{: .callout}
+
+&nbsp;
+#### Sample size and the distribution of the dependent variable
+
+We have spent a fair amount of time talking about distributions and what they say about our data. The primary place that this can matter is in fulfilling the assumptions of our selected statistical tests. Types of tests can be categorized as *parametric* or *nonparametric*. While there is not a hard-and-fast definition for these terms *per se*, generally these terms are used as follows:
+
+* **Parametric tests** make an assumption about the underlying *parameter*, or *statistic*, in a data set to calculate probabilities. In most cases, the assumption is that the statistic is drawn from a particular distribution (e.g. the normal distribution). The t-test is the most common example of this sort of test.
+
+* **Nonparametric tests** do not make assumptions about the underlying parameters or parameter distributions and use other means to calculate probabilities. Often they will rely on the rank-order of the data (e.g. the Log-Rank test).
+
+Nonparametric tests are more robust than parametric tests in that they make fewer assumptions. However, they also have less statistical power to detect real differences (i.e. they are more conservative). Thus you have a trade-off if you have relatively low sample size (say <30) and data that is not clearly normally distributed.
+
+For the most part, if you have a large sample size the distribution becomes less important. Parametric tests tend to be robust to non-normal data distributions with large sample sizes, while the reduction of power for nonparametric tests becomes less severe. 
+
+> ## How many is enough?
+> 
+> While there are is no hard and fast rule for sample size, the Central Limit Theorem tends
+> to hold for n > 30 (so long as the population is much larger), allowing the assumption of
+> normality to be safely adopted in most cases. If your data is dramatically skewed, try a 
+> transformation, use a nonparametric test, or adopt a more conservative interpretation.
+{: .callout}
+
+&nbsp;
+# Paired vs. unpaired data
+
+In some cases, data is paired between the two test groups. That is, there is a specific observation in one group that corresponds to a specific observation in another groups. This can most easily be illustrated by an couple of examples:
+* **Unpaired:** Comparing body weight between two different strains of mouse. There is no specific relationship between one individual in *Strain A* and a particular individual in *Strain B*.
+* **Paired:** Comparing body weight of mice before and after being provided a particular diet for some time frame. In this case, you have body weight data from the same set of mice before and after the diet. The body weight for *Mouse A* before the diet is paired to the body weight for *Mouse A* after the diet.
+
+If you have a data structure that allows for paired testing, it provides quite a bit more power to detect difference between groups. Most data is not paired. 
+
+&nbsp;
+#### Available statistical tests
+
+There are many, many resources that provide information on selecting statistical tests from data. You should now have the basic information needed to find the right test. Pick your favorite table or flow chart to select your test. Here are some options:
+
+* [UCLA Institute for Digital Research & Education](https://stats.idre.ucla.edu/other/mult-pkg/whatstat/) provides a table to guide the correct choice of test with handy links to the corresponding functions in R and other analysis tools.
+* [Handbook of Biological Statistics](http://www.biostathandbook.com/testchoice.html) provides a table with a different organization and links to more detailed descriptions of each test.
+
+Here is an example of a flow chart for choosing a test. Many different versions of this type of charg are available online (original [here](http://www.pnrjournal.com/article.asp?issn=0976-9234;year=2010;volume=1;issue=2;spage=61;epage=63;aulast=Jaykaran)):
+
+<img src="../fig/Statistical_Test_Flow_Chart.jpg" alt="Which test?" />
+
+&nbsp;
+#### Exercises
+
+> ## Petal length by species?
+> 
+> Is there a significant difference ($$\alpha < 0.05$$) in petal length among species in 
+> the `iris` dataset?
+> 
+> > ## Solution
+> > 
+> > Petal length is a continuous variable while species is categorical with 3 groups. First 
+> > we can look at whether our data is normally distributed:
+> > Using the
+> > above chart, we shoud use an 
+> >
+> > ```{r}
+> > qqnorm(iris$Petal.Length)
+> > qqline(iris$Petal.Length)
+> > ```
+> > 
+> > Not really close to normal... We can first try transforming the data to see if we can get the > > distribution to a more normal state. 
+> > 
+> > ```{r}
+> > qqnorm(log(iris$Petal.Length))
+> > qqline(log(iris$Petal.Length))
+> > qqnorm(exp(iris$Petal.Length))
+> > qqline(exp(iris$Petal.Length))
+> > qqnorm(1/iris$Petal.Length)
+> > qqline(1/iris$Petal.Length)
+> > qqnorm((iris$Petal.Length)^2)
+> > qqline((iris$Petal.Length)^2)
+> > qqnorm((iris$Petal.Length)^(1/2))
+> > qqline((iris$Petal.Length)^(1/2))
+> > ```
+> > 
+> > Nothing really helps, so that means nonparametric testing!
+> > 
+> > Referencing the above chart, the best fir is the non-parametric ANOVA, also called the 
+> > Kruskal-Wallis rank sum test. From the UCLA site above, we can find the appropriate R 
+> > function:
+> > 
+> > ```{r}
+> > kruskal.test(Petal.Length ~ Species, data = iris)
+> > ```
+> > 
+> > We conclude that species does affect petal length in irises.
+> {: .solution}
+{: .challenge}
+
+
+> ## Does diet affect body weight?
+> 
+> In our mouse diet data set (*b6.aj.hfhs.diet.txt*), is the impact of diet on body weight 
+> statistically significant ($$\alpha < 0.05$$)?
+>
+> > ## Solution
+> > 
+> > First load the data and remind ourselves of the structure:
+> > 
+> > ```{r}
+> > data.diet <- read.delim("./data/b6.aj.hfhs.diet.txt")
+> > str(data.diet)
+> > ```
+> > 
+> > Next examine the distribution of the before and after diet body weights.
+> > 
+> > ```{r}
+> > qqnorm(data.diet$bw_start)
+> > qqline(data.diet$bw_start)
+> > qqnorm(data.diet$bw_end)
+> > qqline(data.diet$bw_end)
+> > ```
+> > 
+> > Staring body weight looks okay, but ending body weight looks very skewed. Perhaps this 
+> > is a strain effect? Let's break it down further and recheck.
+> > 
+> > ```{r}
+> > qqnorm(data.diet$bw_start[data.diet$strain == "C57BL/6J"])
+> > qqline(data.diet$bw_start[data.diet$strain == "C57BL/6J"])
+> > qqnorm(data.diet$bw_end[data.diet$strain == "C57BL/6J"])
+> > qqline(data.diet$bw_end[data.diet$strain == "C57BL/6J"])
+> > 
+> > qqnorm(data.diet$bw_start[data.diet$strain == "A/J"])
+> > qqline(data.diet$bw_start[data.diet$strain == "A/J"])
+> > qqnorm(data.diet$bw_end[data.diet$strain == "A/J"])
+> > qqline(data.diet$bw_end[data.diet$strain == "A/J"])
+> > ```
+> > 
+> > That looks a lot closer (still a bit skewed on the high body weight side for C57BL/6J, 
+> > but we have almost 100 mice, so we will go ahead with the normal assumption).
+> > 
+> > Our data is paired, our independent variable is categorical (before vs. after HF-HS diet) 
+> > and our dependent variable is continuous numeric. Since we are assuming normality, we can 
+> > use a paired t-test (again broken down by strain, because that's where are data are 
+> > normal):
+> > 
+> > ```{r}
+> > t.test(data.diet$bw_start[data.diet$strain == "C57BL/6J"],
+> >        data.diet$bw_end[data.diet$strain == "C57BL/6J"],
+> >        paired = T, alternative = "two.sided")
+> > 
+> > t.test(data.diet$bw_start[data.diet$strain == "A/J"],
+> >        data.diet$bw_end[data.diet$strain == "A/J"],
+> >        paired = T, alternative = "two.sided")
+> > ```
+> > 
+> > Diet does significantly effect body weight in both strain backgrounds.
+> {: .solution}
+{: .challenge}
+
+> ## Does strain affect body weight in mice?
+> 
+> A large study of different inbred strains was conducted in mice across lifespan. This data
+> is stored in a file called *inbred.body.composition.txt*. Does strain background affect 
+> body weight in mice?
+> 
+> > ## Solution
+> > 
+> > 
+> > Load the data and look at the structure:
+> > 
+> > ```{r}
+> > data.bodycomp <- read.delim("./data/inbred.body.composition.txt")
+> > str(data.bodycomp)
+> > ```
+> > 
+> > First look at normality within the body weight data.
+> > 
+> > ```{r}
+> > qqnorm(data.bodycomp$body_weight_g)
+> > qqline(data.bodycomp$body_weight_g)
+> > ```
+> > 
+> > Looks like a deviation toward the higher body weight. Let's try a log transformation.
+> > 
+> > ```{r}
+> > qqnorm(log(data.bodycomp$body_weight_g))
+> > qqline(log(data.bodycomp$body_weight_g))
+> > ```
+> > 
+> > That looks better. Not perfect, but given the large sample size (n = 1187), we are 
+> > going to assume that the sampling distribution is normal).
+> > 
+> > Our dependent variable is continous, numeric (ratio) with an (assumed) normal 
+> > distribution and our independent variable is catagroical with many levels. We can 
+> > use an ANOVA test (`aov()` in R, rom the UCLA site). Note from the UCLA notes that 
+> > you have to request the `summary()` of the object created by `aov()` to see the 
+> > P-values.
+> > 
+> > ```{r}
+> > anova.bodycomp <- aov(body_weight_g ~ strain, data = data.bodycomp)
+> > summary(anova.bodycomp)
+> > ```
+> > 
+> > The impact of strain on body weight is highly significant.
+> {: .solution}
+{: .challenge}
+
+***
+
+{% include links.md %}

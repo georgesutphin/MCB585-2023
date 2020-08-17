@@ -9,7 +9,6 @@ questions:
 - "How do I perform basic calculations in R?"
 - "How do I assign values to variables in R?"
 - "What are functions, and how are they used in R?"
-- "Where can I get help?"
 objectives:
 - "Get familiar with RStudio interface."
 - "Understand the difference between scripts and the console."
@@ -18,14 +17,10 @@ objectives:
 - "Execute functions."
 - "Demonstrate useful shortcuts."
 - "Know when to use setwd()."
-- "Know how to install and load packages."
-- "Know what resources are available if you get stuck."
 keypoints:
 - "R is the programming language; RStudio is a user friendly environment for interacting with R."
 - "Using RStudio can make programming in R much more productive."
-- "Consider what working directory you are in when sourcing a script."
-- "Use help() and ? to get basic information about functions."
-- "Online forums have the answers to almost any R-related question you can come up with. Know how to Google your question!"
+- "Consider what working directory you are in when sourcing a script and loading data."
 source: Rmd
 ---
 
@@ -39,21 +34,21 @@ knitr_fig_path("01-class-introduction-")
 &nbsp;
 ### Introduction to R and RStudio
 
-If we only had one data set to analyze, it would probably be faster to load the file into a spreadsheet and use that to plot some simple statistics.
+If we only had one data set to analyze, it would probably be faster to load the file into a spreadsheet, calculate some simple statisitcs, and generate a plot or two.
 
-But what if we have twelve files to check? What if we are running analysis that we will be repeating in the future?
+But what if we have twelve files to analyze in the same way? Or 100? 10,000? What if we are running an analysis that we will be repeating on future datasets?
 
 **What is R?**
 
-R is a statistical programming language widely used by working scientists that provides a broad spectrum of tools for data manipulation, statistical analysis, machine learning, and more. R is one of the fastest growing programming languages and new tools are being created all the time. 
+R is a statistical programming language widely used by working scientists that provides a broad spectrum of tools for data manipulation, statistical analysis, machine learning, graphical data representation, and more. R is one of the fastest growing programming languages and new tools are being created all the time. 
 
 Advantages of R:
-* **Versatility** -- you can do just about anything in the data analysis world
+* **Versatility** -- You can do just about anything in the data analysis world.
 * **Repeatability** -- Because R is a programming language, a properly designed script can be repeated and automated.
 * **Community** -- Because R is widely used, there is a large and active online community producing resources, answering questions, and trying to solve new problems.
 
 Disadvantages of R:
-* **Learning Curve** -- R is a programming language. If you don't have programming experience, it can be a bit daunting.
+* **Learning Curve** -- R is a programming language. If you don't have programming experience, it can be a bit daunting to begin using. The major goal of this course is to guide you through the difficult first stage. At the end, we hope that you are familiar enough with the basic workings of R to be comfortable picking it up and try to apply it to new analysis problems in the future.
 * **Slow for one-time operations** -- R is great of any analysis that you plan to perform more than once. Other tools are better for quick, one-time projects.
 
 **What is RStudio?**
@@ -84,42 +79,54 @@ Here are the basic elements of RStudio:
 <img src="../fig/01-RStudio-overview.png" alt="RStudio Visual Interface" />
 
 * Code and workflow are more reproducible if we can document everything that we do.
-* Our end goal is not just to "do stuff" but to do it in a way that anyone can
-  easily and exactly replicate our workflow and results.
-* The best way to achieve this is to write scripts. RStudio provides an
-  environment that allows you to do that.
+* Our end goal is not just to "do stuff" but to do it in a way that anyone can easily and exactly replicate our workflow and results.
+* The best way to achieve this is to write scripts. RStudio provides an environment that allows you to do that.
 
 &nbsp;
 #### Interacting with R using RStudio
 
-There are two main ways of interacting with R: using the console or using
-script files (plain text files that contain your code).
+There are two main ways of interacting with R within RStudio: using the console or using script files (plain text files that contain your code).
 
-**Console:** The console window (bottom left panel in RStudio) is the place where R is
-waiting for you to tell it what to do, and where it will show the results of a
-command.  You can type commands directly into the console, but they will be
-forgotten when you close the session. 
+**Console:** The console window (bottom left panel in RStudio) is the place where R is waiting for you to tell it what to do, and where it will show the results of a command.  You can type commands directly into the console, but they will be forgotten when you close the session. At some point in your analysis you may want to check the content of variable or the structure of an object, without necessarily keep a record of it in your script. You can type these commands directly in the console.
 
-**Script:** The script window (top left panel) It is better to enter the commands in the
-script editor, and save the script. This way, you have a complete record of what
-you did, you can easily show others how you did it and you can do it again later
-on if needed. To run commands from script, you can either copy-paste them into the R console, or you can use the script window to 'send' the current line or the currently selected text to the R console using the <kbd>Ctrl</kbd>+<kbd>Return</kbd> (Mac) or <kbd>Ctrl</kbd>+<kbd>Enter</kbd> (Windows) keyboard shortcut.
+**Script:** The script window (top left panel) It is better to enter the commands in the script editor, and save the script. This way, you have a complete record of what you did, you can easily show others how you did it and you can do it again later on if needed. To run commands from script, you can either copy-paste them into the R console, or you can use the script window to 'send' the current line or the currently selected text to the R console using the following shortcut:
+* iOS/Mac: <kbd>Ctrl</kbd>+<kbd>Return</kbd>
+* Windows: <kbd>Ctrl</kbd>+<kbd>Enter</kbd>
 
-At some point in your analysis you may want to check the content of variable or
-the structure of an object, without necessarily keep a record of it in your
-script. You can type these commands directly in the console. RStudio provides
-the <kbd>Ctrl</kbd>+<kbd>1</kbd> and <kbd>Ctrl</kbd>+<kbd>2</kbd> shortcuts allow you to jump between the script and the
-console windows.
+There are many panels that provide useful information. In general, beyond **Script** and **Console**, we will spend time using the following panels:
 
-If R is ready to accept commands, the R console shows a `>` prompt. If it
-receives a command (by typing, copy-pasting or sent from the script editor using
-<kbd>Ctrl</kbd>+<kbd>Return</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd>, R will try to execute it, and when ready, show the results and come back with a new `>`-prompt to wait for new commands.
+**Environment:** The Environment panel (upper-right by default) provides a table with all variables currently loaded into memory, and their value (or type for more complex veriables). Clicking on a complex veriable will load a table in the Script panel showing the structure and values in that variable.
 
-If R is still waiting for you to enter more data because the command you entered is not yet complete, the console will show a `+` prompt. This means that you haven't finished entering
-a complete command, perhaps because you haven't 'closed' a parenthesis or quotation. If you're in RStudio and this happens, either complete the command and press <kbd>Enter</kbd> or click inside the console window and press <kbd>Esc</kbd> to cancel the current command. That should help you out of trouble.
+**Files:** The first tab on the lower-right panel provides a file explorer system that defaults to the working directory of the currently open R project (more on this later).
+
+**Plots:** By default, any charts or graphics that you produce will be displayed in the Plots panel (second table of the lower-right panel).
+
+**Help:** The Help tab on the lower-right panel let's you browse the built-in documentation for R functions. If you request documentation on a function (e.g. `?sum`), the help file will appear in this panel.
+
+&nbsp;
+> ## Quickly switch between panels:
+> 
+> RStudio provides an easy set of keyboard shortcuts for rapidly switching between panels:
+> * **Script** -- <kbd>Ctrl</kbd>+<kbd>1</kbd>
+> * **Console** -- <kbd>Ctrl</kbd>+<kbd>2</kbd>
+> * **Help** -- <kbd>Ctrl</kbd>+<kbd>3</kbd>
+> * **Files** -- <kbd>Ctrl</kbd>+<kbd>5</kbd>
+> * **Plot** -- <kbd>Ctrl</kbd>+<kbd>6</kbd>
+> * **Environment** -- <kbd>Ctrl</kbd>+<kbd>8</kbd>
+> 
+> For a complete list of keyboard shortcuts in RStudio navigate to the following menu:
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Tools* > *Keyboard Shortcuts Help*
+>
+> (or use the keyboard shortcut <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>.)
+{: .callout}
+
 
 ***
 ### Interacting with the console
+
+If R is ready to accept commands, the R console shows a `>` prompt. If it receives a command (by typing, copy-pasting or sent from the script editor using <kbd>Ctrl</kbd>+<kbd>Return</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd>, R will try to execute it, and when ready, show the results and come back with a new `>`-prompt to wait for new commands.
+
+If R is still waiting for you to enter more data because the command you entered is not yet complete, the console will show a `+` prompt. This means that you haven't finished entering a complete command, perhaps because you haven't 'closed' a parenthesis or quotation. If you're in RStudio and this happens, either complete the command and press <kbd>Enter</kbd> or click inside the console window and press <kbd>Esc</kbd> to cancel the current command. That should help you out of trouble.
 
 &nbsp;
 #### Basic commands

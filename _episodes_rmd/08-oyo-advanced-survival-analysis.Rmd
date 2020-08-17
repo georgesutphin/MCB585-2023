@@ -1,0 +1,26 @@
+---
+title: "Advanced Survival Analysis"
+classdate: "9/18/2020 -- On Your Own"
+teaching: 90
+exercises: 30
+questions:
+- "How?"
+objectives:
+- "Describe."
+keypoints:
+- "Time-to-event."
+source: Rmd
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("08-oyo-advanced-survival-analysis-")
+```
+
+***
+##  On Your Own
+
+
+***
+
+{% include links.md %}

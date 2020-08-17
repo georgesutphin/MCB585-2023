@@ -77,4 +77,6 @@ Here are a few examples projects. Feel free to use one of these or some modifed 
 
 &nbsp;
 
+***
+
 {% include links.md %}

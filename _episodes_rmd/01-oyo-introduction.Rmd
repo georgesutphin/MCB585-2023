@@ -1,31 +1,25 @@
 ---
-title: "Getting started with R and RStudio -- More Information"
+title: "Getting started with R and RStudio -- Additional Detail"
 classdate: "8/26/2020 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:
-- "What is R? What is RStudio?"
-- "How do I use the RStudio graphical user interface?"
+- "How do I manage the variables and files in my workspace?"
+- "How do I write my own functions in R?"
 - "How do I perform basic calculations in R?"
-- "How do I assign values to variables in R?"
-- "What are functions, and how are they used in R?"
 - "Where can I get help?"
 objectives:
-- "Get familiar with RStudio interface."
-- "Understand the difference between scripts and the console."
-- "Understand how to input and read out basic information in R."
-- "Assign values to variables."
-- "Execute functions."
-- "Demonstrate useful shortcuts."
-- "Know when to use setwd()."
+- "Learn how to remove variables from the workspace."
+- "Learn how to free up memory for projects using large data files."
+- "Know the basic syntax for writing and executing your own functions."
 - "Know how to install and load packages."
-- "Know what resources are available if you get stuck."
+- "Know what resources are available if you get stuck online and at the University of Arizona."
 keypoints:
-- "R is the programming language; RStudio is a user friendly environment for interacting with R."
-- "Using RStudio can make programming in R much more productive."
-- "Consider what working directory you are in when sourcing a script."
+- "When working with large datasets, removing variables that you no longer need and releasing memory can improve performance."
+- "Writing functions for sets of commands that you will be running repeatedly will make your data processing more efficient."
 - "Use help() and ? to get basic information about functions."
 - "Online forums have the answers to almost any R-related question you can come up with. Know how to Google your question!"
+- "The University of Arizona offers serveral resources to assist with both biostatistics and programming."
 source: Rmd
 ---
 

@@ -6,7 +6,7 @@ root: .
 
 To participate in both in-class exercises and homework, you will need access to a computer with the current versions of the following installed:
 
-1. the [R software](https://cran.r-project.org/) itself, and
+1. the [R software](https://cran.r-project.org/mirrors.html) itself, and
 1. [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/#download).
 
 You also need to download some files to follow this lesson:
@@ -16,7 +16,7 @@ You also need to download some files to follow this lesson:
    and move the file to this folder.
 3. If it's not unzipped yet, double-click on it to unzip it. You should end up
    with a new folder called `data`.
-4. You can access this folder with:
+4. You can access this folder through your systems file explorer, or by using command-prompt navigation with:
 
 **Unix shell:** 
 ~~~
