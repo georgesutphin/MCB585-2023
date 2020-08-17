@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-13 23:11:33 -0700">
+    <meta http-equiv="last-modified" content="2020-08-17 13:01:04 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -61,7 +61,7 @@
 	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
-    <title>MCB 585: Multidisciplinary/Quantitative Approaches to Solving Biological Problems: Getting started with R and RStudio -- More Information</title>
+    <title>MCB 585: Multidisciplinary/Quantitative Approaches to Solving Biological Problems: Getting started with R and RStudio -- Additional Detail</title>
   </head>
   <body>
 
@@ -115,7 +115,7 @@
             
             <li><a href="../01-class-introduction/index.html">Getting started with R and RStudio</a></li>
             
-            <li><a href="../01-oyo-introduction/index.html">Getting started with R and RStudio -- More Information</a></li>
+            <li><a href="../01-oyo-introduction/index.html">Getting started with R and RStudio -- Additional Detail</a></li>
             
             <li><a href="../02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
@@ -124,6 +124,28 @@
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
             <li><a href="../03-oyo-Lists/index.html">Lists and Data Frames</a></li>
+            
+            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation</a></li>
+            
+            <li><a href="../05-class-decisions-loops/index.html">Decision Making and Loops</a></li>
+            
+            <li><a href="../05-oyo-more-decisions-loops/index.html">Decision Making and Loops -- Additional Detail</a></li>
+            
+            <li><a href="../06-class-distributions/index.html">Distributions and Normality</a></li>
+            
+            <li><a href="../06-oyo-more-distributions/index.html">Distributions and Normality -- Additional Detail</a></li>
+            
+            <li><a href="../07-class-hypothesis-testing/index.html">Hypothesis Testing</a></li>
+            
+            <li><a href="../07-oyo-multiple-test-correction/index.html">Multiple Test Correction</a></li>
+            
+            <li><a href="../08-class-survival-analysis/index.html">Survival Analysis</a></li>
+            
+            <li><a href="../08-oyo-advanced-survival-analysis/index.html">Advanced Survival Analysis</a></li>
+            
+            <li><a href="../09-class-power-analysis/index.html">Power Analysis</a></li>
+            
+            <li><a href="../09-oyo-simulation/index.html">Simulating Experiments</a></li>
             
             <li><a href="../99-projects/index.html">Final Projects</a></li>
             
@@ -212,7 +234,7 @@
   <div class="col-md-1">
   </div>
   <div class="col-md-10">
-    <h1 class="maintitle">Getting started with R and RStudio -- More Information</h1>
+    <h1 class="maintitle">Getting started with R and RStudio -- Additional Detail</h1>
   </div>
   <div class="col-md-1">
   </div>
@@ -234,19 +256,13 @@
       <strong>Questions</strong>
       <ul>
 	
-	<li><p>What is R? What is RStudio?</p>
+	<li><p>How do I manage the variables and files in my workspace?</p>
 </li>
 	
-	<li><p>How do I use the RStudio graphical user interface?</p>
+	<li><p>How do I write my own functions in R?</p>
 </li>
 	
 	<li><p>How do I perform basic calculations in R?</p>
-</li>
-	
-	<li><p>How do I assign values to variables in R?</p>
-</li>
-	
-	<li><p>What are functions, and how are they used in R?</p>
 </li>
 	
 	<li><p>Where can I get help?</p>
@@ -263,31 +279,19 @@
       <strong>Objectives</strong>
       <ul>
 	
-	<li><p>Get familiar with RStudio interface.</p>
+	<li><p>Learn how to remove variables from the workspace.</p>
 </li>
 	
-	<li><p>Understand the difference between scripts and the console.</p>
+	<li><p>Learn how to free up memory for projects using large data files.</p>
 </li>
 	
-	<li><p>Understand how to input and read out basic information in R.</p>
-</li>
-	
-	<li><p>Assign values to variables.</p>
-</li>
-	
-	<li><p>Execute functions.</p>
-</li>
-	
-	<li><p>Demonstrate useful shortcuts.</p>
-</li>
-	
-	<li><p>Know when to use setwd().</p>
+	<li><p>Know the basic syntax for writing and executing your own functions.</p>
 </li>
 	
 	<li><p>Know how to install and load packages.</p>
 </li>
 	
-	<li><p>Know what resources are available if you get stuck.</p>
+	<li><p>Know what resources are available if you get stuck online and at the University of Arizona.</p>
 </li>
 	
       </ul>
@@ -490,19 +494,19 @@ and running gc() frees up some of the memory. Note that <code class="highlighter
   <h2>Key Points</h2>
   <ul>
     
-    <li><p>R is the programming language; RStudio is a user friendly environment for interacting with R.</p>
+    <li><p>When working with large datasets, removing variables that you no longer need and releasing memory can improve performance.</p>
 </li>
     
-    <li><p>Using RStudio can make programming in R much more productive.</p>
-</li>
-    
-    <li><p>Consider what working directory you are in when sourcing a script.</p>
+    <li><p>Writing functions for sets of commands that you will be running repeatedly will make your data processing more efficient.</p>
 </li>
     
     <li><p>Use help() and ? to get basic information about functions.</p>
 </li>
     
     <li><p>Online forums have the answers to almost any R-related question you can come up with. Know how to Google your question!</p>
+</li>
+    
+    <li><p>The University of Arizona offers serveral resources to assist with both biostatistics and programming.</p>
 </li>
     
   </ul>

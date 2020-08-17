@@ -1,0 +1,26 @@
+---
+title: "Decision Making and Loops -- Additional Detail"
+classdate: "9/9/2020 -- On Your Own"
+teaching: 90
+exercises: 30
+questions:
+- "How?"
+objectives:
+- "Write."
+keypoints:
+- "Use."
+source: Rmd
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("05-oyo-more-decisions-loops-")
+```
+
+***
+## On Your Own
+
+
+***
+
+{% include links.md %}

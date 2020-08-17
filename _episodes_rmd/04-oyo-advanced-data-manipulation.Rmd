@@ -1,0 +1,29 @@
+---
+title: "Advanced Data Manipulation"
+classdate: "9/4/2020 -- On Your Own"
+teaching: 90
+exercises: 30
+questions:
+- "How?"
+objectives:
+- "Import."
+keypoints:
+- "Import."
+source: Rmd
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("04-oyo-advanced-data-manipulation-")
+```
+
+***
+## On Your Own
+
+
+
+
+
+***
+
+{% include links.md %}
