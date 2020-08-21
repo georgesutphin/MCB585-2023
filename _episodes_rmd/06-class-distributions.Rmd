@@ -8,22 +8,17 @@ questions:
 - "Which distribution is more important for hypothesis testing?"
 - "What is the normal distribution and what are it's attributes?"
 - "How can I tell if my data is normally distributed?"
-- "What options do I have if my data is not normally ditributed?"
 objectives:
 - "Describe the difference between a population and a sample."
 - "Understand the parameters of the population distribution."
 - "Understand the statistics of the sampling distribution."
 - "Plot the distribution of sample data."
-- "Assess whether a sample is normally distributed both visually and quantitately."
-- "Carry out simple reversible data transformations to normalize data."
-- "Know where to go for more advanced data transformations."
+- "Assess whether a sample is normally distributed qualitatively."
 keypoints:
 - "Samples are sets of observations drawn from a population."
 - "The population distribution describes the characteristics of the observed phenotype in the population of interest."
 - "The sampling distribution describes the characteristics of all possible samples of a given size."
-- "Use hist(), density(), dnorm(), qqnorm(), and qqline() to visually assess whether a sample is normally distributed."
-- "Use shapiro.test() to perform at Shapiro-Wilk test of normality."
-- "Simple manipulations such as taking the logrithm or the square root of a sample can reversibly transform the observations into a more normal distribution."
+- "Use `hist()`, `density()`, `dnorm()`, `qqnorm()`, and `qqline()` to visually assess whether a sample is normally distributed."
 source: Rmd
 ---
 
@@ -32,7 +27,6 @@ source("../bin/chunk-options.R")
 knitr_fig_path("06-class-distributions-")
 ```
 
-***
 ## In Class
 
 &nbsp;

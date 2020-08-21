@@ -126,25 +126,12 @@ install.packages("pwr")
 
 
 ~~~
-Warning: unable to access index for repository https://cran.cnr.berkeley.edu/src/contrib:
-  cannot open URL 'https://cran.cnr.berkeley.edu/src/contrib/PACKAGES'
+package 'pwr' successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+	C:\Users\sutph\AppData\Local\Temp\RtmpMnDWxK\downloaded_packages
 ~~~
-{: .error}
-
-
-
-~~~
-Warning: package 'pwr' is not available (for R version 3.6.1)
-~~~
-{: .error}
-
-
-
-~~~
-Warning: unable to access index for repository https://cran.cnr.berkeley.edu/bin/windows/contrib/3.6:
-  cannot open URL 'https://cran.cnr.berkeley.edu/bin/windows/contrib/3.6/PACKAGES'
-~~~
-{: .error}
+{: .output}
 
 
 
@@ -297,9 +284,9 @@ str(data.surv)
 
 ~~~
 'data.frame':	1881 obs. of  5 variables:
- $ strain       : Factor w/ 31 levels "129S1/SvImJ",..: 1 1 1 1 1 1 1 1 1 1 ...
- $ sex          : Factor w/ 2 levels "f","m": 1 1 1 1 1 1 1 1 1 1 ...
- $ animal_id    : Factor w/ 1881 levels "00066673c5","000666d252",..: 1308 1390 1501 1612 24 35 60 79 116 137 ...
+ $ strain       : chr  "129S1/SvImJ" "129S1/SvImJ" "129S1/SvImJ" "129S1/SvImJ" ...
+ $ sex          : chr  "f" "f" "f" "f" ...
+ $ animal_id    : chr  "1" "2" "3" "4" ...
  $ lifespan_days: int  616 763 770 987 673 920 680 483 821 938 ...
  $ censor       : int  0 0 0 0 0 0 0 0 0 0 ...
 ~~~
@@ -315,18 +302,17 @@ unique(data.surv$strain) # generate strain list
 
 
 ~~~
- [1] 129S1/SvImJ       A/J               BALB/cByJ        
- [4] BTBR T+ tf/J      BUB/BnJ           C3H/HeJ          
- [7] C57BL/10J         C57BL/6J          C57BLKS/J        
-[10] C57BR/cdJ         C57L/J            CAST/EiJ         
-[13] CBA/J             DBA/2J            FVB/NJ           
-[16] KK/HlJ            LP/J              MOLF/EiJ         
-[19] MRL/MpJ           NOD.B10Sn-H2<b>/J NON/ShiLtJ       
-[22] NZO/HlLtJ         NZW/LacJ          P/J              
-[25] PL/J              PWD/PhJ           RIIIS/J          
-[28] SJL/J             SM/J              SWR/J            
-[31] WSB/EiJ          
-31 Levels: 129S1/SvImJ A/J BALB/cByJ BTBR T+ tf/J BUB/BnJ ... WSB/EiJ
+ [1] "129S1/SvImJ"       "A/J"               "BALB/cByJ"        
+ [4] "BTBR T+ tf/J"      "BUB/BnJ"           "C3H/HeJ"          
+ [7] "C57BL/10J"         "C57BL/6J"          "C57BLKS/J"        
+[10] "C57BR/cdJ"         "C57L/J"            "CAST/EiJ"         
+[13] "CBA/J"             "DBA/2J"            "FVB/NJ"           
+[16] "KK/HlJ"            "LP/J"              "MOLF/EiJ"         
+[19] "MRL/MpJ"           "NOD.B10Sn-H2<b>/J" "NON/ShiLtJ"       
+[22] "NZO/HlLtJ"         "NZW/LacJ"          "P/J"              
+[25] "PL/J"              "PWD/PhJ"           "RIIIS/J"          
+[28] "SJL/J"             "SM/J"              "SWR/J"            
+[31] "WSB/EiJ"          
 ~~~
 {: .output}
 

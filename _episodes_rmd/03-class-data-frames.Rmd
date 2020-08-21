@@ -4,11 +4,27 @@ classdate: "9/2/2020 -- In Class"
 teaching: 90
 exercises: 30
 questions:
-- "Class questions."
+- "How do I read data from a .csv or .txt file into R?"
+- "How do I write data to a .csv or .txt file?"
+- "What is a data frame?"
+- "How does indexing differ for data frames relative to basic data structures?"
+- "How do I access data frame subsets?"
 objectives:
-- "Class objectives."
+- "Be able to apply the basic functions for reading and writing tabular data stored in common text file formats (.txt, .csv)."
+- "Understand the key arguments for importing data properly, such as `header` and `stringsAsFactors`."
+- "Understand the key arguments for exporting the data properly, such as `row.names`, `col.names`, and `quote`."
+- "Understand the structure and properties of data frames in R."
+- "Select individual values and subsections from data."
+- "Perform operations on a data frame."
+- "Understand the three primary ways R can access data inside a data frame."
+- "Combine different methods for accessing data with the assignment operator to update subsets of data."
 keypoints:
-- "Class keypoints."
+- "Import data from a .csv or .txt file using the `read.table(...)`, `read.csv(...)`, and `read.delim(...)` functions."
+- "Write data to a new .csv or .txt file using the `write.table(...)` and `write.csv(...)` functions."
+- "Use `object[x, y]` to select a single element from a data frame."
+- "All the indexing and subsetting that works on matrices also works on data frames."
+- "Each column of a data frame can be directly addressed by specifying the column name using the `$` operator (e.g. `mydataframe$column1`)."
+- "Data in data structures can by accessed by specifying the appropriate index, by logical vector, or by column/row name (if defined)."
 source: Rmd
 ---
 

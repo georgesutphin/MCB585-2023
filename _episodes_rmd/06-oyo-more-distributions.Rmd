@@ -4,11 +4,15 @@ classdate: "9/11/2020 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:
-- "What."
+- "Is there a statistical method for assessing normality?"
+- "What options do I have if my data is not normally ditributed?"
 objectives:
-- "Describe."
+- "Be able to conduct a Shapiro-Wilk test in R, but also understand the limitations of this test."
+- "Carry out simple reversible data transformations to normalize data."
+- "Know where to go for more advanced data transformations."
 keypoints:
-- "Samples."
+- "Use shapiro.test() to perform at Shapiro-Wilk test of normality. However, the power of the test is such that a negative result can eitehr indicate insufficient sample size or lack of normality."
+- "Simple manipulations such as taking the logrithm or the square root of a sample can reversibly transform the observations into a more normal distribution."
 source: Rmd
 ---
 

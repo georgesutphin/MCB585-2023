@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-17 13:01:04 -0700">
+    <meta http-equiv="last-modified" content="2020-08-21 00:08:52 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -123,9 +123,11 @@
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-Lists/index.html">Lists and Data Frames</a></li>
+            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
             
-            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation</a></li>
+            <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
+            
+            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation and Plotting</a></li>
             
             <li><a href="../05-class-decisions-loops/index.html">Decision Making and Loops</a></li>
             
@@ -256,7 +258,16 @@
       <strong>Questions</strong>
       <ul>
 	
-	<li><p>Class questions.</p>
+	<li><p>What are the basic data types in R?</p>
+</li>
+	
+	<li><p>What are factors and how do they differ from other data types?</p>
+</li>
+	
+	<li><p>How is missing data represented in R?</p>
+</li>
+	
+	<li><p>How is infinity represented in R?</p>
 </li>
 	
       </ul>
@@ -270,7 +281,19 @@
       <strong>Objectives</strong>
       <ul>
 	
-	<li><p>Class objectives.</p>
+	<li><p>Understand basic data types in R and how these data types are used in data structures.</p>
+</li>
+	
+	<li><p>Understand missing data and other special values (e.g. infinity).</p>
+</li>
+	
+	<li><p>Understand the structure and properties of factors.</p>
+</li>
+	
+	<li><p>Be able to explain the difference between ordered and unordered factors.</p>
+</li>
+	
+	<li><p>Be aware of some of the problems encountered when using factors.</p>
 </li>
 	
       </ul>
@@ -565,8 +588,8 @@ information built in. It is particularly helpful when there are many levels
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">food</span><span class="p">[</span><span class="m">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"frog"</span><span class="w"> </span><span class="c1"># doesn't work! The level "frog" is not defined</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in `[&lt;-.factor`(`*tmp*`, 8, value = "frog"): invalid factor level,
-NA generated
+<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in `[&lt;-.factor`(`*tmp*`, 8, value = "frog"): invalid factor level, NA
+generated
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">food</span><span class="p">[</span><span class="m">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"low"</span><span class="w"> </span><span class="c1"># note that this works to add an 8th element to `food`</span><span class="w">
@@ -681,7 +704,22 @@ We can order these from least intense to most intense, so let’s use <code clas
   <h2>Key Points</h2>
   <ul>
     
-    <li><p>Class keypoints.</p>
+    <li><p>R’s basic data types are character, numeric, integer, complex, and logical.</p>
+</li>
+    
+    <li><p>R’s data structures include the vector, list, matrix, data frame, and factors. Some of these structures require that all members be of the same data type (e.g. vectors, matrices) while others permit multiple data types (e.g. lists, data frames).</p>
+</li>
+    
+    <li><p>Factors are used to represent categorical data.</p>
+</li>
+    
+    <li><p>Factors can be <em>ordered</em> or <em>unordered</em>.</p>
+</li>
+    
+    <li><p>Some R functions have special methods for handling factors.</p>
+</li>
+    
+    <li><p>The function <code class="highlighter-rouge">dim</code> gives the dimensions of a data structure.</p>
 </li>
     
   </ul>

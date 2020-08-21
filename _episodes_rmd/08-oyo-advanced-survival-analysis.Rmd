@@ -4,11 +4,16 @@ classdate: "9/18/2020 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:
-- "How?"
+- "What statistical models are used to describe survival data?"
+- "What is the proportional hazards assumption?"
+- "How can Cox Proportional Hazard regession be employed for advanced survival analysis?"
 objectives:
-- "Describe."
+- "Describe the basic assumptions underlying common models for survival data."
+- "Use Cox Proportional Hazard regression to analyze more complex survival datasets, such as the relationship between more than one independent variable."
 keypoints:
-- "Time-to-event."
+- "There are multiple commonly used modesl for describing time-to-event data, including exponential decay, accelerated failure time, and propotional hazards."
+- "Each model makes specific assumptions and tend to be employed for specific types of time-to-event data."
+- "The most common form of advanced analysis is Cox Proportional Hazards, which assumes that the ratio between the hazard functions for two populations remains constant over time."
 source: Rmd
 ---
 

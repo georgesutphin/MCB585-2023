@@ -6,11 +6,20 @@ classdate: "8/28/2020 -- In Class"
 teaching: 90
 exercises: 30
 questions:
-- "Class questions."
+- "What are the most common data types in R?"
+- "What are the basic data structures in R?"
+- "How do I access data within the basic data structures?"
 objectives:
-- "Class objectives."
+- "Understand the most commonly encountered data types in R and how these data types are used in data structures."
+- "Create and manipulate vectors and matrices of different types."
+- "Check the data type of a variable, vector, or matrix."
+- "Understand the structure and properties of basic data structures (vectors and matrices)."
 keypoints:
-- "Class keypoints."
+- "The most commonly encountered data types in R are character, numeric, and logical."
+- "R's basic data structures are vectors and matrices."
+- "Objects may have attributes, such as name, dimension, and class."
+- "Use `object[x]` and `object[x, y]` to select a single element from a 2- and 3-dimensional data structure, respectively."
+- "Use `from:to` to specify a sequence that includes the indices from `from` to `to`."
 source: Rmd
 ---
 
@@ -493,13 +502,13 @@ seq(from = 1, to = 10, by = 0.1)
 
 
 ~~~
- [1]  1.0  1.1  1.2  1.3  1.4  1.5  1.6  1.7  1.8  1.9  2.0  2.1  2.2  2.3
-[15]  2.4  2.5  2.6  2.7  2.8  2.9  3.0  3.1  3.2  3.3  3.4  3.5  3.6  3.7
-[29]  3.8  3.9  4.0  4.1  4.2  4.3  4.4  4.5  4.6  4.7  4.8  4.9  5.0  5.1
-[43]  5.2  5.3  5.4  5.5  5.6  5.7  5.8  5.9  6.0  6.1  6.2  6.3  6.4  6.5
-[57]  6.6  6.7  6.8  6.9  7.0  7.1  7.2  7.3  7.4  7.5  7.6  7.7  7.8  7.9
-[71]  8.0  8.1  8.2  8.3  8.4  8.5  8.6  8.7  8.8  8.9  9.0  9.1  9.2  9.3
-[85]  9.4  9.5  9.6  9.7  9.8  9.9 10.0
+ [1]  1.0  1.1  1.2  1.3  1.4  1.5  1.6  1.7  1.8  1.9  2.0  2.1  2.2  2.3  2.4
+[16]  2.5  2.6  2.7  2.8  2.9  3.0  3.1  3.2  3.3  3.4  3.5  3.6  3.7  3.8  3.9
+[31]  4.0  4.1  4.2  4.3  4.4  4.5  4.6  4.7  4.8  4.9  5.0  5.1  5.2  5.3  5.4
+[46]  5.5  5.6  5.7  5.8  5.9  6.0  6.1  6.2  6.3  6.4  6.5  6.6  6.7  6.8  6.9
+[61]  7.0  7.1  7.2  7.3  7.4  7.5  7.6  7.7  7.8  7.9  8.0  8.1  8.2  8.3  8.4
+[76]  8.5  8.6  8.7  8.8  8.9  9.0  9.1  9.2  9.3  9.4  9.5  9.6  9.7  9.8  9.9
+[91] 10.0
 ~~~
 {: .output}
 
@@ -1318,7 +1327,7 @@ class(m)
 
 
 ~~~
-[1] "matrix"
+[1] "matrix" "array" 
 ~~~
 {: .output}
 
@@ -1399,7 +1408,7 @@ class(m)
 
 
 ~~~
-[1] "matrix"
+[1] "matrix" "array" 
 ~~~
 {: .output}
 

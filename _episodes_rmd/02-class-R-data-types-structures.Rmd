@@ -4,11 +4,20 @@ classdate: "8/28/2020 -- In Class"
 teaching: 90
 exercises: 30
 questions:
-- "Class questions."
+- "What are the most common data types in R?"
+- "What are the basic data structures in R?"
+- "How do I access data within the basic data structures?"
 objectives:
-- "Class objectives."
+- "Understand the most commonly encountered data types in R and how these data types are used in data structures."
+- "Create and manipulate vectors and matrices of different types."
+- "Check the data type of a variable, vector, or matrix."
+- "Understand the structure and properties of basic data structures (vectors and matrices)."
 keypoints:
-- "Class keypoints."
+- "The most commonly encountered data types in R are character, numeric, and logical."
+- "R's basic data structures are vectors and matrices."
+- "Objects may have attributes, such as name, dimension, and class."
+- "Use `object[x]` and `object[x, y]` to select a single element from a 2- and 3-dimensional data structure, respectively."
+- "Use `from:to` to specify a sequence that includes the indices from `from` to `to`."
 source: Rmd
 ---
 

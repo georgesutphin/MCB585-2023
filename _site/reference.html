@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-17 13:01:04 -0700">
+    <meta http-equiv="last-modified" content="2020-08-21 00:08:52 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -123,9 +123,11 @@
             
             <li><a href="./03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="./03-oyo-Lists/index.html">Lists and Data Frames</a></li>
+            <li><a href="./03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
             
-            <li><a href="./04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation</a></li>
+            <li><a href="./04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
+            
+            <li><a href="./04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation and Plotting</a></li>
             
             <li><a href="./05-class-decisions-loops/index.html">Decision Making and Loops</a></li>
             
@@ -240,6 +242,15 @@
         <li><p>Consider what working directory you are in when sourcing a script and loading data.</p>
 </li>
         
+        <li><p>Functions are the basic tool used to manipulate data and other objects in R.</p>
+</li>
+        
+        <li><p>Functions take the form <code class="highlighter-rouge">output &lt;- function(argument1, argument2, ...)</code>.</p>
+</li>
+        
+        <li><p>Arguments can be passed to functions by matching based on name, by position, or by omitting them (in which case the default value is used).</p>
+</li>
+        
         </ul>
       </td>
     </tr>
@@ -252,6 +263,36 @@
       </td>
       <td class="col-md-9">
         <ul>
+        
+        <li><p>Use <code class="highlighter-rouge">#</code> to add comments to programs.</p>
+</li>
+        
+        <li><p>Annotate your code!</p>
+</li>
+        
+        <li><p>Name and style code consistently.</p>
+</li>
+        
+        <li><p>Break code into small, discrete pieces.</p>
+</li>
+        
+        <li><p>Factor out common operations rather than repeating them.</p>
+</li>
+        
+        <li><p>Keep all of the source files for a project in one directory and use relative paths to access them.</p>
+</li>
+        
+        <li><p>Keep track of session information in your project folder.</p>
+</li>
+        
+        <li><p>Start each program with a description of what it does.</p>
+</li>
+        
+        <li><p>Load all required packages at the beginning of a script.</p>
+</li>
+        
+        <li><p>Use comments to mark off sections of code.</p>
+</li>
         
         <li><p>When working with large datasets, removing variables that you no longer need and releasing memory can improve performance.</p>
 </li>
@@ -281,7 +322,19 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>Class keypoints.</p>
+        <li><p>The most commonly encountered data types in R are character, numeric, and logical.</p>
+</li>
+        
+        <li><p>R’s basic data structures are vectors and matrices.</p>
+</li>
+        
+        <li><p>Objects may have attributes, such as name, dimension, and class.</p>
+</li>
+        
+        <li><p>Use <code class="highlighter-rouge">object[x]</code> and <code class="highlighter-rouge">object[x, y]</code> to select a single element from a 2- and 3-dimensional data structure, respectively.</p>
+</li>
+        
+        <li><p>Use <code class="highlighter-rouge">from:to</code> to specify a sequence that includes the indices from <code class="highlighter-rouge">from</code> to <code class="highlighter-rouge">to</code>.</p>
 </li>
         
         </ul>
@@ -297,7 +350,22 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>Class keypoints.</p>
+        <li><p>R’s basic data types are character, numeric, integer, complex, and logical.</p>
+</li>
+        
+        <li><p>R’s data structures include the vector, list, matrix, data frame, and factors. Some of these structures require that all members be of the same data type (e.g. vectors, matrices) while others permit multiple data types (e.g. lists, data frames).</p>
+</li>
+        
+        <li><p>Factors are used to represent categorical data.</p>
+</li>
+        
+        <li><p>Factors can be <em>ordered</em> or <em>unordered</em>.</p>
+</li>
+        
+        <li><p>Some R functions have special methods for handling factors.</p>
+</li>
+        
+        <li><p>The function <code class="highlighter-rouge">dim</code> gives the dimensions of a data structure.</p>
 </li>
         
         </ul>
@@ -313,7 +381,22 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>Class keypoints.</p>
+        <li><p>Import data from a .csv or .txt file using the <code class="highlighter-rouge">read.table(...)</code>, <code class="highlighter-rouge">read.csv(...)</code>, and <code class="highlighter-rouge">read.delim(...)</code> functions.</p>
+</li>
+        
+        <li><p>Write data to a new .csv or .txt file using the <code class="highlighter-rouge">write.table(...)</code> and <code class="highlighter-rouge">write.csv(...)</code> functions.</p>
+</li>
+        
+        <li><p>Use <code class="highlighter-rouge">object[x, y]</code> to select a single element from a data frame.</p>
+</li>
+        
+        <li><p>All the indexing and subsetting that works on matrices also works on data frames.</p>
+</li>
+        
+        <li><p>Each column of a data frame can be directly addressed by specifying the column name using the <code class="highlighter-rouge">$</code> operator (e.g. <code class="highlighter-rouge">mydataframe$column1</code>).</p>
+</li>
+        
+        <li><p>Data in data structures can by accessed by specifying the appropriate index, by logical vector, or by column/row name (if defined).</p>
 </li>
         
         </ul>
@@ -324,12 +407,24 @@
   
     <tr>
       <td class="col-md-3">
-        <a href="./03-oyo-Lists/index.html">Lists and Data Frames</a>
+        <a href="./03-oyo-lists/index.html">Lists and Advanced Indexing</a>
       </td>
       <td class="col-md-9">
         <ul>
         
-        <li><p>Class keypoints.</p>
+        <li><p>Lists are a standard data structure in R in which each element can contain any other R object.</p>
+</li>
+        
+        <li><p>Lists can contain elements of different classes, unlike vectors.</p>
+</li>
+        
+        <li><p>Data frames are a specific type of list in which all elements are vectors of the same length. Each vector can contain data of different classes.</p>
+</li>
+        
+        <li><p>Use <code class="highlighter-rouge">object[[x]]</code> to select a single element from a list.</p>
+</li>
+        
+        <li><p>Each element of a list can be assigned a name that can be addressed using the <code class="highlighter-rouge">$</code> operator (e.g. <code class="highlighter-rouge">mylist$element1</code>).</p>
 </li>
         
         </ul>
@@ -340,12 +435,43 @@
   
     <tr>
       <td class="col-md-3">
-        <a href="./04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation</a>
+        <a href="./04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a>
       </td>
       <td class="col-md-9">
         <ul>
         
-        <li><p>Import.</p>
+        <li><p>Use <code class="highlighter-rouge">mean</code>, <code class="highlighter-rouge">max</code>, <code class="highlighter-rouge">min</code>, and <code class="highlighter-rouge">sd</code> to calculate simple statistics.</p>
+</li>
+        
+        <li><p>Use <code class="highlighter-rouge">plot</code> to create simple visualizations.</p>
+</li>
+        
+        <li><p>Display simple graphs.</p>
+</li>
+        
+        <li><p>Save a plot in a pdf file using <code class="highlighter-rouge">pdf(...)</code> and stop writing to the pdf file with <code class="highlighter-rouge">dev.off()</code>.</p>
+</li>
+        
+        </ul>
+      </td>
+    </tr>
+  
+
+  
+    <tr>
+      <td class="col-md-3">
+        <a href="./04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation and Plotting</a>
+      </td>
+      <td class="col-md-9">
+        <ul>
+        
+        <li><p>Use <code class="highlighter-rouge">apply()</code>, <code class="highlighter-rouge">lapply()</code>, and <code class="highlighter-rouge">sapply()</code> to calculate statistics across the rows or columns of a data frame.</p>
+</li>
+        
+        <li><p>There are more advanced tools for complex data manipulation, including the <code class="highlighter-rouge">dplyr</code> and <code class="highlighter-rouge">data.table</code> packages.</p>
+</li>
+        
+        <li><p>Use <code class="highlighter-rouge">aggregate()</code> to calculate statistics based on the structure of a dataset.</p>
 </li>
         
         </ul>
@@ -361,10 +487,7 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>Use <code class="highlighter-rouge">length(thing)</code> to determine the length of something that contains other values.</p>
-</li>
-        
-        <li><p>Use <code class="highlighter-rouge">if (condition)</code> to start a conditional statement, <code class="highlighter-rouge">else if (condition)</code> to provide additional tests, and <code class="highlighter-rouge">else</code> to provide a default.</p>
+        <li><p>Use <code class="highlighter-rouge">if (condition)</code> to start a conditional statement, <code class="highlighter-rouge">else if (condition)</code> to provide additional tests, and <code class="highlighter-rouge">else</code> to provide a default alternative.</p>
 </li>
         
         <li><p>The bodies of conditional statements must be surrounded by curly braces <code class="highlighter-rouge">{ }</code>.</p>
@@ -376,19 +499,13 @@
         <li><p><code class="highlighter-rouge">X &amp;&amp; Y</code> is only true if both X and Y are true.</p>
 </li>
         
-        <li><p><code class="highlighter-rouge">X || Y</code> is true if either X or Y, or both, are true.</p>
+        <li><p><code class="highlighter-rouge">X || Y</code> is true if either X, Y, or both, are true.</p>
 </li>
         
         <li><p>Use <code class="highlighter-rouge">for (variable in collection)</code> to process the elements of a collection one at a time.</p>
 </li>
         
         <li><p>The body of a <code class="highlighter-rouge">for</code> loop is surrounded by curly braces (<code class="highlighter-rouge">{}</code>).</p>
-</li>
-        
-        <li><p>Use functions such as <code class="highlighter-rouge">apply</code> instead of <code class="highlighter-rouge">for</code> loops to operate on the values in a data structure.</p>
-</li>
-        
-        <li><p>Use <code class="highlighter-rouge">list.files(path = "path", pattern = "pattern", full.names = TRUE)</code> to create a list of files whose names match a pattern.</p>
 </li>
         
         </ul>
@@ -404,7 +521,22 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>Use.</p>
+        <li><p>In most cases, R applies simple operations on vectors as meant to each element of the vector(s).</p>
+</li>
+        
+        <li><p>If a simple operation is requested on vectors of different lengths, R will either return and error or repeatedly loop through the elements of the shorter vector, depending on the operation.</p>
+</li>
+        
+        <li><p>Where possible, use vectorized operations instead of <code class="highlighter-rouge">for</code> loops to make code faster and more concise.</p>
+</li>
+        
+        <li><p>Use <code class="highlighter-rouge">length(thing)</code> to determine the length of something that contains other values.</p>
+</li>
+        
+        <li><p>Use functions such as <code class="highlighter-rouge">apply</code> instead of <code class="highlighter-rouge">for</code> loops to operate on the values in a data structure.</p>
+</li>
+        
+        <li><p>Use <code class="highlighter-rouge">list.files(path = "path", pattern = "pattern", full.names = TRUE)</code> to create a list of files whose names match a pattern.</p>
 </li>
         
         </ul>
@@ -429,13 +561,7 @@
         <li><p>The sampling distribution describes the characteristics of all possible samples of a given size.</p>
 </li>
         
-        <li><p>Use hist(), density(), dnorm(), qqnorm(), and qqline() to visually assess whether a sample is normally distributed.</p>
-</li>
-        
-        <li><p>Use shapiro.test() to perform at Shapiro-Wilk test of normality.</p>
-</li>
-        
-        <li><p>Simple manipulations such as taking the logrithm or the square root of a sample can reversibly transform the observations into a more normal distribution.</p>
+        <li><p>Use <code class="highlighter-rouge">hist()</code>, <code class="highlighter-rouge">density()</code>, <code class="highlighter-rouge">dnorm()</code>, <code class="highlighter-rouge">qqnorm()</code>, and <code class="highlighter-rouge">qqline()</code> to visually assess whether a sample is normally distributed.</p>
 </li>
         
         </ul>
@@ -451,7 +577,10 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>Samples.</p>
+        <li><p>Use shapiro.test() to perform at Shapiro-Wilk test of normality. However, the power of the test is such that a negative result can eitehr indicate insufficient sample size or lack of normality.</p>
+</li>
+        
+        <li><p>Simple manipulations such as taking the logrithm or the square root of a sample can reversibly transform the observations into a more normal distribution.</p>
 </li>
         
         </ul>
@@ -514,7 +643,7 @@
         <li><p>Time-to-event data analysis violates several assumptions made by standard tests, including normality and independence of observations.</p>
 </li>
         
-        <li><p>Censoring complicates analysis and is not handled by standard statistical tests. Instead, we use the Log-Rank test for basic survival comparisons.</p>
+        <li><p>Censoring complicates analysis and is not handled by standard statistical tests, including the Wilcoxon Rank-Sum test. Instead, we use the Log-Rank test for basic survival comparisons.</p>
 </li>
         
         <li><p>Unlike the survival function, age-specific mortality at any given time does not depend on previous observations.</p>
@@ -533,7 +662,13 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>Time-to-event.</p>
+        <li><p>There are multiple commonly used modesl for describing time-to-event data, including exponential decay, accelerated failure time, and propotional hazards.</p>
+</li>
+        
+        <li><p>Each model makes specific assumptions and tend to be employed for specific types of time-to-event data.</p>
+</li>
+        
+        <li><p>The most common form of advanced analysis is Cox Proportional Hazards, which assumes that the ratio between the hazard functions for two populations remains constant over time.</p>
 </li>
         
         </ul>

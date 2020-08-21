@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-17 13:01:04 -0700">
+    <meta http-equiv="last-modified" content="2020-08-21 00:08:52 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -123,9 +123,11 @@
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-Lists/index.html">Lists and Data Frames</a></li>
+            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
             
-            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation</a></li>
+            <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
+            
+            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation and Plotting</a></li>
             
             <li><a href="../05-class-decisions-loops/index.html">Decision Making and Loops</a></li>
             
@@ -256,7 +258,10 @@
       <strong>Questions</strong>
       <ul>
 	
-	<li><p>What.</p>
+	<li><p>Is there a statistical method for assessing normality?</p>
+</li>
+	
+	<li><p>What options do I have if my data is not normally ditributed?</p>
 </li>
 	
       </ul>
@@ -270,7 +275,13 @@
       <strong>Objectives</strong>
       <ul>
 	
-	<li><p>Describe.</p>
+	<li><p>Be able to conduct a Shapiro-Wilk test in R, but also understand the limitations of this test.</p>
+</li>
+	
+	<li><p>Carry out simple reversible data transformations to normalize data.</p>
+</li>
+	
+	<li><p>Know where to go for more advanced data transformations.</p>
 </li>
 	
       </ul>
@@ -290,7 +301,10 @@
   <h2>Key Points</h2>
   <ul>
     
-    <li><p>Samples.</p>
+    <li><p>Use shapiro.test() to perform at Shapiro-Wilk test of normality. However, the power of the test is such that a negative result can eitehr indicate insufficient sample size or lack of normality.</p>
+</li>
+    
+    <li><p>Simple manipulations such as taking the logrithm or the square root of a sample can reversibly transform the observations into a more normal distribution.</p>
 </li>
     
   </ul>

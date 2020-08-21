@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-17 13:01:04 -0700">
+    <meta http-equiv="last-modified" content="2020-08-21 00:08:52 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -123,9 +123,11 @@
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-Lists/index.html">Lists and Data Frames</a></li>
+            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
             
-            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation</a></li>
+            <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
+            
+            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation and Plotting</a></li>
             
             <li><a href="../05-class-decisions-loops/index.html">Decision Making and Loops</a></li>
             
@@ -256,7 +258,13 @@
       <strong>Questions</strong>
       <ul>
 	
-	<li><p>How?</p>
+	<li><p>What is vectorization?</p>
+</li>
+	
+	<li><p>Are there different indexing strategies for different situations using a <code class="highlighter-rouge">for</code> loop?</p>
+</li>
+	
+	<li><p>Should I use a loop or an <code class="highlighter-rouge">apply</code> statement?</p>
 </li>
 	
       </ul>
@@ -270,7 +278,25 @@
       <strong>Objectives</strong>
       <ul>
 	
-	<li><p>Write.</p>
+	<li><p>Understand how R interprets simple operations (e.g. addition) when applied to data vectors.</p>
+</li>
+	
+	<li><p>Use either the elements or the position in a vector as the primary index in a <code class="highlighter-rouge">for</code> loop.</p>
+</li>
+	
+	<li><p>Compare loops and vectorized operations.</p>
+</li>
+	
+	<li><p>Trace changes to a loop variable as the loop runs.</p>
+</li>
+	
+	<li><p>Trace changes to other variables as they are updated by a <code class="highlighter-rouge">for</code> loop.</p>
+</li>
+	
+	<li><p>Use a function to get a list of filenames that match a simple pattern.</p>
+</li>
+	
+	<li><p>Understand the advanatages and disadvantages to using apply functions vs. for loops.</p>
 </li>
 	
       </ul>
@@ -290,7 +316,22 @@
   <h2>Key Points</h2>
   <ul>
     
-    <li><p>Use.</p>
+    <li><p>In most cases, R applies simple operations on vectors as meant to each element of the vector(s).</p>
+</li>
+    
+    <li><p>If a simple operation is requested on vectors of different lengths, R will either return and error or repeatedly loop through the elements of the shorter vector, depending on the operation.</p>
+</li>
+    
+    <li><p>Where possible, use vectorized operations instead of <code class="highlighter-rouge">for</code> loops to make code faster and more concise.</p>
+</li>
+    
+    <li><p>Use <code class="highlighter-rouge">length(thing)</code> to determine the length of something that contains other values.</p>
+</li>
+    
+    <li><p>Use functions such as <code class="highlighter-rouge">apply</code> instead of <code class="highlighter-rouge">for</code> loops to operate on the values in a data structure.</p>
+</li>
+    
+    <li><p>Use <code class="highlighter-rouge">list.files(path = "path", pattern = "pattern", full.names = TRUE)</code> to create a list of files whose names match a pattern.</p>
 </li>
     
   </ul>

@@ -10,28 +10,22 @@ questions:
 - "Which distribution is more important for hypothesis testing?"
 - "What is the normal distribution and what are it's attributes?"
 - "How can I tell if my data is normally distributed?"
-- "What options do I have if my data is not normally ditributed?"
 objectives:
 - "Describe the difference between a population and a sample."
 - "Understand the parameters of the population distribution."
 - "Understand the statistics of the sampling distribution."
 - "Plot the distribution of sample data."
-- "Assess whether a sample is normally distributed both visually and quantitately."
-- "Carry out simple reversible data transformations to normalize data."
-- "Know where to go for more advanced data transformations."
+- "Assess whether a sample is normally distributed qualitatively."
 keypoints:
 - "Samples are sets of observations drawn from a population."
 - "The population distribution describes the characteristics of the observed phenotype in the population of interest."
 - "The sampling distribution describes the characteristics of all possible samples of a given size."
-- "Use hist(), density(), dnorm(), qqnorm(), and qqline() to visually assess whether a sample is normally distributed."
-- "Use shapiro.test() to perform at Shapiro-Wilk test of normality."
-- "Simple manipulations such as taking the logrithm or the square root of a sample can reversibly transform the observations into a more normal distribution."
+- "Use `hist()`, `density()`, `dnorm()`, `qqnorm()`, and `qqline()` to visually assess whether a sample is normally distributed."
 source: Rmd
 ---
 
 
 
-***
 ## In Class
 
 &nbsp;
@@ -352,10 +346,10 @@ str(data.diet)
 
 ~~~
 'data.frame':	191 obs. of  17 variables:
- $ strain         : Factor w/ 2 levels "A/J","C57BL/6J": 1 1 1 1 1 1 1 1 1 1 ...
- $ sex            : Factor w/ 1 level "m": 1 1 1 1 1 1 1 1 1 1 ...
+ $ strain         : chr  "A/J" "A/J" "A/J" "A/J" ...
+ $ sex            : chr  "m" "m" "m" "m" ...
  $ animal_id      : int  16 17 18 19 20 21 22 23 24 25 ...
- $ animal_facility: Factor w/ 2 levels "ARC","WAF": 1 1 1 1 1 1 1 1 1 1 ...
+ $ animal_facility: chr  "ARC" "ARC" "ARC" "ARC" ...
  $ bw_start       : num  19.6 18.9 17.8 17.1 17.4 ...
  $ bw_end         : num  33.1 32.6 29.6 25.9 28.1 ...
  $ bw_gain        : num  13.51 13.74 11.73 8.85 10.66 ...
@@ -416,8 +410,8 @@ hist.bw.b6
 
 ~~~
 $breaks
- [1] 15.0 15.5 16.0 16.5 17.0 17.5 18.0 18.5 19.0 19.5 20.0 20.5 21.0 21.5
-[15] 22.0 22.5 23.0 23.5
+ [1] 15.0 15.5 16.0 16.5 17.0 17.5 18.0 18.5 19.0 19.5 20.0 20.5 21.0 21.5 22.0
+[16] 22.5 23.0 23.5
 
 $counts
  [1]  1  1  3  3  2  7  5 11  6 11 11 12  6  4  5  5  3
@@ -428,8 +422,8 @@ $density
 [13] 0.12500000 0.08333333 0.10416667 0.10416667 0.06250000
 
 $mids
- [1] 15.25 15.75 16.25 16.75 17.25 17.75 18.25 18.75 19.25 19.75 20.25
-[12] 20.75 21.25 21.75 22.25 22.75 23.25
+ [1] 15.25 15.75 16.25 16.75 17.25 17.75 18.25 18.75 19.25 19.75 20.25 20.75
+[13] 21.25 21.75 22.25 22.75 23.25
 
 $xname
 [1] "b6$bw_start"

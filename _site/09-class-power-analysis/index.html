@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-17 13:01:04 -0700">
+    <meta http-equiv="last-modified" content="2020-08-21 00:08:52 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -123,9 +123,11 @@
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-Lists/index.html">Lists and Data Frames</a></li>
+            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
             
-            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation</a></li>
+            <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
+            
+            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation and Plotting</a></li>
             
             <li><a href="../05-class-decisions-loops/index.html">Decision Making and Loops</a></li>
             
@@ -417,15 +419,10 @@ one of two ways:</p>
 </span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: unable to access index for repository https://cran.cnr.berkeley.edu/src/contrib:
-  cannot open URL 'https://cran.cnr.berkeley.edu/src/contrib/PACKAGES'
-</code></pre></div></div>
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="s1">'pwr'</span> <span class="n">successfully</span> <span class="n">unpacked</span> <span class="k">and</span> <span class="n">MD5</span> <span class="n">sums</span> <span class="n">checked</span>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: package 'pwr' is not available (for R version 3.6.1)
-</code></pre></div></div>
-
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: unable to access index for repository https://cran.cnr.berkeley.edu/bin/windows/contrib/3.6:
-  cannot open URL 'https://cran.cnr.berkeley.edu/bin/windows/contrib/3.6/PACKAGES'
+<span class="n">The</span> <span class="n">downloaded</span> <span class="n">binary</span> <span class="n">packages</span> <span class="n">are</span> <span class="k">in</span>
+	<span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sutph</span><span class="p">\</span><span class="n">AppData</span><span class="p">\</span><span class="n">Local</span><span class="p">\</span><span class="n">Temp</span><span class="p">\</span><span class="n">RtmpMnDWxK</span><span class="p">\</span><span class="n">downloaded_packages</span>
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
@@ -554,9 +551,9 @@ unequal variance for instance:</p>
 </span></code></pre></div></div>
 
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	1881 obs. of  5 variables:
- $ strain       : Factor w/ 31 levels "129S1/SvImJ",..: 1 1 1 1 1 1 1 1 1 1 ...
- $ sex          : Factor w/ 2 levels "f","m": 1 1 1 1 1 1 1 1 1 1 ...
- $ animal_id    : Factor w/ 1881 levels "00066673c5","000666d252",..: 1308 1390 1501 1612 24 35 60 79 116 137 ...
+ $ strain       : chr  "129S1/SvImJ" "129S1/SvImJ" "129S1/SvImJ" "129S1/SvImJ" ...
+ $ sex          : chr  "f" "f" "f" "f" ...
+ $ animal_id    : chr  "1" "2" "3" "4" ...
  $ lifespan_days: int  616 763 770 987 673 920 680 483 821 938 ...
  $ censor       : int  0 0 0 0 0 0 0 0 0 0 ...
 </code></pre></div></div>
@@ -564,18 +561,17 @@ unequal variance for instance:</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">unique</span><span class="p">(</span><span class="n">data.surv</span><span class="o">$</span><span class="n">strain</span><span class="p">)</span><span class="w"> </span><span class="c1"># generate strain list</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] 129S1/SvImJ       A/J               BALB/cByJ        
- [4] BTBR T+ tf/J      BUB/BnJ           C3H/HeJ          
- [7] C57BL/10J         C57BL/6J          C57BLKS/J        
-[10] C57BR/cdJ         C57L/J            CAST/EiJ         
-[13] CBA/J             DBA/2J            FVB/NJ           
-[16] KK/HlJ            LP/J              MOLF/EiJ         
-[19] MRL/MpJ           NOD.B10Sn-H2&lt;b&gt;/J NON/ShiLtJ       
-[22] NZO/HlLtJ         NZW/LacJ          P/J              
-[25] PL/J              PWD/PhJ           RIIIS/J          
-[28] SJL/J             SM/J              SWR/J            
-[31] WSB/EiJ          
-31 Levels: 129S1/SvImJ A/J BALB/cByJ BTBR T+ tf/J BUB/BnJ ... WSB/EiJ
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "129S1/SvImJ"       "A/J"               "BALB/cByJ"        
+ [4] "BTBR T+ tf/J"      "BUB/BnJ"           "C3H/HeJ"          
+ [7] "C57BL/10J"         "C57BL/6J"          "C57BLKS/J"        
+[10] "C57BR/cdJ"         "C57L/J"            "CAST/EiJ"         
+[13] "CBA/J"             "DBA/2J"            "FVB/NJ"           
+[16] "KK/HlJ"            "LP/J"              "MOLF/EiJ"         
+[19] "MRL/MpJ"           "NOD.B10Sn-H2&lt;b&gt;/J" "NON/ShiLtJ"       
+[22] "NZO/HlLtJ"         "NZW/LacJ"          "P/J"              
+[25] "PL/J"              "PWD/PhJ"           "RIIIS/J"          
+[28] "SJL/J"             "SM/J"              "SWR/J"            
+[31] "WSB/EiJ"          
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># grab subset of lifespan data for C57BL/6J mice.</span><span class="w">

@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-17 13:01:04 -0700">
+    <meta http-equiv="last-modified" content="2020-08-21 00:08:52 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -123,9 +123,11 @@
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-Lists/index.html">Lists and Data Frames</a></li>
+            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
             
-            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation</a></li>
+            <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
+            
+            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation and Plotting</a></li>
             
             <li><a href="../05-class-decisions-loops/index.html">Decision Making and Loops</a></li>
             
@@ -300,7 +302,7 @@
 	<li><p>Demonstrate useful shortcuts.</p>
 </li>
 	
-	<li><p>Know when to use setwd().</p>
+	<li><p>Know when to use <code class="highlighter-rouge">setwd()</code>.</p>
 </li>
 	
       </ul>
@@ -309,9 +311,10 @@
 
 </blockquote>
 
+<hr />
 <h2 id="in-class">In Class</h2>
 
-<p> </p>
+<hr />
 <h3 id="introduction-to-r-and-rstudio">Introduction to R and RStudio</h3>
 
 <p>If we only had one data set to analyze, it would probably be faster to load the file into a spreadsheet, calculate some simple statisitcs, and generate a plot or two.</p>
@@ -477,20 +480,22 @@ with a new folder called <code class="highlighter-rouge">data</code>.</li>
 <p>Note above the use of <code class="highlighter-rouge">#</code> signs to add comment. Comments are for you and anyone coming later to read your script. Anything to the right of a <code class="highlighter-rouge">#</code> is ignored by R. Comment liberally in your R scripts. We will discuss best practices in coding and the use of comments more later on in the course.</p>
 
 <p> </p>
-<h4 id="assignment-operator">Assignment Operator</h4>
+<h4 id="assigning-values-to-variables">Assigning values to variables</h4>
 
-<p>We can create a new variable and assign a value to it using <code class="highlighter-rouge">&lt;-</code> or ‘=’, which are the assignment operators in R. It assigns values on the right to objects on
+<p>We can create a new variable and assign a value to it using <code class="highlighter-rouge">&lt;-</code> or <code class="highlighter-rouge">=</code>, which are the assignment operators in R. It assigns values on the right to objects on
 the left. So, after executing <code class="highlighter-rouge">x &lt;- 3</code>, the value of <code class="highlighter-rouge">x</code> is <code class="highlighter-rouge">3</code>. The arrow can
-be read as 3 <strong>goes into</strong> <code class="highlighter-rouge">x</code>.  You can also use <code class="highlighter-rouge">=</code> for assignments but not in
+be read as 3 <em>goes into</em> <code class="highlighter-rouge">x</code>.  You can also use <code class="highlighter-rouge">=</code> for assignments but not in
 all contexts so it is good practice to use <code class="highlighter-rouge">&lt;-</code> for assignments.</p>
 
 <p>In RStudio, the <kbd>Alt</kbd>+<kbd>-</kbd> will write <code class="highlighter-rouge">&lt;-</code> in a single keystroke. Let’s give it a go:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">55</span><span class="w">   </span><span class="c1"># using &lt;- sets the value of the variable x to 42.</span><span class="w">
-</span><span class="n">weight_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">42</span><span class="w">    </span><span class="c1"># using `=` in place of `&lt;-` works in almost all situation (but not quite all; it is better to get into the habit of using `&lt;-`).</span><span class="w">
+</span><span class="n">weight_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">55</span><span class="w">    </span><span class="c1"># using `=` in place of `&lt;-` works in almost all situation (but not quite all; it is better to get into the habit of using `&lt;-`).</span><span class="w">
 </span></code></pre></div></div>
 
-<p>Once a variable is created, we can use the variable name to refer to the value it was assigned. The variable name now acts as a tag. Whenever R reads that tag (<code class="highlighter-rouge">x</code>), it substitutes the value (<code class="highlighter-rouge">42</code>).</p>
+<p> </p>
+
+<p>Once a variable is created, we can use the variable name to refer to the value it was assigned. The variable name now acts as a tag. Whenever R reads that tag (<code class="highlighter-rouge">weight_kg</code>), it substitutes the value (<code class="highlighter-rouge">55</code>).</p>
 
 <p><img src="../fig/tag-variables.svg" alt="Variables as Tags" /></p>
 
@@ -498,40 +503,46 @@ all contexts so it is good practice to use <code class="highlighter-rouge">&lt;-
 </span><span class="n">weight_kg</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 42
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 55
 </code></pre></div></div>
 
-<p>Also note that when you assign a value to a variable, a new object is created in the Environment panel (upper right). This panel lists all <em>objects</em> in your <em>workspace</em>. Note that whenever you make an assignment with <code class="highlighter-rouge">&lt;-</code> or <code class="highlighter-rouge">=</code>, R creates a new object in memory. Your workspace is simply the collection of objects currently stored in memory that are available to access in your current R session.</p>
+<p> </p>
+
+<p>Also note that when you assign a value to a variable, a new object is created in the <strong>Environment</strong> panel (upper right). This panel lists all <em>objects</em> in your <em>workspace</em>. Note that whenever you make an assignment with <code class="highlighter-rouge">&lt;-</code> or <code class="highlighter-rouge">=</code>, R creates a new object in memory. Your workspace is simply the collection of objects currently stored in memory that are available to access in your current R session.</p>
 
 <p>Assigning a new value to a variable breaks the connection with the old value; R forgets that number and applies the variable name to the new value.</p>
 
-<p>When you assign a value to a variable, R only stores the value, not the calculation you used to create it. This is an important point if you’re used to the way a spreadsheet program automatically updates linked cells. Let’s look at an example.</p>
+<p>When you assign a value to a variable, R only stores the value, not the calculation you used to create it. This is an important point if you’re used to the way spreadsheet programs automatically updates linked cells. Let’s look at an example.</p>
 
 <p>First, we’ll convert <code class="highlighter-rouge">weight_kg</code> into pounds, and store the new value in the variable <code class="highlighter-rouge">weight_lb</code>:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_lb</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">2.2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">weight_kg</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># assign a weight in kg, then use it to calculate the weight in lbs</span><span class="w">
+</span><span class="n">weight_kg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">57.5</span><span class="w">
+</span><span class="n">weight_lb</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">2.2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">weight_kg</span><span class="w">
+
 </span><span class="c1"># weight in kg...</span><span class="w">
 </span><span class="n">weight_kg</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 42
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 57.5
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ...and in pounds</span><span class="w">
 </span><span class="n">weight_lb</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 92.4
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 126.5
 </code></pre></div></div>
+<p> </p>
 
-<p>In words, we’re asking R to look up the value we tagged <code class="highlighter-rouge">weight_kg</code>,
-multiply it by 2.2, and tag the result with the name <code class="highlighter-rouge">weight_lb</code>:</p>
+<p>We are asking R to look up the value we tagged <code class="highlighter-rouge">weight_kg</code>, multiply it by 2.2, and tag the result with the name <code class="highlighter-rouge">weight_lb</code>:</p>
 
 <p><img src="../fig/new-variables.svg" alt="Creating Another Variable" /></p>
 
 <p>If we now change the value of <code class="highlighter-rouge">weight_kg</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">100.0</span><span class="w">
+
 </span><span class="c1"># weight in kg now...</span><span class="w">
 </span><span class="n">weight_kg</span><span class="w">
 </span></code></pre></div></div>
@@ -539,11 +550,11 @@ multiply it by 2.2, and tag the result with the name <code class="highlighter-ro
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 100
 </code></pre></div></div>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ...and weight in pounds still</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ...and weight in pounds is still:</span><span class="w">
 </span><span class="n">weight_lb</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 92.4
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 126.5
 </code></pre></div></div>
 
 <p><img src="../fig/memory-variables.svg" alt="Updating a Variable" /></p>
@@ -552,17 +563,25 @@ multiply it by 2.2, and tag the result with the name <code class="highlighter-ro
 
 <p>This is different from the way spreadsheets work.</p>
 
-<p><img src="../fig/arithmetic-variables.svg" alt="Variables as Tags" /></p>
+<p> </p>
+<h4 id="incomplete-commands">Incomplete commands</h4>
 
 <p>What happens if you don’t complete a line?</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">100</span><span class="w"> </span><span class="o">+</span><span class="w"> 
 </span></code></pre></div></div>
 
+<p> </p>
+
 <p>R hangs with a <code class="highlighter-rouge">+</code> in the console, waiting for you to finish your thought…</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span><span class="w">
 </span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1
+</code></pre></div></div>
+
+<p> </p>
 
 <p>All better.</p>
 
@@ -626,17 +645,17 @@ causing the errors?</p>
   </blockquote>
 </blockquote>
 
-<p> </p>
+<hr />
 <h3 id="functions-in-r">Functions in R</h3>
 
-<p>Functions are predefined commands that take <em>input</em> values (aka <a href="../reference.html#argument">arguments</a>, perform some operation, and generates some output. The format for using a funciton is:</p>
+<p>Functions are predefined commands that take <em>input</em> values (aka <a href="../reference.html#argument">arguments</a>), perform one or more operations, and generate a specific output. The format for using a function is:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">output</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">functionX</span><span class="p">(</span><span class="n">argument1</span><span class="p">,</span><span class="w"> </span><span class="n">argument2</span><span class="p">,</span><span class="w"> </span><span class="n">...</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <p> </p>
 
-<p>if the output variable and <code class="highlighter-rouge">&lt;-</code> are not used, the output is written directly to your console window. Functions carry out a wide range of tasks, and some take no <em>arguments</em>. For example, <code class="highlighter-rouge">getwd()</code> will return the path to the current Rstudio folder. We will talk more about folders and workspaces below.</p>
+<p>if the output variable and <code class="highlighter-rouge">&lt;-</code> are not used, the output is written directly to your console window. Functions carry out a wide range of tasks, and some take no <em>arguments</em>. For example, <code class="highlighter-rouge">getwd()</code> will return the path to the current RStudio folder. We will talk more about folders and workspaces below.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">getwd</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
@@ -646,7 +665,7 @@ causing the errors?</p>
 
 <p> </p>
 
-<p>Other functions take many different <em>arguments</em>, separated by <code class="highlighter-rouge">,</code>s, that modify the output. For example, the <code class="highlighter-rouge">sum()</code> function will output the sum of all input values:</p>
+<p>Other functions take many different <em>arguments</em>, separated by <code class="highlighter-rouge">,</code>s, that modify the output. For example, the <code class="highlighter-rouge">sum()</code> function will output the sum of all numeric input arguments:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sum</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">6</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -656,7 +675,7 @@ causing the errors?</p>
 
 <p> </p>
 
-<p>Functions can also be nested. For example, let’s add up the square roots of 4, 9, and 16:</p>
+<p>Functions can also be nested. For example, let’s combine the <code class="highlighter-rouge">sum()</code> and <code class="highlighter-rouge">sqrt()</code> (short for “square root”) functions to add up the square roots of 4, 9, and 16:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sum</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="m">4</span><span class="p">),</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="m">9</span><span class="p">),</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="m">16</span><span class="p">))</span><span class="w">
 </span></code></pre></div></div>
@@ -664,8 +683,8 @@ causing the errors?</p>
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 9
 </code></pre></div></div>
 
-<p> </p>
-<h4 id="working-directories-in-r">Working directories in R</h4>
+<hr />
+<h3 id="working-directories-in-r">Working directories in R</h3>
 
 <p>Your <em>working directory</em> refers to the file path on your computer where the current session of R will go to look for files. You need to have any external data that you are working with in a file in your working directory in order to load it into R (or know how to specify a different location, if it isn’t in your working directory). Any output (data or charts) that you save in R will also be stored in the working directory by default unless you specify a different location on your computer.</p>
 
@@ -678,15 +697,21 @@ causing the errors?</p>
   <li>Navigate to your <em>MCB585</em> folder and click <kbd>Create Project</kbd>.</li>
 </ol>
 
-<p>RStudio will reload with a clean working environment. If you click on the <strong>Files</strong> tab (lower right panel), you will see that the current folder is you <em>MCB585</em> folder, and that RStudio will have created a new file called <strong>MCB585.Rproj</strong>.</p>
+<p>RStudio will reload with a clean working environment. If you click on the <strong>Files</strong> tab (lower right panel), you will see that the current folder is your <em>MCB585</em> folder, and that RStudio will have created a new file called <strong>MCB585.Rproj</strong>.</p>
 
-<p>In the future, you can either just open this file from you file explorer to load you MCB585 project, or you can open it from RStudio by clicking <strong>File &gt; Open Project…</strong>, navigating to your <em>MCB585</em> folder, and selecting the <strong>MCB585.Rproj</strong> file.</p>
+<p>In the future, you can either just open this file from your file explorer to load you MCB585 project, or you can open it from RStudio by clicking <strong>File &gt; Open Project…</strong>, navigating to your <em>MCB585</em> folder, and selecting the <strong>MCB585.Rproj</strong> file.</p>
 
-<p>You can change the active working directly by using the function <code class="highlighter-rouge">setwd()</code>. For example, we can set the working directory to our <em>MCB585/data</em> folder using the following command:</p>
+<p>You can change the active working directly by using the function <code class="highlighter-rouge">setwd()</code>. For example, we can set the working directory to your <em>MCB585/data</em> folder using one of the following commands:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setwd</span><span class="p">(</span><span class="s2">"./data"</span><span class="p">)</span><span class="w">
-</span><span class="n">setwd</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)</span><span class="w"> 
-</span><span class="n">setwd</span><span class="p">(</span><span class="s2">".."</span><span class="p">)</span><span class="w"> 
+</span><span class="n">setwd</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<p>To return the working directory to your <em>MCB585</em> folder, enter the following command:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setwd</span><span class="p">(</span><span class="s2">".."</span><span class="p">)</span><span class="w"> 
 </span></code></pre></div></div>
 
 <p> </p>
@@ -695,7 +720,7 @@ causing the errors?</p>
 <ul>
   <li>’.’ = the current working directory</li>
   <li>’..’ = the directory one level above the working directory (i.e. the Desktop in our case)</li>
-  <li>Note that “./data” and “data” both mean “go to the <em>data</em> folder inside the working directory”</li>
+  <li>Note that “./data” and “data” both mean “go to the <em>data</em> folder inside the current working directory”</li>
 </ul>
 
 <p>If you are unsure what your current working directory is, you can define the entire path:</p>
@@ -704,12 +729,15 @@ causing the errors?</p>
 </span><span class="n">setwd</span><span class="p">(</span><span class="s2">"/Users/&lt;username&gt;/Desktop"</span><span class="p">)</span><span class="w"> </span><span class="c1"># MacOS</span><span class="w">
 </span></code></pre></div></div>
 
-<p><strong>Caution for Windows users:</strong> If you copy a file path from Windows Explorer and paste it into <code class="highlighter-rouge">setwd()</code>, you have to change the backslashes (“\”) used in Windows to forwardslashes (“/”). R interprets “\” as a type of special type of character called an <em>escape character</em> rather than a part of the string. If you don’t replace them, you will get errors:</p>
+<p><strong>Caution for Windows users:</strong> If you copy a file path from Windows Explorer and paste it into <code class="highlighter-rouge">setwd()</code>, you have to change the backslashes (“\”) used in Windows to forwardslashes (“/”). R interprets “\” as a special type of character called an <em>escape character</em> rather than a part of the string. If you don’t replace them, you will get errors:</p>
 
 <p> </p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setwd</span><span class="p">(</span><span class="s2">".\data"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
+
+<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: '\d' is an unrecognized escape in character string starting "".\d"
+</code></pre></div></div>
 
 <p> </p>
 
@@ -731,7 +759,7 @@ causing the errors?</p>
  [3] "02-class-R-data-types-structures.Rmd"   
  [4] "02-oyo-R-data-types-structures.Rmd"     
  [5] "03-class-data-frames.Rmd"               
- [6] "03-oyo-Lists.Rmd"                       
+ [6] "03-oyo-lists.Rmd"                       
  [7] "04-class-manipulating-plotting-data.Rmd"
  [8] "04-oyo-advanced-data-manipulation.Rmd"  
  [9] "05-class-decisions-loops.Rmd"           
@@ -745,10 +773,8 @@ causing the errors?</p>
 [17] "09-class-power-analysis.Rmd"            
 [18] "09-oyo-simulation.Rmd"                  
 [19] "99-projects.Rmd"                        
-[20] "ClassTest.html"                         
-[21] "data"                                   
-[22] "inflammation-01.pdf"                    
-[23] "results"                                
+[20] "data"                                   
+[21] "results"                                
 </code></pre></div></div>
 
 <p> </p>
@@ -758,204 +784,73 @@ causing the errors?</p>
   <p>One should exercise caution when using <code class="highlighter-rouge">setwd()</code>. Changing directories in the middle of a script file can limit reproducibility:</p>
   <ul>
     <li><code class="highlighter-rouge">setwd()</code> will return an error if the directory to which you’re trying to change doesn’t exist or if the user doesn’t have the correct permissions to access that directory. This becomes a problem when sharing scripts between users who have organized their directories differently.</li>
-    <li>If/when your script terminates with an error, you might leave the user in a different directory than the one they started in, and if they then call the script again, this will cause further problems. If you must use <code class="highlighter-rouge">setwd()</code>, it is best to put it at the top of the script to avoid these problems.
-The following error message indicates that R has failed to set the working directory you specified:
-      <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in setwd("~/path/to/working/directory") : cannot change working directory
-</code></pre></div>      </div>
-      <p>It is best practice to have the user running the script begin in a consistent directory on their machine and then use relative file paths from that directory to access files (see below).</p>
-    </li>
+    <li>If/when your script terminates with an error, you might leave the user in a different directory than the one they started in, and if they then call the script again, this will cause further problems. If you must use <code class="highlighter-rouge">setwd()</code>, it is best to put it at the top of the script to avoid these problems.</li>
   </ul>
+
+  <p>The following error message indicates that R has failed to set the working directory you specified:</p>
+
+  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in setwd("~/path/to/working/directory") : cannot change working directory
+</code></pre></div>  </div>
+
+  <p>It is best practice to have the user running the script begin in a consistent directory on their machine and then use relative file paths from that directory to access files (see below).</p>
 </blockquote>
 
 <hr />
-<h2 id="additional-information-and-exercises">Additional Information and Exercises</h2>
+<h3 id="getting-help">Getting help</h3>
+
+<p>Stuck? The <em>On Your Own</em> section will provide a more extensive list of places where you can look for answers to questions about R and RStudio. For today, we will emphasize the two best ways.</p>
 
 <p> </p>
-<h3 id="cleaning-up">Cleaning up</h3>
+<h4 id="r-documentation">R documentation</h4>
 
-<p>You can use the <code class="highlighter-rouge">ls()</code> command to list all variables currently defined in your workspace.</p>
+<p>For help with functions, the first place to look is in the R documentation. Use <code class="highlighter-rouge">?&lt;function name&gt;</code> to read the basic instructions for using a function. Try it with a function we have already used, <code class="highlighter-rouge">sqrt()</code>:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first define a couple of variables</span><span class="w">
-</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">100</span><span class="w">
-
-</span><span class="c1"># now look at what we have defined</span><span class="w">
-</span><span class="n">ls</span><span class="p">()</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">sqrt</span><span class="w"> </span><span class="c1"># note that you don't include the () after sqrt for help</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "args"           "celsius2kelvin" "dest_md"        "max.height"    
- [5] "MaxLength"      "min"            "min_height"     "missing_pkgs"  
- [9] "required_pkgs"  "src_rmd"        "weight_kg"      "weight_lb"     
-[13] "x"              "y"             
-</code></pre></div></div>
+<p>The documentation gives you a <strong>Description</strong> of the purpose of the function. <strong>Usage</strong> tells you the basic information about what <em>arguments</em> the function is expecting, and the <strong>Arguments</strong> section describes each argument. At the very end, most functions include several <strong>Examples</strong> demonstrating usage.</p>
 
-<p>Try clicking on the brush icon in the Environment panel and clicking <kbd>Yes</kbd> in the pop-up box. What happened to your variable? What happens if you try to display the variable in the console?</p>
+<p>Note that if you don’t know the name of a function, you can run a more general search using <code class="highlighter-rouge">??"&lt;search term&gt;"</code>:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w">
-</span><span class="n">y</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">??</span><span class="s2">"square root"</span><span class="w">
 </span></code></pre></div></div>
 
-<p>You can also remove variables one at a time.</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="w">
-</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="n">z</span><span class="m">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y</span><span class="w">
-</span><span class="n">z</span><span class="m">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="w">
-
-</span><span class="n">rm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
-</span><span class="n">rm</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w">
-</span><span class="n">rm</span><span class="p">(</span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ls</span><span class="p">())</span><span class="w"> </span><span class="c1"># remove all variables currently in environment</span><span class="w">
-</span></code></pre></div></div>
+<p> 
+Unfortunately, this is not a very sophisticated search and often returns many unhelpful results without actually finding the obvious function. Usually I just turn to the next solution:</p>
 
 <p> </p>
+<h4 id="google-is-your-friend">Google is your friend</h4>
 
-<p>Often when you get into more complex analyses in R, you end up with a lot of data stored in memory. In some cases, clearing the variable with <code class="highlighter-rouge">rm()</code> does not completely release all of the memory that R has allocated for that variable immediately. You can force R to release that memory using the <code class="highlighter-rouge">gc()</code> function, which stands for “Garbage Collection”.</p>
+<p>There is a vibrant and active R programming community out there. If you have a question, chances are someone has already answered it online somewhere. I have been using R extensively for nearly a decade, and have only twice been unable to find solutions to even obscure and complex problems.</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Calling gc() is simple and forces R to release memory to the operating system</span><span class="w">
-</span><span class="n">gc</span><span class="p">()</span><span class="w">
-</span></code></pre></div></div>
-
-<p>Don’t get bogged down in the details, but we can check memory usage, before 
-creating, after creating, and after removing a large vector. The memory usage at 
-each stage is indicated by “Vcells” (the V stands for “Vector”). Removing the object
-and running gc() frees up some of the memory. Note that <code class="highlighter-rouge">gc()</code> also gives you a memory usage report.</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># check memory before creating vector</span><span class="w">
-</span><span class="n">gc</span><span class="p">()</span><span class="w"> 
-</span></code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># create a big vector (this can take some time) and recheck memory with </span><span class="w">
-</span><span class="c1"># vector loaded; Vcells used (MB) goes up</span><span class="w">
-</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">integer</span><span class="p">(</span><span class="m">100000</span><span class="p">);</span><span class="w"> </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">100000</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># remove vector and check memory a final time; Vcells used (MB) returns to</span><span class="w">
-</span><span class="c1"># it's original value</span><span class="w">
-</span><span class="n">rm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
-</span><span class="n">gc</span><span class="p">()</span><span class="w">
-</span></code></pre></div></div>
+<p>Become adept at using online search engines to locate solutions. I usually start with “r <question>". Getting the phrasing right can be a bit tricky. Let's give it a try:</question></p>
 
 <p> </p>
+<blockquote class="challenge">
+  <h2 id="getting-r-help-online">Getting R help online</h2>
 
-<p>You may find that this speeds up processing when you have a script that is repeatedly loading and releasing large data files.</p>
+  <p>Use an online search engine (e.g. Google) to find a function that let’s you read data from a text file into R.</p>
 
-<p>It is generally good practice to start off each session with a clean slate. When you start RStudio, the Environment will be clear (unless you load a previously saved workspace). If you are finished with one analysis and starting another, it is a good idea to clear you Environment. That way if you reuse a variable name (e.g. <code class="highlighter-rouge">x</code>) you won’t accidentally end up using the value stored in your workspace during the previous analysis.</p>
+  <blockquote class="solution">
+    <h2 id="solution-1">Solution</h2>
 
-<p> </p>
-<h4 id="writing-your-own-functions">Writing your own functions</h4>
+    <p>The primary function that you are looking for is <code class="highlighter-rouge">read.table()</code> or
+possibly <code class="highlighter-rouge">read.delim()</code> (for “tab delimited text file”, which is
+just a more specific version of <code class="highlighter-rouge">read.table()</code>. Some hits point you
+to <code class="highlighter-rouge">readtext()</code>, which is a function for reading more complex text 
+files.</p>
 
-<p>Let’s define a new function <code class="highlighter-rouge">fahrenheit_to_kelvin</code> that converts a temperature value in Fahrenheit (the <em>argument</em>) to Celsius (the <em>output</em>):</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">FtoC</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">temp_F</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">temp_C</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">(</span><span class="n">temp_F</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">32</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="m">5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">9</span><span class="p">)</span><span class="w">
-  </span><span class="nf">return</span><span class="p">(</span><span class="n">temp_C</span><span class="p">)</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<p> </p>
-
-<p>Now let’s give is a try:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">FtoC</span><span class="p">(</span><span class="m">32</span><span class="p">)</span><span class="w"> </span><span class="c1"># output to console</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Temp_C</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">FtoC</span><span class="p">(</span><span class="m">32</span><span class="p">)</span><span class="w"> </span><span class="c1"># assign the output to a new variable called Temp_C</span><span class="w">
-</span><span class="n">Temp_C</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0
-</code></pre></div></div>
+    <p>I used “r read text file” in Google, and received many useful hits 
+Coding forums are one of the best resources, with 
+<a href="https://stackoverflow.com/">stackoverflow</a> being my personal 
+favorite. There are also sites like 
+<a href="https://www.datacamp.com/">DataCamp</a> that are designed to teach 
+data science and have lots of free material and guides. Explore 
+Explore these resources.</p>
+  </blockquote>
+</blockquote>
 
 <p> </p>
-<h4 id="installing-and-loading-packages">Installing and loading packages</h4>
-
-<p>R comes preloaded with a decently wide range of functions for basic data manipulation, but you will inevitably want to do something more interesting. There are many, many ‘packages’ that are available online for download. Each package is a set of related functions designed for a specific area of analysis. For example, later in the course we will use specialized packages that contain functions for power analysis (the <code class="highlighter-rouge">pwr</code> package) and survival analysis (the <code class="highlighter-rouge">survival</code> package).</p>
-
-<p>To use a package, you have to do two things:</p>
-<ol>
-  <li><strong>Install</strong> – Download the package from an external source, and make the functions accessible to R and RStudio. This is accomplished with the <code class="highlighter-rouge">install.packages()</code> function and only has to be done just per computer.</li>
-  <li><strong>Load</strong> – Installing the package does not immediately allow you to access the associated functions. You first have to load the package into your local workspace. This is done with the <code class="highlighter-rouge">library()</code> function.</li>
-</ol>
-
-<p>Let’s give it a try by installing and loading the <code class="highlighter-rouge">pwr</code> package:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Install required packages</span><span class="w">
-</span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: unable to access index for repository https://cran.cnr.berkeley.edu/src/contrib:
-  cannot open URL 'https://cran.cnr.berkeley.edu/src/contrib/PACKAGES'
-</code></pre></div></div>
-
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: package 'pwr' is not available (for R version 3.6.1)
-</code></pre></div></div>
-
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: unable to access index for repository https://cran.cnr.berkeley.edu/bin/windows/contrib/3.6:
-  cannot open URL 'https://cran.cnr.berkeley.edu/bin/windows/contrib/3.6/PACKAGES'
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Load required packages into memory</span><span class="w">
-</span><span class="n">library</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<p> </p>
-
-<p>Generally, a Google search will let you find packages for just about any type of analysis. These usually come from one of two sources (which R mostly takes care of automatically, with a few exceptions):</p>
-<ul>
-  <li><a href="https://cran.r-project.org/">CRAN</a> for basic R packages</li>
-  <li><a href="https://www.bioconductor.org/">Bioconductor</a> for biological packages</li>
-</ul>
-
-<hr />
-<h3 id="resources--where-to-turn-for-help">Resources – where to turn for help</h3>
-
-<p>There are a variety of resources available when you have questions. Here are a few places to look:</p>
-
-<p> </p>
-<h4 id="getting-help-in-r">Getting help in R</h4>
-
-<p>R has a built in function called <code class="highlighter-rouge">help()</code> that provides basic information about specific functions. You can either use this function like any other function, or use the <code class="highlighter-rouge">?</code> operator. Let’s give it a try to get more detailed information on how the <code class="highlighter-rouge">setwd()</code> function works.</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">help</span><span class="p">(</span><span class="n">setwd</span><span class="p">)</span><span class="w">
-</span><span class="o">?</span><span class="n">setwd</span><span class="w">
-</span></code></pre></div></div>
-
-<p> </p>
-
-<p>When you enter either command, notice that the <strong>Help</strong> panel opens (lower right panel in RStudio). This panel provides information on the purpose, inputs, and outputs of the queried function. It also provides useful examples of how to use the function at the end of the documentation. <code class="highlighter-rouge">help()</code> is usually a good first place to look to get a feel for what a function is doing.</p>
-
-<p> </p>
-<h4 id="online-forums">Online Forums</h4>
-
-<p>Perhaps the most valuable resource available to both basic and advanced R users is the vast online community. Many people are actively using the R language for a variety of analysis tasks. You will find that most questions have already been asked and answered on one of the various online forums. If you can’t find the answer, sign up for a forum and post your question. You will generally get an answer (or a pointer to another forum where the question has already been answered) within a day or two.</p>
-
-<p>To find answers, the simplest way is to just type what you are trying to do into Google. Preceedign your question with “R” will tend to find questions within the R community:</p>
-
-<p>      <em>R calculate standard deviation</em></p>
-
-<p>There are many online forums with R user discussions, but I find the most common to be <a href="https://stackoverflow.com/">stackoverflow</a>.</p>
-
-<p> </p>
-<h4 id="the-carpentries">The Carpentries</h4>
-
-<p><a href="https://carpentries.org/">The Carpentries</a> and <a href="https://software-carpentry.org/">Software Carpentry</a> in particular offer free online introductory programming lessons for R and other languages. Much of the material in the early part of this course is based on the Software Carpentry material. They are a good resource for beginners.</p>
-
-<p> </p>
-<h4 id="resources-at-the-university-of-arizona">Resources at the University of Arizona</h4>
-
-<p>The University of Arizona has several resources for both statistics and programming:</p>
-<ul>
-  <li><a href="https://it.arizona.edu/documentation/statistical-resources">Statistics resources</a></li>
-  <li><a href="https://it.arizona.edu/service/statistical-consulting">Statistics consulting</a> (pay service, free consultation)</li>
-  <li><a href="https://statlab.bio5.org/">BIO5 StatLab</a> (pay service, free consultation)</li>
-  <li><a href="https://cancercenter.arizona.edu/researchers/shared-resources/biostatistics">Cancer Center biostatistics</a></li>
-  <li><a href="https://cancercenter.arizona.edu/researchers/shared-resources/bioinformatics">Cancer Center bioinformatics</a></li>
-</ul>
-
-<hr />
 
 
 
@@ -970,6 +865,15 @@ and running gc() frees up some of the memory. Note that <code class="highlighter
 </li>
     
     <li><p>Consider what working directory you are in when sourcing a script and loading data.</p>
+</li>
+    
+    <li><p>Functions are the basic tool used to manipulate data and other objects in R.</p>
+</li>
+    
+    <li><p>Functions take the form <code class="highlighter-rouge">output &lt;- function(argument1, argument2, ...)</code>.</p>
+</li>
+    
+    <li><p>Arguments can be passed to functions by matching based on name, by position, or by omitting them (in which case the default value is used).</p>
 </li>
     
   </ul>

@@ -18,19 +18,23 @@ objectives:
 - "Assign values to variables."
 - "Execute functions."
 - "Demonstrate useful shortcuts."
-- "Know when to use setwd()."
+- "Know when to use `setwd()`."
 keypoints:
 - "R is the programming language; RStudio is a user friendly environment for interacting with R."
 - "Using RStudio can make programming in R much more productive."
 - "Consider what working directory you are in when sourcing a script and loading data."
+- "Functions are the basic tool used to manipulate data and other objects in R."
+- "Functions take the form `output <- function(argument1, argument2, ...)`."
+- "Arguments can be passed to functions by matching based on name, by position, or by omitting them (in which case the default value is used)."
 source: Rmd
 ---
 
 
 
+***
 ## In Class
 
-&nbsp;
+***
 ### Introduction to R and RStudio
 
 If we only had one data set to analyze, it would probably be faster to load the file into a spreadsheet, calculate some simple statisitcs, and generate a plot or two.
@@ -60,7 +64,7 @@ RStudio is an integrated development environment (IDE) for R. It basically provi
 To participate in both in-class exercises and homework, you will need access to a computer with the current versions of the following installed:
 
 1. [R software](https://cran.r-project.org/mirrors.html)
-1. [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/#download)
+2. [RStudio Desktop](https://www.rstudio.com/products/rstudio/download/#download)
 
 You also need to download some files to follow along with the lessons in class:
 
@@ -225,11 +229,11 @@ At the simplest level, the console can be used as a calculator to directly ask f
 Note above the use of `#` signs to add comment. Comments are for you and anyone coming later to read your script. Anything to the right of a `#` is ignored by R. Comment liberally in your R scripts. We will discuss best practices in coding and the use of comments more later on in the course.
 
 &nbsp;
-#### Assignment Operator
+#### Assigning values to variables
 
-We can create a new variable and assign a value to it using `<-` or '=', which are the assignment operators in R. It assigns values on the right to objects on
+We can create a new variable and assign a value to it using `<-` or `=`, which are the assignment operators in R. It assigns values on the right to objects on
 the left. So, after executing `x <- 3`, the value of `x` is `3`. The arrow can
-be read as 3 **goes into** `x`.  You can also use `=` for assignments but not in
+be read as 3 *goes into* `x`.  You can also use `=` for assignments but not in
 all contexts so it is good practice to use `<-` for assignments.
 
 In RStudio, the <kbd>Alt</kbd>+<kbd>-</kbd> will write `<-` in a single keystroke. Let's give it a go:
@@ -237,11 +241,13 @@ In RStudio, the <kbd>Alt</kbd>+<kbd>-</kbd> will write `<-` in a single keystrok
 
 ~~~
 weight_kg <- 55   # using <- sets the value of the variable x to 42.
-weight_kg = 42    # using `=` in place of `<-` works in almost all situation (but not quite all; it is better to get into the habit of using `<-`).
+weight_kg = 55    # using `=` in place of `<-` works in almost all situation (but not quite all; it is better to get into the habit of using `<-`).
 ~~~
 {: .language-r}
 
-Once a variable is created, we can use the variable name to refer to the value it was assigned. The variable name now acts as a tag. Whenever R reads that tag (`x`), it substitutes the value (`42`).
+&nbsp;
+
+Once a variable is created, we can use the variable name to refer to the value it was assigned. The variable name now acts as a tag. Whenever R reads that tag (`weight_kg`), it substitutes the value (`55`).
 
 <img src="../fig/tag-variables.svg" alt="Variables as Tags" />
 
@@ -255,21 +261,26 @@ weight_kg
 
 
 ~~~
-[1] 42
+[1] 55
 ~~~
 {: .output}
 
-Also note that when you assign a value to a variable, a new object is created in the Environment panel (upper right). This panel lists all *objects* in your *workspace*. Note that whenever you make an assignment with `<-` or `=`, R creates a new object in memory. Your workspace is simply the collection of objects currently stored in memory that are available to access in your current R session.
+&nbsp;
+
+Also note that when you assign a value to a variable, a new object is created in the **Environment** panel (upper right). This panel lists all *objects* in your *workspace*. Note that whenever you make an assignment with `<-` or `=`, R creates a new object in memory. Your workspace is simply the collection of objects currently stored in memory that are available to access in your current R session.
 
 Assigning a new value to a variable breaks the connection with the old value; R forgets that number and applies the variable name to the new value. 
 
-When you assign a value to a variable, R only stores the value, not the calculation you used to create it. This is an important point if you're used to the way a spreadsheet program automatically updates linked cells. Let's look at an example.
+When you assign a value to a variable, R only stores the value, not the calculation you used to create it. This is an important point if you're used to the way spreadsheet programs automatically updates linked cells. Let's look at an example.
 
 First, we'll convert `weight_kg` into pounds, and store the new value in the variable `weight_lb`:
 
 
 ~~~
+# assign a weight in kg, then use it to calculate the weight in lbs
+weight_kg <- 57.5
 weight_lb <- 2.2 * weight_kg
+
 # weight in kg...
 weight_kg
 ~~~
@@ -278,7 +289,7 @@ weight_kg
 
 
 ~~~
-[1] 42
+[1] 57.5
 ~~~
 {: .output}
 
@@ -293,12 +304,12 @@ weight_lb
 
 
 ~~~
-[1] 92.4
+[1] 126.5
 ~~~
 {: .output}
+&nbsp;
 
-In words, we're asking R to look up the value we tagged `weight_kg`,
-multiply it by 2.2, and tag the result with the name `weight_lb`:
+We are asking R to look up the value we tagged `weight_kg`, multiply it by 2.2, and tag the result with the name `weight_lb`:
 
 <img src="../fig/new-variables.svg" alt="Creating Another Variable" />
 
@@ -307,6 +318,7 @@ If we now change the value of `weight_kg`:
 
 ~~~
 weight_kg <- 100.0
+
 # weight in kg now...
 weight_kg
 ~~~
@@ -322,7 +334,7 @@ weight_kg
 
 
 ~~~
-# ...and weight in pounds still
+# ...and weight in pounds is still:
 weight_lb
 ~~~
 {: .language-r}
@@ -330,7 +342,7 @@ weight_lb
 
 
 ~~~
-[1] 92.4
+[1] 126.5
 ~~~
 {: .output}
 
@@ -340,7 +352,8 @@ Since `weight_lb` doesn't "remember" where its value came from, it isn't automat
 
 This is different from the way spreadsheets work.
 
-<img src="../fig/arithmetic-variables.svg" alt="Variables as Tags" />
+&nbsp;
+#### Incomplete commands
 
 What happens if you don't complete a line?
 
@@ -349,12 +362,24 @@ What happens if you don't complete a line?
 ~~~
 {: .language-r}
 
+&nbsp;
+
 R hangs with a `+` in the console, waiting for you to finish your thought...
+
 
 ~~~
 1
 ~~~
 {: .language-r}
+
+
+
+~~~
+[1] 1
+~~~
+{: .output}
+
+&nbsp;
 
 All better.
 
@@ -450,10 +475,10 @@ All better.
 {: .challenge}
 
 
-&nbsp;
+***
 ### Functions in R
 
-Functions are predefined commands that take *input* values (aka [arguments]({{ page.root }}/reference.html#argument), perform some operation, and generates some output. The format for using a funciton is:
+Functions are predefined commands that take *input* values (aka [arguments]({{ page.root }}/reference.html#argument)), perform one or more operations, and generate a specific output. The format for using a function is:
 
 
 ~~~
@@ -463,7 +488,7 @@ output <- functionX(argument1, argument2, ...)
 
 &nbsp;
 
-if the output variable and `<-` are not used, the output is written directly to your console window. Functions carry out a wide range of tasks, and some take no *arguments*. For example, `getwd()` will return the path to the current Rstudio folder. We will talk more about folders and workspaces below.
+if the output variable and `<-` are not used, the output is written directly to your console window. Functions carry out a wide range of tasks, and some take no *arguments*. For example, `getwd()` will return the path to the current RStudio folder. We will talk more about folders and workspaces below.
 
 
 ~~~
@@ -480,7 +505,7 @@ getwd()
 
 &nbsp;
 
-Other functions take many different *arguments*, separated by `,`s, that modify the output. For example, the `sum()` function will output the sum of all input values:
+Other functions take many different *arguments*, separated by `,`s, that modify the output. For example, the `sum()` function will output the sum of all numeric input arguments:
 
 
 ~~~
@@ -497,7 +522,7 @@ sum(1,2,6)
 
 &nbsp;
 
-Functions can also be nested. For example, let's add up the square roots of 4, 9, and 16:
+Functions can also be nested. For example, let's combine the `sum()` and `sqrt()` (short for "square root") functions to add up the square roots of 4, 9, and 16:
 
 
 ~~~
@@ -512,8 +537,8 @@ sum(sqrt(4), sqrt(9), sqrt(16))
 ~~~
 {: .output}
 
-&nbsp;
-#### Working directories in R
+***
+### Working directories in R
 
 Your *working directory* refers to the file path on your computer where the current session of R will go to look for files. You need to have any external data that you are working with in a file in your working directory in order to load it into R (or know how to specify a different location, if it isn't in your working directory). Any output (data or charts) that you save in R will also be stored in the working directory by default unless you specify a different location on your computer. 
 
@@ -524,16 +549,25 @@ A collection of scripts and data in R are defined as a *Project*. Among other th
 3. Click <kbd>Browse...</kbd>.
 4. Navigate to your *MCB585* folder and click <kbd>Create Project</kbd>.
 
-RStudio will reload with a clean working environment. If you click on the **Files** tab (lower right panel), you will see that the current folder is you *MCB585* folder, and that RStudio will have created a new file called **MCB585.Rproj**.
+RStudio will reload with a clean working environment. If you click on the **Files** tab (lower right panel), you will see that the current folder is your *MCB585* folder, and that RStudio will have created a new file called **MCB585.Rproj**.
 
-In the future, you can either just open this file from you file explorer to load you MCB585 project, or you can open it from RStudio by clicking **File > Open Project...**, navigating to your *MCB585* folder, and selecting the **MCB585.Rproj** file.
+In the future, you can either just open this file from your file explorer to load you MCB585 project, or you can open it from RStudio by clicking **File > Open Project...**, navigating to your *MCB585* folder, and selecting the **MCB585.Rproj** file.
 
-You can change the active working directly by using the function `setwd()`. For example, we can set the working directory to our *MCB585/data* folder using the following command:
+You can change the active working directly by using the function `setwd()`. For example, we can set the working directory to your *MCB585/data* folder using one of the following commands:
 
 
 ~~~
 setwd("./data")
-setwd("data") 
+setwd("data")
+~~~
+{: .language-r}
+
+&nbsp;
+
+To return the working directory to your *MCB585* folder, enter the following command:
+
+
+~~~
 setwd("..") 
 ~~~
 {: .language-r}
@@ -543,7 +577,7 @@ setwd("..")
 Note that unless you specify the entire path, all entries will be relative to the current working directory. Relative navigation:
 * '.' = the current working directory
 * '..' = the directory one level above the working directory (i.e. the Desktop in our case)
-* Note that "./data" and "data" both mean "go to the *data* folder inside the working directory"
+* Note that "./data" and "data" both mean "go to the *data* folder inside the current working directory"
 
 If you are unsure what your current working directory is, you can define the entire path:
 
@@ -554,7 +588,7 @@ setwd("/Users/<username>/Desktop") # MacOS
 ~~~
 {: .language-r}
 
-**Caution for Windows users:** If you copy a file path from Windows Explorer and paste it into `setwd()`, you have to change the backslashes ("\\") used in Windows to forwardslashes ("/"). R interprets "\\" as a type of special type of character called an *escape character* rather than a part of the string. If you don't replace them, you will get errors:
+**Caution for Windows users:** If you copy a file path from Windows Explorer and paste it into `setwd()`, you have to change the backslashes ("\\") used in Windows to forwardslashes ("/"). R interprets "\\" as a special type of character called an *escape character* rather than a part of the string. If you don't replace them, you will get errors:
 
 &nbsp;
 
@@ -563,6 +597,13 @@ setwd("/Users/<username>/Desktop") # MacOS
 setwd(".\data")
 ~~~
 {: .language-r}
+
+
+
+~~~
+Error: '\d' is an unrecognized escape in character string starting "".\d"
+~~~
+{: .error}
 
 &nbsp;
 
@@ -597,7 +638,7 @@ list.files()
  [3] "02-class-R-data-types-structures.Rmd"   
  [4] "02-oyo-R-data-types-structures.Rmd"     
  [5] "03-class-data-frames.Rmd"               
- [6] "03-oyo-Lists.Rmd"                       
+ [6] "03-oyo-lists.Rmd"                       
  [7] "04-class-manipulating-plotting-data.Rmd"
  [8] "04-oyo-advanced-data-manipulation.Rmd"  
  [9] "05-class-decisions-loops.Rmd"           
@@ -611,10 +652,8 @@ list.files()
 [17] "09-class-power-analysis.Rmd"            
 [18] "09-oyo-simulation.Rmd"                  
 [19] "99-projects.Rmd"                        
-[20] "ClassTest.html"                         
-[21] "data"                                   
-[22] "inflammation-01.pdf"                    
-[23] "results"                                
+[20] "data"                                   
+[21] "results"                                
 ~~~
 {: .output}
 
@@ -624,261 +663,75 @@ list.files()
 > One should exercise caution when using `setwd()`. Changing directories in the middle of a script file can limit reproducibility:
 > * `setwd()` will return an error if the directory to which you're trying to change doesn't exist or if the user doesn't have the correct permissions to access that directory. This becomes a problem when sharing scripts between users who have organized their directories differently.
 > * If/when your script terminates with an error, you might leave the user in a different directory than the one they started in, and if they then call the script again, this will cause further problems. If you must use `setwd()`, it is best to put it at the top of the script to avoid these problems.
+> 
 > The following error message indicates that R has failed to set the working directory you specified:
+>
 > ```
 > Error in setwd("~/path/to/working/directory") : cannot change working directory
 > ```
+> 
 > It is best practice to have the user running the script begin in a consistent directory on their machine and then use relative file paths from that directory to access files (see below).
 {: .callout}
 
-
 ***
-## Additional Information and Exercises
+### Getting help
+
+Stuck? The *On Your Own* section will provide a more extensive list of places where you can look for answers to questions about R and RStudio. For today, we will emphasize the two best ways.
 
 &nbsp;
-### Cleaning up
+#### R documentation
 
-You can use the `ls()` command to list all variables currently defined in your workspace.
+For help with functions, the first place to look is in the R documentation. Use `?<function name>` to read the basic instructions for using a function. Try it with a function we have already used, `sqrt()`:
 
 
 ~~~
-# first define a couple of variables
-x <- 1
-y <- 100
-
-# now look at what we have defined
-ls()
+?sqrt # note that you don't include the () after sqrt for help
 ~~~
 {: .language-r}
 
+The documentation gives you a **Description** of the purpose of the function. **Usage** tells you the basic information about what *arguments* the function is expecting, and the **Arguments** section describes each argument. At the very end, most functions include several **Examples** demonstrating usage. 
+
+Note that if you don't know the name of a function, you can run a more general search using `??"<search term>"`:
 
 
 ~~~
- [1] "args"           "celsius2kelvin" "dest_md"        "max.height"    
- [5] "MaxLength"      "min"            "min_height"     "missing_pkgs"  
- [9] "required_pkgs"  "src_rmd"        "weight_kg"      "weight_lb"     
-[13] "x"              "y"             
-~~~
-{: .output}
-
-Try clicking on the brush icon in the Environment panel and clicking <kbd>Yes</kbd> in the pop-up box. What happened to your variable? What happens if you try to display the variable in the console?
-
-
-~~~
-x
-y
-~~~
-{: .language-r}
-
-You can also remove variables one at a time.
-
-
-~~~
-x = 3
-y = x + 2
-z1 = x - y
-z2 = x + y
-
-rm(x)
-rm(y)
-rm(list = ls()) # remove all variables currently in environment
+??"square root"
 ~~~
 {: .language-r}
 
 &nbsp;
-
-Often when you get into more complex analyses in R, you end up with a lot of data stored in memory. In some cases, clearing the variable with `rm()` does not completely release all of the memory that R has allocated for that variable immediately. You can force R to release that memory using the `gc()` function, which stands for "Garbage Collection".
-
-
-~~~
-# Calling gc() is simple and forces R to release memory to the operating system
-gc()
-~~~
-{: .language-r}
-
-Don't get bogged down in the details, but we can check memory usage, before 
-creating, after creating, and after removing a large vector. The memory usage at 
-each stage is indicated by "Vcells" (the V stands for "Vector"). Removing the object
-and running gc() frees up some of the memory. Note that `gc()` also gives you a memory usage report.
-
-
-~~~
-# check memory before creating vector
-gc() 
-~~~
-{: .language-r}
-
-
-~~~
-# create a big vector (this can take some time) and recheck memory with 
-# vector loaded; Vcells used (MB) goes up
-x <- integer(100000); for(i in 1:100000) x <- c(x, i)
-~~~
-{: .language-r}
-
-~~~
-# remove vector and check memory a final time; Vcells used (MB) returns to
-# it's original value
-rm(x)
-gc()
-~~~
-{: .language-r}
+Unfortunately, this is not a very sophisticated search and often returns many unhelpful results without actually finding the obvious function. Usually I just turn to the next solution:
 
 &nbsp;
+#### Google is your friend
 
-You may find that this speeds up processing when you have a script that is repeatedly loading and releasing large data files.
+There is a vibrant and active R programming community out there. If you have a question, chances are someone has already answered it online somewhere. I have been using R extensively for nearly a decade, and have only twice been unable to find solutions to even obscure and complex problems.
 
-It is generally good practice to start off each session with a clean slate. When you start RStudio, the Environment will be clear (unless you load a previously saved workspace). If you are finished with one analysis and starting another, it is a good idea to clear you Environment. That way if you reuse a variable name (e.g. `x`) you won't accidentally end up using the value stored in your workspace during the previous analysis.
-
-
-&nbsp;
-#### Writing your own functions
-
-Let's define a new function `fahrenheit_to_kelvin` that converts a temperature value in Fahrenheit (the *argument*) to Celsius (the *output*):
-
-
-~~~
-FtoC <- function(temp_F) {
-  temp_C <- (temp_F - 32) * (5 / 9)
-  return(temp_C)
-}
-~~~
-{: .language-r}
+Become adept at using online search engines to locate solutions. I usually start with "r <question>". Getting the phrasing right can be a bit tricky. Let's give it a try:
 
 &nbsp;
-
-Now let's give is a try:
-
-~~~
-FtoC(32) # output to console
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 0
-~~~
-{: .output}
-
-
-
-~~~
-Temp_C <- FtoC(32) # assign the output to a new variable called Temp_C
-Temp_C
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 0
-~~~
-{: .output}
-
-
+> ## Getting R help online
+>
+> Use an online search engine (e.g. Google) to find a function that let's you read data from a text file into R.
+>
+> > ## Solution
+> > 
+> > The primary function that you are looking for is `read.table()` or
+> > possibly `read.delim()` (for "tab delimited text file", which is
+> > just a more specific version of `read.table()`. Some hits point you
+> > to `readtext()`, which is a function for reading more complex text 
+> > files. 
+> > 
+> > I used "r read text file" in Google, and received many useful hits 
+> > Coding forums are one of the best resources, with 
+> > [stackoverflow](https://stackoverflow.com/) being my personal 
+> > favorite. There are also sites like 
+> > [DataCamp](https://www.datacamp.com/) that are designed to teach 
+> > data science and have lots of free material and guides. Explore 
+> > Explore these resources.
+> {: .solution}
+{: .challenge}
 
 &nbsp;
-#### Installing and loading packages
-
-R comes preloaded with a decently wide range of functions for basic data manipulation, but you will inevitably want to do something more interesting. There are many, many 'packages' that are available online for download. Each package is a set of related functions designed for a specific area of analysis. For example, later in the course we will use specialized packages that contain functions for power analysis (the `pwr` package) and survival analysis (the `survival` package). 
-
-To use a package, you have to do two things:
-1. **Install** -- Download the package from an external source, and make the functions accessible to R and RStudio. This is accomplished with the `install.packages()` function and only has to be done just per computer.
-2. **Load** -- Installing the package does not immediately allow you to access the associated functions. You first have to load the package into your local workspace. This is done with the `library()` function.
-
-Let's give it a try by installing and loading the `pwr` package:
-
-
-~~~
-# Install required packages
-install.packages("pwr")
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: unable to access index for repository https://cran.cnr.berkeley.edu/src/contrib:
-  cannot open URL 'https://cran.cnr.berkeley.edu/src/contrib/PACKAGES'
-~~~
-{: .error}
-
-
-
-~~~
-Warning: package 'pwr' is not available (for R version 3.6.1)
-~~~
-{: .error}
-
-
-
-~~~
-Warning: unable to access index for repository https://cran.cnr.berkeley.edu/bin/windows/contrib/3.6:
-  cannot open URL 'https://cran.cnr.berkeley.edu/bin/windows/contrib/3.6/PACKAGES'
-~~~
-{: .error}
-
-
-~~~
-# Load required packages into memory
-library("pwr")
-~~~
-{: .language-r}
-
-&nbsp;
-
-Generally, a Google search will let you find packages for just about any type of analysis. These usually come from one of two sources (which R mostly takes care of automatically, with a few exceptions):
-* [CRAN](https://cran.r-project.org/) for basic R packages
-* [Bioconductor](https://www.bioconductor.org/) for biological packages
-
-***
-### Resources -- where to turn for help
-
-There are a variety of resources available when you have questions. Here are a few places to look:
-
-&nbsp;
-#### Getting help in R
-
-R has a built in function called `help()` that provides basic information about specific functions. You can either use this function like any other function, or use the `?` operator. Let's give it a try to get more detailed information on how the `setwd()` function works.
-
-
-~~~
-help(setwd)
-?setwd
-~~~
-{: .language-r}
-
-&nbsp;
-
-When you enter either command, notice that the **Help** panel opens (lower right panel in RStudio). This panel provides information on the purpose, inputs, and outputs of the queried function. It also provides useful examples of how to use the function at the end of the documentation. `help()` is usually a good first place to look to get a feel for what a function is doing.
-
-&nbsp;
-#### Online Forums
-
-Perhaps the most valuable resource available to both basic and advanced R users is the vast online community. Many people are actively using the R language for a variety of analysis tasks. You will find that most questions have already been asked and answered on one of the various online forums. If you can't find the answer, sign up for a forum and post your question. You will generally get an answer (or a pointer to another forum where the question has already been answered) within a day or two.
-
-To find answers, the simplest way is to just type what you are trying to do into Google. Preceedign your question with "R" will tend to find questions within the R community: 
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*R calculate standard deviation*
-
-There are many online forums with R user discussions, but I find the most common to be [stackoverflow](https://stackoverflow.com/).
-
-&nbsp;
-#### The Carpentries
-
-[The Carpentries](https://carpentries.org/) and [Software Carpentry](https://software-carpentry.org/) in particular offer free online introductory programming lessons for R and other languages. Much of the material in the early part of this course is based on the Software Carpentry material. They are a good resource for beginners.
-
-&nbsp;
-#### Resources at the University of Arizona
-
-The University of Arizona has several resources for both statistics and programming:
-* [Statistics resources](https://it.arizona.edu/documentation/statistical-resources)
-* [Statistics consulting](https://it.arizona.edu/service/statistical-consulting) (pay service, free consultation)
-* [BIO5 StatLab](https://statlab.bio5.org/) (pay service, free consultation)
-* [Cancer Center biostatistics](https://cancercenter.arizona.edu/researchers/shared-resources/biostatistics)
-* [Cancer Center bioinformatics](https://cancercenter.arizona.edu/researchers/shared-resources/bioinformatics)
-
-***
 
 {% include links.md %}

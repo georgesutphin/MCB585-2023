@@ -8,15 +8,17 @@ exercises: 30
 questions:
 - "How is time-to-event data structured?"
 - "What are the elements that separate time-to-event data from single-point observations?"
-- "How do we visualize and analyze time-to-event data?"
+- "How do we visualize time-to-event data?"
+- "What statistical tests are available for time-to-event data hypothesis testing?"
 objectives:
 - "Describe the basic structure of time-to-event data." 
 - "Understand censoring and how it affects time-to-event data."
-- "Use the `survival() package to generate survival curves, age-specific mortality plots, and perform Log-Rank tests."
+- "Use the `survival()` package to generate survival curves and age-specific mortality plots."
+- "Use the Wilcoxon Rank-Sum (aka Mann-Whitney U) and Log-Rank tests to evaluate statistical differences between time-to-event observations between groups."
 keypoints:
 - "Time-to-event data includes a hybrid of an observation (event vs. no event) and a series of observation times."
 - "Time-to-event data analysis violates several assumptions made by standard tests, including normality and independence of observations."
-- "Censoring complicates analysis and is not handled by standard statistical tests. Instead, we use the Log-Rank test for basic survival comparisons."
+- "Censoring complicates analysis and is not handled by standard statistical tests, including the Wilcoxon Rank-Sum test. Instead, we use the Log-Rank test for basic survival comparisons."
 - "Unlike the survival function, age-specific mortality at any given time does not depend on previous observations."
 source: Rmd
 ---
@@ -110,7 +112,7 @@ str(lt)
  $ age: int  0 1 2 3 4 5 6 7 8 9 ...
  $ qx : num  0.006058 0.000415 0.000264 0.000208 0.000167 ...
  $ lx : int  100000 99394 99353 99327 99306 99289 99274 99261 99249 99239 ...
- $ dx : Factor w/ 97 levels "1,062","1,115",..: 77 68 49 45 31 28 25 22 18 90 ...
+ $ dx : chr  "606" "41" "26" "21" ...
  $ Lx : int  99470 99374 99340 99316 99298 99282 99268 99255 99244 99234 ...
  $ Tx : int  7870915 7771445 7672071 7572731 7473415 7374117 7274835 7175567 7076312 6977068 ...
  $ ex : num  78.7 78.2 77.2 76.2 75.3 74.3 73.3 72.3 71.3 70.3 ...
