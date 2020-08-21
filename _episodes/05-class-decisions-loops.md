@@ -8,31 +8,21 @@ exercises: 30
 questions:
 - "How do I write code to make decisions about data?"
 - "How do I use the same code to treat different data sets in different ways?"
-- "How can I do the same thing to multiple data sets?"
-- "How do I write a `for` loop?"
-- "How can I do the same thing multiple times more efficiently in R?"
-- "Should I use a loop or an `apply` statement?"
+- "How can I perform the same operations on multiple data sets or across multiple subsets of a single dataset?"
 objectives:
 - "Write conditional statements with `if` and `else`."
 - "Correctly evaluate expressions containing `&&` ('and') and `||` ('or')."
 - "Use a `for` loop to process multiple files."
-- "Explain what a `for` loop does."
+- "Explain the basic process underlying what a `for` loop does."
 - "Correctly write `for` loops to repeat simple calculations."
-- "Trace changes to a loop variable as the loop runs."
-- "Trace changes to other variables as they are updated by a `for` loop."
-- "Use a function to get a list of filenames that match a simple pattern."
-- "Use the apply family of functions."
 keypoints:
-- "Use `length(thing)` to determine the length of something that contains other values."
-- "Use `if (condition)` to start a conditional statement, `else if (condition)` to provide additional tests, and `else` to provide a default."
+- "Use `if (condition)` to start a conditional statement, `else if (condition)` to provide additional tests, and `else` to provide a default alternative."
 - "The bodies of conditional statements must be surrounded by curly braces `{ }`."
 - "Use `==` to test for equality."
 - "`X && Y` is only true if both X and Y are true."
-- "`X || Y` is true if either X or Y, or both, are true."
+- "`X || Y` is true if either X, Y, or both, are true."
 - "Use `for (variable in collection)` to process the elements of a collection one at a time."
 - "The body of a `for` loop is surrounded by curly braces (`{}`)."
-- "Use functions such as `apply` instead of `for` loops to operate on the values in a data structure."
-- "Use `list.files(path = \"path\", pattern = \"pattern\", full.names = TRUE)` to create a list of files whose names match a pattern."
 source: Rmd
 ---
 
@@ -236,19 +226,18 @@ carSpeeds$Color
 
 
 ~~~
-  [1] "Green" "1"     "Green" "5"     "4"     "Green" "Green" "2"    
-  [9] "5"     "4"     "4"     "5"     "Green" "Green" "2"     "4"    
- [17] "Green" "Green" "5"     "Green" "Green" "Green" "4"     "Green"
- [25] "4"     "4"     "4"     "4"     "5"     "Green" "4"     "5"    
- [33] "2"     "4"     "2"     "2"     "Green" "4"     "2"     "4"    
- [41] "2"     "2"     "4"     "4"     "5"     "2"     "Green" "4"    
- [49] "4"     "2"     "2"     "4"     "5"     "4"     "Green" "Green"
- [57] "2"     "Green" "5"     "2"     "4"     "Green" "Green" "5"    
- [65] "2"     "4"     "4"     "2"     "Green" "5"     "Green" "4"    
- [73] "5"     "5"     "Green" "Green" "Green" "Green" "Green" "5"    
- [81] "2"     "Green" "5"     "2"     "2"     "4"     "4"     "5"    
- [89] "5"     "5"     "5"     "4"     "4"     "4"     "5"     "2"    
- [97] "5"     "2"     "2"     "5"    
+  [1] "Green" " Red"  "Green" "White" "Red"   "Green" "Green" "Black" "White"
+ [10] "Red"   "Red"   "White" "Green" "Green" "Black" "Red"   "Green" "Green"
+ [19] "White" "Green" "Green" "Green" "Red"   "Green" "Red"   "Red"   "Red"  
+ [28] "Red"   "White" "Green" "Red"   "White" "Black" "Red"   "Black" "Black"
+ [37] "Green" "Red"   "Black" "Red"   "Black" "Black" "Red"   "Red"   "White"
+ [46] "Black" "Green" "Red"   "Red"   "Black" "Black" "Red"   "White" "Red"  
+ [55] "Green" "Green" "Black" "Green" "White" "Black" "Red"   "Green" "Green"
+ [64] "White" "Black" "Red"   "Red"   "Black" "Green" "White" "Green" "Red"  
+ [73] "White" "White" "Green" "Green" "Green" "Green" "Green" "White" "Black"
+ [82] "Green" "White" "Black" "Black" "Red"   "Red"   "White" "White" "White"
+ [91] "White" "Red"   "Red"   "Red"   "White" "Black" "White" "Black" "Black"
+[100] "White"
 ~~~
 {: .output}
 
@@ -710,27 +699,20 @@ head(inflam1)
 
 
 ~~~
-  V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14 V15 V16 V17 V18 V19 V20
-1  0  0  1  3  1  2  4  7  8   3   3   3  10   5   7   4   7   7  12  18
-2  0  1  2  1  2  1  3  2  2   6  10  11   5   9   4   4   7  16   8   6
-3  0  1  1  3  3  2  6  2  5   9   5   7   4   5   4  15   5  11   9  10
-4  0  0  2  0  4  2  2  1  6   7  10   7   9  13   8   8  15  10  10   7
-5  0  1  1  3  3  1  3  5  2   4   4   7   6   5   3  10   8  10   6  17
-6  0  0  1  2  2  4  2  1  6   4   7   6   6   9   9  15   4  16  18  12
-  V21 V22 V23 V24 V25 V26 V27 V28 V29 V30 V31 V32 V33 V34 V35 V36 V37 V38
-1   6  13  11  11   7   7   4   6   8   8   4   4   5   7   3   4   2   3
-2  18   4  12   5  12   7  11   5  11   3   3   5   4   4   5   5   1   1
-3  19  14  12  17   7  12  11   7   4   2  10   5   4   2   2   3   2   2
-4  17   4   4   7   6  15   6   4   9  11   3   5   6   3   3   4   2   3
-5   9  14   9   7  13   9  12   6   7   7   9   6   3   2   2   4   2   0
-6  12   5  18   9   5   3  10   3  12   7   8   4   7   3   5   4   4   3
-  V39 V40
-1   0   0
-2   0   1
-3   1   1
-4   2   1
-5   1   1
-6   2   1
+  V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14 V15 V16 V17 V18 V19 V20 V21
+1  0  0  1  3  1  2  4  7  8   3   3   3  10   5   7   4   7   7  12  18   6
+2  0  1  2  1  2  1  3  2  2   6  10  11   5   9   4   4   7  16   8   6  18
+3  0  1  1  3  3  2  6  2  5   9   5   7   4   5   4  15   5  11   9  10  19
+4  0  0  2  0  4  2  2  1  6   7  10   7   9  13   8   8  15  10  10   7  17
+5  0  1  1  3  3  1  3  5  2   4   4   7   6   5   3  10   8  10   6  17   9
+6  0  0  1  2  2  4  2  1  6   4   7   6   6   9   9  15   4  16  18  12  12
+  V22 V23 V24 V25 V26 V27 V28 V29 V30 V31 V32 V33 V34 V35 V36 V37 V38 V39 V40
+1  13  11  11   7   7   4   6   8   8   4   4   5   7   3   4   2   3   0   0
+2   4  12   5  12   7  11   5  11   3   3   5   4   4   5   5   1   1   0   1
+3  14  12  17   7  12  11   7   4   2  10   5   4   2   2   3   2   2   1   1
+4   4   4   7   6  15   6   4   9  11   3   5   6   3   3   4   2   3   2   1
+5  14   9   7  13   9  12   6   7   7   9   6   3   2   2   4   2   0   1   1
+6   5  18   9   5   3  10   3  12   7   8   4   7   3   5   4   4   3   2   1
 ~~~
 {: .output}
 
@@ -1027,8 +1009,8 @@ gc() # clean things up first
 
 ~~~
           used (Mb) gc trigger (Mb) max used (Mb)
-Ncells  583422 31.2    1255812 67.1  1255812 67.1
-Vcells 1125589  8.6    8388608 64.0  2278858 17.4
+Ncells  588444 31.5    1264360 67.6  1264360 67.6
+Vcells 1106836  8.5    8388608 64.0  2265217 17.3
 ~~~
 {: .output}
 
@@ -1043,7 +1025,7 @@ system.time(avg <- analyze(inflam.files))
 
 ~~~
    user  system elapsed 
-   0.04    0.00    0.04 
+   0.03    0.00    0.03 
 ~~~
 {: .output}
 
@@ -1058,7 +1040,7 @@ system.time(avg <- analyze2(inflam.files))
 
 ~~~
    user  system elapsed 
-   0.03    0.00    0.03 
+   0.05    0.00    0.04 
 ~~~
 {: .output}
 

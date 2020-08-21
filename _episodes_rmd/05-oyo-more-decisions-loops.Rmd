@@ -4,11 +4,24 @@ classdate: "9/9/2020 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:
-- "How?"
+- "What is vectorization?"
+- "Are there different indexing strategies for different situations using a `for` loop?"
+- "Should I use a loop or an `apply` statement?"
 objectives:
-- "Write."
+- "Understand how R interprets simple operations (e.g. addition) when applied to data vectors."
+- "Use either the elements or the position in a vector as the primary index in a `for` loop."
+- "Compare loops and vectorized operations."
+- "Trace changes to a loop variable as the loop runs."
+- "Trace changes to other variables as they are updated by a `for` loop."
+- "Use a function to get a list of filenames that match a simple pattern."
+- "Understand the advanatages and disadvantages to using apply functions vs. for loops."
 keypoints:
-- "Use."
+- "In most cases, R applies simple operations on vectors as meant to each element of the vector(s)."
+- "If a simple operation is requested on vectors of different lengths, R will either return and error or repeatedly loop through the elements of the shorter vector, depending on the operation."
+- "Where possible, use vectorized operations instead of `for` loops to make code faster and more concise."
+- "Use `length(thing)` to determine the length of something that contains other values."
+- "Use functions such as `apply` instead of `for` loops to operate on the values in a data structure."
+- "Use `list.files(path = \"path\", pattern = \"pattern\", full.names = TRUE)` to create a list of files whose names match a pattern."
 source: Rmd
 ---
 
@@ -18,7 +31,7 @@ knitr_fig_path("05-oyo-more-decisions-loops-")
 ```
 
 ***
-## On Your Own
+##  On Your Own
 
 
 ***

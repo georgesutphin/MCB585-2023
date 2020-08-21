@@ -4,11 +4,23 @@ classdate: "8/28/2020 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:
-- "Class questions."
+- "What are the basic data types in R?"
+- "What are factors and how do they differ from other data types?"
+- "How is missing data represented in R?"
+- "How is infinity represented in R?"
 objectives:
-- "Class objectives."
+- "Understand basic data types in R and how these data types are used in data structures."
+- "Understand missing data and other special values (e.g. infinity)."
+- "Understand the structure and properties of factors."
+- "Be able to explain the difference between ordered and unordered factors."
+- "Be aware of some of the problems encountered when using factors."
 keypoints:
-- "Class keypoints."
+- "R's basic data types are character, numeric, integer, complex, and logical."
+- "R's data structures include the vector, list, matrix, data frame, and factors. Some of these structures require that all members be of the same data type (e.g. vectors, matrices) while others permit multiple data types (e.g. lists, data frames)."
+- "Factors are used to represent categorical data."
+- "Factors can be *ordered* or *unordered*."
+- "Some R functions have special methods for handling factors."
+- "The function `dim` gives the dimensions of a data structure."
 source: Rmd
 ---
 

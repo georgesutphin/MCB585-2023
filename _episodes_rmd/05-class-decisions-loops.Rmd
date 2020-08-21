@@ -6,31 +6,21 @@ exercises: 30
 questions:
 - "How do I write code to make decisions about data?"
 - "How do I use the same code to treat different data sets in different ways?"
-- "How can I do the same thing to multiple data sets?"
-- "How do I write a `for` loop?"
-- "How can I do the same thing multiple times more efficiently in R?"
-- "Should I use a loop or an `apply` statement?"
+- "How can I perform the same operations on multiple data sets or across multiple subsets of a single dataset?"
 objectives:
 - "Write conditional statements with `if` and `else`."
 - "Correctly evaluate expressions containing `&&` ('and') and `||` ('or')."
 - "Use a `for` loop to process multiple files."
-- "Explain what a `for` loop does."
+- "Explain the basic process underlying what a `for` loop does."
 - "Correctly write `for` loops to repeat simple calculations."
-- "Trace changes to a loop variable as the loop runs."
-- "Trace changes to other variables as they are updated by a `for` loop."
-- "Use a function to get a list of filenames that match a simple pattern."
-- "Use the apply family of functions."
 keypoints:
-- "Use `length(thing)` to determine the length of something that contains other values."
-- "Use `if (condition)` to start a conditional statement, `else if (condition)` to provide additional tests, and `else` to provide a default."
+- "Use `if (condition)` to start a conditional statement, `else if (condition)` to provide additional tests, and `else` to provide a default alternative."
 - "The bodies of conditional statements must be surrounded by curly braces `{ }`."
 - "Use `==` to test for equality."
 - "`X && Y` is only true if both X and Y are true."
-- "`X || Y` is true if either X or Y, or both, are true."
+- "`X || Y` is true if either X, Y, or both, are true."
 - "Use `for (variable in collection)` to process the elements of a collection one at a time."
 - "The body of a `for` loop is surrounded by curly braces (`{}`)."
-- "Use functions such as `apply` instead of `for` loops to operate on the values in a data structure."
-- "Use `list.files(path = \"path\", pattern = \"pattern\", full.names = TRUE)` to create a list of files whose names match a pattern."
 source: Rmd
 ---
 

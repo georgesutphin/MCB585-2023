@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-17 13:01:04 -0700">
+    <meta http-equiv="last-modified" content="2020-08-21 00:08:52 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -123,9 +123,11 @@
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-Lists/index.html">Lists and Data Frames</a></li>
+            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
             
-            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation</a></li>
+            <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
+            
+            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation and Plotting</a></li>
             
             <li><a href="../05-class-decisions-loops/index.html">Decision Making and Loops</a></li>
             
@@ -383,20 +385,20 @@ set of tests a family. Ultimately, you have to use your own judgement.</p>
 </span><span class="n">head</span><span class="p">(</span><span class="n">body.comp</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       strain sex animal_id age body_weight_g  BMI percent_fat
-1 129S1/SvImJ   f   SC-7749   6          20.2 2.66        22.1
-2 129S1/SvImJ   f   SC-7751   6          22.8 2.88        22.2
-3 129S1/SvImJ   f   SC-7752   6          22.5 2.97        22.6
-4 129S1/SvImJ   f   SC-7747   6          23.1 2.92        22.8
-5 129S1/SvImJ   f   SC-7746   6          21.6 2.85        23.1
-6 129S1/SvImJ   f   SC-7745   6          19.6 2.71        24.0
-  total_mass_g lean_mass_g fat_mass_g
-1         17.9        13.9       4.45
-2         19.8        15.4       5.08
-3         19.4          15       5.08
-4         20.6        15.9       5.27
-5         18.9        14.5       4.99
-6         17.3        13.1       4.69
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>       strain sex animal_id age body_weight_g  BMI percent_fat total_mass_g
+1 129S1/SvImJ   f   SC-7749   6          20.2 2.66        22.1         17.9
+2 129S1/SvImJ   f   SC-7751   6          22.8 2.88        22.2         19.8
+3 129S1/SvImJ   f   SC-7752   6          22.5 2.97        22.6         19.4
+4 129S1/SvImJ   f   SC-7747   6          23.1 2.92        22.8         20.6
+5 129S1/SvImJ   f   SC-7746   6          21.6 2.85        23.1         18.9
+6 129S1/SvImJ   f   SC-7745   6          19.6 2.71        24.0         17.3
+  lean_mass_g fat_mass_g
+1        13.9       4.45
+2        15.4       5.08
+3          15       5.08
+4        15.9       5.27
+5        14.5       4.99
+6        13.1       4.69
 </code></pre></div></div>
 
 <p> </p>
@@ -430,14 +432,13 @@ in each strain.</p>
 </span><span class="n">bw.by.sex</span><span class="o">$</span><span class="n">strain</span><span class="p">[</span><span class="n">bw.by.sex</span><span class="o">$</span><span class="n">P</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0.05</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] 129S1/SvImJ       BALB/cByJ         BUB/BnJ          
- [4] C3H/HeJ           C57BL/10J         C57BL/6J         
- [7] C57BLKS/J         C57BR/cdJ         C57L/J           
-[10] FVB/NJ            LP/J              MOLF/EiJ         
-[13] NOD.B10Sn-H2&lt;b&gt;/J NON/ShiLtJ        P/J              
-[16] PL/J              PWD/PhJ           RIIIS/J          
-[19] SM/J              SWR/J             WSB/EiJ          
-32 Levels: 129S1/SvImJ A/J AKR/J BALB/cByJ BTBR T+ tf/J ... WSB/EiJ
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "129S1/SvImJ"       "BALB/cByJ"         "BUB/BnJ"          
+ [4] "C3H/HeJ"           "C57BL/10J"         "C57BL/6J"         
+ [7] "C57BLKS/J"         "C57BR/cdJ"         "C57L/J"           
+[10] "FVB/NJ"            "LP/J"              "MOLF/EiJ"         
+[13] "NOD.B10Sn-H2&lt;b&gt;/J" "NON/ShiLtJ"        "P/J"              
+[16] "PL/J"              "PWD/PhJ"           "RIIIS/J"          
+[19] "SM/J"              "SWR/J"             "WSB/EiJ"          
 </code></pre></div></div>
 
 <p> </p>
@@ -464,21 +465,20 @@ in each strain.</p>
 </span><span class="n">bw.by.sex</span><span class="o">$</span><span class="n">P.manual</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">bw.by.sex</span><span class="o">$</span><span class="n">P.bonferroni</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
-[15] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
-[29] TRUE TRUE TRUE TRUE
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[16] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[31] TRUE TRUE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># how many strains now have significant differences?</span><span class="w">
 </span><span class="n">bw.by.sex</span><span class="o">$</span><span class="n">strain</span><span class="p">[</span><span class="n">bw.by.sex</span><span class="o">$</span><span class="n">P.bonferroni</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0.05</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] BALB/cByJ         BUB/BnJ           C3H/HeJ          
- [4] C57BL/10J         C57BL/6J          C57BLKS/J        
- [7] C57L/J            LP/J              NOD.B10Sn-H2&lt;b&gt;/J
-[10] P/J               PL/J              RIIIS/J          
-[13] SM/J              SWR/J            
-32 Levels: 129S1/SvImJ A/J AKR/J BALB/cByJ BTBR T+ tf/J ... WSB/EiJ
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "BALB/cByJ"         "BUB/BnJ"           "C3H/HeJ"          
+ [4] "C57BL/10J"         "C57BL/6J"          "C57BLKS/J"        
+ [7] "C57L/J"            "LP/J"              "NOD.B10Sn-H2&lt;b&gt;/J"
+[10] "P/J"               "PL/J"              "RIIIS/J"          
+[13] "SM/J"              "SWR/J"            
 </code></pre></div></div>
 
 <p> </p>
@@ -503,12 +503,11 @@ in each strain.</p>
 </span><span class="n">bw.by.sex</span><span class="o">$</span><span class="n">strain</span><span class="p">[</span><span class="n">bw.by.sex</span><span class="o">$</span><span class="n">P.bonferroni</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0.05</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] BALB/cByJ         BUB/BnJ           C3H/HeJ          
- [4] C57BL/10J         C57BL/6J          C57BLKS/J        
- [7] C57L/J            LP/J              NOD.B10Sn-H2&lt;b&gt;/J
-[10] P/J               PL/J              RIIIS/J          
-[13] SM/J              SWR/J            
-32 Levels: 129S1/SvImJ A/J AKR/J BALB/cByJ BTBR T+ tf/J ... WSB/EiJ
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "BALB/cByJ"         "BUB/BnJ"           "C3H/HeJ"          
+ [4] "C57BL/10J"         "C57BL/6J"          "C57BLKS/J"        
+ [7] "C57L/J"            "LP/J"              "NOD.B10Sn-H2&lt;b&gt;/J"
+[10] "P/J"               "PL/J"              "RIIIS/J"          
+[13] "SM/J"              "SWR/J"            
 </code></pre></div></div>
 
 <p> </p>
@@ -547,14 +546,13 @@ in each strain.</p>
 </span><span class="n">bw.by.sex</span><span class="o">$</span><span class="n">strain</span><span class="p">[</span><span class="n">bw.by.sex</span><span class="o">$</span><span class="n">P.BH</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0.05</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] 129S1/SvImJ       BALB/cByJ         BUB/BnJ          
- [4] C3H/HeJ           C57BL/10J         C57BL/6J         
- [7] C57BLKS/J         C57BR/cdJ         C57L/J           
-[10] FVB/NJ            LP/J              MOLF/EiJ         
-[13] NOD.B10Sn-H2&lt;b&gt;/J NON/ShiLtJ        P/J              
-[16] PL/J              RIIIS/J           SM/J             
-[19] SWR/J            
-32 Levels: 129S1/SvImJ A/J AKR/J BALB/cByJ BTBR T+ tf/J ... WSB/EiJ
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "129S1/SvImJ"       "BALB/cByJ"         "BUB/BnJ"          
+ [4] "C3H/HeJ"           "C57BL/10J"         "C57BL/6J"         
+ [7] "C57BLKS/J"         "C57BR/cdJ"         "C57L/J"           
+[10] "FVB/NJ"            "LP/J"              "MOLF/EiJ"         
+[13] "NOD.B10Sn-H2&lt;b&gt;/J" "NON/ShiLtJ"        "P/J"              
+[16] "PL/J"              "RIIIS/J"           "SM/J"             
+[19] "SWR/J"            
 </code></pre></div></div>
 
 <p>In this case, by setting <script type="math/tex">\alpha = 0.05</script> we are stating that we expect 5% of <em>significant P-values</em> to be false positives. Since we now have 19 strains with significant differences in body weight, we expect that approximately one of these strains does not actually have a body weight difference between sexes. Let’s compare these P-values to those calculated using the FWER method:</p>

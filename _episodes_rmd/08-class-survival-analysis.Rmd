@@ -6,15 +6,17 @@ exercises: 30
 questions:
 - "How is time-to-event data structured?"
 - "What are the elements that separate time-to-event data from single-point observations?"
-- "How do we visualize and analyze time-to-event data?"
+- "How do we visualize time-to-event data?"
+- "What statistical tests are available for time-to-event data hypothesis testing?"
 objectives:
 - "Describe the basic structure of time-to-event data." 
 - "Understand censoring and how it affects time-to-event data."
-- "Use the `survival() package to generate survival curves, age-specific mortality plots, and perform Log-Rank tests."
+- "Use the `survival()` package to generate survival curves and age-specific mortality plots."
+- "Use the Wilcoxon Rank-Sum (aka Mann-Whitney U) and Log-Rank tests to evaluate statistical differences between time-to-event observations between groups."
 keypoints:
 - "Time-to-event data includes a hybrid of an observation (event vs. no event) and a series of observation times."
 - "Time-to-event data analysis violates several assumptions made by standard tests, including normality and independence of observations."
-- "Censoring complicates analysis and is not handled by standard statistical tests. Instead, we use the Log-Rank test for basic survival comparisons."
+- "Censoring complicates analysis and is not handled by standard statistical tests, including the Wilcoxon Rank-Sum test. Instead, we use the Log-Rank test for basic survival comparisons."
 - "Unlike the survival function, age-specific mortality at any given time does not depend on previous observations."
 source: Rmd
 ---

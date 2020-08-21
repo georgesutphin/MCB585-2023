@@ -4,17 +4,31 @@ classdate: "8/26/2020 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:
+- "How can I write R code that other people can understand and use?"
 - "How do I manage the variables and files in my workspace?"
 - "How do I write my own functions in R?"
 - "How do I perform basic calculations in R?"
 - "Where can I get help?"
 objectives:
+- "Employ best practices for documenting code so that others can follow your work."
+- "Identify and segregate distinct components in your code using # or #-."
+- "Understand the importance about requirements and dependencies for your code."
 - "Learn how to remove variables from the workspace."
 - "Learn how to free up memory for projects using large data files."
 - "Know the basic syntax for writing and executing your own functions."
 - "Know how to install and load packages."
 - "Know what resources are available if you get stuck online and at the University of Arizona."
 keypoints:
+- "Use `#` to add comments to programs."
+- "Annotate your code!"
+- "Name and style code consistently."
+- "Break code into small, discrete pieces."
+- "Factor out common operations rather than repeating them."
+- "Keep all of the source files for a project in one directory and use relative paths to access them."
+- "Keep track of session information in your project folder."
+- "Start each program with a description of what it does."
+- "Load all required packages at the beginning of a script."
+- "Use comments to mark off sections of code."
 - "When working with large datasets, removing variables that you no longer need and releasing memory can improve performance."
 - "Writing functions for sets of commands that you will be running repeatedly will make your data processing more efficient."
 - "Use help() and ? to get basic information about functions."
@@ -29,9 +43,247 @@ knitr_fig_path("01-oyo-introduction-")
 ```
 
 ***
-## On Your Own
+##  On Your Own
+
+***
+### Best practices when writing code in R (and in general)
+
+What if I handed you this and asked you to explain it:
+```{r, eval=FALSE}
+newX <- aperm(X, c(s.call, s.ans))
+    dim(newX) <- c(prod(d.call), d2)
+    ans <- vector("list", d2)
+    if (length(d.call) < 2L) {
+        if (length(dn.call)) 
+            dimnames(newX) <- c(dn.call, list(NULL))
+        for (i in 1L:d2) {
+            tmp <- forceAndCall(1, FUN, newX[, i], ...)
+            if (!is.null(tmp)) 
+                ans[[i]] <- tmp
+        }
+    }
+    else for (i in 1L:d2) {
+        tmp <- forceAndCall(1, FUN, array(newX[, i], d.call, 
+            dn.call), ...)
+        if (!is.null(tmp)) 
+            ans[[i]] <- tmp
+    }
+    ans.list <- is.recursive(ans[[1L]])
+    l.ans <- length(ans[[1L]])
+    ans.names <- names(ans[[1L]])
+```
 
 &nbsp;
+
+Got it? Yeah, me neither. For the most part, if you give raw code to someone else, this is what it will look like to them. With time and a lot of messing around, they could probably figure it out, but there is a better way.
+
+Over time, the coding community has developed a set of best practices to follow when writing code to ease the confusion and frustration when someone else tries to read and interpret that code. This isn't just for other people. In a year, that other person trying to interpret your code may be future you.
+
+&nbsp;
+Before we start, here is exercise to illustrate the point on even a simple example:
+
+> ## Best coding practices
+> 
+> Here are what I would consider bad and good practices in coding:
+> 
+> **Bad:**
+> ```{r, eval=FALSE}
+> # assignvalues, then average
+> x = 21
+> value2 = 26
+> bob = (x+value2)/2
+> bob
+> ```
+> 
+> **Good:**
+> ```{r, eval=FALSE}
+> # This script will average the body weights of two mice.
+> 
+> # First enter the body weights of two mice (in grams!)
+> bw.mouse1 = 21
+> bw.mouse2 = 26
+> 
+> # Next calculate the average body weight of the two mice
+> bw.average = (bw.mouse1 + bw.mouse2) / 2
+> 
+> # Output the average body weight
+> bw.average
+> ```
+>
+> What aspects of the "Good" code help you understand the script?
+> 
+> > ## Solution
+> > 
+> > Here are some things that I came up with:
+> > * Comments are clear and describe the goals of each step of the code.
+> > * Header comments summarizes the overall goal of the entire script.
+> > * Comments are frequent and explain specific steps.
+> > * Variable names are descriptive.
+> > * Variable name formats are consistent.
+> > * Steps are visually separated by blank lines to add structure.
+> > * Spaces are added to equations to add structure.
+> {: .solution}
+{: .challenge}
+
+
+Here are a few habits to develop that will improve your relationship with other coders and your future selves:
+
+&nbsp;
+#### Annotation -- Headers with key meta-data about the script
+
+In the first lesson we briefly mentioned the primary tool in keeping your code organized: the `#` comment operator. Annotate your code thoroughly. Use the `#` to add text to your code that will be ignored by the computer, but helpful to another person trying to figure out just what you did. 
+
+The goal is to allow someone who has never looked at your script before to understand what you are trying to accomplish. Just putting something down is not enough. Make them understand.
+
+In addition to adding comments to describe individual actions, adding a detailed header that outlines the purpose and usage of the script is very helpful to frame you analysis. 
+
+Starting your code with an annotated description of what the code does when it is run will help you when you have to look at or change it in the future. Just one or two lines at the beginning of the file can save you or someone else a lot of time and effort when trying to understand what a particular script does.
+
+```{r comment1}
+# This is code to replicate the analyses and figures from my 2014 Science
+# paper. Code developed by Sarah Supp, Tracy Teal, and Jon Borelli. Last
+# updated 8/22/2019.
+```
+
+Actually, even this is a bit vague. Which science paper (provide a link?)? Which analysis in that paper? What is the purpose of the analysis? Any detail that you can add will help you down the line.
+
+&nbsp;
+#### Be explicit about the requirements and dependencies of your code
+
+Loading all of the packages that will be necessary to run your code (using `library`) is a nice way of indicating which packages are necessary to run your code. It can be frustrating to make it two-thirds of the way through a long-running script only to find out that a dependency hasn't been installed.
+
+```{r loadpkgs, eval=FALSE}
+library(ggplot2)
+library(reshape)
+library(vegan)
+```
+
+&nbsp;
+
+Another way you can be explicit about the requirements of your code and improve its reproducibility is to limit the "hard-coding" of the input and output files for your script. If your code will read in data from a file, define a variable early in your code that stores the path to that file. For example
+
+```{r, eval=FALSE}
+input_file <- "data/data.csv" 
+output_file <- "data/results.csv"
+
+# read input
+input_data <- read.csv(input_file)
+# get number of samples in data
+sample_number <- nrow(input_data)
+# generate results
+results <- some_other_function(input_file, sample_number)
+# write results
+write.table(results, output_file)
+```
+
+&nbsp;
+
+is preferable to 
+
+```{r, eval=FALSE}
+# check
+input_data <- read.csv("data/data.csv")
+# get number of samples in data
+sample_number <- nrow(input_data)
+# generate results
+results <- some_other_function("data/data.csv", sample_number)
+# write results
+write.table("data/results.csv", output_file)
+```
+
+&nbsp;
+#### Naming Conventions
+Historically, R programmers have used a variety of conventions for naming variables. The `.` character in R can be a valid part of a variable name; thus `weight.kg <- 57.5` is a legitimate variable name.
+
+This is often confusing to R newcomers who have programmed in languages where `.` has a more significant meaning. Today, most R programmers:
+1. Start variable names with lower case letters
+2. Separate words in variable names with underscores
+3. Use only lowercase letters, underscores, and numbers in variable names. 
+
+The book *R Packages* includes a [chapter](http://r-pkgs.had.co.nz/style.html) on this and other style considerations.
+
+How closely you follow these standards is up to you. As a good rule of thumb, choose a convention for naming R objects that is descriptive, that you can remember, and that you will stick to using.
+
+&nbsp;
+#### Identify and segregate distinct components in your code
+
+It's easy to annotate and mark your code using `#` or `#-` to set off sections of your code and to make finding specific parts of your code easier. For example, it's often helpful when writing code to separate the function definitions. If you create only one or a few custom functions in your script, put them toward the top of your code. If you have written many functions, put them all in their own .R file and then `source` those files. `source` will define all of these functions so that your code can make use of them as needed. 
+
+```{r source_ex, eval=FALSE}
+source("my_genius_fxns.R")
+```
+
+&nbsp;
+#### Other ideas
+
+1. Keep your code in bite-sized chunks. If a single function or loop gets too long, consider looking for ways to break it into smaller pieces (e.g. write functions to carry out chunks of code all in one line; break complex analyses into multiple loops with data saved in between).
+
+2. Don't repeat yourself--automate! If you are repeating the same code over and over, use a loop or a function to repeat that code for you. Needless repetition doesn't just waste time--it also increases the likelihood you'll make a costly mistake!
+
+3. Keep all of your source files for a project in the same directory, then use relative paths as necessary to access them. For example, use:
+
+```{r relpath, eval=FALSE}
+dat <- read.csv(file = "files/dataset-2013-01.csv", header = TRUE)
+```
+
+&nbsp;
+
+rather than:
+
+```{r abspath, eval=FALSE}
+dat <- read.csv(file = "/Users/Karthik/Documents/sannic-project/files/dataset-2013-01.csv", header = TRUE)
+```
+
+&nbsp;
+
+{:start="4"}
+4. R can run into memory issues. It is a common problem to run out of memory after running R scripts for a long time. To inspect the objects in your current R environment, you can list the objects, search current packages, and remove objects that are currently not in use. A good practice when running long lines of computationally intensive code is to remove temporary objects after they have served their purpose. However, sometimes, R will not clean up unused memory for a while after you delete objects. You can force R to tidy up its memory by using `gc()`.
+
+```{r gc_ex, eval=FALSE}
+# Sample dataset of 1000 rows
+interim_object <- data.frame(rep(1:100, 10),
+                             rep(101:200, 10),
+                             rep(201:300, 10))
+object.size(interim_object) # Reports the memory size allocated to the object
+rm("interim_object") # Removes only the object itself and not necessarily the memory allotted to it
+gc() # Force R to release memory it is no longer using
+ls() # Lists all the objects in your current workspace
+rm(list = ls()) # If you want to delete all the objects in the workspace and start with a clean slate
+```
+
+&nbsp;
+
+{:start="6"}
+6. Don't save a session history (the default option in R, when it asks if you want an `RData` file). Instead, start in a clean environment so that older objects don't remain in your environment any longer than they need to. If that happens, it can lead to unexpected results. Your script should explicitly load any data and create any variables that it needs, rather than relying on a variable that you assigned in the console panel sometime last week.
+
+7. Wherever possible, keep track of `sessionInfo()` somewhere in your project folder. Session information is invaluable because it captures all of the packages used in the current project. If a newer version of a package changes the way a function behaves, you can always go back and reinstall the version that worked (Note: At least on CRAN, all older versions of packages are permanently archived).
+
+```{r, eval=FALSE}
+# Take a look at the information provided by sessionInfo():
+sessionInfo()
+
+# Here is how to save:
+current.session = sessionInfo()
+session.file = paste0("./Project X R Session Info for ",Sys.Date(),".Rdata")
+save(current.session, file=session.file)
+rm(current.session)
+
+# ... and to load old files to look at them
+load(file=session.file)
+current.session
+```
+
+&nbsp;
+
+{:start="8"}
+8. Do not ever modify your original raw data files. Doing so risks overwriting or unintentionally modifying the values of your starting data. Instead, always save data modified in R under a new name.
+
+9. Collaborate. Grab a buddy and practice "code review". Review is used for preparing experiments and manuscripts; why not use it for code as well? Our code is also a major scientific achievement and the product of lots of hard work!
+
+10. Develop your code using version control and frequent updates! You can find lessons about version control on [software-carpentry.org/lessons][swc-lessons].
+
+
+***
 ### Cleaning up
 
 You can use the `ls()` command to list all variables currently defined in your workspace.
@@ -154,6 +406,7 @@ Generally, a Google search will let you find packages for just about any type of
 * [CRAN](https://cran.r-project.org/) for basic R packages
 * [Bioconductor](https://www.bioconductor.org/) for biological packages
 
+
 ***
 ### Resources -- where to turn for help
 
@@ -199,6 +452,6 @@ The University of Arizona has several resources for both statistics and programm
 * [Cancer Center biostatistics](https://cancercenter.arizona.edu/researchers/shared-resources/biostatistics)
 * [Cancer Center bioinformatics](https://cancercenter.arizona.edu/researchers/shared-resources/bioinformatics)
 
-***
+&nbsp;
 
 {% include links.md %}

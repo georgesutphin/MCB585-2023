@@ -120,20 +120,20 @@ head(body.comp)
 
 
 ~~~
-       strain sex animal_id age body_weight_g  BMI percent_fat
-1 129S1/SvImJ   f   SC-7749   6          20.2 2.66        22.1
-2 129S1/SvImJ   f   SC-7751   6          22.8 2.88        22.2
-3 129S1/SvImJ   f   SC-7752   6          22.5 2.97        22.6
-4 129S1/SvImJ   f   SC-7747   6          23.1 2.92        22.8
-5 129S1/SvImJ   f   SC-7746   6          21.6 2.85        23.1
-6 129S1/SvImJ   f   SC-7745   6          19.6 2.71        24.0
-  total_mass_g lean_mass_g fat_mass_g
-1         17.9        13.9       4.45
-2         19.8        15.4       5.08
-3         19.4          15       5.08
-4         20.6        15.9       5.27
-5         18.9        14.5       4.99
-6         17.3        13.1       4.69
+       strain sex animal_id age body_weight_g  BMI percent_fat total_mass_g
+1 129S1/SvImJ   f   SC-7749   6          20.2 2.66        22.1         17.9
+2 129S1/SvImJ   f   SC-7751   6          22.8 2.88        22.2         19.8
+3 129S1/SvImJ   f   SC-7752   6          22.5 2.97        22.6         19.4
+4 129S1/SvImJ   f   SC-7747   6          23.1 2.92        22.8         20.6
+5 129S1/SvImJ   f   SC-7746   6          21.6 2.85        23.1         18.9
+6 129S1/SvImJ   f   SC-7745   6          19.6 2.71        24.0         17.3
+  lean_mass_g fat_mass_g
+1        13.9       4.45
+2        15.4       5.08
+3          15       5.08
+4        15.9       5.27
+5        14.5       4.99
+6        13.1       4.69
 ~~~
 {: .output}
 
@@ -174,14 +174,13 @@ bw.by.sex$strain[bw.by.sex$P < 0.05]
 
 
 ~~~
- [1] 129S1/SvImJ       BALB/cByJ         BUB/BnJ          
- [4] C3H/HeJ           C57BL/10J         C57BL/6J         
- [7] C57BLKS/J         C57BR/cdJ         C57L/J           
-[10] FVB/NJ            LP/J              MOLF/EiJ         
-[13] NOD.B10Sn-H2<b>/J NON/ShiLtJ        P/J              
-[16] PL/J              PWD/PhJ           RIIIS/J          
-[19] SM/J              SWR/J             WSB/EiJ          
-32 Levels: 129S1/SvImJ A/J AKR/J BALB/cByJ BTBR T+ tf/J ... WSB/EiJ
+ [1] "129S1/SvImJ"       "BALB/cByJ"         "BUB/BnJ"          
+ [4] "C3H/HeJ"           "C57BL/10J"         "C57BL/6J"         
+ [7] "C57BLKS/J"         "C57BR/cdJ"         "C57L/J"           
+[10] "FVB/NJ"            "LP/J"              "MOLF/EiJ"         
+[13] "NOD.B10Sn-H2<b>/J" "NON/ShiLtJ"        "P/J"              
+[16] "PL/J"              "PWD/PhJ"           "RIIIS/J"          
+[19] "SM/J"              "SWR/J"             "WSB/EiJ"          
 ~~~
 {: .output}
 
@@ -218,9 +217,9 @@ bw.by.sex$P.manual == bw.by.sex$P.bonferroni
 
 
 ~~~
- [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
-[15] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
-[29] TRUE TRUE TRUE TRUE
+ [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[16] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[31] TRUE TRUE
 ~~~
 {: .output}
 
@@ -235,12 +234,11 @@ bw.by.sex$strain[bw.by.sex$P.bonferroni < 0.05]
 
 
 ~~~
- [1] BALB/cByJ         BUB/BnJ           C3H/HeJ          
- [4] C57BL/10J         C57BL/6J          C57BLKS/J        
- [7] C57L/J            LP/J              NOD.B10Sn-H2<b>/J
-[10] P/J               PL/J              RIIIS/J          
-[13] SM/J              SWR/J            
-32 Levels: 129S1/SvImJ A/J AKR/J BALB/cByJ BTBR T+ tf/J ... WSB/EiJ
+ [1] "BALB/cByJ"         "BUB/BnJ"           "C3H/HeJ"          
+ [4] "C57BL/10J"         "C57BL/6J"          "C57BLKS/J"        
+ [7] "C57L/J"            "LP/J"              "NOD.B10Sn-H2<b>/J"
+[10] "P/J"               "PL/J"              "RIIIS/J"          
+[13] "SM/J"              "SWR/J"            
 ~~~
 {: .output}
 
@@ -272,12 +270,11 @@ bw.by.sex$strain[bw.by.sex$P.bonferroni < 0.05]
 
 
 ~~~
- [1] BALB/cByJ         BUB/BnJ           C3H/HeJ          
- [4] C57BL/10J         C57BL/6J          C57BLKS/J        
- [7] C57L/J            LP/J              NOD.B10Sn-H2<b>/J
-[10] P/J               PL/J              RIIIS/J          
-[13] SM/J              SWR/J            
-32 Levels: 129S1/SvImJ A/J AKR/J BALB/cByJ BTBR T+ tf/J ... WSB/EiJ
+ [1] "BALB/cByJ"         "BUB/BnJ"           "C3H/HeJ"          
+ [4] "C57BL/10J"         "C57BL/6J"          "C57BLKS/J"        
+ [7] "C57L/J"            "LP/J"              "NOD.B10Sn-H2<b>/J"
+[10] "P/J"               "PL/J"              "RIIIS/J"          
+[13] "SM/J"              "SWR/J"            
 ~~~
 {: .output}
 
@@ -326,14 +323,13 @@ bw.by.sex$strain[bw.by.sex$P.BH < 0.05]
 
 
 ~~~
- [1] 129S1/SvImJ       BALB/cByJ         BUB/BnJ          
- [4] C3H/HeJ           C57BL/10J         C57BL/6J         
- [7] C57BLKS/J         C57BR/cdJ         C57L/J           
-[10] FVB/NJ            LP/J              MOLF/EiJ         
-[13] NOD.B10Sn-H2<b>/J NON/ShiLtJ        P/J              
-[16] PL/J              RIIIS/J           SM/J             
-[19] SWR/J            
-32 Levels: 129S1/SvImJ A/J AKR/J BALB/cByJ BTBR T+ tf/J ... WSB/EiJ
+ [1] "129S1/SvImJ"       "BALB/cByJ"         "BUB/BnJ"          
+ [4] "C3H/HeJ"           "C57BL/10J"         "C57BL/6J"         
+ [7] "C57BLKS/J"         "C57BR/cdJ"         "C57L/J"           
+[10] "FVB/NJ"            "LP/J"              "MOLF/EiJ"         
+[13] "NOD.B10Sn-H2<b>/J" "NON/ShiLtJ"        "P/J"              
+[16] "PL/J"              "RIIIS/J"           "SM/J"             
+[19] "SWR/J"            
 ~~~
 {: .output}
 

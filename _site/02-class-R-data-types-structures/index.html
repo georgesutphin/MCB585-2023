@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-17 13:01:04 -0700">
+    <meta http-equiv="last-modified" content="2020-08-21 00:08:52 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -123,9 +123,11 @@
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-Lists/index.html">Lists and Data Frames</a></li>
+            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
             
-            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation</a></li>
+            <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
+            
+            <li><a href="../04-oyo-advanced-data-manipulation/index.html">Advanced Data Manipulation and Plotting</a></li>
             
             <li><a href="../05-class-decisions-loops/index.html">Decision Making and Loops</a></li>
             
@@ -256,7 +258,13 @@
       <strong>Questions</strong>
       <ul>
 	
-	<li><p>Class questions.</p>
+	<li><p>What are the most common data types in R?</p>
+</li>
+	
+	<li><p>What are the basic data structures in R?</p>
+</li>
+	
+	<li><p>How do I access data within the basic data structures?</p>
 </li>
 	
       </ul>
@@ -270,7 +278,16 @@
       <strong>Objectives</strong>
       <ul>
 	
-	<li><p>Class objectives.</p>
+	<li><p>Understand the most commonly encountered data types in R and how these data types are used in data structures.</p>
+</li>
+	
+	<li><p>Create and manipulate vectors and matrices of different types.</p>
+</li>
+	
+	<li><p>Check the data type of a variable, vector, or matrix.</p>
+</li>
+	
+	<li><p>Understand the structure and properties of basic data structures (vectors and matrices).</p>
 </li>
 	
       </ul>
@@ -544,13 +561,13 @@ information about your vectors and R objects in general.</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">seq</span><span class="p">(</span><span class="n">from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1.0  1.1  1.2  1.3  1.4  1.5  1.6  1.7  1.8  1.9  2.0  2.1  2.2  2.3
-[15]  2.4  2.5  2.6  2.7  2.8  2.9  3.0  3.1  3.2  3.3  3.4  3.5  3.6  3.7
-[29]  3.8  3.9  4.0  4.1  4.2  4.3  4.4  4.5  4.6  4.7  4.8  4.9  5.0  5.1
-[43]  5.2  5.3  5.4  5.5  5.6  5.7  5.8  5.9  6.0  6.1  6.2  6.3  6.4  6.5
-[57]  6.6  6.7  6.8  6.9  7.0  7.1  7.2  7.3  7.4  7.5  7.6  7.7  7.8  7.9
-[71]  8.0  8.1  8.2  8.3  8.4  8.5  8.6  8.7  8.8  8.9  9.0  9.1  9.2  9.3
-[85]  9.4  9.5  9.6  9.7  9.8  9.9 10.0
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1.0  1.1  1.2  1.3  1.4  1.5  1.6  1.7  1.8  1.9  2.0  2.1  2.2  2.3  2.4
+[16]  2.5  2.6  2.7  2.8  2.9  3.0  3.1  3.2  3.3  3.4  3.5  3.6  3.7  3.8  3.9
+[31]  4.0  4.1  4.2  4.3  4.4  4.5  4.6  4.7  4.8  4.9  5.0  5.1  5.2  5.3  5.4
+[46]  5.5  5.6  5.7  5.8  5.9  6.0  6.1  6.2  6.3  6.4  6.5  6.6  6.7  6.8  6.9
+[61]  7.0  7.1  7.2  7.3  7.4  7.5  7.6  7.7  7.8  7.9  8.0  8.1  8.2  8.3  8.4
+[76]  8.5  8.6  8.7  8.8  8.9  9.0  9.1  9.2  9.3  9.4  9.5  9.6  9.7  9.8  9.9
+[91] 10.0
 </code></pre></div></div>
 
 <p> 
@@ -1054,7 +1071,7 @@ be of the same data type.</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "matrix"
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "matrix" "array" 
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
@@ -1096,7 +1113,7 @@ matrix is an integer vector.</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "matrix"
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "matrix" "array" 
 </code></pre></div></div>
 
 <blockquote class="challenge">
@@ -1233,7 +1250,19 @@ y   10   11   12
   <h2>Key Points</h2>
   <ul>
     
-    <li><p>Class keypoints.</p>
+    <li><p>The most commonly encountered data types in R are character, numeric, and logical.</p>
+</li>
+    
+    <li><p>R’s basic data structures are vectors and matrices.</p>
+</li>
+    
+    <li><p>Objects may have attributes, such as name, dimension, and class.</p>
+</li>
+    
+    <li><p>Use <code class="highlighter-rouge">object[x]</code> and <code class="highlighter-rouge">object[x, y]</code> to select a single element from a 2- and 3-dimensional data structure, respectively.</p>
+</li>
+    
+    <li><p>Use <code class="highlighter-rouge">from:to</code> to specify a sequence that includes the indices from <code class="highlighter-rouge">from</code> to <code class="highlighter-rouge">to</code>.</p>
 </li>
     
   </ul>
