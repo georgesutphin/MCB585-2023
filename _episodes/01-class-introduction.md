@@ -34,7 +34,7 @@ source: Rmd
 ***
 ## In Class
 
-***
+
 ### Introduction to R and RStudio
 
 If we only had one data set to analyze, it would probably be faster to load the file into a spreadsheet, calculate some simple statisitcs, and generate a plot or two.
@@ -118,9 +118,8 @@ There are many panels that provide useful information. In general, beyond **Scri
 > * **Environment** -- <kbd>Ctrl</kbd>+<kbd>8</kbd>
 > 
 > For a complete list of keyboard shortcuts in RStudio navigate to the following menu:
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Tools* > *Keyboard Shortcuts Help*
 >
-> (or use the keyboard shortcut <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>.)
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*Tools* > *Keyboard Shortcuts Help* (or use the keyboard shortcut <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>.)
 {: .callout}
 
 
@@ -226,7 +225,43 @@ At the simplest level, the console can be used as a calculator to directly ask f
 &nbsp;
 #### Commenting
 
-Note above the use of `#` signs to add comment. Comments are for you and anyone coming later to read your script. Anything to the right of a `#` is ignored by R. Comment liberally in your R scripts. We will discuss best practices in coding and the use of comments more later on in the course.
+Note above the use of `#` signs to add comment. Comments are for you and anyone coming later to read your script. Anything to the right of a `#` is ignored by R. 
+
+~~~
+# R ignores this part:
+# print("Do not print!")
+
+# But runs this part:
+print("Print me!")
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Print me!"
+~~~
+{: .output}
+
+&nbsp;
+
+Comment liberally in your R scripts. We will discuss best practices in coding and the use of comments more later on in the course.
+
+You can also use commenting in RStudio to build collapsible sections, allowing you to hide a portion of code that you are not currently working on in order to make the rest easier to navigate. To do so, add a comment line with at least four consecutive "-" (e.g. `#----------`). RStudion will add a small arrow to your script allowing you to collapse or expand all coding that follows until the next `#----` is encountered:
+
+
+~~~
+#--------------- Section 1
+print("This is section 1.")
+
+#--------------- Section 2
+print("This is section 2.")
+~~~
+{: .language-r}
+
+&nbsp;
+
+Note that the actual sections will not appear here after the code is converted to HTML for web publishing, but try pasting the above code into an RStudio script. You can also run a collapsed section of code by selecting the opening line and hiting <kbd>Ctrl</kbd>+<kbd>Enter</kbd>.
 
 &nbsp;
 #### Assigning values to variables
@@ -383,25 +418,28 @@ R hangs with a `+` in the console, waiting for you to finish your thought...
 
 All better.
 
-
 &nbsp;
+
 > ## What is allowed or not allowed with variable names?
 >
 > Try assigning values to the following variables. Which work and which do not? What is 
 > causing the errors?
 >
-> 
-> ~~~
-> min_height <- 1
-> max.height <- 1
-> _age <- 1
-> .mass <- 1
-> MaxLength <- 1
-> min-length <- 1
-> 2widths <- 1
-> celsius2kelvin <- 1
-> ~~~
-> {: .language-r}
+> `min_height <- 1`
+>
+> `max.height <- 1`
+>
+> `_age <- 1`
+>
+> `.mass <- 1`
+>
+> `MaxLength <- 1`
+>
+> `min-length <- 1`
+>
+> `2widths <- 1`
+>
+> `celsius2kelvin <- 1`
 >
 > > ## Solution
 > > 
@@ -411,13 +449,19 @@ All better.
 > > ~~~
 > > {: .language-r}
 > > 
+> > Works!
+> > 
+> > 
 > > ~~~
 > > max.height <- 1
 > > ~~~
 > > {: .language-r}
 > > 
+> > Works!
+> > 
+> > 
 > > ~~~
-> > _age <- 1 # error; starts with a symbol
+> > _age <- 1 
 > > ~~~
 > > {: .language-r}
 > > 
@@ -430,18 +474,28 @@ All better.
 > > ~~~
 > > {: .error}
 > > 
+> > Error -- variable names cannot start with an "_".
+> > 
+> > 
 > > ~~~
-> > .mass <- 1 # no error --> the . results in a hidden variable
+> > .mass <- 1
 > > ~~~
 > > {: .language-r}
+> > 
+> > No error. However, .mass does not show up as a normal variable because
+> > the "." results in a hidden variable.
+> > 
 > > 
 > > ~~~
 > > MaxLength <- 1
 > > ~~~
 > > {: .language-r}
 > > 
+> > Works!
+> > 
+> > 
 > > ~~~
-> > min-length <- 1 # error; "-" is an operator
+> > min-length <- 1
 > > ~~~
 > > {: .language-r}
 > > 
@@ -452,8 +506,11 @@ All better.
 > > ~~~
 > > {: .error}
 > > 
+> > Error -- "-" is an operator (subtraction).
+> > 
+> > 
 > > ~~~
-> > 2widths <- 1 # error; starts with a number
+> > 2widths <- 1
 > > ~~~
 > > {: .language-r}
 > > 
@@ -466,11 +523,15 @@ All better.
 > > ~~~
 > > {: .error}
 > > 
+> > Error -- variable names cannot start with a number.
+> > 
+> > 
 > > ~~~
 > > celsius2kelvin <- 1
 > > ~~~
 > > {: .language-r}
-> >
+> > Works!
+> > 
 > {: .solution}
 {: .challenge}
 
@@ -537,6 +598,103 @@ sum(sqrt(4), sqrt(9), sqrt(16))
 ~~~
 {: .output}
 
+&nbsp;
+
+Many functions take multiple inputs. Let's take a look at the `log()` function, which takes two arguments. Take a look at the documentation for log using the `?` operator:
+
+
+~~~
+?log
+~~~
+{: .language-r}
+
+&nbsp;
+
+More on the help document for each function later, but for now, Under the **Usage** and **Arguments** section, this function takes two arguments, the number which we want to take the logarithm of (`x`) and the base for the logarithm (`base`). There are three ways to enter this function:
+
+
+~~~
+# be explicit about which input is which
+log(x = 100, base = 10) 
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 2
+~~~
+{: .output}
+
+
+
+~~~
+# note that in this case the order does not matter:
+log(base = 10, x = 100)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 2
+~~~
+{: .output}
+&nbsp;
+
+In this case, we told `log()` exactly which values were assigned to `x` and `base`, so the order was unimportant. Here is another option:
+
+
+~~~
+# drop the variable names
+log(100, 10)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 2
+~~~
+{: .output}
+
+
+
+~~~
+# now the order does matter:
+log(10, 100)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 0.5
+~~~
+{: .output}
+
+&nbsp;
+
+Looking at **Help**, `x` is listed first and `base` second. If you aren't explicity, R will assume that you enter arguments define in the documentation. Thus on the first line R took `x` to be `100` and `base` to be `10`, while on the second line it took `x` to be `10` and `base` to be `100`. And a final option:
+
+
+~~~
+# what if we don't give log() a base argument?
+log(100)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 4.60517
+~~~
+{: .output}
+
+&nbsp;
+
+Again looging at the **Usage** section of help, `log()` uses a default value of `exp(1)` (which is `e` or `2.71828`). Thus, if you don't give `log()` any input for `base`, it defaults to the natural logarithm. Some functions will have dozens of inputs, but most of them will have a default value. This allows you to use the most common application of a function without having to manually define each input, but gives you the flexibility to change these inputs if you want the function to behave differently. 
+
 ***
 ### Working directories in R
 
@@ -588,9 +746,9 @@ setwd("/Users/<username>/Desktop") # MacOS
 ~~~
 {: .language-r}
 
-**Caution for Windows users:** If you copy a file path from Windows Explorer and paste it into `setwd()`, you have to change the backslashes ("\\") used in Windows to forwardslashes ("/"). R interprets "\\" as a special type of character called an *escape character* rather than a part of the string. If you don't replace them, you will get errors:
-
 &nbsp;
+
+**Caution for Windows users:** If you copy a file path from Windows Explorer and paste it into `setwd()`, you have to change the backslashes ("\\") used in Windows to forwardslashes ("/"). R interprets "\\" as a special type of character called an *escape character* rather than a part of the string. If you don't replace them, you will get an error:
 
 
 ~~~
@@ -664,19 +822,30 @@ list.files()
 > * `setwd()` will return an error if the directory to which you're trying to change doesn't exist or if the user doesn't have the correct permissions to access that directory. This becomes a problem when sharing scripts between users who have organized their directories differently.
 > * If/when your script terminates with an error, you might leave the user in a different directory than the one they started in, and if they then call the script again, this will cause further problems. If you must use `setwd()`, it is best to put it at the top of the script to avoid these problems.
 > 
-> The following error message indicates that R has failed to set the working directory you specified:
+> The following error message indicates that R has failed to set the working directory you specified (for example, if you misspell the directory name:
 >
-> ```
-> Error in setwd("~/path/to/working/directory") : cannot change working directory
-> ```
+> 
+> ~~~
+> setwd("./MispeledDirectory")
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> Error in setwd("./MispeledDirectory"): cannot change working directory
+> ~~~
+> {: .error}
+> 
+> &nbsp;
 > 
 > It is best practice to have the user running the script begin in a consistent directory on their machine and then use relative file paths from that directory to access files (see below).
 {: .callout}
 
 ***
-### Getting help
+### Where to go for additional help
 
-Stuck? The *On Your Own* section will provide a more extensive list of places where you can look for answers to questions about R and RStudio. For today, we will emphasize the two best ways.
+Stuck? The *On Your Own* section will provide a more extensive list of places where you can look for answers to questions about R and RStudio. For today, we will emphasize two of the most useful ways to find answers.
 
 &nbsp;
 #### R documentation
@@ -689,6 +858,8 @@ For help with functions, the first place to look is in the R documentation. Use 
 ~~~
 {: .language-r}
 
+&nbsp;
+
 The documentation gives you a **Description** of the purpose of the function. **Usage** tells you the basic information about what *arguments* the function is expecting, and the **Arguments** section describes each argument. At the very end, most functions include several **Examples** demonstrating usage. 
 
 Note that if you don't know the name of a function, you can run a more general search using `??"<search term>"`:
@@ -700,14 +871,15 @@ Note that if you don't know the name of a function, you can run a more general s
 {: .language-r}
 
 &nbsp;
+
 Unfortunately, this is not a very sophisticated search and often returns many unhelpful results without actually finding the obvious function. Usually I just turn to the next solution:
 
 &nbsp;
 #### Google is your friend
 
-There is a vibrant and active R programming community out there. If you have a question, chances are someone has already answered it online somewhere. I have been using R extensively for nearly a decade, and have only twice been unable to find solutions to even obscure and complex problems.
+There is a vibrant and active R programming community out there. If you have a question, chances are someone has already answered it online somewhere. I have been using R extensively for nearly a decade, and have only twice been unable to find solutions to even obscure and complex problems already published on one forum or another. If you can't find your answer, feel free to sign up at your favorite forum and post a question. You will often get a useful response within a day or two.
 
-Become adept at using online search engines to locate solutions. I usually start with "r <question>". Getting the phrasing right can be a bit tricky. Let's give it a try:
+Become adept at using online search engines to locate solutions. I usually start with "r \<question\>". Getting the phrasing right can be a bit tricky. Let's give it a try:
 
 &nbsp;
 > ## Getting R help online
@@ -727,11 +899,12 @@ Become adept at using online search engines to locate solutions. I usually start
 > > [stackoverflow](https://stackoverflow.com/) being my personal 
 > > favorite. There are also sites like 
 > > [DataCamp](https://www.datacamp.com/) that are designed to teach 
-> > data science and have lots of free material and guides. Explore 
-> > Explore these resources.
+> > data science and have lots of free material and guides. As you start
+> > to ask questions and run searches online, you will get a feel for which
+> > sites give you the most consistently useful answers.
 > {: .solution}
 {: .challenge}
 
-&nbsp;
+***
 
 {% include links.md %}

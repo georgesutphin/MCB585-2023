@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-21 00:08:52 -0700">
+    <meta http-equiv="last-modified" content="2020-08-23 21:10:15 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -314,7 +314,6 @@
 <hr />
 <h2 id="in-class">In Class</h2>
 
-<hr />
 <h3 id="introduction-to-r-and-rstudio">Introduction to R and RStudio</h3>
 
 <p>If we only had one data set to analyze, it would probably be faster to load the file into a spreadsheet, calculate some simple statisitcs, and generate a plot or two.</p>
@@ -412,10 +411,9 @@ with a new folder called <code class="highlighter-rouge">data</code>.</li>
     <li><strong>Environment</strong> – <kbd>Ctrl</kbd>+<kbd>8</kbd></li>
   </ul>
 
-  <p>For a complete list of keyboard shortcuts in RStudio navigate to the following menu:
-      <em>Tools</em> &gt; <em>Keyboard Shortcuts Help</em></p>
+  <p>For a complete list of keyboard shortcuts in RStudio navigate to the following menu:</p>
 
-  <p>(or use the keyboard shortcut <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>.)</p>
+  <p>      <em>Tools</em> &gt; <em>Keyboard Shortcuts Help</em> (or use the keyboard shortcut <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd>.)</p>
 </blockquote>
 
 <hr />
@@ -477,7 +475,34 @@ with a new folder called <code class="highlighter-rouge">data</code>.</li>
 <p> </p>
 <h4 id="commenting">Commenting</h4>
 
-<p>Note above the use of <code class="highlighter-rouge">#</code> signs to add comment. Comments are for you and anyone coming later to read your script. Anything to the right of a <code class="highlighter-rouge">#</code> is ignored by R. Comment liberally in your R scripts. We will discuss best practices in coding and the use of comments more later on in the course.</p>
+<p>Note above the use of <code class="highlighter-rouge">#</code> signs to add comment. Comments are for you and anyone coming later to read your script. Anything to the right of a <code class="highlighter-rouge">#</code> is ignored by R.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># R ignores this part:</span><span class="w">
+</span><span class="c1"># print("Do not print!")</span><span class="w">
+
+</span><span class="c1"># But runs this part:</span><span class="w">
+</span><span class="n">print</span><span class="p">(</span><span class="s2">"Print me!"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Print me!"
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Comment liberally in your R scripts. We will discuss best practices in coding and the use of comments more later on in the course.</p>
+
+<p>You can also use commenting in RStudio to build collapsible sections, allowing you to hide a portion of code that you are not currently working on in order to make the rest easier to navigate. To do so, add a comment line with at least four consecutive “-“ (e.g. <code class="highlighter-rouge">#----------</code>). RStudion will add a small arrow to your script allowing you to collapse or expand all coding that follows until the next <code class="highlighter-rouge">#----</code> is encountered:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#--------------- Section 1</span><span class="w">
+</span><span class="n">print</span><span class="p">(</span><span class="s2">"This is section 1."</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#--------------- Section 2</span><span class="w">
+</span><span class="n">print</span><span class="p">(</span><span class="s2">"This is section 2."</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<p>Note that the actual sections will not appear here after the code is converted to HTML for web publishing, but try pasting the above code into an RStudio script. You can also run a collapsed section of code by selecting the opening line and hiting <kbd>Ctrl</kbd>+<kbd>Enter</kbd>.</p>
 
 <p> </p>
 <h4 id="assigning-values-to-variables">Assigning values to variables</h4>
@@ -586,21 +611,28 @@ all contexts so it is good practice to use <code class="highlighter-rouge">&lt;-
 <p>All better.</p>
 
 <p> </p>
+
 <blockquote class="challenge">
   <h2 id="what-is-allowed-or-not-allowed-with-variable-names">What is allowed or not allowed with variable names?</h2>
 
   <p>Try assigning values to the following variables. Which work and which do not? What is 
 causing the errors?</p>
 
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">min_height</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="n">max.height</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="err">_</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="n">.mass</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="n">MaxLength</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="n">min</span><span class="o">-</span><span class="n">length</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="m">2</span><span class="n">widths</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="n">celsius2kelvin</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span></code></pre></div>  </div>
+  <p><code class="highlighter-rouge">min_height &lt;- 1</code></p>
+
+  <p><code class="highlighter-rouge">max.height &lt;- 1</code></p>
+
+  <p><code class="highlighter-rouge">_age &lt;- 1</code></p>
+
+  <p><code class="highlighter-rouge">.mass &lt;- 1</code></p>
+
+  <p><code class="highlighter-rouge">MaxLength &lt;- 1</code></p>
+
+  <p><code class="highlighter-rouge">min-length &lt;- 1</code></p>
+
+  <p><code class="highlighter-rouge">2widths &lt;- 1</code></p>
+
+  <p><code class="highlighter-rouge">celsius2kelvin &lt;- 1</code></p>
 
   <blockquote class="solution">
     <h2 id="solution">Solution</h2>
@@ -608,10 +640,14 @@ causing the errors?</p>
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">min_height</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span></code></pre></div>    </div>
 
+    <p>Works!</p>
+
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">max.height</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">_</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c1"># error; starts with a symbol</span><span class="w">
+    <p>Works!</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">_</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w"> 
 </span></code></pre></div>    </div>
 
     <div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: &lt;text&gt;:1:1: unexpected input
@@ -619,19 +655,28 @@ causing the errors?</p>
     ^
 </code></pre></div>    </div>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">.mass</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c1"># no error --&gt; the . results in a hidden variable</span><span class="w">
+    <p>Error – variable names cannot start with an “_”.</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">.mass</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span></code></pre></div>    </div>
+
+    <p>No error. However, .mass does not show up as a normal variable because
+the “.” results in a hidden variable.</p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MaxLength</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">min</span><span class="o">-</span><span class="n">length</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c1"># error; "-" is an operator</span><span class="w">
+    <p>Works!</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">min</span><span class="o">-</span><span class="n">length</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span></code></pre></div>    </div>
 
     <div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in min - length &lt;- 1: could not find function "-&lt;-"
 </code></pre></div>    </div>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">2</span><span class="n">widths</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="c1"># error; starts with a number</span><span class="w">
+    <p>Error – “-“ is an operator (subtraction).</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">2</span><span class="n">widths</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span></code></pre></div>    </div>
 
     <div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: &lt;text&gt;:1:2: unexpected symbol
@@ -639,8 +684,11 @@ causing the errors?</p>
      ^
 </code></pre></div>    </div>
 
+    <p>Error – variable names cannot start with a number.</p>
+
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">celsius2kelvin</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span></code></pre></div>    </div>
+    <p>Works!</p>
 
   </blockquote>
 </blockquote>
@@ -682,6 +730,63 @@ causing the errors?</p>
 
 <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 9
 </code></pre></div></div>
+
+<p> </p>
+
+<p>Many functions take multiple inputs. Let’s take a look at the <code class="highlighter-rouge">log()</code> function, which takes two arguments. Take a look at the documentation for log using the <code class="highlighter-rouge">?</code> operator:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">log</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<p>More on the help document for each function later, but for now, Under the <strong>Usage</strong> and <strong>Arguments</strong> section, this function takes two arguments, the number which we want to take the logarithm of (<code class="highlighter-rouge">x</code>) and the base for the logarithm (<code class="highlighter-rouge">base</code>). There are three ways to enter this function:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># be explicit about which input is which</span><span class="w">
+</span><span class="nf">log</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w"> 
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># note that in this case the order does not matter:</span><span class="w">
+</span><span class="nf">log</span><span class="p">(</span><span class="n">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2
+</code></pre></div></div>
+<p> </p>
+
+<p>In this case, we told <code class="highlighter-rouge">log()</code> exactly which values were assigned to <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">base</code>, so the order was unimportant. Here is another option:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># drop the variable names</span><span class="w">
+</span><span class="nf">log</span><span class="p">(</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># now the order does matter:</span><span class="w">
+</span><span class="nf">log</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0.5
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Looking at <strong>Help</strong>, <code class="highlighter-rouge">x</code> is listed first and <code class="highlighter-rouge">base</code> second. If you aren’t explicity, R will assume that you enter arguments define in the documentation. Thus on the first line R took <code class="highlighter-rouge">x</code> to be <code class="highlighter-rouge">100</code> and <code class="highlighter-rouge">base</code> to be <code class="highlighter-rouge">10</code>, while on the second line it took <code class="highlighter-rouge">x</code> to be <code class="highlighter-rouge">10</code> and <code class="highlighter-rouge">base</code> to be <code class="highlighter-rouge">100</code>. And a final option:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># what if we don't give log() a base argument?</span><span class="w">
+</span><span class="nf">log</span><span class="p">(</span><span class="m">100</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 4.60517
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Again looging at the <strong>Usage</strong> section of help, <code class="highlighter-rouge">log()</code> uses a default value of <code class="highlighter-rouge">exp(1)</code> (which is <code class="highlighter-rouge">e</code> or <code class="highlighter-rouge">2.71828</code>). Thus, if you don’t give <code class="highlighter-rouge">log()</code> any input for <code class="highlighter-rouge">base</code>, it defaults to the natural logarithm. Some functions will have dozens of inputs, but most of them will have a default value. This allows you to use the most common application of a function without having to manually define each input, but gives you the flexibility to change these inputs if you want the function to behave differently.</p>
 
 <hr />
 <h3 id="working-directories-in-r">Working directories in R</h3>
@@ -729,9 +834,9 @@ causing the errors?</p>
 </span><span class="n">setwd</span><span class="p">(</span><span class="s2">"/Users/&lt;username&gt;/Desktop"</span><span class="p">)</span><span class="w"> </span><span class="c1"># MacOS</span><span class="w">
 </span></code></pre></div></div>
 
-<p><strong>Caution for Windows users:</strong> If you copy a file path from Windows Explorer and paste it into <code class="highlighter-rouge">setwd()</code>, you have to change the backslashes (“\”) used in Windows to forwardslashes (“/”). R interprets “\” as a special type of character called an <em>escape character</em> rather than a part of the string. If you don’t replace them, you will get errors:</p>
-
 <p> </p>
+
+<p><strong>Caution for Windows users:</strong> If you copy a file path from Windows Explorer and paste it into <code class="highlighter-rouge">setwd()</code>, you have to change the backslashes (“\”) used in Windows to forwardslashes (“/”). R interprets “\” as a special type of character called an <em>escape character</em> rather than a part of the string. If you don’t replace them, you will get an error:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setwd</span><span class="p">(</span><span class="s2">".\data"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -787,18 +892,23 @@ causing the errors?</p>
     <li>If/when your script terminates with an error, you might leave the user in a different directory than the one they started in, and if they then call the script again, this will cause further problems. If you must use <code class="highlighter-rouge">setwd()</code>, it is best to put it at the top of the script to avoid these problems.</li>
   </ul>
 
-  <p>The following error message indicates that R has failed to set the working directory you specified:</p>
+  <p>The following error message indicates that R has failed to set the working directory you specified (for example, if you misspell the directory name:</p>
 
-  <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in setwd("~/path/to/working/directory") : cannot change working directory
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setwd</span><span class="p">(</span><span class="s2">"./MispeledDirectory"</span><span class="p">)</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in setwd("./MispeledDirectory"): cannot change working directory
 </code></pre></div>  </div>
+
+  <p> </p>
 
   <p>It is best practice to have the user running the script begin in a consistent directory on their machine and then use relative file paths from that directory to access files (see below).</p>
 </blockquote>
 
 <hr />
-<h3 id="getting-help">Getting help</h3>
+<h3 id="where-to-go-for-additional-help">Where to go for additional help</h3>
 
-<p>Stuck? The <em>On Your Own</em> section will provide a more extensive list of places where you can look for answers to questions about R and RStudio. For today, we will emphasize the two best ways.</p>
+<p>Stuck? The <em>On Your Own</em> section will provide a more extensive list of places where you can look for answers to questions about R and RStudio. For today, we will emphasize two of the most useful ways to find answers.</p>
 
 <p> </p>
 <h4 id="r-documentation">R documentation</h4>
@@ -808,6 +918,8 @@ causing the errors?</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">sqrt</span><span class="w"> </span><span class="c1"># note that you don't include the () after sqrt for help</span><span class="w">
 </span></code></pre></div></div>
 
+<p> </p>
+
 <p>The documentation gives you a <strong>Description</strong> of the purpose of the function. <strong>Usage</strong> tells you the basic information about what <em>arguments</em> the function is expecting, and the <strong>Arguments</strong> section describes each argument. At the very end, most functions include several <strong>Examples</strong> demonstrating usage.</p>
 
 <p>Note that if you don’t know the name of a function, you can run a more general search using <code class="highlighter-rouge">??"&lt;search term&gt;"</code>:</p>
@@ -815,15 +927,16 @@ causing the errors?</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">??</span><span class="s2">"square root"</span><span class="w">
 </span></code></pre></div></div>
 
-<p> 
-Unfortunately, this is not a very sophisticated search and often returns many unhelpful results without actually finding the obvious function. Usually I just turn to the next solution:</p>
+<p> </p>
+
+<p>Unfortunately, this is not a very sophisticated search and often returns many unhelpful results without actually finding the obvious function. Usually I just turn to the next solution:</p>
 
 <p> </p>
 <h4 id="google-is-your-friend">Google is your friend</h4>
 
-<p>There is a vibrant and active R programming community out there. If you have a question, chances are someone has already answered it online somewhere. I have been using R extensively for nearly a decade, and have only twice been unable to find solutions to even obscure and complex problems.</p>
+<p>There is a vibrant and active R programming community out there. If you have a question, chances are someone has already answered it online somewhere. I have been using R extensively for nearly a decade, and have only twice been unable to find solutions to even obscure and complex problems already published on one forum or another. If you can’t find your answer, feel free to sign up at your favorite forum and post a question. You will often get a useful response within a day or two.</p>
 
-<p>Become adept at using online search engines to locate solutions. I usually start with “r <question>". Getting the phrasing right can be a bit tricky. Let's give it a try:</question></p>
+<p>Become adept at using online search engines to locate solutions. I usually start with “r &lt;question&gt;”. Getting the phrasing right can be a bit tricky. Let’s give it a try:</p>
 
 <p> </p>
 <blockquote class="challenge">
@@ -845,12 +958,13 @@ Coding forums are one of the best resources, with
 <a href="https://stackoverflow.com/">stackoverflow</a> being my personal 
 favorite. There are also sites like 
 <a href="https://www.datacamp.com/">DataCamp</a> that are designed to teach 
-data science and have lots of free material and guides. Explore 
-Explore these resources.</p>
+data science and have lots of free material and guides. As you start
+to ask questions and run searches online, you will get a feel for which
+sites give you the most consistently useful answers.</p>
   </blockquote>
 </blockquote>
 
-<p> </p>
+<hr />
 
 
 

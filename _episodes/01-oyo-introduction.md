@@ -7,9 +7,9 @@ teaching: 90
 exercises: 30
 questions:
 - "How can I write R code that other people can understand and use?"
-- "How do I manage the variables and files in my workspace?"
-- "How do I write my own functions in R?"
-- "How do I perform basic calculations in R?"
+- "How do I manage the variables, files, and memory usage in my workspace?"
+- "How do I write my own functions?"
+- "How do I install and load packages to access application-specific tools?"
 - "Where can I get help?"
 objectives:
 - "Employ best practices for documenting code so that others can follow your work."
@@ -30,9 +30,10 @@ keypoints:
 - "Keep track of session information in your project folder."
 - "Start each program with a description of what it does."
 - "Load all required packages at the beginning of a script."
-- "Use comments to mark off sections of code."
+- "Use `#----` comments to mark off sections of code."
 - "When working with large datasets, removing variables that you no longer need and releasing memory can improve performance."
 - "Writing functions for sets of commands that you will be running repeatedly will make your data processing more efficient."
+- "Use `install.packages()` to install new packages and `library()` to load and use installed packages in your current workspace."
 - "Use help() and ? to get basic information about functions."
 - "Online forums have the answers to almost any R-related question you can come up with. Know how to Google your question!"
 - "The University of Arizona offers serveral resources to assist with both biostatistics and programming."
@@ -44,7 +45,7 @@ source: Rmd
 ***
 ##  On Your Own
 
-***
+
 ### Best practices when writing code in R (and in general)
 
 What if I handed you this and asked you to explain it:
@@ -115,7 +116,8 @@ Before we start, here is exercise to illustrate the point on even a simple examp
 > ~~~
 > {: .language-r}
 >
-> What aspects of the "Good" code help you understand the script?
+> Compare the "Good" and "Bad" examples. What aspects of the "Good" 
+> code help you understand the script?
 > 
 > > ## Solution
 > > 
@@ -130,6 +132,7 @@ Before we start, here is exercise to illustrate the point on even a simple examp
 > {: .solution}
 {: .challenge}
 
+&nbsp;
 
 Here are a few habits to develop that will improve your relationship with other coders and your future selves:
 
@@ -138,11 +141,9 @@ Here are a few habits to develop that will improve your relationship with other 
 
 In the first lesson we briefly mentioned the primary tool in keeping your code organized: the `#` comment operator. Annotate your code thoroughly. Use the `#` to add text to your code that will be ignored by the computer, but helpful to another person trying to figure out just what you did. 
 
-The goal is to allow someone who has never looked at your script before to understand what you are trying to accomplish. Just putting something down is not enough. Make them understand.
+The goal is to allow someone who has never looked at your script before to understand what you are trying to accomplish. Just putting *something* down is not enough. Include enough detail to make them understand.
 
-In addition to adding comments to describe individual actions, adding a detailed header that outlines the purpose and usage of the script is very helpful to frame you analysis. 
-
-Starting your code with an annotated description of what the code does when it is run will help you when you have to look at or change it in the future. Just one or two lines at the beginning of the file can save you or someone else a lot of time and effort when trying to understand what a particular script does.
+In addition to adding comments to describe individual actions, adding a detailed header that outlines the purpose and usage of a script is very helpful to frame you analysis. Starting your code with an annotated description of what the code does will also help you when you revisit or change the script in the future. Just a line or two at the beginning of the file can save a lot of time and effort when trying to understand what a particular script does.
 
 
 ~~~
@@ -152,15 +153,26 @@ Starting your code with an annotated description of what the code does when it i
 ~~~
 {: .language-r}
 
-Actually, even this is a bit vague. Which science paper (provide a link?)? Which analysis in that paper? What is the purpose of the analysis? Any detail that you can add will help you down the line.
+&nbsp;
+
+Actually, even this is a bit vague. 
+* Which science paper? Can you provide a link or Pubmed ID?
+* Which analysis in that paper?
+* What is the purpose of the analysis?
+* Which figure(s) are being reproduced?
+
+Any detail that you can add will help you down the line.
 
 &nbsp;
 #### Be explicit about the requirements and dependencies of your code
 
-Loading all of the packages that will be necessary to run your code (using `library`) is a nice way of indicating which packages are necessary to run your code. It can be frustrating to make it two-thirds of the way through a long-running script only to find out that a dependency hasn't been installed.
+Many scripts will require tools that are not available in the the base R language and will require one or more add-on packages. There are hundreds of packages available for numerous specialized applications, and we will be using several in this course. Installing and loading these packages is outlined below. 
+
+Loading any necessary packages up front (using `library`) is a nice way of indicating which packages are necessary to run your code. It can be frustrating to make it two-thirds of the way through a long-running script only to find out that a critical dependency hasn't been installed. It is good practice to load all required pacakges early in your script using a section like this:
 
 
 ~~~
+# Load required packages
 library(ggplot2)
 library(reshape)
 library(vegan)
@@ -169,7 +181,7 @@ library(vegan)
 
 &nbsp;
 
-Another way you can be explicit about the requirements of your code and improve its reproducibility is to limit the "hard-coding" of the input and output files for your script. If your code will read in data from a file, define a variable early in your code that stores the path to that file. For example
+Another way you can be explicit about the requirements of your code and improve its reproducibility is to limit the "hard-coding" of the input and output files for your script. If your code will read in data from a file, define a variable early in your code that stores the path to that file:
 
 
 ~~~
@@ -178,10 +190,13 @@ output_file <- "data/results.csv"
 
 # read input
 input_data <- read.csv(input_file)
+
 # get number of samples in data
 sample_number <- nrow(input_data)
+
 # generate results
 results <- some_other_function(input_file, sample_number)
+
 # write results
 write.table(results, output_file)
 ~~~
@@ -189,16 +204,19 @@ write.table(results, output_file)
 
 &nbsp;
 
-is preferable to 
+This is preferable to repeatedly writing out the input file paths (and way easier to update if you move or rename one of your files):
 
 
 ~~~
 # check
 input_data <- read.csv("data/data.csv")
+
 # get number of samples in data
 sample_number <- nrow(input_data)
+
 # generate results
 results <- some_other_function("data/data.csv", sample_number)
+
 # write results
 write.table("data/results.csv", output_file)
 ~~~
@@ -231,15 +249,20 @@ source("my_genius_fxns.R")
 &nbsp;
 #### Other ideas
 
-1. Keep your code in bite-sized chunks. If a single function or loop gets too long, consider looking for ways to break it into smaller pieces (e.g. write functions to carry out chunks of code all in one line; break complex analyses into multiple loops with data saved in between).
+1. Keep your code in bite-sized chunks. If a single function or loop gets too long, consider looking for ways to break it into smaller pieces (e.g. write functions to carry out chunks of code all in one line; break complex analyses into multiple loops with intermediate results saved in between).
 
-2. Don't repeat yourself--automate! If you are repeating the same code over and over, use a loop or a function to repeat that code for you. Needless repetition doesn't just waste time--it also increases the likelihood you'll make a costly mistake!
+2. Don't repeat yourself--automate! If you are repeating the same code over and over, use a loop or a function to repeat that code for you. Needless repetition doesn't just waste time--it also increases the likelihood you'll make a costly mistake.
 
-3. Keep all of your source files for a project in the same directory, then use relative paths as necessary to access them. For example, use:
+3. Keep all of your source files for a project in the same directory, then use relative paths as necessary to access them. For example, to load data use:
 
 
 ~~~
-dat <- read.csv(file = "files/dataset-2013-01.csv", header = TRUE)
+# set working directory
+setwd("C:/Users/Karthik/Documents/sannic-project")
+
+# load datasets 1 and 2 from the files subfolder
+dat <- read.csv(file = "files/dataset1.csv", header = TRUE)
+dat <- read.csv(file = "files/dataset2.csv", header = TRUE)
 ~~~
 {: .language-r}
 
@@ -249,26 +272,32 @@ rather than:
 
 
 ~~~
-dat <- read.csv(file = "/Users/Karthik/Documents/sannic-project/files/dataset-2013-01.csv", header = TRUE)
+dat1 <- read.csv(file = "C:/Users/Karthik/Documents/sannic-project/files/dataset1.csv", header = TRUE)
+
+dat2 <- read.csv(file = "C:/Users/Karthik/Documents/sannic-project/files/dataset2.csv", header = TRUE)
 ~~~
 {: .language-r}
 
 &nbsp;
 
 {:start="4"}
-4. R can run into memory issues. It is a common problem to run out of memory after running R scripts for a long time. To inspect the objects in your current R environment, you can list the objects, search current packages, and remove objects that are currently not in use. A good practice when running long lines of computationally intensive code is to remove temporary objects after they have served their purpose. However, sometimes, R will not clean up unused memory for a while after you delete objects. You can force R to tidy up its memory by using `gc()`.
+4. R can run into memory issues. It is a common problem to run out of memory after running R scripts for a long time. To inspect the objects in your current R environment, you can list the objects, search current packages, and remove objects that are currently not in use. A good practice when running long lines of computationally intensive code is to remove temporary objects after they have served their purpose. However, sometimes, R will not clean up unused memory for a while after you delete objects. You can force R to tidy up its memory by using `gc()` (discussed in more detail later).
 
 
 ~~~
-# Sample dataset of 1000 rows
+# Generate sample dataset of 1000 rows
 interim_object <- data.frame(rep(1:100, 10),
                              rep(101:200, 10),
                              rep(201:300, 10))
-object.size(interim_object) # Reports the memory size allocated to the object
-rm("interim_object") # Removes only the object itself and not necessarily the memory allotted to it
-gc() # Force R to release memory it is no longer using
-ls() # Lists all the objects in your current workspace
-rm(list = ls()) # If you want to delete all the objects in the workspace and start with a clean slate
+
+# Report the memory size allocated to the object
+object.size(interim_object)
+
+# Removes the object itself, but not necessarily the memory allotted to it
+rm("interim_object") 
+
+# Force R to release memory it is no longer using
+gc() 
 ~~~
 {: .language-r}
 
@@ -277,7 +306,7 @@ rm(list = ls()) # If you want to delete all the objects in the workspace and sta
 {:start="6"}
 6. Don't save a session history (the default option in R, when it asks if you want an `RData` file). Instead, start in a clean environment so that older objects don't remain in your environment any longer than they need to. If that happens, it can lead to unexpected results. Your script should explicitly load any data and create any variables that it needs, rather than relying on a variable that you assigned in the console panel sometime last week.
 
-7. Wherever possible, keep track of `sessionInfo()` somewhere in your project folder. Session information is invaluable because it captures all of the packages used in the current project. If a newer version of a package changes the way a function behaves, you can always go back and reinstall the version that worked (Note: At least on CRAN, all older versions of packages are permanently archived).
+7. Wherever possible, keep track of `sessionInfo()` somewhere in your project folder. Session information is invaluable because it captures all of the packages used in the current project. If a newer version of a package changes the way a function behaves, you can always go back and re-install the version that worked (Note: at least on CRAN, all older versions of packages are permanently archived).
 
 
 ~~~
@@ -299,15 +328,17 @@ current.session
 &nbsp;
 
 {:start="8"}
-8. Do not ever modify your original raw data files. Doing so risks overwriting or unintentionally modifying the values of your starting data. Instead, always save data modified in R under a new name.
+8. Do not *ever* modify your original raw data files. Doing so risks overwriting or unintentionally modifying the values of your starting data. Instead, always save modified data under a new name. You can even set critical raw data files to Read Only in your operating system to prevent accidental overwriting.
 
-9. Collaborate. Grab a buddy and practice "code review". Review is used for preparing experiments and manuscripts; why not use it for code as well? Our code is also a major scientific achievement and the product of lots of hard work!
+9. Collaborate. Grab a buddy and practice "code review". Review is used for preparing experiments and manuscripts; why not use it for code as well? Code can easily be a major scientific achievement and the product of lots of hard work!
 
 10. Develop your code using version control and frequent updates! You can find lessons about version control on [software-carpentry.org/lessons][swc-lessons].
 
 
 ***
 ### Cleaning up
+
+Keeping a tidy workspace can be just as critical when coding as when conducting experiments at the bench. Learning to code takes a lot or trial and error, particularly in the beginning. A well-designed script should be self-contained, meaning that you should be able to clear out all past variables, re-run the script from scratch, and arrive at the same outcome. Periodically clearing out your workspace of old variables prevents errors that occur when you accidentally use the same variable name in two different places, or accidentally overwrite a critical variable while testing a new function. There are a variety of tools available to help keep your workspace tidy.
 
 You can use the `ls()` command to list all variables currently defined in your workspace.
 
@@ -330,27 +361,100 @@ ls()
 ~~~
 {: .output}
 
-Try clicking on the brush icon in the Environment panel and clicking <kbd>Yes</kbd> in the pop-up box. What happened to your variable? What happens if you try to display the variable in the console?
+&nbsp;
+
+Try clicking on the brush icon in the Environment panel and clicking <kbd>Yes</kbd> in the pop-up box. What happened to your variables? What happens if you try to display the variable in the console?
+
 
 
 ~~~
 x
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in eval(expr, envir, enclos): object 'x' not found
+~~~
+{: .error}
+
+
+
+~~~
 y
 ~~~
 {: .language-r}
+
+
+
+~~~
+Error in eval(expr, envir, enclos): object 'y' not found
+~~~
+{: .error}
+
+&nbsp;
 
 You can also remove variables one at a time.
 
 
 ~~~
+# again, define a few test variables and check your workspace
 x = 3
 y = x + 2
 z1 = x - y
 z2 = x + y
+ls()
+~~~
+{: .language-r}
 
+
+
+~~~
+[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
+[5] "src_rmd"       "x"             "y"             "z1"           
+[9] "z2"           
+~~~
+{: .output}
+
+
+
+~~~
+# remove x and y one at a time, then remove all remaining variables and
+# observe what happens to your workspace
 rm(x)
+ls()
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
+[5] "src_rmd"       "y"             "z1"            "z2"           
+~~~
+{: .output}
+
+
+
+~~~
 rm(y)
-rm(list = ls()) # remove all variables currently in environment
+ls()
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
+[5] "src_rmd"       "z1"            "z2"           
+~~~
+{: .output}
+
+~~~
+# remove all variables currently in environment (this won't work on the website, but try it in RStudio)
+rm(list = ls()) 
+ls()
 ~~~
 {: .language-r}
 
@@ -365,10 +469,11 @@ gc()
 ~~~
 {: .language-r}
 
-Don't get bogged down in the details, but we can check memory usage, before 
+&nbsp;
+
+Don't get bogged down in the details, but we can check memory usage before 
 creating, after creating, and after removing a large vector. The memory usage at 
-each stage is indicated by "Vcells" (the V stands for "Vector"). Removing the object
-and running gc() frees up some of the memory. Note that `gc()` also gives you a memory usage report.
+each stage is indicated by "Vcells" (the V stands for "Vector"). Removing the object and running gc() frees up some of the memory. Note that `gc()` also gives you a memory usage report.
 
 
 ~~~
@@ -378,12 +483,31 @@ gc()
 {: .language-r}
 
 
+
+~~~
+          used (Mb) gc trigger (Mb) max used (Mb)
+Ncells  554993 29.7    1261337 67.4   904961 48.4
+Vcells 1022089  7.8    8388608 64.0  1632739 12.5
+~~~
+{: .output}
+
+
 ~~~
 # create a big vector (this can take some time) and recheck memory with 
 # vector loaded; Vcells used (MB) goes up
 x <- integer(100000); for(i in 1:100000) x <- c(x, i)
+gc()
 ~~~
 {: .language-r}
+
+
+
+~~~
+          used (Mb) gc trigger (Mb) max used (Mb)
+Ncells  555039 29.7    1261337 67.4   904961 48.4
+Vcells 1122380  8.6    8388608 64.0  8388600 64.0
+~~~
+{: .output}
 
 ~~~
 # remove vector and check memory a final time; Vcells used (MB) returns to
@@ -392,6 +516,15 @@ rm(x)
 gc()
 ~~~
 {: .language-r}
+
+
+
+~~~
+          used (Mb) gc trigger (Mb) max used (Mb)
+Ncells  555010 29.7    1261337 67.4   904961 48.4
+Vcells 1022217  7.8    8388608 64.0  8388600 64.0
+~~~
+{: .output}
 
 &nbsp;
 
@@ -403,7 +536,9 @@ It is generally good practice to start off each session with a clean slate. When
 &nbsp;
 #### Writing your own functions
 
-Let's define a new function `fahrenheit_to_kelvin` that converts a temperature value in Fahrenheit (the *argument*) to Celsius (the *output*):
+A good way to consolidate code that you intend to use repeatedly is to build that code into a new function. Instead of repeating the entire set of code over and over, you can instead just call the function with a few commands.
+
+Let's define a new function `FtoC` that converts a temperature value in Fahrenheit (the *argument*) to Celsius (the *output*):
 
 
 ~~~
@@ -445,6 +580,9 @@ Temp_C
 ~~~
 {: .output}
 
+&nbsp;
+
+Functions can be just a few short lines (as above), or span thousands of lines of code employing many other functions.
 
 
 &nbsp;
@@ -471,7 +609,7 @@ install.packages("pwr")
 package 'pwr' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\RtmpsP8DVd\downloaded_packages
+	C:\Users\sutph\AppData\Local\Temp\RtmpAX9f8N\downloaded_packages
 ~~~
 {: .output}
 
@@ -487,6 +625,8 @@ library("pwr")
 Generally, a Google search will let you find packages for just about any type of analysis. These usually come from one of two sources (which R mostly takes care of automatically, with a few exceptions):
 * [CRAN](https://cran.r-project.org/) for basic R packages
 * [Bioconductor](https://www.bioconductor.org/) for biological packages
+
+In situations where installing a package is more complicated that simply calling the `install.packages()` function from within RStudio, the installation instructions are generally listed near the top of the homepage or documentation associated with that package. 
 
 
 ***
@@ -508,23 +648,23 @@ help(setwd)
 
 &nbsp;
 
-When you enter either command, notice that the **Help** panel opens (lower right panel in RStudio). This panel provides information on the purpose, inputs, and outputs of the queried function. It also provides useful examples of how to use the function at the end of the documentation. `help()` is usually a good first place to look to get a feel for what a function is doing.
+When you enter either command, notice that the **Help** panel opens (lower right pane in RStudio). This panel provides information on the purpose, inputs, and outputs of the queried function. It also provides useful examples of how to use the function at the end of the documentation. `help()` is usually a good first place to look to get a feel for what a function is doing.
 
 &nbsp;
 #### Online Forums
 
 Perhaps the most valuable resource available to both basic and advanced R users is the vast online community. Many people are actively using the R language for a variety of analysis tasks. You will find that most questions have already been asked and answered on one of the various online forums. If you can't find the answer, sign up for a forum and post your question. You will generally get an answer (or a pointer to another forum where the question has already been answered) within a day or two.
 
-To find answers, the simplest way is to just type what you are trying to do into Google. Preceedign your question with "R" will tend to find questions within the R community: 
+To find answers, the simplest way is to just type what you are trying to do into Google. Preceeding your question with "R" will tend to find questions within the R community: 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*R calculate standard deviation*
 
-There are many online forums with R user discussions, but I find the most common to be [stackoverflow](https://stackoverflow.com/).
+There are many online forums with R user discussions, but I personally find the most common and useful to be [stackoverflow](https://stackoverflow.com/).
 
 &nbsp;
 #### The Carpentries
 
-[The Carpentries](https://carpentries.org/) and [Software Carpentry](https://software-carpentry.org/) in particular offer free online introductory programming lessons for R and other languages. Much of the material in the early part of this course is based on the Software Carpentry material. They are a good resource for beginners.
+[The Carpentries](https://carpentries.org/), and [Software Carpentry](https://software-carpentry.org/) in particular, offer free online introductory programming lessons for R and other languages. Much of the early part of this course is based on the Software Carpentry material. They are a good resource for those just delving into coding (or even just R) for the first time.
 
 &nbsp;
 #### Resources at the University of Arizona
@@ -536,6 +676,6 @@ The University of Arizona has several resources for both statistics and programm
 * [Cancer Center biostatistics](https://cancercenter.arizona.edu/researchers/shared-resources/biostatistics)
 * [Cancer Center bioinformatics](https://cancercenter.arizona.edu/researchers/shared-resources/bioinformatics)
 
-&nbsp;
+***
 
 {% include links.md %}

@@ -28,7 +28,6 @@ source: Rmd
 ***
 ## In Class
 
-&nbsp;
 ### Basic Data Types in R
 
 R uses a variety of data types, which define the properties of the value stored in a variable. The three data types that you will use most commonly are **character** (text strings), **logical** (TRUE/FALSE values), and **numeric** (decimal or "double" numeric values) objects. For the most part, the data type of a variable is detected by the format of the value assigned:
@@ -43,7 +42,7 @@ logic1 <- TRUE
 
 &nbsp;
 
-Use the `class` function to determine the of a variable:
+Use the `class()` function to determine the of a variable:
 
 
 ~~~
@@ -86,20 +85,38 @@ class(logic1)
 ~~~
 {: .output}
 
+&nbsp;
+
 You can shift between data types using the `as` functions:
+
 
 ~~~
 num1.as.char <- as.character(num1)
-class(num.as.char)
+num1.as.char
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'num.as.char' not found
+[1] "20.5"
 ~~~
-{: .error}
+{: .output}
+
+
+
+~~~
+# ... now check the class of the new variable:
+class(num1.as.char)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "character"
+~~~
+{: .output}
 
 
 
@@ -179,19 +196,176 @@ Warning: NAs introduced by coercion
 {: .output}
 
 &nbsp;
+
+Note that when one of the `as.` functions throws an error, it doesn't simply fail to return a variable. Instead it throws an error message and assigns an `NA` value to the variable. `NA` is one of several special values that represents missing data, or "Not Available". You will explore these special characters in more detail *On Your Own*.
+
+The `as.logical()` function will take `0` as `FALSE` and any non-zero numeric as `TRUE`. It will throw an error for any character input that is a common spelling of `TRUE` or `FALSE`. Note that `T` works, but `t` does not.
+
+
+~~~
+as.logical(0)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] FALSE
+~~~
+{: .output}
+
+
+
+~~~
+as.logical(1)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+
+
+~~~
+as.logical(10)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+
+
+~~~
+as.logical(0.01)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+
+
+~~~
+as.logical(-4)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+
+
+~~~
+as.logical("TRUE")
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+
+
+~~~
+as.logical("True")
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+
+
+~~~
+as.logical("tRUE")
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] NA
+~~~
+{: .output}
+
+
+
+~~~
+as.logical("T")
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+
+
+~~~
+as.logical("t")
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] NA
+~~~
+{: .output}
+
+
+
+~~~
+as.logical("false")
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] FALSE
+~~~
+{: .output}
+&nbsp;
 ### Data Structures in R
 
 
 ***
 ### Vectors
 
-A vector is the most common and basic data structure in R. Vectors are the
-workhorse data struture of R. Technically, vectors can be one of two types:
+A vector is the most common and basic data structure in R. Vectors are also the major workhorse data structure of R. Technically, vectors can be one of two types:
 
 * atomic vectors
 * lists
 
-although the term "vector" most commonly refers to the atomic types not to lists.
+However, the term "vector" most commonly refers to the atomic types and not to lists. Here we will examine atomic vectors (hereafter just called "vectors"). Lists have a critical place R as well, and will be the topic of a future lesson.
 
 &nbsp;
 #### The Different Vector Modes
@@ -199,9 +373,7 @@ although the term "vector" most commonly refers to the atomic types not to lists
 A vector is a collection of elements that are most commonly of mode `character`,
 `logical`, `integer` or `numeric`.
 
-You can create an empty vector with `vector()`. (By default the mode is
-`logical`. You can be more explicit as shown in the examples below.) It is more
-common to use direct constructors such as `character()`, `numeric()`, etc.
+You can create an empty vector with the `vector()` function. By default, the mode is `logical`, but you can be more explicit using additional arguments, as shown in the examples below. A simpler solution is to just directly construct vectors of the desired mode using on of several available functions, such as `character()`, `numeric()`, etc.
 
 
 ~~~
@@ -233,7 +405,7 @@ vector("character", length = 5) # a vector of mode 'character' with 5 elements
 
 
 ~~~
-character(5) # the same thing, but using the constructor directly
+character(5) # the same thing, but using the direct constructor function
 ~~~
 {: .language-r}
 
@@ -274,69 +446,31 @@ logical(5)   # a logical vector with 5 elements
 
 &nbsp;
 
-You can also create vectors by directly specifying their content. R will then
-guess the appropriate mode of storage for the vector. For instance:
+You can also create vectors by directly specifying their content. R will then guess the appropriate mode of storage for the vector based on your input data. To do this, you use the function `c()` (which stands for "combine"):
 
 
 ~~~
+# numeric vector
 x <- c(1, 2, 3)
-typeof(x)
+class(x)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] "double"
+[1] "numeric"
 ~~~
 {: .output}
 
 &nbsp;
 
-This will create a vector `x` of mode `numeric`. These are the most common kind, and
-are treated as double precision real numbers. If you wanted to explicitly create
-integers, you need to add an `L` to each element
-
-
-~~~
-x1 <- c(1L, 2L, 3L)
-typeof(x1)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "integer"
-~~~
-{: .output}
-
-&nbsp;
-
-You can also *coerce* a vector to the integer type using `as.integer()`.
-
-
-~~~
-x2 <- as.integer(x)
-typeof(x2)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "integer"
-~~~
-{: .output}
-
-&nbsp;
-
-Directly specifying `TRUE` and `FALSE` will create a vector of mode `logical`:
+The `c()` function is the most common way to define a vector of objects for manipulation. Directly specifying `TRUE` and `FALSE` will create a vector of mode `logical`:
 
 
 ~~~
 y <- c(TRUE, TRUE, FALSE, FALSE)
-typeof(y)
+class(y)
 ~~~
 {: .language-r}
 
@@ -354,53 +488,6 @@ While quoted text will create a vector of mode `character`:
 
 ~~~
 z <- c("Sarah", "Tracy", "Jon")
-typeof(z)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "character"
-~~~
-{: .output}
-
-&nbsp;
-#### Examining Vectors
-
-The functions `typeof()`, `length()`, `class()` and `str()` provide useful
-information about your vectors and R objects in general.
-
-
-~~~
-typeof(z)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "character"
-~~~
-{: .output}
-
-
-
-~~~
-length(z)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 3
-~~~
-{: .output}
-
-
-
-~~~
 class(z)
 ~~~
 {: .language-r}
@@ -415,21 +502,23 @@ class(z)
 
 
 ~~~
-str(z) # stands for "structure" of an object
+# adding quotes to numbers forces a character vector
+x.char <- c("1", "2", "3")
+class(x.char)
 ~~~
 {: .language-r}
 
 
 
 ~~~
- chr [1:3] "Sarah" "Tracy" "Jon"
+[1] "character"
 ~~~
 {: .output}
 
 &nbsp;
 #### Adding Elements
 
-The function `c()` (for combine) can also be used to add elements to a vector.
+The function `c()` can also be used to add elements to a vector:
 
 
 ~~~
@@ -459,6 +548,10 @@ z
 [1] "Greg"    "Sarah"   "Tracy"   "Jon"     "Annette"
 ~~~
 {: .output}
+
+&nbsp;
+
+Note that order matters and defines the order in the output vector. `c()` treats any argument that is a vector as just another set of elements in the list.
 
 &nbsp;
 #### Vectors from a Sequence of Numbers
@@ -513,21 +606,44 @@ seq(from = 1, to = 10, by = 0.1)
 {: .output}
 
 &nbsp;
-You can assign the sequence directly to a variable:
+
+You can assign these sequences directly to a variable:
+
 
 ~~~
-series1 = 5:15
-series2 = seq(from = 3, to = 8, by = 0.2)
+series1 <- 5:15
+series1
 ~~~
 {: .language-r}
 
+
+
+~~~
+ [1]  5  6  7  8  9 10 11 12 13 14 15
+~~~
+{: .output}
+
+
+
+~~~
+series2 <- seq(from = 3, to = 8, by = 0.2)
+series2
+~~~
+{: .language-r}
+
+
+
+~~~
+ [1] 3.0 3.2 3.4 3.6 3.8 4.0 4.2 4.4 4.6 4.8 5.0 5.2 5.4 5.6 5.8 6.0 6.2 6.4 6.6
+[20] 6.8 7.0 7.2 7.4 7.6 7.8 8.0
+~~~
+{: .output}
+
 &nbsp;
-#### What Happens When You Mix Types Inside a Vector?
+#### What happens when you mix types inside a vector?
 
 R will create a resulting vector with a mode that can most easily accommodate
-all the elements it contains. This conversion between modes of storage is called
-"coercion". When R converts the mode of storage based on its content, it is
-referred to as "implicit coercion". 
+all the elements it contains (similar to using the `as.` functions). This conversion between modes of storage is called "coercion". When R converts the mode of storage based on its content, it is referred to as "implicit coercion". 
 
 > ## Mixing data types in vectors
 > 
@@ -545,7 +661,7 @@ referred to as "implicit coercion".
 > > 
 > > ~~~
 > > z1 <- c(1.7, "a") 
-> > typeof(z1)
+> > class(z1)
 > > ~~~
 > > {: .language-r}
 > > 
@@ -555,27 +671,30 @@ referred to as "implicit coercion".
 > > [1] "character"
 > > ~~~
 > > {: .output}
-> > `z1` is forced to be a character vector. `"1.7"` can be a character, while `"a"` cannot be a number.
+> > `z1` is forced to be a character vector. `"1.7"` can be a character, while 
+> > `"a"` cannot be a number.
 > > 
 > > 
 > > ~~~
 > > z2 <- c(TRUE, 2) 
-> > typeof(z2)
+> > class(z2)
 > > ~~~
 > > {: .language-r}
 > > 
 > > 
 > > 
 > > ~~~
-> > [1] "double"
+> > [1] "numeric"
 > > ~~~
 > > {: .output}
-> > `z2` is forced to be a numeric vector. `TRUE` can be interpreted as a number (`TRUE` = `1`, `FALSE` = `0`), while `2` cannot be interpreted as a logical value (or can it?)
+> > `z2` is forced to be a numeric vector. `TRUE` can be interpreted as a number 
+> > (`TRUE` = `1`, `FALSE` = `0`), while `2` cannot be interpreted as a logical 
+> > value (or can it?)
 > > 
 > > 
 > > ~~~
 > > z3 <- c("a", TRUE)
-> > typeof(z3)
+> > class(z3)
 > > ~~~
 > > {: .language-r}
 > > 
@@ -585,156 +704,15 @@ referred to as "implicit coercion".
 > > [1] "character"
 > > ~~~
 > > {: .output}
-> > `z3` is forced to be a character vector. `"TRUE"` can be a character, while `"a"` cannot be interpreted as a logical value
+> > `z3` is forced to be a character vector. `"TRUE"` can be a character, while 
+> > `"a"` cannot be interpreted as a logical value
 > > 
 > {: .solution}
 {: .challenge}
 
 &nbsp;
 
-You can also control how vectors are coerced explicitly using the
-`as.[class_name]()` functions:
-
-
-~~~
-as.numeric("1")
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 1
-~~~
-{: .output}
-
-
-
-~~~
-as.character(1:2)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "1" "2"
-~~~
-{: .output}
-
-&nbsp;
-
-In reality, all numeric and complex values can be interpreted logically:
-* 0 = FALSE
-* non-0 = TRUE
-
-~~~
-as.logical(0)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] FALSE
-~~~
-{: .output}
-
-
-
-~~~
-as.logical(1)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
-~~~
-{: .output}
-
-
-
-~~~
-as.logical(4.2)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
-~~~
-{: .output}
-
-
-
-~~~
-as.logical(-5)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
-~~~
-{: .output}
-
-
-
-~~~
-as.logical(c(0+0i))
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] FALSE
-~~~
-{: .output}
-
-
-
-~~~
-as.logical(c(1+2i))
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
-~~~
-{: .output}
-
-&nbsp;
-
-What if we try to force something that cannot be interpreted?
-
-
-~~~
-as.numeric("a")
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: NAs introduced by coercion
-~~~
-{: .error}
-
-
-
-~~~
-[1] NA
-~~~
-{: .output}
-
-> ## Finding Commonalities
+> ## Finding commonalities
 >
 > What two properties are common to all of the vectors above?
 > > ## Solution
@@ -811,13 +789,14 @@ x[range] # returns the range of values specified by "range", in this case elemen
 ~~~
 {: .output}
 
-> ## Subsetting Data
+> ## Subsetting data
 >
 > Let's look at a different subsetting option using a character vectors:
 >
 > 
 > ~~~
 > animal <- c("m", "o", "n", "k", "e", "y")
+> 
 > # first three characters
 > animal[1:3]
 > ~~~
@@ -845,36 +824,87 @@ x[range] # returns the range of values specified by "range", in this case elemen
 > ~~~
 > {: .output}
 >
-> 1.  If the first four characters are selected using the subset `animal[1:4]`, how can we obtain the first four characters in reverse order?
+> &nbsp;
 >
-> 1.  What is `animal[-1]`?
->    What is `animal[-4]`?
->    Given those answers,
->    explain what `animal[-1:-4]` does.
+> Consider the following questions:
 >
-> 1.  Use a subset of `animal` to create a new character vector that spells the word "eon", i.e. `c("e", "o", "n")`.
+> 1.  If the first four characters are selected using the subset `animal[1:4]`, 
+> how can we obtain the first four characters in reverse order?
+>
+> 2. What output results from `animal[-1]`?
+> 
+> 3. What ouptut results from `animal[-4]`?
+>
+> 4. Given 1-3, what do you expect `animal[-1:-4]` to produce?
+>
+> 5. Use a subset of the `animal` vector to create a new character vector that spells the word "main", i.e. `c("m", "a", "i", "n")`.
+>
 > > ## Solutions
 > > 
 > > 1. `animal[4:1]`
 > > 
-> > 1. `"o" "n" "k" "e" "y"` and `"m" "o" "n" "e" "y"`, which means that a
-> >    single `-` removes the element at the given index position.
-> >    `animal[-1:-4]` remove the subset, returning `"e" "y"`, which is
-> >    equivalent to `animal[5:6]`.
+> > 2. `"o" "n" "k" "e" "y"`
 > > 
-> > 1. `animal[c(5,2,3)]` combines indexing with the `c`ombine function.
+> > 3. `"m" "o" "n" "e" "y"`, which means that a single `-` removes the element 
+> > at the given index position.
 > > 
+> > 4. `animal[-1:-4]` remove the subset at indexes 1 to 4, returning `"e" "y"`,
+> > which is equivalent to `animal[5:6]`.
+> > 
+> > 
+> > ~~~
+> > animal[-1:-4]
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "e" "y"
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > animal[5:6]
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "e" "y"
+> > ~~~
+> > {: .output}
+> > 
+> > 5. `animal[c(5,2,3)]` combines indexing with the `c`ombine function to 
+> > spell the word "eon" in a new vector:
+> > 
+> > 
+> > ~~~
+> > animal[c(5,2,3)]
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] "e" "o" "n"
+> > ~~~
+> > {: .output}
 > {: .solution}
 {: .challenge}
 
 &nbsp;
 
-We will talk about more advanced indexing later in this lesson.
+We will talk about more advanced indexing strategies later in the course.
 
 &nbsp;
 #### Vectorized operations
 
 R has a special way of dealing with vectors when dealing with operations. We know what to expect from `1 + 1`, but what happens if you try to add two vectors?
+
 
 ~~~
 x = c(1,2,3)
@@ -894,7 +924,8 @@ z
 
 &nbsp;
 
-R creates a new vector with each element the sum of the elements with the same index from x and y. In essence, R is performing 3 separate "addition" operations and combining the results into a new vector:
+R creates a new vector in which each element the sum of the elements with the same index from x and y. In essence, R is performing 3 separate "addition" operations and combining the results into a new vector. We can mimick this behavior manually:
+
 
 ~~~
 z1 = x[1] + y[1]
@@ -918,7 +949,7 @@ z
 This process is called "vectorization". It works for most mathematical operations:
 
 ~~~
-x-y
+x - y
 ~~~
 {: .language-r}
 
@@ -946,7 +977,7 @@ x * y
 
 
 ~~~
-x/y
+x / y
 ~~~
 {: .language-r}
 
@@ -960,7 +991,7 @@ x/y
 
 
 ~~~
-x^y
+x ^ y
 ~~~
 {: .language-r}
 
@@ -974,6 +1005,7 @@ x^y
 &nbsp;
 
 Many functions also behave in a vectorized manner. Take the `paste()` function, for example, which combines two or more character variables into a single variable:
+
 
 ~~~
 # Here is the output with two strings
@@ -1009,222 +1041,20 @@ paste(attitude,animal)
 
 &nbsp;
 
-Depending on how they are written and the way their input/output works, some functions may not act on the vector, but on the list of values in the vector. The best way to find out is to give it a try. 
+Depending on how they are written and the way their input/output works, some functions may not act on the vector, but on the list of values in the vector. The best way to find out is to just give it a try. 
 
-***
-### Missing data and special values
-
-R supports both missing data and special values in data structures. 
-
-&nbsp;
-#### Missing Data
-
-Missing data is represented as `NA` (Not Available)
-and can be used for all the vector types covered in this lesson:
-
-
-~~~
-y1 <- c(0.5, NA, 0.7)
-y2 <- c(TRUE, FALSE, NA)
-y3 <- c("a", NA, "c", "d", "e")
-y4 <- c(1+5i, 2-3i, NA)
-~~~
-{: .language-r}
-
-&nbsp;
-
-The function `is.na()` indicates the elements of the vectors that represent
-missing data, and the function `anyNA()` returns `TRUE` if the vector contains
-any missing values:
-
-
-~~~
-x <- c("a", NA, "c", "d", NA)
-y <- c("a", "b", "c", "d", "e")
-is.na(x)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] FALSE  TRUE FALSE FALSE  TRUE
-~~~
-{: .output}
-
-
-
-~~~
-is.na(y)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] FALSE FALSE FALSE FALSE FALSE
-~~~
-{: .output}
-
-
-
-~~~
-anyNA(x)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
-~~~
-{: .output}
-
-
-
-~~~
-anyNA(y)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] FALSE
-~~~
-{: .output}
-
-&nbsp;
-#### Other Special Values
-
-`Inf` is infinity. You can have either positive or negative infinity.
-
-
-~~~
-1/0
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] Inf
-~~~
-{: .output}
-
-
-
-~~~
--1/0
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] -Inf
-~~~
-{: .output}
-
-
-
-~~~
-10 * Inf
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] Inf
-~~~
-{: .output}
-
-
-
-~~~
-1/Inf
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 0
-~~~
-{: .output}
-
-&nbsp;
-
-`NaN` means Not a Number. It's an undefined value. However, it can still be a placeholder in a numeric vector.
-
-~~~
-0/0
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] NaN
-~~~
-{: .output}
-
-
-
-~~~
-2 * NaN
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] NaN
-~~~
-{: .output}
-
-
-
-~~~
-Inf * NaN
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] NaN
-~~~
-{: .output}
-
-
-
-~~~
-x = c(1, 2, NaN)
-typeof(x)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "double"
-~~~
-{: .output}
 
 ***
 ### Objects Attributes
 
-Objects can have __attributes__. Attributes are metadata that are part of the object and describe different aspects of the object. These include:
+R objects can have **attributes**. Attributes are metadata and part of the object. Each attribute describes a different aspect of the object. These include:
 
-* names
-* dimnames
-* dim
-* class
-* attributes (contain other forms of metadata)
+* **names** -- some objects (e.g. lists) have named elements
+* **dim** -- the number of rows and columns in a matrix
+* **class** -- the data type of an object
+* **attributes** -- a list containing other forms of metadata of more complex objects
 
-You can also glean other attribute-like information such as length (works on vectors and lists) or number of characters (for character strings).
+While technically not assigned *attributes*, you can also glean other attribute-like metadata information from objects such as length (works on vectors and lists) or number of characters (for character strings).
 
 
 ~~~
@@ -1242,32 +1072,47 @@ length(1:10)
 
 
 ~~~
-nchar("Software Carpentry")
+nchar("MCB 585")
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] 18
+[1] 7
 ~~~
 {: .output}
 
 &nbsp;
 
-We will talk more about attributes when we get to more complex data structures.
+We will periodically use object attributes to manipulate objects throughout the course.
 
 ***
 ### Matrices
 
-In R matrices are an extension of the numeric or character vectors. They are not
-a separate type of object but simply an atomic vector with dimensions; the
-number of rows and columns. As with atomic vectors, the elements of a matrix must
-be of the same data type.
+In R matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with dimensions; the number of rows and columns. As with atomic vectors, the elements of a matrix must be of the same data type. Like vectors, we can use the generic `matrix()` function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. `character()`):
 
 
 ~~~
-m <- matrix(nrow = 2, ncol = 2)
+# first create a vector, then coerce that vector into a matrix:
+v <- 1:4
+m <- matrix(data = v, nrow = 2, ncol = 2)
+
+# note the difference in structure
+v
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 1 2 3 4
+~~~
+{: .output}
+
+
+
+~~~
 m
 ~~~
 {: .language-r}
@@ -1276,11 +1121,14 @@ m
 
 ~~~
      [,1] [,2]
-[1,]   NA   NA
-[2,]   NA   NA
+[1,]    1    3
+[2,]    2    4
 ~~~
 {: .output}
 
+&nbsp;
+
+We can no examine some of the attributes of our new matrix `m`:
 
 
 ~~~
@@ -1295,28 +1143,55 @@ dim(m)
 ~~~
 {: .output}
 
-&nbsp;
-
-You can check that matrices are vectors with a class attribute of `matrix` by using
-`class()` and `typeof()`.
 
 
 ~~~
-m <- matrix(c(1:3))
-m
+attributes(m)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-     [,1]
-[1,]    1
-[2,]    2
-[3,]    3
+$dim
+[1] 2 2
 ~~~
 {: .output}
 
+&nbsp; 
+
+Note that under the surface, R still treats `m` as a vector, so the `length()` of `v` and `m` are the same (i.e. both contain 4 elements):
+
+
+~~~
+length(v)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 4
+~~~
+{: .output}
+
+
+
+~~~
+length(m)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 4
+~~~
+{: .output}
+
+&nbsp;
+
+Matrices are a higher-oder object (a vector with additional properties). Thus the `class()` function no longer tells you the data type for each element, but rather the data structure type of the entire object:
 
 
 ~~~
@@ -1331,6 +1206,9 @@ class(m)
 ~~~
 {: .output}
 
+&nbsp;
+
+You can check the data type of the elements of the matrix using `typeof()`:
 
 
 ~~~
@@ -1352,67 +1230,6 @@ matrix is an integer vector.
 
 Note that one difference between vectors and matrices is that an otherwise identical vector will return the data type of each element when you use `class()`, while the matrix is a new type of object with `class()` "matrix".
 
-
-~~~
-v = 1:3
-v
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 1 2 3
-~~~
-{: .output}
-
-
-
-~~~
-class(v)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "integer"
-~~~
-{: .output}
-
-
-
-~~~
-m = as.matrix(v)
-m
-~~~
-{: .language-r}
-
-
-
-~~~
-     [,1]
-[1,]    1
-[2,]    2
-[3,]    3
-~~~
-{: .output}
-
-
-
-~~~
-class(m)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "matrix" "array" 
-~~~
-{: .output}
-
-
 > ## Data types of matrix elements
 > 
 > Consider the following matrix:
@@ -1430,19 +1247,17 @@ class(m)
 > `typeof(FOURS)` to return? How do you know this is the case even without
 > running this code?
 >
-> *Hint* Can matrices be composed of elements of different data types?
->
 > > ## Solution
 > > We know that `typeof(FOURS)` will also return `"double"` since matrices 
-> > are made of elements of the same data type. Note that you could do 
-> > something like `as.character(FOURS)` if you needed the elements of `FOURS` 
-> > *as characters*.
+> > are just vectors, and vectors must be made of elements of the same data
+> > type. Note that you could do something like `as.character(FOURS)` if you
+> > needed the elements of `FOURS` to be *characters*.
 > {: .solution}
 {: .challenge}
 
 &nbsp;
 
-Matrices in R are filled column-wise:
+By default, matrices in R are filled column-wise:
 
 
 ~~~
@@ -1460,7 +1275,7 @@ m1
 ~~~
 {: .output}
 
-... unless you tell it to fill by row explicitly:
+... unless you tell it to fill by row explicitly using the `byrow` argument:
 
 
 ~~~
@@ -1484,8 +1299,10 @@ Other ways to construct a matrix
 
 
 ~~~
-m      <- 1:10
-m # so far m is just a vector!
+m <- 1:10
+
+# so far m is just a vector!
+m
 ~~~
 {: .language-r}
 
@@ -1499,8 +1316,23 @@ m # so far m is just a vector!
 
 
 ~~~
+class(m)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "integer"
+~~~
+{: .output}
+
+
+
+~~~
+# defining the "dimensions" attribute automatically converts m to a matrix
 dim(m) <- c(2, 5)
-m # defining the dimensions converts m to a matrix
+m
 ~~~
 {: .language-r}
 
@@ -1510,6 +1342,20 @@ m # defining the dimensions converts m to a matrix
      [,1] [,2] [,3] [,4] [,5]
 [1,]    1    3    5    7    9
 [2,]    2    4    6    8   10
+~~~
+{: .output}
+
+
+
+~~~
+class(m)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "matrix" "array" 
 ~~~
 {: .output}
 
@@ -1557,7 +1403,7 @@ y   10   11   12
 &nbsp;
 #### Indexing matrices
 
-Like vectors, use `[m,n]` to index the *m*th row and *n*th column of a matrix. The row is always specified before the `,` and the column after.
+Like vectors, `[]` are used to index matrices. Since matrices are, by definition, two-dimensional, use `[m,n]` to index the *m*th row and *n*th column of a matrix. The row is always specified before the `,` and the column after.
 
 
 ~~~
@@ -1591,6 +1437,195 @@ m[2, 3]
 
 &nbsp;
 
+If you are only interested in indexing a specific row, but do not want to change the columns, you can just leave the column index blank (but don't forget the `,`!):
+
+
+~~~
+m[2,]
+~~~
+{: .language-r}
+
+
+
+~~~
+[1]  2  4  6  8 10
+~~~
+{: .output}
+
+
+> ## Subsetting data
+>
+> Let's look at a different ways to manipulate matrices. First, let's define
+> a simple matrix to play with:
+>
+> 
+> ~~~
+> m <- matrix(1:12, nrow=3)
+> m
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+>      [,1] [,2] [,3] [,4]
+> [1,]    1    4    7   10
+> [2,]    2    5    8   11
+> [3,]    3    6    9   12
+> ~~~
+> {: .output}
+>
+> &nbsp;
+>
+> Keeping in mind what you know about the behavior of vectors, consider the  
+> following questions:
+>
+> 1. How can you use indexing to extract the middle of the matrix (e.g. `5` 
+> and `8`)?
+>
+> 2. What output do you expect from `m[-2,]`?
+>
+> 3. What output do you expect from `m[,2:3]`?
+> 
+> 4. What result do expect when you try including `m` in simple 
+> multiplication: `2*m`?
+>
+> 5. Can you predict what will happen if you try `m[,c(1,3)]`?
+>
+> 6. There is a useful function `t()`. Try `t(m)`. Based on the output,
+> what does `t()` do? What do you think the `t` stands for?
+>
+> 7. What happens if we only ask for a single index (`m[4]`)? 
+> 
+> > ## Solutions
+> > 
+> > 1. The numbers `5` and `8` appear in the second row, and the second and third > > columns, respectively. To extract this matrix subset, we use the index:
+> >
+> > 
+> > ~~~
+> > m[2,2:3]
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 5 8
+> > ~~~
+> > {: .output}
+> > 
+> > &nbsp;
+> >
+> > {:start="2"}
+> > 2. Like in vectors, the `-` tells R to exclude the index that follows. In 
+> > this case, exclude row 2. The column index is blank, so all columns are 
+> > returned. Thus we end up with a smaller matrix with only rows 1 and 3, and 
+> > all elements in row 2 removed:
+> >
+> > 
+> > ~~~
+> >      [,1] [,2] [,3] [,4]
+> > [1,]    1    4    7   10
+> > [2,]    3    6    9   12
+> > ~~~
+> > {: .output}
+> > 
+> > &nbsp;
+> >
+> > {:start="3"}
+> > 3. As with vectors, including a set of sequential values in either index
+> > will return all of the indexes in that range. In this case rows are blank
+> > (so include all rows), and columns 2-3 are requested, so we will get the 
+> > following 2x2 matrix:
+> >
+> > 
+> > ~~~
+> >      [,1] [,2]
+> > [1,]    4    7
+> > [2,]    5    8
+> > [3,]    6    9
+> > ~~~
+> > {: .output}
+> >  
+> > &nbsp;
+> >
+> > {:start="4"}
+> > 4. Because matrices are essentially vectors with attributes, all standard
+> > operations are "vectorized". We thus expect a new matrix with the same 
+> > dimensions as m, but with each element equal to twice the corresponding 
+> > element in m:
+> > 
+> > 
+> > ~~~
+> >      [,1] [,2] [,3] [,4]
+> > [1,]    2    8   14   20
+> > [2,]    4   10   16   22
+> > [3,]    6   12   18   24
+> > ~~~
+> > {: .output}
+> > 
+> > &nbsp;
+> >
+> > {:start="5"}
+> > 5. While we haven't covered it explicity, entering `2:3` into an index
+> > (like in question 3) is equivalent to entering an list of values (e.g. 
+> > `c(2,3)`). Any list of this sort can be used to index a specific (and 
+> > not necessarily sequential) set of rows or columns. Thus we expect 
+> > the list `c(1,3)` entered into the column index to return columns 1 and 3:
+> > 
+> > 
+> > ~~~
+> >      [,1] [,2]
+> > [1,]    1    7
+> > [2,]    2    8
+> > [3,]    3    9
+> > ~~~
+> > {: .output}
+> > 
+> > &nbsp;
+> >
+> > {:start="6"}
+> > 6. Let's see what happens if we use the `t()` function on `m`:
+> > 
+> > 
+> > ~~~
+> > t(m)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >      [,1] [,2] [,3]
+> > [1,]    1    2    3
+> > [2,]    4    5    6
+> > [3,]    7    8    9
+> > [4,]   10   11   12
+> > ~~~
+> > {: .output}
+> > 
+> > &nbsp;
+> > 
+> > The `t` stands for "transpose", and as we can see from the result, `t(m)`
+> > simply "flips" the matrix so that rows are now columns and columns are now
+> > rows.
+> > 
+> > &nbsp;
+> > 
+> > {:start="7"}
+> > 7. Since a matrix is just a fancy vector, requesting R to return the 4th
+> > index (`m[4]`) will simply return the 4th value in the underlying vector:
+> > 
+> > 
+> > ~~~
+> > [1] 4
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
 What if we ask for an index outside the range of a matrix?
 
 
@@ -1605,6 +1640,10 @@ m[3,15]
 Error in m[3, 15]: subscript out of bounds
 ~~~
 {: .error}
+
+&nbsp;
+
+This error universally occurs whenever you request an invalid index to an object in R (vector, matrix, list, data frame, etc.)
 
 ***
 
