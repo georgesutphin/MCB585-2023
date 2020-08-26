@@ -191,6 +191,118 @@ typeof(z)
 {: .output}
 
 &nbsp;
+#### Examining Vectors
+
+The functions `typeof()`, `length()`, `class()` and `str()` provide useful
+information about your vectors and R objects in general.
+
+
+~~~
+typeof(z)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "double"
+~~~
+{: .output}
+
+
+
+~~~
+length(z)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 10
+~~~
+{: .output}
+
+
+
+~~~
+class(z)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "numeric"
+~~~
+{: .output}
+
+
+
+~~~
+str(z) # stands for "structure" of an object
+~~~
+{: .language-r}
+
+
+
+~~~
+ num [1:10] 1 2 3 4 5 6 7 8 9 10
+~~~
+{: .output}
+
+&nbsp;
+
+The first example creates a vector `x` of mode `numeric`. These are the most common kind, and are treated as double precision real numbers. If you wanted to explicitly create integers, you need to add an `L` to each element
+
+
+~~~
+x1 <- c(1L, 2L, 3L)
+typeof(x1)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "integer"
+~~~
+{: .output}
+
+&nbsp;
+
+You can also *coerce* a vector to the integer type using `as.integer()`.
+
+
+~~~
+x2 <- as.integer(x)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning: NAs introduced by coercion
+~~~
+{: .error}
+
+
+
+~~~
+typeof(x2)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "integer"
+~~~
+{: .output}
+
+
+
+&nbsp;
 
 R has many __data structures__. These include
 
@@ -638,7 +750,207 @@ class(f)
 ~~~
 {: .output}
 
+***
+### Missing data and special values
 
+R supports both missing data and special values in data structures. 
+
+&nbsp;
+#### Missing Data
+
+Missing data is represented as `NA` (Not Available)
+and can be used for all the vector types covered in this lesson:
+
+
+~~~
+y1 <- c(0.5, NA, 0.7)
+y2 <- c(TRUE, FALSE, NA)
+y3 <- c("a", NA, "c", "d", "e")
+y4 <- c(1+5i, 2-3i, NA)
+~~~
+{: .language-r}
+
+&nbsp;
+
+The function `is.na()` indicates the elements of the vectors that represent
+missing data, and the function `anyNA()` returns `TRUE` if the vector contains
+any missing values:
+
+
+~~~
+x <- c("a", NA, "c", "d", NA)
+y <- c("a", "b", "c", "d", "e")
+is.na(x)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] FALSE  TRUE FALSE FALSE  TRUE
+~~~
+{: .output}
+
+
+
+~~~
+is.na(y)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] FALSE FALSE FALSE FALSE FALSE
+~~~
+{: .output}
+
+
+
+~~~
+anyNA(x)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+
+
+~~~
+anyNA(y)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] FALSE
+~~~
+{: .output}
+
+&nbsp;
+#### Other Special Values
+
+`Inf` is infinity. You can have either positive or negative infinity.
+
+
+~~~
+1/0
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] Inf
+~~~
+{: .output}
+
+
+
+~~~
+-1/0
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] -Inf
+~~~
+{: .output}
+
+
+
+~~~
+10 * Inf
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] Inf
+~~~
+{: .output}
+
+
+
+~~~
+1/Inf
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 0
+~~~
+{: .output}
+
+&nbsp;
+
+`NaN` means Not a Number. It's an undefined value. However, it can still be a placeholder in a numeric vector.
+
+~~~
+0/0
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] NaN
+~~~
+{: .output}
+
+
+
+~~~
+2 * NaN
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] NaN
+~~~
+{: .output}
+
+
+
+~~~
+Inf * NaN
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] NaN
+~~~
+{: .output}
+
+
+
+~~~
+x = c(1, 2, NaN)
+typeof(x)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "double"
+~~~
+{: .output}
 
 ***
 

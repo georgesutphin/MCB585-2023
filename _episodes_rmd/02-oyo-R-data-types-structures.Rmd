@@ -94,6 +94,39 @@ typeof(z)
 ```
 
 &nbsp;
+#### Examining Vectors
+
+The functions `typeof()`, `length()`, `class()` and `str()` provide useful
+information about your vectors and R objects in general.
+
+```{r}
+typeof(z)
+length(z)
+class(z)
+str(z) # stands for "structure" of an object
+```
+
+&nbsp;
+
+The first example creates a vector `x` of mode `numeric`. These are the most common kind, and are treated as double precision real numbers. If you wanted to explicitly create integers, you need to add an `L` to each element
+
+```{r}
+x1 <- c(1L, 2L, 3L)
+typeof(x1)
+```
+
+&nbsp;
+
+You can also *coerce* a vector to the integer type using `as.integer()`.
+
+```{r}
+x2 <- as.integer(x)
+typeof(x2)
+```
+
+
+
+&nbsp;
 
 R has many __data structures__. These include
 
@@ -289,7 +322,61 @@ f
 class(f)
 ```
 
+***
+### Missing data and special values
 
+R supports both missing data and special values in data structures. 
+
+&nbsp;
+#### Missing Data
+
+Missing data is represented as `NA` (Not Available)
+and can be used for all the vector types covered in this lesson:
+
+```{r}
+y1 <- c(0.5, NA, 0.7)
+y2 <- c(TRUE, FALSE, NA)
+y3 <- c("a", NA, "c", "d", "e")
+y4 <- c(1+5i, 2-3i, NA)
+```
+
+&nbsp;
+
+The function `is.na()` indicates the elements of the vectors that represent
+missing data, and the function `anyNA()` returns `TRUE` if the vector contains
+any missing values:
+
+```{r}
+x <- c("a", NA, "c", "d", NA)
+y <- c("a", "b", "c", "d", "e")
+is.na(x)
+is.na(y)
+anyNA(x)
+anyNA(y)
+```
+
+&nbsp;
+#### Other Special Values
+
+`Inf` is infinity. You can have either positive or negative infinity.
+
+```{r}
+1/0
+-1/0
+10 * Inf
+1/Inf
+```
+
+&nbsp;
+
+`NaN` means Not a Number. It's an undefined value. However, it can still be a placeholder in a numeric vector.
+```{r}
+0/0
+2 * NaN
+Inf * NaN
+x = c(1, 2, NaN)
+typeof(x)
+```
 
 ***
 
