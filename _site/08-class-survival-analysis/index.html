@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-23 21:10:15 -0700">
+    <meta http-equiv="last-modified" content="2020-08-27 23:06:19 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -119,11 +119,13 @@
             
             <li><a href="../02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
+            <li><a href="../02-oyo-R-data-types-in-depth/index.html">R Data Types -- In-Depth</a></li>
+            
             <li><a href="../02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a></li>
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
+            <li><a href="../03-oyo-Lists/index.html">Lists and Advanced Indexing</a></li>
             
             <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
             
@@ -287,7 +289,7 @@
 	<li><p>Understand censoring and how it affects time-to-event data.</p>
 </li>
 	
-	<li><p>Use the <code class="highlighter-rouge">survival()</code> package to generate survival curves and age-specific mortality plots.</p>
+	<li><p>Use the <code class="language-plaintext highlighter-rouge">survival()</code> package to generate survival curves and age-specific mortality plots.</p>
 </li>
 	
 	<li><p>Use the Wilcoxon Rank-Sum (aka Mann-Whitney U) and Log-Rank tests to evaluate statistical differences between time-to-event observations between groups.</p>
@@ -378,22 +380,22 @@ removes potentially valuable data (e.g. the mouse live at least 18 months).</li>
 <p><img src="../fig/life-table-partial.png" alt="Partial Life Table" /></p>
 
 <ul>
-  <li><script type="math/tex">t_0</script> start time, relative to the time period of interest (e.g. for lifespan data, each individual’s birth is set to time 0, even if they were born on different dates)</li>
-  <li><script type="math/tex">t</script> observation time</li>
-  <li><script type="math/tex">d_t</script> number of events observed at at time t</li>
-  <li><script type="math/tex">n_0 = \sum d_t</script> original sample size (number of individuals in the sample prior to censoring or events)</li>
-  <li><script type="math/tex">n_t = n_0 - \sum_{x = 0}^{t-1} d_x</script> number of individuals at risk at time t (e.g. sampled, uncensored individuals with no event by time t)</li>
-  <li><script type="math/tex">l_t = \frac{n_t}{n_0}</script> fraction of the sample remaining at risk by time t</li>
-  <li><script type="math/tex">S(t) \approx l_t</script> survival function, the fraction of the population at risk (aka “surviving to”) time t</li>
+  <li>\(t_0\) start time, relative to the time period of interest (e.g. for lifespan data, each individual’s birth is set to time 0, even if they were born on different dates)</li>
+  <li>\(t\) observation time</li>
+  <li>\(d_t\) number of events observed at at time t</li>
+  <li>\(n_0 = \sum d_t\) original sample size (number of individuals in the sample prior to censoring or events)</li>
+  <li>\(n_t = n_0 - \sum_{x = 0}^{t-1} d_x\) number of individuals at risk at time t (e.g. sampled, uncensored individuals with no event by time t)</li>
+  <li>\(l_t = \frac{n_t}{n_0}\) fraction of the sample remaining at risk by time t</li>
+  <li>\(S(t) \approx l_t\) survival function, the fraction of the population at risk (aka “surviving to”) time t</li>
 </ul>
 
-<p>We estimate the survival function by plotting <script type="math/tex">l_t</script> vs. age <script type="math/tex">t</script>. Let’s examine the survival of the US population as an example. The life table is stored in <code class="highlighter-rouge">S2011.life.table.txt</code>.</p>
+<p>We estimate the survival function by plotting \(l_t\) vs. age \(t\). Let’s examine the survival of the US population as an example. The life table is stored in <code class="language-plaintext highlighter-rouge">S2011.life.table.txt</code>.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/US2011.life.table.txt"</span><span class="p">)</span><span class="w">
 </span><span class="n">str</span><span class="p">(</span><span class="n">lt</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	101 obs. of  7 variables:
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	101 obs. of  7 variables:
  $ age: int  0 1 2 3 4 5 6 7 8 9 ...
  $ qx : num  0.006058 0.000415 0.000264 0.000208 0.000167 ...
  $ lx : int  100000 99394 99353 99327 99306 99289 99274 99261 99249 99239 ...
@@ -405,7 +407,7 @@ removes potentially valuable data (e.g. the mouse live at least 18 months).</li>
 
 <p> </p>
 
-<p>Note that what I called <script type="math/tex">n_t</script> this particular data set calls <script type="math/tex">l_x</script> (and that all subscripts are “x” instead of “t”). Some of the above variables (e.g. our <script type="math/tex">l_t</script>) are missing. To start, let’s rename the variables to match our convention and calculate <script type="math/tex">l_t</script>:</p>
+<p>Note that what I called \(n_t\) this particular data set calls \(l_x\) (and that all subscripts are “x” instead of “t”). Some of the above variables (e.g. our \(l_t\)) are missing. To start, let’s rename the variables to match our convention and calculate \(l_t\):</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># rename life table variables</span><span class="w">
 </span><span class="nf">names</span><span class="p">(</span><span class="n">lt</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"t"</span><span class="p">,</span><span class="s2">"qt"</span><span class="p">,</span><span class="s2">"nt"</span><span class="p">,</span><span class="s2">"dt"</span><span class="p">,</span><span class="s2">"Lt"</span><span class="p">,</span><span class="s2">"Tt"</span><span class="p">,</span><span class="s2">"et"</span><span class="p">)</span><span class="w">
@@ -415,7 +417,7 @@ removes potentially valuable data (e.g. the mouse live at least 18 months).</li>
 </span><span class="n">head</span><span class="p">(</span><span class="n">lt</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  t       qt     nt  dt    Lt      Tt   et      lt
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  t       qt     nt  dt    Lt      Tt   et      lt
 1 0 0.006058 100000 606 99470 7870915 78.7 1.00000
 2 1 0.000415  99394  41 99374 7771445 78.2 0.99394
 3 2 0.000264  99353  26 99340 7672071 77.2 0.99353
@@ -439,19 +441,19 @@ removes potentially valuable data (e.g. the mouse live at least 18 months).</li>
 
 <p>Great! That looks like a standard survival curve to me. We can see that median lifespan is around 85 years and maximum is out around 100. The tip of the tail, which won’t appear on this chart, which only has ~100,000 people, is really out at 122 or so.</p>
 
-<p>From the equation for <script type="math/tex">l_t</script>, we can see that it depends on <script type="math/tex">n_t</script>, which in turn depends on all of the previously observed events (<script type="math/tex">d_0</script> to <script type="math/tex">d_t-1</script>). Thus the survival function cannot be considered an variable with independent observations. This is one reason we can’t use a t-test to make comparisons. For that we need to look at a different aspect of time-to-event data. A complete life table will have a few more columns:</p>
+<p>From the equation for \(l_t\), we can see that it depends on \(n_t\), which in turn depends on all of the previously observed events (\(d_0\) to \(d_t-1\)). Thus the survival function cannot be considered an variable with independent observations. This is one reason we can’t use a t-test to make comparisons. For that we need to look at a different aspect of time-to-event data. A complete life table will have a few more columns:</p>
 
 <p><img src="../fig/life-table-full.png" alt="Full Life Table" /></p>
 
 <ul>
-  <li><script type="math/tex">p_t = l_{t+1}/l_t</script> probability that someone with no event at time t will still have no event by time t + 1.</li>
-  <li><script type="math/tex">q_t = 1 - p_t</script> probability that someone with no event at time t will experience the event by time t + 1.</li>
-  <li><script type="math/tex">\lambda(t) = -\frac{\delta}{dx} ln[S(x)] \approx -ln(p_t)</script> instantaneous rate at which the event occurs at time t; the slope of the log of the survival function.</li>
+  <li>\(p_t = l_{t+1}/l_t\) probability that someone with no event at time t will still have no event by time t + 1.</li>
+  <li>\(q_t = 1 - p_t\) probability that someone with no event at time t will experience the event by time t + 1.</li>
+  <li>\(\lambda(t) = -\frac{\delta}{dx} ln[S(x)] \approx -ln(p_t)\) instantaneous rate at which the event occurs at time t; the slope of the log of the survival function.</li>
 </ul>
 
-<p>The last variable, <script type="math/tex">\lambda(t)</script> is called the hazard function (aka hazard rate, <script type="math/tex">h(x)</script>), or in the context of survival data, age-specific mortality or force of mortality (<script type="math/tex">\mu_x</script>). Conceptually, age-specific mortality represents the change of an individual dying at that specific age.</p>
+<p>The last variable, \(\lambda(t)\) is called the hazard function (aka hazard rate, \(h(x)\)), or in the context of survival data, age-specific mortality or force of mortality (\(\mu_x\)). Conceptually, age-specific mortality represents the change of an individual dying at that specific age.</p>
 
-<p><script type="math/tex">\lambda(t)</script>, while not normally distributed, does not depend on previous observations, and can thus be considered a variable for which observations are independent. This allows us to make statistical comparisons. Let’s look at how <script type="math/tex">\lambda(t)</script> behaves.</p>
+<p>\(\lambda(t)\), while not normally distributed, does not depend on previous observations, and can thus be considered a variable for which observations are independent. This allows us to make statistical comparisons. Let’s look at how \(\lambda(t)\) behaves.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># calculate pt and lambdat</span><span class="w">
 </span><span class="n">lt</span><span class="o">$</span><span class="n">pt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">lt</span><span class="o">$</span><span class="n">qt</span><span class="w">
@@ -467,7 +469,7 @@ removes potentially valuable data (e.g. the mouse live at least 18 months).</li>
 
 <p> </p>
 
-<p>Does that shape look familiar? It appears to increase exponentially with age. Try plotting the y-axis on a log-scale (using the <code class="highlighter-rouge">log = "y"</code> argument in plot) (alternatively, we could also plot <code class="highlighter-rouge">log(lt$lambdat)</code>:</p>
+<p>Does that shape look familiar? It appears to increase exponentially with age. Try plotting the y-axis on a log-scale (using the <code class="language-plaintext highlighter-rouge">log = "y"</code> argument in plot) (alternatively, we could also plot <code class="language-plaintext highlighter-rouge">log(lt$lambdat)</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot</span><span class="p">(</span><span class="n">lt</span><span class="o">$</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">lt</span><span class="o">$</span><span class="n">lambdat</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"l"</span><span class="p">,</span><span class="w"> </span><span class="n">log</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span><span class="w">
      </span><span class="n">main</span><span class="o">=</span><span class="s2">"US Age-Specific Mortality 2011"</span><span class="p">,</span><span class="w">
@@ -489,7 +491,7 @@ removes potentially valuable data (e.g. the mouse live at least 18 months).</li>
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lt</span><span class="o">$</span><span class="n">t</span><span class="p">[</span><span class="n">which.min</span><span class="p">(</span><span class="n">lt</span><span class="o">$</span><span class="n">lambdat</span><span class="p">)]</span><span class="w">
 </span></code></pre></div>  </div>
 
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 10
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 10
 </code></pre></div>  </div>
 
   <p> </p>
@@ -532,7 +534,7 @@ early in life, it may be selected for even if it causes a fatal disease later in
 
 <p>When an event occurs, the curve drops by a fraction of the remaining “at risk” pool <em>at that time point</em>. As patients are censored without an observed event, the remaining “at risk” pool decreases. Thus subsequent events drop the remaining % remaining by a larger and larger margin. A good step-by-step guide to how Kaplan-Meier curves are drawn can be found <a href="https://towardsdatascience.com/kaplan-meier-curves-c5768e349479">here</a>.</p>
 
-<p>Let’s look at our inbred mouse data for an example. Make sure that the <code class="highlighter-rouge">survival</code> package is loaded, and read in the mouse lifespan data. For our purposes, let’s look specifically at the strain BUB/BnJ, which has some mice censored.</p>
+<p>Let’s look at our inbred mouse data for an example. Make sure that the <code class="language-plaintext highlighter-rouge">survival</code> package is loaded, and read in the mouse lifespan data. For our purposes, let’s look specifically at the strain BUB/BnJ, which has some mice censored.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load survival package</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="s2">"survival"</span><span class="p">)</span><span class="w">
@@ -546,11 +548,11 @@ early in life, it may be selected for even if it causes a fatal disease later in
 
 <p> </p>
 
-<p>For survival analysis, the survival packages uses an odd notation for simulating the survival curve. In order to include data censoring, instead of using <code class="highlighter-rouge">lifespan_days</code> directly as the dependent variable, we use the notation <code class="highlighter-rouge">Surv(time, event status)</code>. This tells R that we have a set of censored survival data with observed event times (<code class="highlighter-rouge">lifespan_days</code>), and some mice that were censored and not observed to have died (<code class="highlighter-rouge">censor</code>).</p>
+<p>For survival analysis, the survival packages uses an odd notation for simulating the survival curve. In order to include data censoring, instead of using <code class="language-plaintext highlighter-rouge">lifespan_days</code> directly as the dependent variable, we use the notation <code class="language-plaintext highlighter-rouge">Surv(time, event status)</code>. This tells R that we have a set of censored survival data with observed event times (<code class="language-plaintext highlighter-rouge">lifespan_days</code>), and some mice that were censored and not observed to have died (<code class="language-plaintext highlighter-rouge">censor</code>).</p>
 
-<p>In our case, we use the <code class="highlighter-rouge">lifespan_days</code> as the time that we observed the event, and <code class="highlighter-rouge">censor</code> as our status variable. An important note: what <code class="highlighter-rouge">Surv()</code> wants for status is whether the event occurred. In this particular data set, the event was assumed to occur unless something odd happened (e.g. the mouse escaped), so <code class="highlighter-rouge">censor</code> is “0” when the mouse died (the event occurred) and “1” when something else happened (e.g. the mouse was “censored” and removed from the study because death, the event, was never observed). Thus we need to tell R that <code class="highlighter-rouge">censor == 0</code> means “the event occurred”.</p>
+<p>In our case, we use the <code class="language-plaintext highlighter-rouge">lifespan_days</code> as the time that we observed the event, and <code class="language-plaintext highlighter-rouge">censor</code> as our status variable. An important note: what <code class="language-plaintext highlighter-rouge">Surv()</code> wants for status is whether the event occurred. In this particular data set, the event was assumed to occur unless something odd happened (e.g. the mouse escaped), so <code class="language-plaintext highlighter-rouge">censor</code> is “0” when the mouse died (the event occurred) and “1” when something else happened (e.g. the mouse was “censored” and removed from the study because death, the event, was never observed). Thus we need to tell R that <code class="language-plaintext highlighter-rouge">censor == 0</code> means “the event occurred”.</p>
 
-<p>The <code class="highlighter-rouge">survfit()</code> function builds the life table that we need for our analyses. We embed the <code class="highlighter-rouge">Surv()</code> object as the dependent variable in side the <code class="highlighter-rouge">survfit()</code> function. <code class="highlighter-rouge">survfit()</code> <em>always</em> needs an independent variable. If you want to just plot all of the data as a single curve, you can just give it “1”:</p>
+<p>The <code class="language-plaintext highlighter-rouge">survfit()</code> function builds the life table that we need for our analyses. We embed the <code class="language-plaintext highlighter-rouge">Surv()</code> object as the dependent variable in side the <code class="language-plaintext highlighter-rouge">survfit()</code> function. <code class="language-plaintext highlighter-rouge">survfit()</code> <em>always</em> needs an independent variable. If you want to just plot all of the data as a single curve, you can just give it “1”:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># calculate life table for BUB/BnJ mice</span><span class="w">
 </span><span class="n">survfit.bub</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">survfit</span><span class="p">(</span><span class="n">Surv</span><span class="p">(</span><span class="n">lifespan_days</span><span class="p">,</span><span class="w"> </span><span class="n">censor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">surv.bub</span><span class="p">)</span><span class="w">
@@ -559,7 +561,7 @@ early in life, it may be selected for even if it causes a fatal disease later in
 </span><span class="n">summary</span><span class="p">(</span><span class="n">survfit.bub</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Call: survfit(formula = Surv(lifespan_days, censor == 0) ~ 1, data = surv.bub)
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Call: survfit(formula = Surv(lifespan_days, censor == 0) ~ 1, data = surv.bub)
 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
   260     52       1   0.9808  0.0190      0.94414        1.000
@@ -611,7 +613,7 @@ early in life, it may be selected for even if it causes a fatal disease later in
 
 <p> </p>
 
-<p>Now that we have the survival function, the <code class="highlighter-rouge">plot()</code> function knows what we want to do with it: plot the Kaplan-Meier curve:</p>
+<p>Now that we have the survival function, the <code class="language-plaintext highlighter-rouge">plot()</code> function knows what we want to do with it: plot the Kaplan-Meier curve:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plot the Kaplan-Meier curve</span><span class="w">
 </span><span class="n">plot</span><span class="p">(</span><span class="n">survfit.bub</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Time (days)"</span><span class="p">,</span><span class="w"> 
@@ -625,7 +627,7 @@ early in life, it may be selected for even if it causes a fatal disease later in
 
 <p> </p>
 
-<p>We can also break the data down into the two sexes. We do this using the dependent variable at the <code class="highlighter-rouge">survfit()</code> step:</p>
+<p>We can also break the data down into the two sexes. We do this using the dependent variable at the <code class="language-plaintext highlighter-rouge">survfit()</code> step:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># calculate life table for BUB/BnJ mice</span><span class="w">
 </span><span class="n">survfit.bub.sex</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">survfit</span><span class="p">(</span><span class="n">Surv</span><span class="p">(</span><span class="n">lifespan_days</span><span class="p">,</span><span class="w"> </span><span class="n">censor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">sex</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">surv.bub</span><span class="p">)</span><span class="w">
@@ -634,7 +636,7 @@ early in life, it may be selected for even if it causes a fatal disease later in
 </span><span class="n">summary</span><span class="p">(</span><span class="n">survfit.bub.sex</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Call: survfit(formula = Surv(lifespan_days, censor == 0) ~ sex, data = surv.bub)
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Call: survfit(formula = Surv(lifespan_days, censor == 0) ~ sex, data = surv.bub)
 
                 sex=f 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
@@ -690,7 +692,7 @@ early in life, it may be selected for even if it causes a fatal disease later in
 
 <p> </p>
 
-<p>And now <code class="highlighter-rouge">plot()</code> to generate the Kaplan-Meier curves:</p>
+<p>And now <code class="language-plaintext highlighter-rouge">plot()</code> to generate the Kaplan-Meier curves:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plot the Kaplan-Meier curve</span><span class="w">
 </span><span class="n">plot</span><span class="p">(</span><span class="n">survfit.bub.sex</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Time (days)"</span><span class="p">,</span><span class="w"> 
@@ -711,22 +713,22 @@ early in life, it may be selected for even if it causes a fatal disease later in
 <hr />
 <h3 id="the-log-rank-test">The Log-Rank Test</h3>
 
-<p>Now we can visualize our lifespan data. How doe we compare different groups? The most common test for lifespan data is the Log-Rank Test (aka the Mantel-Cox Test). The Log-Rank Test makes the assumption that the survival functions (<script type="math/tex">S(t)</script>) are the same for the two groups under the null hypothesis (essentially, this means that any censoring is correlated with survival). What the test does it:</p>
+<p>Now we can visualize our lifespan data. How doe we compare different groups? The most common test for lifespan data is the Log-Rank Test (aka the Mantel-Cox Test). The Log-Rank Test makes the assumption that the survival functions (\(S(t)\)) are the same for the two groups under the null hypothesis (essentially, this means that any censoring is correlated with survival). What the test does it:</p>
 
 <ol>
   <li>Assume that the survival is equal and that any censoring does not impact the survival function.</li>
   <li>At each observation point, calculate the difference in the number of observed events between comparison groups.</li>
-  <li>Sum the differences across time points to calculate the test statistics: <script type="math/tex">z = \frac{\sum_{j=1}^{J} (O_{1j} - O_{2j})}{\sqrt{\sum_{j=1}^{J} V_j}}</script></li>
-  <li>This test statistic is approximately normally distributed and can be used to calculate the probability that the observed difference represents a sample from the null distribution (or not) at a given <script type="math/tex">\alpha</script>.</li>
+  <li>Sum the differences across time points to calculate the test statistics: \(z = \frac{\sum_{j=1}^{J} (O_{1j} - O_{2j})}{\sqrt{\sum_{j=1}^{J} V_j}}\)</li>
+  <li>This test statistic is approximately normally distributed and can be used to calculate the probability that the observed difference represents a sample from the null distribution (or not) at a given \(\alpha\).</li>
 </ol>
 
-<p>In R, the <code class="highlighter-rouge">survdiff()</code> function performs a Log-Rank test using the same dependent and independent variable format as <code class="highlighter-rouge">survfit()</code>. Let’s use it to see if there are differences in lifespan between male and female BUB/BnJ mice:</p>
+<p>In R, the <code class="language-plaintext highlighter-rouge">survdiff()</code> function performs a Log-Rank test using the same dependent and independent variable format as <code class="language-plaintext highlighter-rouge">survfit()</code>. Let’s use it to see if there are differences in lifespan between male and female BUB/BnJ mice:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">logrank.bub</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">survdiff</span><span class="p">(</span><span class="n">Surv</span><span class="p">(</span><span class="n">lifespan_days</span><span class="p">,</span><span class="w"> </span><span class="n">censor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">sex</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">surv.bub</span><span class="p">)</span><span class="w">
 </span><span class="n">logrank.bub</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Call:
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Call:
 survdiff(formula = Surv(lifespan_days, censor == 0) ~ sex, data = surv.bub)
 
        N Observed Expected (O-E)^2/E (O-E)^2/V
@@ -736,12 +738,12 @@ sex=m 32       24     23.9  0.000893   0.00189
  Chisq= 0  on 1 degrees of freedom, p= 1 
 </code></pre></div></div>
 
-<p>So there is no difference in lifespan between male and female BUB/BnJ mice. There is a quirk with the <code class="highlighter-rouge">survdiff()</code> funciton in R. How do you extract the P-value? Looking at the survdiff object, there doesn’t seem to be a clear way:</p>
+<p>So there is no difference in lifespan between male and female BUB/BnJ mice. There is a quirk with the <code class="language-plaintext highlighter-rouge">survdiff()</code> funciton in R. How do you extract the P-value? Looking at the survdiff object, there doesn’t seem to be a clear way:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">logrank.bub</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>List of 6
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>List of 6
  $ n    : 'table' int [1:2(1d)] 32 32
   ..- attr(*, "dimnames")=List of 1
   .. ..$ groups: chr [1:2] "sex=f" "sex=m"
@@ -755,9 +757,9 @@ sex=m 32       24     23.9  0.000893   0.00189
 
 <p> </p>
 
-<p>Similar to how a t-test uses the t-distrubution (which is a modified normal distribution) to calculate a P-value based on the area under a well-defined portion of the probability density curve, the log-rank test calculates a different statisitcs, called <script type="math/tex">\chi</script>, and uses another well-defined distribution, the <script type="math/tex">\chi^2</script> distribution, to calculate P-values.</p>
+<p>Similar to how a t-test uses the t-distrubution (which is a modified normal distribution) to calculate a P-value based on the area under a well-defined portion of the probability density curve, the log-rank test calculates a different statisitcs, called \(\chi\), and uses another well-defined distribution, the \(\chi^2\) distribution, to calculate P-values.</p>
 
-<p>For an obscure and mathematcially dense reason, the creator of the <code class="highlighter-rouge">survdiff()</code> function decided not to directly report the P-value in the output of the function. However, he did include the cacluated value of <script type="math/tex">\chi^2</script>, and R includes a function that defines the <script type="math/tex">\chi^2</script> distrubtion, so we can realtively easily calculate it for ourselves.</p>
+<p>For an obscure and mathematcially dense reason, the creator of the <code class="language-plaintext highlighter-rouge">survdiff()</code> function decided not to directly report the P-value in the output of the function. However, he did include the cacluated value of \(\chi^2\), and R includes a function that defines the \(\chi^2\) distrubtion, so we can realtively easily calculate it for ourselves.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># extract the value of the chi-squared statistic from the survdiff object</span><span class="w">
 </span><span class="c1"># we also need the number of samples in each comparison group, </span><span class="w">
@@ -771,7 +773,7 @@ sex=m 32       24     23.9  0.000893   0.00189
 </span><span class="n">P.bub</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0.9653378
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0.9653378
 </code></pre></div></div>
 
 <blockquote class="callout">
@@ -805,7 +807,7 @@ sex=m 32       24     23.9  0.000893   0.00189
   <p>Earlier we looked at survival and mortality in the US population. Now let’s
 see how these differ by sex. Plot male and female survival and age-specific 
 mortality  on the same plot for comparison. The life tables are stored in 
-<code class="highlighter-rouge">US2011.life.table.male.txt</code> and <code class="highlighter-rouge">US2011.life.table.female.txt</code>, respectively.</p>
+<code class="language-plaintext highlighter-rouge">US2011.life.table.male.txt</code> and <code class="language-plaintext highlighter-rouge">US2011.life.table.female.txt</code>, respectively.</p>
 
   <blockquote class="solution">
     <h2 id="solution">Solution</h2>
@@ -855,7 +857,7 @@ mortality  on the same plot for comparison. The life tables are stored in
   <h2 id="example-3-leukemia--log-rank-test-survdiff-function">Example 3: Leukemia – log-rank test (survdiff function)</h2>
 
   <p>The survival package includes the Acute Myelogenous Leukemia (AML) survival dataset.
-Open the help for <code class="highlighter-rouge">aml</code> for a description of the data. the “x” column indicates whether
+Open the help for <code class="language-plaintext highlighter-rouge">aml</code> for a description of the data. the “x” column indicates whether
 a particular chemotherapy treatment was continued/maintained or discontinued.</p>
 
   <ol>
@@ -866,10 +868,10 @@ Log-Rank P-value to determine whether the differences are signifcant.</li>
 and plot age-specific morality</li>
   </ol>
 
-  <p>The data is stored in the <code class="highlighter-rouge">aml</code> dataframe, which is loaded with the `survival package.</p>
+  <p>The data is stored in the <code class="language-plaintext highlighter-rouge">aml</code> dataframe, which is loaded with the `survival package.</p>
 
-  <p>*Note: unlike our mouse data, the <code class="highlighter-rouge">status</code> variable indicates whether a patient has died,
-not patients that were censored. Be sure to indicate this appropriately in the <code class="highlighter-rouge">Surv()</code> 
+  <p>*Note: unlike our mouse data, the <code class="language-plaintext highlighter-rouge">status</code> variable indicates whether a patient has died,
+not patients that were censored. Be sure to indicate this appropriately in the <code class="language-plaintext highlighter-rouge">Surv()</code> 
 object: `Surv(time, status == 1).</p>
 
   <blockquote class="solution">
@@ -882,7 +884,7 @@ object: `Surv(time, status == 1).</p>
 </span><span class="n">head</span><span class="p">(</span><span class="n">aml</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  time status          x
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  time status          x
 1    9      1 Maintained
 2   13      1 Maintained
 3   13      0 Maintained
@@ -897,7 +899,7 @@ object: `Surv(time, status == 1).</p>
 </span><span class="n">summary</span><span class="p">(</span><span class="n">survfit.aml</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Call: survfit(formula = Surv(time, status == 1) ~ 1, data = aml)
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Call: survfit(formula = Surv(time, status == 1) ~ 1, data = aml)
 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
     5     23       2   0.9130  0.0588       0.8049        1.000
@@ -932,7 +934,7 @@ object: `Surv(time, status == 1).</p>
 </span><span class="n">summary</span><span class="p">(</span><span class="n">survfit.aml.by.rx</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Call: survfit(formula = Surv(time, status == 1) ~ x, data = aml)
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Call: survfit(formula = Surv(time, status == 1) ~ x, data = aml)
 
                 x=Maintained 
  time n.risk n.event survival std.err lower 95% CI upper 95% CI
@@ -975,7 +977,7 @@ object: `Surv(time, status == 1).</p>
 </span><span class="n">aml.survdiff</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Call:
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Call:
 survdiff(formula = Surv(time, status == 1) ~ x, data = aml)
 
                  N Observed Expected (O-E)^2/E (O-E)^2/V
@@ -985,9 +987,9 @@ x=Nonmaintained 12       11     7.31      1.86       3.4
  Chisq= 3.4  on 1 degrees of freedom, p= 0.07 
 </code></pre></div>    </div>
 
-    <p>Extra challenge: there is no function in R to directly plot <script type="math/tex">\lambda(t)</script>, so we have 
-to extract the life tables manually. The object created by taking a <code class="highlighter-rouge">summary()</code> of the <code class="highlighter-rouge">survfit()</code> 
-object has a variable called <code class="highlighter-rouge">strata</code> that defines the groups by which the comparison is broken down. 
+    <p>Extra challenge: there is no function in R to directly plot \(\lambda(t)\), so we have 
+to extract the life tables manually. The object created by taking a <code class="language-plaintext highlighter-rouge">summary()</code> of the <code class="language-plaintext highlighter-rouge">survfit()</code> 
+object has a variable called <code class="language-plaintext highlighter-rouge">strata</code> that defines the groups by which the comparison is broken down. 
 You can use this to subset the life table.</p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first we need to assign the life table summary to an object</span><span class="w">
@@ -1035,11 +1037,11 @@ You can use this to subset the life table.</p>
   <p>We saw that lifespan was not significanlty different between female and male BUB/BnJ mice.
 Is this universally true for different mouse strains?</p>
 
-  <p>Write a script that does the following using the <code class="highlighter-rouge">inbred.lifespan.txt</code> data:</p>
+  <p>Write a script that does the following using the <code class="language-plaintext highlighter-rouge">inbred.lifespan.txt</code> data:</p>
   <ol>
     <li>Generate a PDF.</li>
     <li>On each page, plot female vs. male lifespan and mortality curves for one strain. Include
-the following on each plot (hint: use the <code class="highlighter-rouge">text()</code> function):
+the following on each plot (hint: use the <code class="language-plaintext highlighter-rouge">text()</code> function):
       <ul>
         <li>strain name</li>
         <li>Log-Rank P-value</li>

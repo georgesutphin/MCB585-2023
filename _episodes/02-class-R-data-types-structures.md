@@ -34,9 +34,10 @@ R uses a variety of data types, which define the properties of the value stored 
 
 
 ~~~
-char1 <- "hello!"
-num1 <- 20.5
-logic1 <- TRUE
+char1 <- "hello!" # "character" is your basic text string data type
+num1 <- 20.5 # "numeric" is your most general data type for real, decimal numbers
+logic1 <- TRUE # "logical" data type is a simply binary: TRUE or FALSE
+logic2 <- F # T or F also work
 ~~~
 {: .language-r}
 
@@ -86,124 +87,309 @@ class(logic1)
 {: .output}
 
 &nbsp;
+#### Character Variables
 
-You can shift between data types using the `as` functions:
+The **character** data type is used to store basic textual information. A character vector is defined by text in quotes (`""`). You can include most forms of text:
 
 
 ~~~
-num1.as.char <- as.character(num1)
-num1.as.char
+greeting <- "How are you today?"
+response <- "Just fine. How are you?"
+equation <- "1 + 3 - 2 = 2"
+~~~
+{: .language-r}
+
+&nbsp;
+
+The major exception is the backslash (`\`), which R uses as an escape character. In computing, an escape character is a *metacharacter* that is not interpreted literally, but instead causes the computer to interpret *the character following the escape character* in a different way.
+
+
+~~~
+escape <- "This string \does not compute."
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] "20.5"
-~~~
-{: .output}
-
-
-
-~~~
-# ... now check the class of the new variable:
-class(num1.as.char)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "character"
-~~~
-{: .output}
-
-
-
-~~~
-# you can't add numbers to characters!
-num1.as.char + 4
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in num1.as.char + 4: non-numeric argument to binary operator
+Error: '\d' is an unrecognized escape in character string starting ""This string \d"
 ~~~
 {: .error}
 
 &nbsp;
 
-It only works if the conversion makes sense in context. R also does not understand
-non-numeric references to numbers (e.g. using "two" to refer to the number 2):
+Note that the error message is complaining about the `\d`, not just the `\`. Many characters invoke specific behavior when preceded by the `\` which can be useful depending on your goals. For example, `\n` is interpreted as a *line break*:
 
 
 ~~~
-# this one works:
-as.numeric("44")
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 44
-~~~
-{: .output}
-
-
-
-~~~
-# these don't
-as.numeric("hello!")
+two.lines <- "Line 1\nLine 2"
+writeLines(two.lines)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Warning: NAs introduced by coercion
-~~~
-{: .error}
-
-
-
-~~~
-[1] NA
-~~~
-{: .output}
-
-
-
-~~~
-as.numeric("forty-four")
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: NAs introduced by coercion
-~~~
-{: .error}
-
-
-
-~~~
-[1] NA
+Line 1
+Line 2
 ~~~
 {: .output}
 
 &nbsp;
 
-Note that when one of the `as.` functions throws an error, it doesn't simply fail to return a variable. Instead it throws an error message and assigns an `NA` value to the variable. `NA` is one of several special values that represents missing data, or "Not Available". You will explore these special characters in more detail *On Your Own*.
-
-The `as.logical()` function will take `0` as `FALSE` and any non-zero numeric as `TRUE`. It will throw an error for any character input that is a common spelling of `TRUE` or `FALSE`. Note that `T` works, but `t` does not.
+This can be useful when you are trying to add text to a chart but want the text to appear on separate lines. Some functions just display the string verbatim, instead of trying to interpret the escape characters:
 
 
 ~~~
-as.logical(0)
+print(two.lines)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Line 1\nLine 2"
+~~~
+{: .output}
+&nbsp;
+
+As you might expect, you can't perform numeric operations on characters:
+
+
+~~~
+2 * two.lines
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in 2 * two.lines: non-numeric argument to binary operator
+~~~
+{: .error}
+&nbsp;
+
+You can also successfully print a backslash (`\`) by typing a double backslash (`\\`), which is effectively using the first `\` to "escape" the second `\`:
+
+
+~~~
+writeLines("Single\\backslash.")
+~~~
+{: .language-r}
+
+
+
+~~~
+Single\backslash.
+~~~
+{: .output}
+
+&nbsp;
+
+There are many functions for manipulating character data types. Two examples are `paste()`, which combines text strings into a single variable separated by spaces (`paste0()` does the same without the spaces):
+
+
+~~~
+paste("Hello","world!")
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Hello world!"
+~~~
+{: .output}
+
+
+
+~~~
+paste0("Hello-","world!")
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Hello-world!"
+~~~
+{: .output}
+
+&nbsp;
+
+`sub()` allows you to replace a defined portion of a text string:
+
+
+~~~
+cat.person <- "I love cats!"
+cat.person
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "I love cats!"
+~~~
+{: .output}
+
+
+
+~~~
+dog.person <- sub("cats", "dogs", cat.person)
+dog.person
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "I love dogs!"
+~~~
+{: .output}
+
+&nbsp;
+#### Numeric Variables
+
+The **numeric** data type is your most common tool for storing quantitative real numbers:
+
+
+~~~
+dozen <- 12
+dozen
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 12
+~~~
+{: .output}
+
+
+
+~~~
+e <- exp(1) # exp is a function that defines the constant e to a given power
+e
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 2.718282
+~~~
+{: .output}
+
+
+
+~~~
+negatives <- -3.5
+negatives
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] -3.5
+~~~
+{: .output}
+
+&nbsp;
+
+We have already looked at two of many, many functions that manipulate numeric variables:
+
+
+~~~
+sum(dozen, e, negatives)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 11.21828
+~~~
+{: .output}
+
+
+
+~~~
+sqrt(e)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 1.648721
+~~~
+{: .output}
+
+&nbsp;
+
+Some character functions automatically treat numbers (e.g. `12`) as the character equivalent (`"12"`):
+
+
+~~~
+sub("2","4",dozen)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "14"
+~~~
+{: .output}
+
+&nbsp;
+
+While others do not:
+
+
+~~~
+writeLines(dozen)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in writeLines(dozen): can only write character objects
+~~~
+{: .error}
+
+&nbsp;
+
+Just try them to find out!
+
+&nbsp;
+### Logical Variables
+
+The **logical** data type is used to store basic TRUE vs. FALSE data:
+
+
+~~~
+this.is.true <- TRUE
+this.is.true
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+
+
+~~~
+this.is.false <- F
+this.is.false
 ~~~
 {: .language-r}
 
@@ -214,151 +400,68 @@ as.logical(0)
 ~~~
 {: .output}
 
-
-
-~~~
-as.logical(1)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
-~~~
-{: .output}
-
-
-
-~~~
-as.logical(10)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
-~~~
-{: .output}
-
-
-
-~~~
-as.logical(0.01)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
-~~~
-{: .output}
-
-
-
-~~~
-as.logical(-4)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
-~~~
-{: .output}
-
-
-
-~~~
-as.logical("TRUE")
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
-~~~
-{: .output}
-
-
-
-~~~
-as.logical("True")
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
-~~~
-{: .output}
-
-
-
-~~~
-as.logical("tRUE")
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] NA
-~~~
-{: .output}
-
-
-
-~~~
-as.logical("T")
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
-~~~
-{: .output}
-
-
-
-~~~
-as.logical("t")
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] NA
-~~~
-{: .output}
-
-
-
-~~~
-as.logical("false")
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] FALSE
-~~~
-{: .output}
 &nbsp;
-### Data Structures in R
 
+These are useful for asking R questions about your data. For example, we can compare relative values:
+
+
+~~~
+x <- 4
+y <- 5
+x < y
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+&nbsp;
+
+This is useful for making decisions, with an `if` statement for example:
+
+
+~~~
+test1 <- T
+test2 <- F
+if(test1) "Test 1 is TRUE!"
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Test 1 is TRUE!"
+~~~
+{: .output}
+
+
+
+~~~
+if(test2) "Test 2 is TRUE!"
+~~~
+{: .language-r}
+
+&nbsp;
+The code following the if statement will only execute if the variable or statement entered in the `()` is `TRUE`. We will talk more about how to use `if` statements later in the course.
 
 ***
-### Vectors
+### Data Structures
+
+Elements of these data types may be combined to form data structures--collections of individual datum. There are many data structure in R, for example: 
+* factors
+* atomic vectors (aka vectors)
+* lists
+* matrixs
+* data frames
+
+Here we will discuss the two most basic data structures: **vectors** and **matrices**. In later lessons we will discuss two advanced data structure, **data frames** (the most common data storage structure in R) and **lists**. **Factors** are a type of data structure, but function more like an advanced data type. You will explore **factors** in detail *On Your Own*.  
+
+&nbsp;
+#### Vectors
 
 A vector is the most common and basic data structure in R. Vectors are also the major workhorse data structure of R. Technically, vectors can be one of two types:
 
@@ -370,8 +473,7 @@ However, the term "vector" most commonly refers to the atomic types and not to l
 &nbsp;
 #### The Different Vector Modes
 
-A vector is a collection of elements that are most commonly of mode `character`,
-`logical`, `integer` or `numeric`.
+A vector is a collection of elements that are most commonly of mode `character`, `logical`, `integer` or `numeric`.
 
 You can create an empty vector with the `vector()` function. By default, the mode is `logical`, but you can be more explicit using additional arguments, as shown in the examples below. A simpler solution is to just directly construct vectors of the desired mode using on of several available functions, such as `character()`, `numeric()`, etc.
 
@@ -465,7 +567,9 @@ class(x)
 
 &nbsp;
 
-The `c()` function is the most common way to define a vector of objects for manipulation. Directly specifying `TRUE` and `FALSE` will create a vector of mode `logical`:
+The `c()` function is the most common way to define a vector of values for manipulation. We will use it frequently throughout this course, and it will be one of the functions that you use the most in your own analyses.
+
+Directly specifying `TRUE` and `FALSE` will create a vector of mode `logical`:
 
 
 ~~~
@@ -585,6 +689,9 @@ seq(10)
 ~~~
 {: .output}
 
+&nbps;
+
+Check out the help documentation for the `seq()` function (`?seq`) to see what arguments we are providing and what arguments are being set to defaults. By specifying `from`, `to`, and `by` we can customize our output vector:
 
 
 ~~~
@@ -642,8 +749,7 @@ series2
 &nbsp;
 #### What happens when you mix types inside a vector?
 
-R will create a resulting vector with a mode that can most easily accommodate
-all the elements it contains (similar to using the `as.` functions). This conversion between modes of storage is called "coercion". When R converts the mode of storage based on its content, it is referred to as "implicit coercion". 
+R will create a resulting vector with a mode that can most easily accommodate all the elements it contains. This conversion between modes of storage is called "coercion". When R converts the mode of storage based on its content, it is referred to as "implicit coercion". 
 
 > ## Mixing data types in vectors
 > 
@@ -729,7 +835,7 @@ In R, `[]` are used to index vectors and other objects. For vectors, the number 
 
 
 ~~~
-x = c("a","b","c","d","e","f")
+x <- c("a","b","c","d","e","f")
 x
 ~~~
 {: .language-r}
@@ -761,8 +867,8 @@ You can also use pre-defined variables or even other vectors to index different 
 
 
 ~~~
-n = 6
-range = 2:4
+n <- 6
+range <- 2:4
 
 x[n] # returns the 6th element, as defined by n = 6
 ~~~
@@ -907,10 +1013,10 @@ R has a special way of dealing with vectors when dealing with operations. We kno
 
 
 ~~~
-x = c(1,2,3)
-y = c(4,5,6)
+x <- c(1,2,3)
+y <- c(4,5,6)
 
-z = x + y
+z <- x + y
 z
 ~~~
 {: .language-r}
@@ -928,11 +1034,11 @@ R creates a new vector in which each element the sum of the elements with the sa
 
 
 ~~~
-z1 = x[1] + y[1]
-z2 = x[2] + y[2]
-z3 = x[3] + y[3]
+z1 <- x[1] + y[1]
+z2 <- x[2] + y[2]
+z3 <- x[3] + y[3]
 
-z = c(z1, z2, z3)
+z <- c(z1, z2, z3)
 z
 ~~~
 {: .language-r}
@@ -1041,11 +1147,20 @@ paste(attitude,animal)
 
 &nbsp;
 
-Depending on how they are written and the way their input/output works, some functions may not act on the vector, but on the list of values in the vector. The best way to find out is to just give it a try. 
+> ## Vectorization is not universal
+> 
+> Vectorization is one of the reasons that R is so 
+> powerful, and it is employed by a wide range of 
+> functions. However, it is not universal. Depending on 
+> how a specific function is written, it may act on the 
+> vector, or on the list of values in the vector. The 
+> best way to find out is to just give it a try and see 
+> what output it produces.
+{: .callout}
 
 
 ***
-### Objects Attributes
+### Object Attributes
 
 R objects can have **attributes**. Attributes are metadata and part of the object. Each attribute describes a different aspect of the object. These include:
 
@@ -1085,12 +1200,12 @@ nchar("MCB 585")
 
 &nbsp;
 
-We will periodically use object attributes to manipulate objects throughout the course.
+We will periodically use object attributes to manipulate objects throughout the course, including the next topic: matrices.
 
 ***
 ### Matrices
 
-In R matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with dimensions; the number of rows and columns. As with atomic vectors, the elements of a matrix must be of the same data type. Like vectors, we can use the generic `matrix()` function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. `character()`):
+In R matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with an attribute called "dimensions", i.e. a specified number of rows and columns. As with vectors, the elements of a matrix must be of the same data type. We can use the generic `matrix()` function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. `character()`). However, because matrices are really just vectors, we can use a predefined vector to build a matrix:
 
 
 ~~~
@@ -1128,7 +1243,7 @@ m
 
 &nbsp;
 
-We can no examine some of the attributes of our new matrix `m`:
+We can now examine the attributes of our new matrix `m`:
 
 
 ~~~
@@ -1191,7 +1306,7 @@ length(m)
 
 &nbsp;
 
-Matrices are a higher-oder object (a vector with additional properties). Thus the `class()` function no longer tells you the data type for each element, but rather the data structure type of the entire object:
+Matrices are a higher-order object (a vector with additional properties). Thus the `class()` function no longer tells you the data type for each element, but rather the data structure type of the entire object:
 
 
 ~~~
@@ -1208,7 +1323,7 @@ class(m)
 
 &nbsp;
 
-You can check the data type of the elements of the matrix using `typeof()`:
+You can check the data type of the elements of the matrix using `typeof()` or `mode()`, which give slightly different information:
 
 
 ~~~
@@ -1223,10 +1338,23 @@ typeof(m)
 ~~~
 {: .output}
 
+
+
+~~~
+mode(m)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "numeric"
+~~~
+{: .output}
+
 &nbsp;
 
-While `class()` shows that m is a matrix, `typeof()` shows that fundamentally the
-matrix is an integer vector.
+While `class()` shows that m is a matrix, and `mode()` returns the higher-order data type **numeric**, `typeof()` shows that fundamentally the matrix is an **integer** vector.
 
 Note that one difference between vectors and matrices is that an otherwise identical vector will return the data type of each element when you use `class()`, while the matrix is a new type of object with `class()` "matrix".
 
@@ -1249,9 +1377,7 @@ Note that one difference between vectors and matrices is that an otherwise ident
 >
 > > ## Solution
 > > We know that `typeof(FOURS)` will also return `"double"` since matrices 
-> > are just vectors, and vectors must be made of elements of the same data
-> > type. Note that you could do something like `as.character(FOURS)` if you
-> > needed the elements of `FOURS` to be *characters*.
+> > are just vectors, and vectors must be made of elements of the same data  type. 
 > {: .solution}
 {: .challenge}
 
@@ -1295,7 +1421,7 @@ m2
 
 &nbsp;
 
-Other ways to construct a matrix
+Another way to construct a matrix is to assign values to the `dim` attribute:
 
 
 ~~~
@@ -1361,10 +1487,7 @@ class(m)
 
 &nbsp;
 
-This takes a vector and transforms it into a matrix with 2 rows and 5 columns.
-
-Another way is to bind columns or rows using `rbind()` and `cbind()` ("row bind"
-and "column bind", respectively).
+This takes a vector and transforms it into a matrix with 2 rows and 5 columns. A third way is to bind columns or rows using `rbind()` and `cbind()` ("row bind" and "column bind", respectively). 
 
 
 ~~~
@@ -1397,6 +1520,34 @@ rbind(x, y)
   [,1] [,2] [,3]
 x    1    2    3
 y   10   11   12
+~~~
+{: .output}
+
+&nbsp;
+
+Note that the vectors being bound are of the same length in this case. If the vectors are of different length, the elements of the shorter vector will be repeated to fill in the missing space:
+
+
+~~~
+z <- 1:10
+rbind(x,z)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in rbind(x, z): number of columns of result is not a multiple of vector
+length (arg 1)
+~~~
+{: .error}
+
+
+
+~~~
+  [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+x    1    2    3    1    2    3    1    2    3     1
+z    1    2    3    4    5    6    7    8    9    10
 ~~~
 {: .output}
 

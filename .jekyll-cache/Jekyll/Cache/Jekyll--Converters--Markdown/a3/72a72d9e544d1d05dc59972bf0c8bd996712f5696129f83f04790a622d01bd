@@ -1,0 +1,106 @@
+I"k<script>
+  window.onload = function() {
+    var lesson_episodes = [
+    
+    "/01-class-introduction/index.html",
+    
+    "/01-oyo-introduction/index.html",
+    
+    "/02-class-R-data-types-structures/index.html",
+    
+    "/02-oyo-R-data-types-in-depth/index.html",
+    
+    "/02-oyo-R-data-types-structures/index.html",
+    
+    "/03-class-data-frames/index.html",
+    
+    "/03-oyo-Lists/index.html",
+    
+    "/04-class-manipulating-plotting-data/index.html",
+    
+    "/04-oyo-advanced-data-manipulation/index.html",
+    
+    "/05-class-decisions-loops/index.html",
+    
+    "/05-oyo-more-decisions-loops/index.html",
+    
+    "/06-class-distributions/index.html",
+    
+    "/06-oyo-more-distributions/index.html",
+    
+    "/07-class-hypothesis-testing/index.html",
+    
+    "/07-oyo-multiple-test-correction/index.html",
+    
+    "/08-class-survival-analysis/index.html",
+    
+    "/08-oyo-advanced-survival-analysis/index.html",
+    
+    "/09-class-power-analysis/index.html",
+    
+    "/09-oyo-simulation/index.html",
+    
+    "/99-projects/index.html"
+    
+    ];
+    var xmlHttp = [];  /* Required since we are going to query every episode. */
+    for (i=0; i < lesson_episodes.length; i++) {
+      xmlHttp[i] = new XMLHttpRequest();
+      xmlHttp[i].episode = lesson_episodes[i];  /* To enable use this later. */
+      xmlHttp[i].onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var article_here = document.getElementById(this.episode);
+        var parser = new DOMParser();
+        var htmlDoc = parser.parseFromString(this.responseText,"text/html");
+        var htmlDocArticle = htmlDoc.getElementsByTagName("article")[0];
+        article_here.innerHTML = htmlDocArticle.innerHTML;
+        }
+      }
+      episode_url = "." + lesson_episodes[i];
+      xmlHttp[i].open("GET", episode_url);
+      xmlHttp[i].send(null);
+    }
+  }
+</script>
+
+<article id="/01-class-introduction/index.html"></article>
+
+<article id="/01-oyo-introduction/index.html"></article>
+
+<article id="/02-class-R-data-types-structures/index.html"></article>
+
+<article id="/02-oyo-R-data-types-in-depth/index.html"></article>
+
+<article id="/02-oyo-R-data-types-structures/index.html"></article>
+
+<article id="/03-class-data-frames/index.html"></article>
+
+<article id="/03-oyo-Lists/index.html"></article>
+
+<article id="/04-class-manipulating-plotting-data/index.html"></article>
+
+<article id="/04-oyo-advanced-data-manipulation/index.html"></article>
+
+<article id="/05-class-decisions-loops/index.html"></article>
+
+<article id="/05-oyo-more-decisions-loops/index.html"></article>
+
+<article id="/06-class-distributions/index.html"></article>
+
+<article id="/06-oyo-more-distributions/index.html"></article>
+
+<article id="/07-class-hypothesis-testing/index.html"></article>
+
+<article id="/07-oyo-multiple-test-correction/index.html"></article>
+
+<article id="/08-class-survival-analysis/index.html"></article>
+
+<article id="/08-oyo-advanced-survival-analysis/index.html"></article>
+
+<article id="/09-class-power-analysis/index.html"></article>
+
+<article id="/09-oyo-simulation/index.html"></article>
+
+<article id="/99-projects/index.html"></article>
+
+:ET

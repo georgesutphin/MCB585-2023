@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-23 21:10:15 -0700">
+    <meta http-equiv="last-modified" content="2020-08-27 23:06:19 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -119,11 +119,13 @@
             
             <li><a href="../02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
+            <li><a href="../02-oyo-R-data-types-in-depth/index.html">R Data Types -- In-Depth</a></li>
+            
             <li><a href="../02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a></li>
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
+            <li><a href="../03-oyo-Lists/index.html">Lists and Advanced Indexing</a></li>
             
             <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
             
@@ -322,18 +324,18 @@
 <p>What if I handed you this and asked you to explain it:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">newX</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">aperm</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">s.call</span><span class="p">,</span><span class="w"> </span><span class="n">s.ans</span><span class="p">))</span><span class="w">
-    </span><span class="nf">dim</span><span class="p">(</span><span class="n">newX</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">prod</span><span class="p">(</span><span class="n">d.call</span><span class="p">),</span><span class="w"> </span><span class="n">d</span><span class="m">2</span><span class="p">)</span><span class="w">
-    </span><span class="n">ans</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"list"</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="m">2</span><span class="p">)</span><span class="w">
+    </span><span class="nf">dim</span><span class="p">(</span><span class="n">newX</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">prod</span><span class="p">(</span><span class="n">d.call</span><span class="p">),</span><span class="w"> </span><span class="n">d2</span><span class="p">)</span><span class="w">
+    </span><span class="n">ans</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"list"</span><span class="p">,</span><span class="w"> </span><span class="n">d2</span><span class="p">)</span><span class="w">
     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">d.call</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">2L</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">dn.call</span><span class="p">))</span><span class="w"> 
             </span><span class="nf">dimnames</span><span class="p">(</span><span class="n">newX</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">dn.call</span><span class="p">,</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="kc">NULL</span><span class="p">))</span><span class="w">
-        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1L</span><span class="o">:</span><span class="n">d</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1L</span><span class="o">:</span><span class="n">d2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
             </span><span class="n">tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">forceAndCall</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="p">,</span><span class="w"> </span><span class="n">newX</span><span class="p">[,</span><span class="w"> </span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">...</span><span class="p">)</span><span class="w">
             </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nf">is.null</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span><span class="w"> 
                 </span><span class="n">ans</span><span class="p">[[</span><span class="n">i</span><span class="p">]]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmp</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
-    </span><span class="k">else</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1L</span><span class="o">:</span><span class="n">d</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="k">else</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1L</span><span class="o">:</span><span class="n">d2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="n">tmp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">forceAndCall</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="p">,</span><span class="w"> </span><span class="n">array</span><span class="p">(</span><span class="n">newX</span><span class="p">[,</span><span class="w"> </span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">d.call</span><span class="p">,</span><span class="w"> 
             </span><span class="n">dn.call</span><span class="p">),</span><span class="w"> </span><span class="n">...</span><span class="p">)</span><span class="w">
         </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nf">is.null</span><span class="p">(</span><span class="n">tmp</span><span class="p">))</span><span class="w"> 
@@ -408,7 +410,7 @@ code help you understand the script?</p>
 <p> </p>
 <h4 id="annotation--headers-with-key-meta-data-about-the-script">Annotation – Headers with key meta-data about the script</h4>
 
-<p>In the first lesson we briefly mentioned the primary tool in keeping your code organized: the <code class="highlighter-rouge">#</code> comment operator. Annotate your code thoroughly. Use the <code class="highlighter-rouge">#</code> to add text to your code that will be ignored by the computer, but helpful to another person trying to figure out just what you did.</p>
+<p>In the first lesson we briefly mentioned the primary tool in keeping your code organized: the <code class="language-plaintext highlighter-rouge">#</code> comment operator. Annotate your code thoroughly. Use the <code class="language-plaintext highlighter-rouge">#</code> to add text to your code that will be ignored by the computer, but helpful to another person trying to figure out just what you did.</p>
 
 <p>The goal is to allow someone who has never looked at your script before to understand what you are trying to accomplish. Just putting <em>something</em> down is not enough. Include enough detail to make them understand.</p>
 
@@ -436,7 +438,7 @@ code help you understand the script?</p>
 
 <p>Many scripts will require tools that are not available in the the base R language and will require one or more add-on packages. There are hundreds of packages available for numerous specialized applications, and we will be using several in this course. Installing and loading these packages is outlined below.</p>
 
-<p>Loading any necessary packages up front (using <code class="highlighter-rouge">library</code>) is a nice way of indicating which packages are necessary to run your code. It can be frustrating to make it two-thirds of the way through a long-running script only to find out that a critical dependency hasn’t been installed. It is good practice to load all required pacakges early in your script using a section like this:</p>
+<p>Loading any necessary packages up front (using <code class="language-plaintext highlighter-rouge">library</code>) is a nice way of indicating which packages are necessary to run your code. It can be frustrating to make it two-thirds of the way through a long-running script only to find out that a critical dependency hasn’t been installed. It is good practice to load all required pacakges early in your script using a section like this:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Load required packages</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
@@ -483,9 +485,9 @@ code help you understand the script?</p>
 
 <p> </p>
 <h4 id="naming-conventions">Naming Conventions</h4>
-<p>Historically, R programmers have used a variety of conventions for naming variables. The <code class="highlighter-rouge">.</code> character in R can be a valid part of a variable name; thus <code class="highlighter-rouge">weight.kg &lt;- 57.5</code> is a legitimate variable name.</p>
+<p>Historically, R programmers have used a variety of conventions for naming variables. The <code class="language-plaintext highlighter-rouge">.</code> character in R can be a valid part of a variable name; thus <code class="language-plaintext highlighter-rouge">weight.kg &lt;- 57.5</code> is a legitimate variable name.</p>
 
-<p>This is often confusing to R newcomers who have programmed in languages where <code class="highlighter-rouge">.</code> has a more significant meaning. Today, most R programmers:</p>
+<p>This is often confusing to R newcomers who have programmed in languages where <code class="language-plaintext highlighter-rouge">.</code> has a more significant meaning. Today, most R programmers:</p>
 <ol>
   <li>Start variable names with lower case letters</li>
   <li>Separate words in variable names with underscores</li>
@@ -499,7 +501,7 @@ code help you understand the script?</p>
 <p> </p>
 <h4 id="identify-and-segregate-distinct-components-in-your-code">Identify and segregate distinct components in your code</h4>
 
-<p>It’s easy to annotate and mark your code using <code class="highlighter-rouge">#</code> or <code class="highlighter-rouge">#-</code> to set off sections of your code and to make finding specific parts of your code easier. For example, it’s often helpful when writing code to separate the function definitions. If you create only one or a few custom functions in your script, put them toward the top of your code. If you have written many functions, put them all in their own .R file and then <code class="highlighter-rouge">source</code> those files. <code class="highlighter-rouge">source</code> will define all of these functions so that your code can make use of them as needed.</p>
+<p>It’s easy to annotate and mark your code using <code class="language-plaintext highlighter-rouge">#</code> or <code class="language-plaintext highlighter-rouge">#-</code> to set off sections of your code and to make finding specific parts of your code easier. For example, it’s often helpful when writing code to separate the function definitions. If you create only one or a few custom functions in your script, put them toward the top of your code. If you have written many functions, put them all in their own .R file and then <code class="language-plaintext highlighter-rouge">source</code> those files. <code class="language-plaintext highlighter-rouge">source</code> will define all of these functions so that your code can make use of them as needed.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">source</span><span class="p">(</span><span class="s2">"my_genius_fxns.R"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -539,7 +541,7 @@ code help you understand the script?</p>
 <p> </p>
 
 <ol start="4">
-  <li>R can run into memory issues. It is a common problem to run out of memory after running R scripts for a long time. To inspect the objects in your current R environment, you can list the objects, search current packages, and remove objects that are currently not in use. A good practice when running long lines of computationally intensive code is to remove temporary objects after they have served their purpose. However, sometimes, R will not clean up unused memory for a while after you delete objects. You can force R to tidy up its memory by using <code class="highlighter-rouge">gc()</code> (discussed in more detail later).</li>
+  <li>R can run into memory issues. It is a common problem to run out of memory after running R scripts for a long time. To inspect the objects in your current R environment, you can list the objects, search current packages, and remove objects that are currently not in use. A good practice when running long lines of computationally intensive code is to remove temporary objects after they have served their purpose. However, sometimes, R will not clean up unused memory for a while after you delete objects. You can force R to tidy up its memory by using <code class="language-plaintext highlighter-rouge">gc()</code> (discussed in more detail later).</li>
 </ol>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Generate sample dataset of 1000 rows</span><span class="w">
@@ -561,10 +563,10 @@ code help you understand the script?</p>
 
 <ol start="6">
   <li>
-    <p>Don’t save a session history (the default option in R, when it asks if you want an <code class="highlighter-rouge">RData</code> file). Instead, start in a clean environment so that older objects don’t remain in your environment any longer than they need to. If that happens, it can lead to unexpected results. Your script should explicitly load any data and create any variables that it needs, rather than relying on a variable that you assigned in the console panel sometime last week.</p>
+    <p>Don’t save a session history (the default option in R, when it asks if you want an <code class="language-plaintext highlighter-rouge">RData</code> file). Instead, start in a clean environment so that older objects don’t remain in your environment any longer than they need to. If that happens, it can lead to unexpected results. Your script should explicitly load any data and create any variables that it needs, rather than relying on a variable that you assigned in the console panel sometime last week.</p>
   </li>
   <li>
-    <p>Wherever possible, keep track of <code class="highlighter-rouge">sessionInfo()</code> somewhere in your project folder. Session information is invaluable because it captures all of the packages used in the current project. If a newer version of a package changes the way a function behaves, you can always go back and re-install the version that worked (Note: at least on CRAN, all older versions of packages are permanently archived).</p>
+    <p>Wherever possible, keep track of <code class="language-plaintext highlighter-rouge">sessionInfo()</code> somewhere in your project folder. Session information is invaluable because it captures all of the packages used in the current project. If a newer version of a package changes the way a function behaves, you can always go back and re-install the version that worked (Note: at least on CRAN, all older versions of packages are permanently archived).</p>
   </li>
 </ol>
 
@@ -601,7 +603,7 @@ code help you understand the script?</p>
 
 <p>Keeping a tidy workspace can be just as critical when coding as when conducting experiments at the bench. Learning to code takes a lot or trial and error, particularly in the beginning. A well-designed script should be self-contained, meaning that you should be able to clear out all past variables, re-run the script from scratch, and arrive at the same outcome. Periodically clearing out your workspace of old variables prevents errors that occur when you accidentally use the same variable name in two different places, or accidentally overwrite a critical variable while testing a new function. There are a variety of tools available to help keep your workspace tidy.</p>
 
-<p>You can use the <code class="highlighter-rouge">ls()</code> command to list all variables currently defined in your workspace.</p>
+<p>You can use the <code class="language-plaintext highlighter-rouge">ls()</code> command to list all variables currently defined in your workspace.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first define a couple of variables</span><span class="w">
 </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
@@ -611,7 +613,7 @@ code help you understand the script?</p>
 </span><span class="n">ls</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
 [5] "src_rmd"       "x"             "y"            
 </code></pre></div></div>
 
@@ -622,13 +624,13 @@ code help you understand the script?</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in eval(expr, envir, enclos): object 'x' not found
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in eval(expr, envir, enclos): object 'x' not found
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in eval(expr, envir, enclos): object 'y' not found
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in eval(expr, envir, enclos): object 'y' not found
 </code></pre></div></div>
 
 <p> </p>
@@ -638,12 +640,12 @@ code help you understand the script?</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># again, define a few test variables and check your workspace</span><span class="w">
 </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="w">
 </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2</span><span class="w">
-</span><span class="n">z</span><span class="m">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y</span><span class="w">
-</span><span class="n">z</span><span class="m">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="w">
+</span><span class="n">z1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y</span><span class="w">
+</span><span class="n">z2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="w">
 </span><span class="n">ls</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
 [5] "src_rmd"       "x"             "y"             "z1"           
 [9] "z2"           
 </code></pre></div></div>
@@ -654,7 +656,7 @@ code help you understand the script?</p>
 </span><span class="n">ls</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
 [5] "src_rmd"       "y"             "z1"            "z2"           
 </code></pre></div></div>
 
@@ -662,7 +664,7 @@ code help you understand the script?</p>
 </span><span class="n">ls</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "args"          "dest_md"       "missing_pkgs"  "required_pkgs"
 [5] "src_rmd"       "z1"            "z2"           
 </code></pre></div></div>
 
@@ -673,7 +675,7 @@ code help you understand the script?</p>
 
 <p> </p>
 
-<p>Often when you get into more complex analyses in R, you end up with a lot of data stored in memory. In some cases, clearing the variable with <code class="highlighter-rouge">rm()</code> does not completely release all of the memory that R has allocated for that variable immediately. You can force R to release that memory using the <code class="highlighter-rouge">gc()</code> function, which stands for “Garbage Collection”.</p>
+<p>Often when you get into more complex analyses in R, you end up with a lot of data stored in memory. In some cases, clearing the variable with <code class="language-plaintext highlighter-rouge">rm()</code> does not completely release all of the memory that R has allocated for that variable immediately. You can force R to release that memory using the <code class="language-plaintext highlighter-rouge">gc()</code> function, which stands for “Garbage Collection”.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Calling gc() is simple and forces R to release memory to the operating system</span><span class="w">
 </span><span class="n">gc</span><span class="p">()</span><span class="w">
@@ -683,15 +685,15 @@ code help you understand the script?</p>
 
 <p>Don’t get bogged down in the details, but we can check memory usage before 
 creating, after creating, and after removing a large vector. The memory usage at 
-each stage is indicated by “Vcells” (the V stands for “Vector”). Removing the object and running gc() frees up some of the memory. Note that <code class="highlighter-rouge">gc()</code> also gives you a memory usage report.</p>
+each stage is indicated by “Vcells” (the V stands for “Vector”). Removing the object and running gc() frees up some of the memory. Note that <code class="language-plaintext highlighter-rouge">gc()</code> also gives you a memory usage report.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># check memory before creating vector</span><span class="w">
 </span><span class="n">gc</span><span class="p">()</span><span class="w"> 
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells  554993 29.7    1261337 67.4   904961 48.4
-Vcells 1022089  7.8    8388608 64.0  1632739 12.5
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>         used (Mb) gc trigger (Mb) max used (Mb)
+Ncells 478548 25.6    1047988   56   638582 34.2
+Vcells 905731  7.0    8388608   64  1632380 12.5
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># create a big vector (this can take some time) and recheck memory with </span><span class="w">
@@ -700,9 +702,9 @@ Vcells 1022089  7.8    8388608 64.0  1632739 12.5
 </span><span class="n">gc</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells  555039 29.7    1261337 67.4   904961 48.4
-Vcells 1122380  8.6    8388608 64.0  8388600 64.0
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>          used (Mb) gc trigger (Mb) max used (Mb)
+Ncells  478633 25.6    1047988   56   638582 34.2
+Vcells 1006086  7.7    8388608   64  8388597 64.0
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># remove vector and check memory a final time; Vcells used (MB) returns to</span><span class="w">
@@ -711,23 +713,23 @@ Vcells 1122380  8.6    8388608 64.0  8388600 64.0
 </span><span class="n">gc</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells  555010 29.7    1261337 67.4   904961 48.4
-Vcells 1022217  7.8    8388608 64.0  8388600 64.0
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>         used (Mb) gc trigger (Mb) max used (Mb)
+Ncells 478604 25.6    1047988   56   638582 34.2
+Vcells 905923  7.0    8388608   64  8388597 64.0
 </code></pre></div></div>
 
 <p> </p>
 
 <p>You may find that this speeds up processing when you have a script that is repeatedly loading and releasing large data files.</p>
 
-<p>It is generally good practice to start off each session with a clean slate. When you start RStudio, the Environment will be clear (unless you load a previously saved workspace). If you are finished with one analysis and starting another, it is a good idea to clear you Environment. That way if you reuse a variable name (e.g. <code class="highlighter-rouge">x</code>) you won’t accidentally end up using the value stored in your workspace during the previous analysis.</p>
+<p>It is generally good practice to start off each session with a clean slate. When you start RStudio, the Environment will be clear (unless you load a previously saved workspace). If you are finished with one analysis and starting another, it is a good idea to clear you Environment. That way if you reuse a variable name (e.g. <code class="language-plaintext highlighter-rouge">x</code>) you won’t accidentally end up using the value stored in your workspace during the previous analysis.</p>
 
 <p> </p>
 <h4 id="writing-your-own-functions">Writing your own functions</h4>
 
 <p>A good way to consolidate code that you intend to use repeatedly is to build that code into a new function. Instead of repeating the entire set of code over and over, you can instead just call the function with a few commands.</p>
 
-<p>Let’s define a new function <code class="highlighter-rouge">FtoC</code> that converts a temperature value in Fahrenheit (the <em>argument</em>) to Celsius (the <em>output</em>):</p>
+<p>Let’s define a new function <code class="language-plaintext highlighter-rouge">FtoC</code> that converts a temperature value in Fahrenheit (the <em>argument</em>) to Celsius (the <em>output</em>):</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">FtoC</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">temp_F</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">temp_C</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="p">(</span><span class="n">temp_F</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">32</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="m">5</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">9</span><span class="p">)</span><span class="w">
@@ -742,14 +744,14 @@ Vcells 1022217  7.8    8388608 64.0  8388600 64.0
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">FtoC</span><span class="p">(</span><span class="m">32</span><span class="p">)</span><span class="w"> </span><span class="c1"># output to console</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Temp_C</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">FtoC</span><span class="p">(</span><span class="m">32</span><span class="p">)</span><span class="w"> </span><span class="c1"># assign the output to a new variable called Temp_C</span><span class="w">
 </span><span class="n">Temp_C</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0
 </code></pre></div></div>
 
 <p> </p>
@@ -759,24 +761,24 @@ Vcells 1022217  7.8    8388608 64.0  8388600 64.0
 <p> </p>
 <h4 id="installing-and-loading-packages">Installing and loading packages</h4>
 
-<p>R comes preloaded with a decently wide range of functions for basic data manipulation, but you will inevitably want to do something more interesting. There are many, many ‘packages’ that are available online for download. Each package is a set of related functions designed for a specific area of analysis. For example, later in the course we will use specialized packages that contain functions for power analysis (the <code class="highlighter-rouge">pwr</code> package) and survival analysis (the <code class="highlighter-rouge">survival</code> package).</p>
+<p>R comes preloaded with a decently wide range of functions for basic data manipulation, but you will inevitably want to do something more interesting. There are many, many ‘packages’ that are available online for download. Each package is a set of related functions designed for a specific area of analysis. For example, later in the course we will use specialized packages that contain functions for power analysis (the <code class="language-plaintext highlighter-rouge">pwr</code> package) and survival analysis (the <code class="language-plaintext highlighter-rouge">survival</code> package).</p>
 
 <p>To use a package, you have to do two things:</p>
 <ol>
-  <li><strong>Install</strong> – Download the package from an external source, and make the functions accessible to R and RStudio. This is accomplished with the <code class="highlighter-rouge">install.packages()</code> function and only has to be done just per computer.</li>
-  <li><strong>Load</strong> – Installing the package does not immediately allow you to access the associated functions. You first have to load the package into your local workspace. This is done with the <code class="highlighter-rouge">library()</code> function.</li>
+  <li><strong>Install</strong> – Download the package from an external source, and make the functions accessible to R and RStudio. This is accomplished with the <code class="language-plaintext highlighter-rouge">install.packages()</code> function and only has to be done just per computer.</li>
+  <li><strong>Load</strong> – Installing the package does not immediately allow you to access the associated functions. You first have to load the package into your local workspace. This is done with the <code class="language-plaintext highlighter-rouge">library()</code> function.</li>
 </ol>
 
-<p>Let’s give it a try by installing and loading the <code class="highlighter-rouge">pwr</code> package:</p>
+<p>Let’s give it a try by installing and loading the <code class="language-plaintext highlighter-rouge">pwr</code> package:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Install required packages</span><span class="w">
 </span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="s1">'pwr'</span> <span class="n">successfully</span> <span class="n">unpacked</span> <span class="k">and</span> <span class="n">MD5</span> <span class="n">sums</span> <span class="n">checked</span>
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>package 'pwr' successfully unpacked and MD5 sums checked
 
-<span class="n">The</span> <span class="n">downloaded</span> <span class="n">binary</span> <span class="n">packages</span> <span class="n">are</span> <span class="k">in</span>
-	<span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sutph</span><span class="p">\</span><span class="n">AppData</span><span class="p">\</span><span class="n">Local</span><span class="p">\</span><span class="n">Temp</span><span class="p">\</span><span class="n">RtmpAX9f8N</span><span class="p">\</span><span class="n">downloaded_packages</span>
+The downloaded binary packages are in
+	C:\Users\sutph\AppData\Local\Temp\RtmpGIJvpj\downloaded_packages
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Load required packages into memory</span><span class="w">
@@ -791,7 +793,7 @@ Vcells 1022217  7.8    8388608 64.0  8388600 64.0
   <li><a href="https://www.bioconductor.org/">Bioconductor</a> for biological packages</li>
 </ul>
 
-<p>In situations where installing a package is more complicated that simply calling the <code class="highlighter-rouge">install.packages()</code> function from within RStudio, the installation instructions are generally listed near the top of the homepage or documentation associated with that package.</p>
+<p>In situations where installing a package is more complicated that simply calling the <code class="language-plaintext highlighter-rouge">install.packages()</code> function from within RStudio, the installation instructions are generally listed near the top of the homepage or documentation associated with that package.</p>
 
 <hr />
 <h3 id="resources--where-to-turn-for-help">Resources – where to turn for help</h3>
@@ -801,7 +803,7 @@ Vcells 1022217  7.8    8388608 64.0  8388600 64.0
 <p> </p>
 <h4 id="getting-help-in-r">Getting help in R</h4>
 
-<p>R has a built in function called <code class="highlighter-rouge">help()</code> that provides basic information about specific functions. You can either use this function like any other function, or use the <code class="highlighter-rouge">?</code> operator. Let’s give it a try to get more detailed information on how the <code class="highlighter-rouge">setwd()</code> function works.</p>
+<p>R has a built in function called <code class="language-plaintext highlighter-rouge">help()</code> that provides basic information about specific functions. You can either use this function like any other function, or use the <code class="language-plaintext highlighter-rouge">?</code> operator. Let’s give it a try to get more detailed information on how the <code class="language-plaintext highlighter-rouge">setwd()</code> function works.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">help</span><span class="p">(</span><span class="n">setwd</span><span class="p">)</span><span class="w">
 </span><span class="o">?</span><span class="n">setwd</span><span class="w">
@@ -809,7 +811,7 @@ Vcells 1022217  7.8    8388608 64.0  8388600 64.0
 
 <p> </p>
 
-<p>When you enter either command, notice that the <strong>Help</strong> panel opens (lower right pane in RStudio). This panel provides information on the purpose, inputs, and outputs of the queried function. It also provides useful examples of how to use the function at the end of the documentation. <code class="highlighter-rouge">help()</code> is usually a good first place to look to get a feel for what a function is doing.</p>
+<p>When you enter either command, notice that the <strong>Help</strong> panel opens (lower right pane in RStudio). This panel provides information on the purpose, inputs, and outputs of the queried function. It also provides useful examples of how to use the function at the end of the documentation. <code class="language-plaintext highlighter-rouge">help()</code> is usually a good first place to look to get a feel for what a function is doing.</p>
 
 <p> </p>
 <h4 id="online-forums">Online Forums</h4>
@@ -847,7 +849,7 @@ Vcells 1022217  7.8    8388608 64.0  8388600 64.0
   <h2>Key Points</h2>
   <ul>
     
-    <li><p>Use <code class="highlighter-rouge">#</code> to add comments to programs.</p>
+    <li><p>Use <code class="language-plaintext highlighter-rouge">#</code> to add comments to programs.</p>
 </li>
     
     <li><p>Annotate your code!</p>
@@ -874,7 +876,7 @@ Vcells 1022217  7.8    8388608 64.0  8388600 64.0
     <li><p>Load all required packages at the beginning of a script.</p>
 </li>
     
-    <li><p>Use <code class="highlighter-rouge">#----</code> comments to mark off sections of code.</p>
+    <li><p>Use <code class="language-plaintext highlighter-rouge">#----</code> comments to mark off sections of code.</p>
 </li>
     
     <li><p>When working with large datasets, removing variables that you no longer need and releasing memory can improve performance.</p>
@@ -883,7 +885,7 @@ Vcells 1022217  7.8    8388608 64.0  8388600 64.0
     <li><p>Writing functions for sets of commands that you will be running repeatedly will make your data processing more efficient.</p>
 </li>
     
-    <li><p>Use <code class="highlighter-rouge">install.packages()</code> to install new packages and <code class="highlighter-rouge">library()</code> to load and use installed packages in your current workspace.</p>
+    <li><p>Use <code class="language-plaintext highlighter-rouge">install.packages()</code> to install new packages and <code class="language-plaintext highlighter-rouge">library()</code> to load and use installed packages in your current workspace.</p>
 </li>
     
     <li><p>Use help() and ? to get basic information about functions.</p>

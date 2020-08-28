@@ -1,0 +1,1583 @@
+I"�c<hr />
+<h2 id="in-class">In Class</h2>
+
+<hr />
+<h3 id="lists">Lists</h3>
+
+<p>Lists in R act as containers. Unlike atomic vectors, the contents of a list are
+not restricted to a single mode and can encompass any mixture of data
+types. Lists are sometimes called “generic vectors””, because the elements of a
+list can by of any type of R object, even lists containing further lists. This
+property makes them fundamentally different from atomic vectors.</p>
+
+<p>A list is a special type of vector. Each element can be a different type, and is not restricted to a single value.</p>
+
+<p>Create lists using <code class="language-plaintext highlighter-rouge">list()</code> or coerce other objects using <code class="language-plaintext highlighter-rouge">as.list()</code>. An empty
+list of the required length can be created using <code class="language-plaintext highlighter-rouge">vector()</code></p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="m">1+4i</span><span class="p">)</span><span class="w">
+</span><span class="n">x</span><span class="w"> </span><span class="c1"># A list does not print to the console like a vector. Instead, each element of the list starts on a new line.</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[1]]
+[1] 1
+
+[[2]]
+[1] "a"
+
+[[3]]
+[1] TRUE
+
+[[4]]
+[1] 1+4i
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="p">(</span><span class="s2">"list"</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="c1"># empty list</span><span class="w">
+</span><span class="nf">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 5
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> 
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[1]]
+NULL
+
+[[2]]
+NULL
+
+[[3]]
+NULL
+
+[[4]]
+NULL
+
+[[5]]
+NULL
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Vectors can be coerced to lists as follows:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="w">
+</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">as.list</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
+</span><span class="nf">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 10
+</code></pre></div></div>
+
+<p> </p>
+<h4 id="indexing-lists">Indexing lists</h4>
+
+<p>Indexing works a bit differently for lists. The content of elements of a list can be retrieved by using double square brackets <code class="language-plaintext highlighter-rouge">[[n]]</code>, as opposed to the single square brackets <code class="language-plaintext highlighter-rouge">[n]</code> used for vectors and matrices.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1
+</code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="examining-lists">Examining Lists</h2>
+
+  <ol>
+    <li>What is the class of <code class="language-plaintext highlighter-rouge">x[1]</code>?</li>
+    <li>What is the class of <code class="language-plaintext highlighter-rouge">x[[1]]</code>?</li>
+  </ol>
+
+  <blockquote class="solution">
+    <h2 id="solution">Solution</h2>
+    <ol>
+      <li>
+
+        <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">])</span><span class="w">
+</span></code></pre></div>        </div>
+
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "list"
+</code></pre></div>        </div>
+      </li>
+      <li>
+
+        <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">x</span><span class="p">[[</span><span class="m">1</span><span class="p">]])</span><span class="w">
+</span></code></pre></div>        </div>
+
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
+</code></pre></div>        </div>
+      </li>
+    </ol>
+  </blockquote>
+</blockquote>
+
+<p> </p>
+
+<p>Elements of a list can be named (i.e. lists can have the <code class="language-plaintext highlighter-rouge">names</code> attribute)</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xlist</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Karthik Ram"</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">(</span><span class="n">iris</span><span class="p">))</span><span class="w">
+</span><span class="n">xlist</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$a
+[1] "Karthik Ram"
+
+$b
+ [1]  1  2  3  4  5  6  7  8  9 10
+
+$data
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">names</span><span class="p">(</span><span class="n">xlist</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "a"    "b"    "data"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">attributes</span><span class="p">(</span><span class="n">xlist</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$names
+[1] "a"    "b"    "data"
+</code></pre></div></div>
+
+<p> </p>
+
+<p>You can use the <code class="language-plaintext highlighter-rouge">$</code> operator to directly refer to named list elements by their name:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xlist</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Karthik Ram"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xlist</span><span class="o">$</span><span class="n">a</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Karthik Ram"
+</code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="examining-named-lists">Examining Named Lists</h2>
+
+  <ol>
+    <li>What is the length of the <code class="language-plaintext highlighter-rouge">xlist</code> object?</li>
+    <li>What is its structure?</li>
+  </ol>
+
+  <blockquote class="solution">
+    <h2 id="solution-1">Solution</h2>
+    <ol>
+      <li>
+
+        <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">length</span><span class="p">(</span><span class="n">xlist</span><span class="p">)</span><span class="w">
+</span></code></pre></div>        </div>
+
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 3
+</code></pre></div>        </div>
+      </li>
+      <li>
+
+        <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">xlist</span><span class="p">)</span><span class="w">
+</span></code></pre></div>        </div>
+
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>List of 3
+ $ a   : chr "Karthik Ram"
+ $ b   : int [1:10] 1 2 3 4 5 6 7 8 9 10
+ $ data:'data.frame':	6 obs. of  5 variables:
+  ..$ Sepal.Length: num [1:6] 5.1 4.9 4.7 4.6 5 5.4
+  ..$ Sepal.Width : num [1:6] 3.5 3 3.2 3.1 3.6 3.9
+  ..$ Petal.Length: num [1:6] 1.4 1.4 1.3 1.5 1.4 1.7
+  ..$ Petal.Width : num [1:6] 0.2 0.2 0.2 0.2 0.2 0.4
+  ..$ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1
+</code></pre></div>        </div>
+      </li>
+    </ol>
+  </blockquote>
+</blockquote>
+
+<p> </p>
+<h4 id="lists-of-lists">Lists of lists!</h4>
+
+<p>A list can even have vectors (or other lists!) as one element of a list:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="w">
+</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w"> </span><span class="c1"># "T" can be used in place of "TRUE"; "F" can be used in place of "FALSE"</span><span class="w">
+</span><span class="n">z</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="m">1+4i</span><span class="p">)</span><span class="w">
+
+</span><span class="n">my.list</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">)</span><span class="w">
+</span><span class="n">my.list</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[1]]
+ [1]  1  2  3  4  5  6  7  8  9 10
+
+[[2]]
+[1]  TRUE FALSE  TRUE  TRUE
+
+[[3]]
+[[3]][[1]]
+[1] 1
+
+[[3]][[2]]
+[1] "a"
+
+[[3]][[3]]
+[1] TRUE
+
+[[3]][[4]]
+[1] 1+4i
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my.list</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">my.list</span><span class="p">[[</span><span class="m">1</span><span class="p">]])</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">my.list</span><span class="p">[[</span><span class="m">2</span><span class="p">]])</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "logical"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my.list</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c1"># use the `=` to name your list elements</span><span class="w">
+</span><span class="n">my.list</span><span class="o">$</span><span class="n">x</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
+</code></pre></div></div>
+
+<p> </p>
+<h4 id="lists-and-functions">Lists and functions</h4>
+
+<p>Lists can be extremely useful inside functions. Because the functions in R are 
+able to return only a single object, you can “staple” together lots of different
+kinds of results into a single object that a function can return.</p>
+
+<p>Elements are indexed by double brackets. Double brackets return the object inside the indexed list element, while single brackets will just return a(nother) list containing the indicated elements.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my.list</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$x
+ [1]  1  2  3  4  5  6  7  8  9 10
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my.list</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Again, if the elements of a list are named, they can be referenced by
+the <code class="language-plaintext highlighter-rouge">$</code> notation (i.e. <code class="language-plaintext highlighter-rouge">xlist$data</code>). This can be useful if a function runs a complex analysis. It can export a lot of different types of information as different elements in a single list (raw data, processes data, analysis summary, analysis statistics, etc.)</p>
+
+<hr />
+<h3 id="data-frames">Data Frames</h3>
+
+<p>The data frame is the most important data type in R. It is the <em>de facto</em>
+data structure for most tabular data and what we use for statistics. At its heart, the data frame is a <em>special type of list</em> where every element of the list has same length (i.e. data frame is a “rectangular” list).</p>
+
+<p>Data frames can have additional attributes such as <code class="language-plaintext highlighter-rouge">rownames()</code>, which can be
+useful for annotating data, like <code class="language-plaintext highlighter-rouge">subject_id</code> or <code class="language-plaintext highlighter-rouge">sample_id</code>. But most of the
+time they are not used.</p>
+
+<p>Data frame characteristics:</p>
+<ul>
+  <li>Each column must contain a single data type</li>
+  <li>Different columns can have different data types</li>
+  <li>All columns must have the same number of elements</li>
+  <li>Like lists, column names can be directly called using the <code class="language-plaintext highlighter-rouge">$</code> operator</li>
+  <li>Like matrices, data frames can be indexed using the <code class="language-plaintext highlighter-rouge">df[row,column]</code> notation.</li>
+</ul>
+
+<p>Some additional information on data frames:</p>
+
+<ul>
+  <li>Created by the <code class="language-plaintext highlighter-rouge">read.csv()</code> and <code class="language-plaintext highlighter-rouge">read.table()</code> when importing the data into R.</li>
+  <li>Assuming all columns in a data frame are of same type, data frame can be converted to a matrix with data.matrix() (preferred) or as.matrix(). Otherwise type coercion will be enforced and the results may not always be what you expect.</li>
+  <li>Can be created <em>de novo</em> with the <code class="language-plaintext highlighter-rouge">data.frame()</code> or <code class="language-plaintext highlighter-rouge">as.data.frame()</code> functions.</li>
+  <li>Like matrices, the number of rows and columns can be queried with <code class="language-plaintext highlighter-rouge">nrow(dat)</code> and <code class="language-plaintext highlighter-rouge">ncol(dat)</code>, respectively.</li>
+  <li>Rownames are often automatically generated and look like 1, 2, …, n. Consistency in numbering of rownames may not be honored when rows are reshuffled or subset.</li>
+  <li>A common way to use data frames is with columns as “variables” (e.g. body weight, blood pressure) and rows as “patients” or “observations” (e.g. “subject 1”, “subject 2”, …).</li>
+</ul>
+
+<p>The following table summarizes the one-dimensional and two-dimensional data structures in 
+R in relation to diversity of data types they can contain.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimensions</th>
+      <th>Homogenous</th>
+      <th>Heterogeneous</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1-D</td>
+      <td>atomic vector</td>
+      <td>list</td>
+    </tr>
+    <tr>
+      <td>2-D</td>
+      <td>matrix</td>
+      <td>data frame</td>
+    </tr>
+  </tbody>
+</table>
+
+<p> </p>
+<h4 id="creating-data-frames-by-hand">Creating Data Frames by Hand</h4>
+
+<p>To create data frames by hand:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">letters</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">],</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="o">:</span><span class="m">20</span><span class="p">)</span><span class="w">
+</span><span class="n">dat</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   id  x  y
+1   a  1 11
+2   b  2 12
+3   c  3 13
+4   d  4 14
+5   e  5 15
+6   f  6 16
+7   g  7 17
+8   h  8 18
+9   i  9 19
+10  j 10 20
+</code></pre></div></div>
+
+<p> </p>
+
+<p>See that it is actually a special list:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">is.list</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">is.data.frame</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span><span class="w"> </span><span class="c1"># "data.frame" is a sub-class of "list"</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "data.frame"
+</code></pre></div></div>
+
+<p> </p>
+<h4 id="sample-data-in-r">Sample data in R</h4>
+
+<p>R includes a default dataset that can be used for examples caused <code class="language-plaintext highlighter-rouge">iris</code>. The <code class="language-plaintext highlighter-rouge">iris</code> data frame is already defined and loaded in memory. We will use this data frame to learn how to interact with data frames.</p>
+
+<p>Let’s get some information on the <code class="language-plaintext highlighter-rouge">iris</code> data set:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">iris</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+<h4 id="useful-function-for-examining-and-extracting-information-from-data-frames">Useful function for examining and extracting information from data frames</h4>
+
+<p>There are many ways to interact with data frames and get information about their contents.</p>
+
+<blockquote class="callout">
+  <h2 id="useful-data-frame-functions">Useful Data Frame Functions</h2>
+
+  <ul>
+    <li><code class="language-plaintext highlighter-rouge">head()</code> - shows first 6 rows</li>
+    <li><code class="language-plaintext highlighter-rouge">tail()</code> - shows last 6 rows</li>
+    <li><code class="language-plaintext highlighter-rouge">dim()</code> - returns the dimensions of data frame (i.e. number of rows and number of columns)</li>
+    <li><code class="language-plaintext highlighter-rouge">nrow()</code> - number of rows</li>
+    <li><code class="language-plaintext highlighter-rouge">ncol()</code> - number of columns</li>
+    <li><code class="language-plaintext highlighter-rouge">str()</code> - structure of data frame - name, type and preview of data in each column</li>
+    <li><code class="language-plaintext highlighter-rouge">names()</code> or <code class="language-plaintext highlighter-rouge">colnames()</code> - both show the <code class="language-plaintext highlighter-rouge">names</code> attribute for a data frame</li>
+    <li><code class="language-plaintext highlighter-rouge">sapply(dataframe, class)</code> - shows the class of each column in the data frame</li>
+  </ul>
+</blockquote>
+
+<p> </p>
+
+<p>I find <code class="language-plaintext highlighter-rouge">head()</code>, which displays the first 6 rows and all columns of the data frame, particularly useful to get a feel for the contents and organization of a new data frame. Let’s take a quick look at <code class="language-plaintext highlighter-rouge">iris</code> with <code class="language-plaintext highlighter-rouge">head()</code> and <code class="language-plaintext highlighter-rouge">dim()</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># you can look at more or fewer rows if 6 is not what you want</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">dim</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 150   5
+</code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="column-types-in-data-frames">Column Types in Data Frames</h2>
+
+  <p>Knowing that data frames are lists, can columns be of different type?</p>
+
+  <p>What type of structure do you expect to see when you explore the structure of the <code class="language-plaintext highlighter-rouge">iris</code> data 
+frame? Hint: Use <code class="language-plaintext highlighter-rouge">str()</code>.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-2">Solution</h2>
+    <p>The Sepal.Length, Sepal.Width, Petal.Length and Petal.Width columns are all
+numeric types, while Species is a Factor.
+Lists can have elements of different types.
+Since a Data Frame is just a special type of list, it can have columns of
+differing type (although, remember that type must be consistent within each column!).</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	150 obs. of  5 variables:
+ $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+</code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<p> </p>
+<h4 id="indexing-data-frames">Indexing data frames</h4>
+
+<p>R is a powerful language for data manipulation. There are three main ways for addressing data inside R objects.</p>
+
+<ul>
+  <li>By index (subsetting)</li>
+  <li>By name (columns only)</li>
+  <li>By logical vector</li>
+</ul>
+
+<p> </p>
+
+<p><strong>By index</strong></p>
+
+<p>Because data frames are rectangular, elements of data frame can be referenced by specifying 
+the row and the column index in single square brackets (similar to matrix).</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1.4
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Like matrices, we can also ask for multiple columns and rows using the <code class="language-plaintext highlighter-rouge">:</code> operator:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="o">:</span><span class="m">3</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Width Petal.Length
+1          3.5          1.4
+2          3.0          1.4
+3          3.2          1.3
+4          3.1          1.5
+5          3.6          1.4
+6          3.9          1.7
+7          3.4          1.4
+8          3.4          1.5
+9          2.9          1.4
+10         3.1          1.5
+11         3.7          1.5
+12         3.4          1.6
+13         3.0          1.4
+14         3.0          1.1
+15         4.0          1.2
+16         4.4          1.5
+17         3.9          1.3
+18         3.5          1.4
+19         3.8          1.7
+20         3.8          1.5
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Or for non-contiguous subsets using lists of indices:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="m">20</span><span class="o">:</span><span class="m">25</span><span class="p">),</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">)]</span><span class="w"> </span><span class="c1"># note the use of sequences within the `c()` list</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Length Petal.Length
+1           5.1          1.4
+2           4.9          1.4
+3           4.7          1.3
+4           4.6          1.5
+5           5.0          1.4
+6           5.4          1.7
+7           4.6          1.4
+8           5.0          1.5
+9           4.4          1.4
+10          4.9          1.5
+20          5.1          1.5
+21          5.4          1.7
+22          5.1          1.5
+23          4.6          1.0
+24          5.1          1.7
+25          4.8          1.9
+</code></pre></div></div>
+
+<p> </p>
+
+<p>What if we only ask for one dimension in data frame?</p>
+
+<blockquote class="challenge">
+  <h2 id="asking-for-a-single-index-from-a-data-frame">Asking for a single index from a data frame</h2>
+
+  <p>What do you expect if we query <code class="language-plaintext highlighter-rouge">iris</code> with just one index?</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">3</span><span class="p">]</span><span class="w">
+</span></code></pre></div>  </div>
+  <blockquote class="solution">
+    <h2 id="solution-3">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">3</span><span class="p">]</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Petal.Length
+1            1.4
+2            1.4
+3            1.3
+4            1.5
+5            1.4
+6            1.7
+7            1.4
+8            1.5
+9            1.4
+10           1.5
+11           1.5
+12           1.6
+13           1.4
+14           1.1
+15           1.2
+16           1.5
+17           1.3
+18           1.4
+19           1.7
+20           1.5
+21           1.7
+22           1.5
+23           1.0
+24           1.7
+25           1.9
+26           1.6
+27           1.6
+28           1.5
+29           1.4
+30           1.6
+31           1.6
+32           1.5
+33           1.5
+34           1.4
+35           1.5
+36           1.2
+37           1.3
+38           1.4
+39           1.3
+40           1.5
+41           1.3
+42           1.3
+43           1.3
+44           1.6
+45           1.9
+46           1.4
+47           1.6
+48           1.4
+49           1.5
+50           1.4
+51           4.7
+52           4.5
+53           4.9
+54           4.0
+55           4.6
+56           4.5
+57           4.7
+58           3.3
+59           4.6
+60           3.9
+61           3.5
+62           4.2
+63           4.0
+64           4.7
+65           3.6
+66           4.4
+67           4.5
+68           4.1
+69           4.5
+70           3.9
+71           4.8
+72           4.0
+73           4.9
+74           4.7
+75           4.3
+76           4.4
+77           4.8
+78           5.0
+79           4.5
+80           3.5
+81           3.8
+82           3.7
+83           3.9
+84           5.1
+85           4.5
+86           4.5
+87           4.7
+88           4.4
+89           4.1
+90           4.0
+91           4.4
+92           4.6
+93           4.0
+94           3.3
+95           4.2
+96           4.2
+97           4.2
+98           4.3
+99           3.0
+100          4.1
+101          6.0
+102          5.1
+103          5.9
+104          5.6
+105          5.8
+106          6.6
+107          4.5
+108          6.3
+109          5.8
+110          6.1
+111          5.1
+112          5.3
+113          5.5
+114          5.0
+115          5.1
+116          5.3
+117          5.5
+118          6.7
+119          6.9
+120          5.0
+121          5.7
+122          4.9
+123          6.7
+124          4.9
+125          5.7
+126          6.0
+127          4.8
+128          4.9
+129          5.6
+130          5.8
+131          6.1
+132          6.4
+133          5.6
+134          5.1
+135          5.6
+136          6.1
+137          5.6
+138          5.5
+139          4.8
+140          5.4
+141          5.6
+142          5.1
+143          5.1
+144          5.9
+145          5.7
+146          5.2
+147          5.0
+148          5.2
+149          5.4
+150          5.1
+</code></pre></div>    </div>
+    <p>Because the data frame is a list at heart, just asking for a single index returns 
+the indicated column.</p>
+
+  </blockquote>
+</blockquote>
+
+<p> </p>
+
+<p>What if we include the <code class="language-plaintext highlighter-rouge">,</code>, but don’t give an actual index?</p>
+
+<blockquote class="challenge">
+  <h2 id="selecting-more-values">Selecting More Values</h2>
+
+  <p>What will be returned by <code class="language-plaintext highlighter-rouge">dat[, 2]</code>?</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-4">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">2</span><span class="p">]</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
+</code></pre></div>    </div>
+
+    <p>If we leave out a dimension R will interpret this as a request for all values in 
+that dimension.</p>
+  </blockquote>
+</blockquote>
+
+<p> </p>
+
+<p><strong>By name (columns only)</strong></p>
+
+<p>As data frames are also lists, it is possible to refer to columns (which are elements of
+such list) using the list notation, i.e. either double square brackets or a <code class="language-plaintext highlighter-rouge">$</code>.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># These all return the same vector:</span><span class="w">
+</span><span class="n">iris</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
+ [19] 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0
+ [37] 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0 6.4 6.9 5.5
+ [55] 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2 5.6 5.9 6.1
+ [73] 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4 6.0 6.7 6.3 5.6 5.5
+ [91] 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7 6.3 5.8 7.1 6.3 6.5 7.6 4.9 7.3
+[109] 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7 6.0 6.9 5.6 7.7 6.3 6.7 7.2
+[127] 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7 6.3 6.4 6.0 6.9 6.7 6.9 5.8 6.8
+[145] 6.7 6.7 6.3 6.5 6.2 5.9
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[[</span><span class="s2">"Sepal.Length"</span><span class="p">]]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
+ [19] 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0
+ [37] 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0 6.4 6.9 5.5
+ [55] 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2 5.6 5.9 6.1
+ [73] 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4 6.0 6.7 6.3 5.6 5.5
+ [91] 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7 6.3 5.8 7.1 6.3 6.5 7.6 4.9 7.3
+[109] 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7 6.0 6.9 5.6 7.7 6.3 6.7 7.2
+[127] 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7 6.3 6.4 6.0 6.9 6.7 6.9 5.8 6.8
+[145] 6.7 6.7 6.3 6.5 6.2 5.9
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="o">$</span><span class="n">Sepal.Length</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
+ [19] 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0
+ [37] 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0 6.4 6.9 5.5
+ [55] 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2 5.6 5.9 6.1
+ [73] 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4 6.0 6.7 6.3 5.6 5.5
+ [91] 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7 6.3 5.8 7.1 6.3 6.5 7.6 4.9 7.3
+[109] 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7 6.0 6.9 5.6 7.7 6.3 6.7 7.2
+[127] 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7 6.3 6.4 6.0 6.9 6.7 6.9 5.8 6.8
+[145] 6.7 6.7 6.3 6.5 6.2 5.9
+</code></pre></div></div>
+
+<p> </p>
+
+<p>We can ask for a set of columns using <code class="language-plaintext highlighter-rouge">c()</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Sepal.Length"</span><span class="p">,</span><span class="s2">"Petal.Length"</span><span class="p">)]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Length Petal.Length
+1           5.1          1.4
+2           4.9          1.4
+3           4.7          1.3
+4           4.6          1.5
+5           5.0          1.4
+6           5.4          1.7
+7           4.6          1.4
+8           5.0          1.5
+9           4.4          1.4
+10          4.9          1.5
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Named vectors can also be used in vectorized mathematical operations:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="o">$</span><span class="n">Sepal.Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1]  6.5  6.3  6.0  6.1  6.4  7.1  6.0  6.5  5.8  6.4  6.9  6.4  6.2  5.4  7.0
+ [16]  7.2  6.7  6.5  7.4  6.6  7.1  6.6  5.6  6.8  6.7  6.6  6.6  6.7  6.6  6.3
+ [31]  6.4  6.9  6.7  6.9  6.4  6.2  6.8  6.3  5.7  6.6  6.3  5.8  5.7  6.6  7.0
+ [46]  6.2  6.7  6.0  6.8  6.4 11.7 10.9 11.8  9.5 11.1 10.2 11.0  8.2 11.2  9.1
+ [61]  8.5 10.1 10.0 10.8  9.2 11.1 10.1  9.9 10.7  9.5 10.7 10.1 11.2 10.8 10.7
+ [76] 11.0 11.6 11.7 10.5  9.2  9.3  9.2  9.7 11.1  9.9 10.5 11.4 10.7  9.7  9.5
+ [91]  9.9 10.7  9.8  8.3  9.8  9.9  9.9 10.5  8.1  9.8 12.3 10.9 13.0 11.9 12.3
+[106] 14.2  9.4 13.6 12.5 13.3 11.6 11.7 12.3 10.7 10.9 11.7 12.0 14.4 14.6 11.0
+[121] 12.6 10.5 14.4 11.2 12.4 13.2 11.0 11.0 12.0 13.0 13.5 14.3 12.0 11.4 11.7
+[136] 13.8 11.9 11.9 10.8 12.3 12.3 12.0 10.9 12.7 12.4 11.9 11.3 11.7 11.6 11.0
+</code></pre></div></div>
+
+<blockquote class="callout">
+  <h2 id="default-names">Default Names</h2>
+
+  <p>If column names are not specified, <code class="language-plaintext highlighter-rouge">V1, V2, ..., Vn</code> are automatically used as the defaults. For example, if we convert a matrix to a data frame:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span><span class="n">m.data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.data.frame</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
+</span><span class="n">m.data</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  V1 V2 V3 V4 V5
+1  1  3  5  7  9
+2  2  4  6  8 10
+</code></pre></div>  </div>
+</blockquote>
+
+<p> </p>
+
+<p><strong>By logical vector</strong></p>
+
+<p>Recall that a logical vector contains only the special values <code class="language-plaintext highlighter-rouge">TRUE</code> and <code class="language-plaintext highlighter-rouge">FALSE</code>.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  TRUE  TRUE FALSE FALSE  TRUE
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Logical vectors can be created using <code class="language-plaintext highlighter-rouge">relational operators</code>:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">&lt;</code> = less than</li>
+  <li><code class="language-plaintext highlighter-rouge">&gt;</code> = greater than</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;=</code> = less than or equal to</li>
+  <li><code class="language-plaintext highlighter-rouge">&gt;=</code> = greater than or equal to</li>
+  <li><code class="language-plaintext highlighter-rouge">==</code> = exactly equal to</li>
+  <li><code class="language-plaintext highlighter-rouge">!=</code> = not equal to</li>
+  <li><code class="language-plaintext highlighter-rouge">%in%</code> = is present in (to as if the value on the left is present in the vector/matrix on the right)</li>
+</ul>
+
+<p>A few single variable examples:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">4</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">7</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">18</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">18</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="m">15</span><span class="o">:</span><span class="m">25</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+</code></pre></div></div>
+
+<p> </p>
+
+<p>We can use these operators to query entire vectors and generate logical vectors:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># creating logical vectors from numeric data</span><span class="w">
+</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">11</span><span class="p">,</span><span class="w"> </span><span class="m">12</span><span class="p">,</span><span class="w"> </span><span class="m">13</span><span class="p">)</span><span class="w">
+</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">10</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE
+</code></pre></div></div>
+
+<p> </p>
+
+<p>We can use logical vectors to select data from a data frame.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">index</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'setosa'</span><span class="w">
+</span><span class="n">index</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [37]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [49]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[145] FALSE FALSE FALSE FALSE FALSE FALSE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="n">index</span><span class="p">,]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1           5.1         3.5          1.4         0.2  setosa
+2           4.9         3.0          1.4         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+4           4.6         3.1          1.5         0.2  setosa
+5           5.0         3.6          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+7           4.6         3.4          1.4         0.3  setosa
+8           5.0         3.4          1.5         0.2  setosa
+9           4.4         2.9          1.4         0.2  setosa
+10          4.9         3.1          1.5         0.1  setosa
+11          5.4         3.7          1.5         0.2  setosa
+12          4.8         3.4          1.6         0.2  setosa
+13          4.8         3.0          1.4         0.1  setosa
+14          4.3         3.0          1.1         0.1  setosa
+15          5.8         4.0          1.2         0.2  setosa
+16          5.7         4.4          1.5         0.4  setosa
+17          5.4         3.9          1.3         0.4  setosa
+18          5.1         3.5          1.4         0.3  setosa
+19          5.7         3.8          1.7         0.3  setosa
+20          5.1         3.8          1.5         0.3  setosa
+21          5.4         3.4          1.7         0.2  setosa
+22          5.1         3.7          1.5         0.4  setosa
+23          4.6         3.6          1.0         0.2  setosa
+24          5.1         3.3          1.7         0.5  setosa
+25          4.8         3.4          1.9         0.2  setosa
+26          5.0         3.0          1.6         0.2  setosa
+27          5.0         3.4          1.6         0.4  setosa
+28          5.2         3.5          1.5         0.2  setosa
+29          5.2         3.4          1.4         0.2  setosa
+30          4.7         3.2          1.6         0.2  setosa
+31          4.8         3.1          1.6         0.2  setosa
+32          5.4         3.4          1.5         0.4  setosa
+33          5.2         4.1          1.5         0.1  setosa
+34          5.5         4.2          1.4         0.2  setosa
+35          4.9         3.1          1.5         0.2  setosa
+36          5.0         3.2          1.2         0.2  setosa
+37          5.5         3.5          1.3         0.2  setosa
+38          4.9         3.6          1.4         0.1  setosa
+39          4.4         3.0          1.3         0.2  setosa
+40          5.1         3.4          1.5         0.2  setosa
+41          5.0         3.5          1.3         0.3  setosa
+42          4.5         2.3          1.3         0.3  setosa
+43          4.4         3.2          1.3         0.2  setosa
+44          5.0         3.5          1.6         0.6  setosa
+45          5.1         3.8          1.9         0.4  setosa
+46          4.8         3.0          1.4         0.3  setosa
+47          5.1         3.8          1.6         0.2  setosa
+48          4.6         3.2          1.4         0.2  setosa
+49          5.3         3.7          1.5         0.2  setosa
+50          5.0         3.3          1.4         0.2  setosa
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Often this operation is written as one line of code:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'setosa'</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1           5.1         3.5          1.4         0.2  setosa
+2           4.9         3.0          1.4         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+4           4.6         3.1          1.5         0.2  setosa
+5           5.0         3.6          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+7           4.6         3.4          1.4         0.3  setosa
+8           5.0         3.4          1.5         0.2  setosa
+9           4.4         2.9          1.4         0.2  setosa
+10          4.9         3.1          1.5         0.1  setosa
+11          5.4         3.7          1.5         0.2  setosa
+12          4.8         3.4          1.6         0.2  setosa
+13          4.8         3.0          1.4         0.1  setosa
+14          4.3         3.0          1.1         0.1  setosa
+15          5.8         4.0          1.2         0.2  setosa
+16          5.7         4.4          1.5         0.4  setosa
+17          5.4         3.9          1.3         0.4  setosa
+18          5.1         3.5          1.4         0.3  setosa
+19          5.7         3.8          1.7         0.3  setosa
+20          5.1         3.8          1.5         0.3  setosa
+21          5.4         3.4          1.7         0.2  setosa
+22          5.1         3.7          1.5         0.4  setosa
+23          4.6         3.6          1.0         0.2  setosa
+24          5.1         3.3          1.7         0.5  setosa
+25          4.8         3.4          1.9         0.2  setosa
+26          5.0         3.0          1.6         0.2  setosa
+27          5.0         3.4          1.6         0.4  setosa
+28          5.2         3.5          1.5         0.2  setosa
+29          5.2         3.4          1.4         0.2  setosa
+30          4.7         3.2          1.6         0.2  setosa
+31          4.8         3.1          1.6         0.2  setosa
+32          5.4         3.4          1.5         0.4  setosa
+33          5.2         4.1          1.5         0.1  setosa
+34          5.5         4.2          1.4         0.2  setosa
+35          4.9         3.1          1.5         0.2  setosa
+36          5.0         3.2          1.2         0.2  setosa
+37          5.5         3.5          1.3         0.2  setosa
+38          4.9         3.6          1.4         0.1  setosa
+39          4.4         3.0          1.3         0.2  setosa
+40          5.1         3.4          1.5         0.2  setosa
+41          5.0         3.5          1.3         0.3  setosa
+42          4.5         2.3          1.3         0.3  setosa
+43          4.4         3.2          1.3         0.2  setosa
+44          5.0         3.5          1.6         0.6  setosa
+45          5.1         3.8          1.9         0.4  setosa
+46          4.8         3.0          1.4         0.3  setosa
+47          5.1         3.8          1.6         0.2  setosa
+48          4.6         3.2          1.4         0.2  setosa
+49          5.3         3.7          1.5         0.2  setosa
+50          5.0         3.3          1.4         0.2  setosa
+</code></pre></div></div>
+
+<blockquote class="challenge">
+  <h2 id="using-logical-indices">Using logical indices</h2>
+
+  <p>Create a new data frame that is the subset of <code class="language-plaintext highlighter-rouge">iris</code> with sepal length greater than or
+equal to 5.0.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-5">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris.new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">[</span><span class="n">iris</span><span class="o">$</span><span class="n">Sepal.Length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">5</span><span class="p">,]</span><span class="w">
+</span></code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<p> </p>
+
+<p>In addition to the numeric comparisons, there are a set of operators that compare logical variables and output a new logical variable:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">!</code> = NOT (changes <code class="language-plaintext highlighter-rouge">TRUE</code> to <code class="language-plaintext highlighter-rouge">FALSE</code> and vice versa)</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;</code> = element-wise AND (both are true; outputs vector for vector input comparing elements)</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;&amp;</code> = logical AND (both are true; only considers first index of a vector)</li>
+  <li><code class="language-plaintext highlighter-rouge">|</code> = element-wise OR (one or both are true; outputs vector for vector input comparing elements)</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;&amp;</code> = logical OR (both are true; only considers first index of a vector)</li>
+</ul>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">truth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="n">lie</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">truth</span><span class="w">
+</span><span class="n">truth</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  TRUE FALSE  TRUE  TRUE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lie</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE  TRUE FALSE FALSE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">T</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nb">T</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">T</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nb">F</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">T</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nb">F</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">F</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nb">F</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+</code></pre></div></div>
+
+<hr />
+<h3 id="exercises">Exercises</h3>
+
+<blockquote class="challenge">
+  <h2 id="using-logical-indices-1">Using logical indices</h2>
+
+  <p>Create a new data frame that is the subset of <code class="language-plaintext highlighter-rouge">iris</code> with sepal length greater than or &gt; equal to 5.0 for the setosa species.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-6">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris.new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">[</span><span class="n">iris</span><span class="o">$</span><span class="n">Sepal.Length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"setosa"</span><span class="p">,]</span><span class="w">
+</span></code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="subsetting-using-a-vector-or-name">Subsetting using a vector or name</h2>
+
+  <p>Use the colon operator to index the first five observations of just the sepal<br />
+length and species from <code class="language-plaintext highlighter-rouge">iris</code></p>
+
+  <blockquote class="solution">
+    <h2 id="solution-7">Solution</h2>
+    <p>Two options:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">5</span><span class="p">)]</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Species
+1          5.1  setosa
+2          4.9  setosa
+3          4.7  setosa
+4          4.6  setosa
+5          5.0  setosa
+</code></pre></div>    </div>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s2">"Sepal.Length"</span><span class="p">,</span><span class="s2">"Species"</span><span class="p">)]</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Species
+1          5.1  setosa
+2          4.9  setosa
+3          4.7  setosa
+4          4.6  setosa
+5          5.0  setosa
+</code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="subsetting-with-sequences">Subsetting with Sequences</h2>
+
+  <p>Use the colon operator to index just the data on sepal size from <code class="language-plaintext highlighter-rouge">iris</code></p>
+
+  <blockquote class="solution">
+    <h2 id="solution-8">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">]</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Sepal.Length Sepal.Width
+1            5.1         3.5
+2            4.9         3.0
+3            4.7         3.2
+4            4.6         3.1
+5            5.0         3.6
+6            5.4         3.9
+7            4.6         3.4
+8            5.0         3.4
+9            4.4         2.9
+10           4.9         3.1
+11           5.4         3.7
+12           4.8         3.4
+13           4.8         3.0
+14           4.3         3.0
+15           5.8         4.0
+16           5.7         4.4
+17           5.4         3.9
+18           5.1         3.5
+19           5.7         3.8
+20           5.1         3.8
+21           5.4         3.4
+22           5.1         3.7
+23           4.6         3.6
+24           5.1         3.3
+25           4.8         3.4
+26           5.0         3.0
+27           5.0         3.4
+28           5.2         3.5
+29           5.2         3.4
+30           4.7         3.2
+31           4.8         3.1
+32           5.4         3.4
+33           5.2         4.1
+34           5.5         4.2
+35           4.9         3.1
+36           5.0         3.2
+37           5.5         3.5
+38           4.9         3.6
+39           4.4         3.0
+40           5.1         3.4
+41           5.0         3.5
+42           4.5         2.3
+43           4.4         3.2
+44           5.0         3.5
+45           5.1         3.8
+46           4.8         3.0
+47           5.1         3.8
+48           4.6         3.2
+49           5.3         3.7
+50           5.0         3.3
+51           7.0         3.2
+52           6.4         3.2
+53           6.9         3.1
+54           5.5         2.3
+55           6.5         2.8
+56           5.7         2.8
+57           6.3         3.3
+58           4.9         2.4
+59           6.6         2.9
+60           5.2         2.7
+61           5.0         2.0
+62           5.9         3.0
+63           6.0         2.2
+64           6.1         2.9
+65           5.6         2.9
+66           6.7         3.1
+67           5.6         3.0
+68           5.8         2.7
+69           6.2         2.2
+70           5.6         2.5
+71           5.9         3.2
+72           6.1         2.8
+73           6.3         2.5
+74           6.1         2.8
+75           6.4         2.9
+76           6.6         3.0
+77           6.8         2.8
+78           6.7         3.0
+79           6.0         2.9
+80           5.7         2.6
+81           5.5         2.4
+82           5.5         2.4
+83           5.8         2.7
+84           6.0         2.7
+85           5.4         3.0
+86           6.0         3.4
+87           6.7         3.1
+88           6.3         2.3
+89           5.6         3.0
+90           5.5         2.5
+91           5.5         2.6
+92           6.1         3.0
+93           5.8         2.6
+94           5.0         2.3
+95           5.6         2.7
+96           5.7         3.0
+97           5.7         2.9
+98           6.2         2.9
+99           5.1         2.5
+100          5.7         2.8
+101          6.3         3.3
+102          5.8         2.7
+103          7.1         3.0
+104          6.3         2.9
+105          6.5         3.0
+106          7.6         3.0
+107          4.9         2.5
+108          7.3         2.9
+109          6.7         2.5
+110          7.2         3.6
+111          6.5         3.2
+112          6.4         2.7
+113          6.8         3.0
+114          5.7         2.5
+115          5.8         2.8
+116          6.4         3.2
+117          6.5         3.0
+118          7.7         3.8
+119          7.7         2.6
+120          6.0         2.2
+121          6.9         3.2
+122          5.6         2.8
+123          7.7         2.8
+124          6.3         2.7
+125          6.7         3.3
+126          7.2         3.2
+127          6.2         2.8
+128          6.1         3.0
+129          6.4         2.8
+130          7.2         3.0
+131          7.4         2.8
+132          7.9         3.8
+133          6.4         2.8
+134          6.3         2.8
+135          6.1         2.6
+136          7.7         3.0
+137          6.3         3.4
+138          6.4         3.1
+139          6.0         3.0
+140          6.9         3.1
+141          6.7         3.1
+142          6.9         3.1
+143          5.8         2.7
+144          6.8         3.2
+145          6.7         3.3
+146          6.7         3.0
+147          6.3         2.5
+148          6.5         3.0
+149          6.2         3.4
+150          5.9         3.0
+</code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="adding-a-new-variable">Adding a new variable</h2>
+
+  <p>We want to add a variable called “Petal.Color” the <code class="language-plaintext highlighter-rouge">iris</code> data frame to record a new set of 
+observations. Let’s first define a new data frame ‘iris.update’ (so as not to modify our original raw data).</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris.update</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <p>Now, to initialize the variable, add a new character column to your data frame populated with
+no values to indicate that we have not recorded any observations.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-9">Solution</h2>
+
+    <p>We have a couple of options:</p>
+
+    <p>1) Define the vector and append it to the data frame using <code class="language-plaintext highlighter-rouge">cbind()</code>:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Petal.Color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">character</span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">iris.update</span><span class="p">)[</span><span class="m">1</span><span class="p">])</span><span class="w"> </span><span class="c1"># use the dim function to figure out how long to make the new vector</span><span class="w">
+</span><span class="n">iris.update</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cbind</span><span class="p">(</span><span class="n">iris.update</span><span class="p">,</span><span class="w"> </span><span class="n">Petal.Color</span><span class="p">)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">iris.update</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species Petal.Color
+1          5.1         3.5          1.4         0.2  setosa            
+2          4.9         3.0          1.4         0.2  setosa            
+3          4.7         3.2          1.3         0.2  setosa            
+4          4.6         3.1          1.5         0.2  setosa            
+5          5.0         3.6          1.4         0.2  setosa            
+6          5.4         3.9          1.7         0.4  setosa            
+</code></pre></div>    </div>
+    <p>2) Directly populate the new column while creating it:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris.update</span><span class="o">$</span><span class="n">Petal.Color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">iris.update</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species Petal.Color
+1          5.1         3.5          1.4         0.2  setosa            
+2          4.9         3.0          1.4         0.2  setosa            
+3          4.7         3.2          1.3         0.2  setosa            
+4          4.6         3.1          1.5         0.2  setosa            
+5          5.0         3.6          1.4         0.2  setosa            
+6          5.4         3.9          1.7         0.4  setosa            
+</code></pre></div>    </div>
+
+    <p>There are also other ways to accomplish this task.</p>
+  </blockquote>
+</blockquote>
+
+<blockquote class="challenge">
+  <h2 id="updating-a-subset-of-values">Updating a Subset of Values</h2>
+
+  <p>Update the <code class="language-plaintext highlighter-rouge">iris.update</code> data frame by indicating that the “setosa” species had purple petals (without
+changing the values for the other species).</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-10">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris.update</span><span class="p">[</span><span class="n">iris.update</span><span class="o">$</span><span class="n">Species</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"setosa"</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="o">$</span><span class="n">Petal.Color</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"purple"</span><span class="w">
+</span><span class="n">iris.update</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Color
+1            5.1         3.5          1.4         0.2     setosa      purple
+2            4.9         3.0          1.4         0.2     setosa      purple
+3            4.7         3.2          1.3         0.2     setosa      purple
+4            4.6         3.1          1.5         0.2     setosa      purple
+5            5.0         3.6          1.4         0.2     setosa      purple
+6            5.4         3.9          1.7         0.4     setosa      purple
+7            4.6         3.4          1.4         0.3     setosa      purple
+8            5.0         3.4          1.5         0.2     setosa      purple
+9            4.4         2.9          1.4         0.2     setosa      purple
+10           4.9         3.1          1.5         0.1     setosa      purple
+11           5.4         3.7          1.5         0.2     setosa      purple
+12           4.8         3.4          1.6         0.2     setosa      purple
+13           4.8         3.0          1.4         0.1     setosa      purple
+14           4.3         3.0          1.1         0.1     setosa      purple
+15           5.8         4.0          1.2         0.2     setosa      purple
+16           5.7         4.4          1.5         0.4     setosa      purple
+17           5.4         3.9          1.3         0.4     setosa      purple
+18           5.1         3.5          1.4         0.3     setosa      purple
+19           5.7         3.8          1.7         0.3     setosa      purple
+20           5.1         3.8          1.5         0.3     setosa      purple
+21           5.4         3.4          1.7         0.2     setosa      purple
+22           5.1         3.7          1.5         0.4     setosa      purple
+23           4.6         3.6          1.0         0.2     setosa      purple
+24           5.1         3.3          1.7         0.5     setosa      purple
+25           4.8         3.4          1.9         0.2     setosa      purple
+26           5.0         3.0          1.6         0.2     setosa      purple
+27           5.0         3.4          1.6         0.4     setosa      purple
+28           5.2         3.5          1.5         0.2     setosa      purple
+29           5.2         3.4          1.4         0.2     setosa      purple
+30           4.7         3.2          1.6         0.2     setosa      purple
+31           4.8         3.1          1.6         0.2     setosa      purple
+32           5.4         3.4          1.5         0.4     setosa      purple
+33           5.2         4.1          1.5         0.1     setosa      purple
+34           5.5         4.2          1.4         0.2     setosa      purple
+35           4.9         3.1          1.5         0.2     setosa      purple
+36           5.0         3.2          1.2         0.2     setosa      purple
+37           5.5         3.5          1.3         0.2     setosa      purple
+38           4.9         3.6          1.4         0.1     setosa      purple
+39           4.4         3.0          1.3         0.2     setosa      purple
+40           5.1         3.4          1.5         0.2     setosa      purple
+41           5.0         3.5          1.3         0.3     setosa      purple
+42           4.5         2.3          1.3         0.3     setosa      purple
+43           4.4         3.2          1.3         0.2     setosa      purple
+44           5.0         3.5          1.6         0.6     setosa      purple
+45           5.1         3.8          1.9         0.4     setosa      purple
+46           4.8         3.0          1.4         0.3     setosa      purple
+47           5.1         3.8          1.6         0.2     setosa      purple
+48           4.6         3.2          1.4         0.2     setosa      purple
+49           5.3         3.7          1.5         0.2     setosa      purple
+50           5.0         3.3          1.4         0.2     setosa      purple
+51           7.0         3.2          4.7         1.4 versicolor            
+52           6.4         3.2          4.5         1.5 versicolor            
+53           6.9         3.1          4.9         1.5 versicolor            
+54           5.5         2.3          4.0         1.3 versicolor            
+55           6.5         2.8          4.6         1.5 versicolor            
+56           5.7         2.8          4.5         1.3 versicolor            
+57           6.3         3.3          4.7         1.6 versicolor            
+58           4.9         2.4          3.3         1.0 versicolor            
+59           6.6         2.9          4.6         1.3 versicolor            
+60           5.2         2.7          3.9         1.4 versicolor            
+61           5.0         2.0          3.5         1.0 versicolor            
+62           5.9         3.0          4.2         1.5 versicolor            
+63           6.0         2.2          4.0         1.0 versicolor            
+64           6.1         2.9          4.7         1.4 versicolor            
+65           5.6         2.9          3.6         1.3 versicolor            
+66           6.7         3.1          4.4         1.4 versicolor            
+67           5.6         3.0          4.5         1.5 versicolor            
+68           5.8         2.7          4.1         1.0 versicolor            
+69           6.2         2.2          4.5         1.5 versicolor            
+70           5.6         2.5          3.9         1.1 versicolor            
+71           5.9         3.2          4.8         1.8 versicolor            
+72           6.1         2.8          4.0         1.3 versicolor            
+73           6.3         2.5          4.9         1.5 versicolor            
+74           6.1         2.8          4.7         1.2 versicolor            
+75           6.4         2.9          4.3         1.3 versicolor            
+76           6.6         3.0          4.4         1.4 versicolor            
+77           6.8         2.8          4.8         1.4 versicolor            
+78           6.7         3.0          5.0         1.7 versicolor            
+79           6.0         2.9          4.5         1.5 versicolor            
+80           5.7         2.6          3.5         1.0 versicolor            
+81           5.5         2.4          3.8         1.1 versicolor            
+82           5.5         2.4          3.7         1.0 versicolor            
+83           5.8         2.7          3.9         1.2 versicolor            
+84           6.0         2.7          5.1         1.6 versicolor            
+85           5.4         3.0          4.5         1.5 versicolor            
+86           6.0         3.4          4.5         1.6 versicolor            
+87           6.7         3.1          4.7         1.5 versicolor            
+88           6.3         2.3          4.4         1.3 versicolor            
+89           5.6         3.0          4.1         1.3 versicolor            
+90           5.5         2.5          4.0         1.3 versicolor            
+91           5.5         2.6          4.4         1.2 versicolor            
+92           6.1         3.0          4.6         1.4 versicolor            
+93           5.8         2.6          4.0         1.2 versicolor            
+94           5.0         2.3          3.3         1.0 versicolor            
+95           5.6         2.7          4.2         1.3 versicolor            
+96           5.7         3.0          4.2         1.2 versicolor            
+97           5.7         2.9          4.2         1.3 versicolor            
+98           6.2         2.9          4.3         1.3 versicolor            
+99           5.1         2.5          3.0         1.1 versicolor            
+100          5.7         2.8          4.1         1.3 versicolor            
+101          6.3         3.3          6.0         2.5  virginica            
+102          5.8         2.7          5.1         1.9  virginica            
+103          7.1         3.0          5.9         2.1  virginica            
+104          6.3         2.9          5.6         1.8  virginica            
+105          6.5         3.0          5.8         2.2  virginica            
+106          7.6         3.0          6.6         2.1  virginica            
+107          4.9         2.5          4.5         1.7  virginica            
+108          7.3         2.9          6.3         1.8  virginica            
+109          6.7         2.5          5.8         1.8  virginica            
+110          7.2         3.6          6.1         2.5  virginica            
+111          6.5         3.2          5.1         2.0  virginica            
+112          6.4         2.7          5.3         1.9  virginica            
+113          6.8         3.0          5.5         2.1  virginica            
+114          5.7         2.5          5.0         2.0  virginica            
+115          5.8         2.8          5.1         2.4  virginica            
+116          6.4         3.2          5.3         2.3  virginica            
+117          6.5         3.0          5.5         1.8  virginica            
+118          7.7         3.8          6.7         2.2  virginica            
+119          7.7         2.6          6.9         2.3  virginica            
+120          6.0         2.2          5.0         1.5  virginica            
+121          6.9         3.2          5.7         2.3  virginica            
+122          5.6         2.8          4.9         2.0  virginica            
+123          7.7         2.8          6.7         2.0  virginica            
+124          6.3         2.7          4.9         1.8  virginica            
+125          6.7         3.3          5.7         2.1  virginica            
+126          7.2         3.2          6.0         1.8  virginica            
+127          6.2         2.8          4.8         1.8  virginica            
+128          6.1         3.0          4.9         1.8  virginica            
+129          6.4         2.8          5.6         2.1  virginica            
+130          7.2         3.0          5.8         1.6  virginica            
+131          7.4         2.8          6.1         1.9  virginica            
+132          7.9         3.8          6.4         2.0  virginica            
+133          6.4         2.8          5.6         2.2  virginica            
+134          6.3         2.8          5.1         1.5  virginica            
+135          6.1         2.6          5.6         1.4  virginica            
+136          7.7         3.0          6.1         2.3  virginica            
+137          6.3         3.4          5.6         2.4  virginica            
+138          6.4         3.1          5.5         1.8  virginica            
+139          6.0         3.0          4.8         1.8  virginica            
+140          6.9         3.1          5.4         2.1  virginica            
+141          6.7         3.1          5.6         2.4  virginica            
+142          6.9         3.1          5.1         2.3  virginica            
+143          5.8         2.7          5.1         1.9  virginica            
+144          6.8         3.2          5.9         2.3  virginica            
+145          6.7         3.3          5.7         2.5  virginica            
+146          6.7         3.0          5.2         2.3  virginica            
+147          6.3         2.5          5.0         1.9  virginica            
+148          6.5         3.0          5.2         2.0  virginica            
+149          6.2         3.4          5.4         2.3  virginica            
+150          5.9         3.0          5.1         1.8  virginica            
+</code></pre></div>    </div>
+  </blockquote>
+</blockquote>
+
+<hr />
+
+:ET

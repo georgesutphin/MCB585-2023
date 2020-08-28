@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-23 21:10:15 -0700">
+    <meta http-equiv="last-modified" content="2020-08-27 23:06:19 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -119,11 +119,13 @@
             
             <li><a href="../02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
+            <li><a href="../02-oyo-R-data-types-in-depth/index.html">R Data Types -- In-Depth</a></li>
+            
             <li><a href="../02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a></li>
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
+            <li><a href="../03-oyo-Lists/index.html">Lists and Advanced Indexing</a></li>
             
             <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
             
@@ -313,19 +315,19 @@
   <thead>
     <tr>
       <th style="text-align: right">Truth Table</th>
-      <th style="text-align: center"><script type="math/tex">H_0</script> True</th>
-      <th style="text-align: center"><script type="math/tex">H_1</script> True</th>
+      <th style="text-align: center">\(H_0\) True</th>
+      <th style="text-align: center">\(H_1\) True</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: right">Accept <script type="math/tex">H_0</script></td>
+      <td style="text-align: right">Accept \(H_0\)</td>
       <td style="text-align: center">Correct</td>
-      <td style="text-align: center">Type II Error (<script type="math/tex">\beta</script>)</td>
+      <td style="text-align: center">Type II Error (\(\beta\))</td>
     </tr>
     <tr>
-      <td style="text-align: right">Reject <script type="math/tex">H_0</script></td>
-      <td style="text-align: center">Type I Error (<script type="math/tex">\alpha</script>)</td>
+      <td style="text-align: right">Reject \(H_0\)</td>
+      <td style="text-align: center">Type I Error (\(\alpha\))</td>
       <td style="text-align: center">Correct</td>
     </tr>
   </tbody>
@@ -334,18 +336,18 @@
 <p>Each quadrant has specific meaning to our experiment.</p>
 <ol>
   <li>The upper left quadrant is the boring case where there is no difference present, and correctly conclude that this is the case.</li>
-  <li>Type I Error (<script type="math/tex">\alpha</script>). In the lower left is the probability that we make an error and reject the null hypothesis when it is, in fact, true.</li>
-  <li>Type II Error (<script type="math/tex">\beta</script>). In the upper right is the probability that we make an error and accept the null hypothesis when the alternative hypothesis is true.</li>
-  <li>Power (1 - <script type="math/tex">\beta</script>). Finally, in the lower right we have the situation where we correctly reject the null hypothesis in favor of the alternative when the alternative is, in fact, true. The probability associated with this outcome is called <strong>power</strong>. Because the top and bottom possibility in each column are direct negations, the sum of probabilities in each column is 1. Therefore:</li>
+  <li>Type I Error (\(\alpha\)). In the lower left is the probability that we make an error and reject the null hypothesis when it is, in fact, true.</li>
+  <li>Type II Error (\(\beta\)). In the upper right is the probability that we make an error and accept the null hypothesis when the alternative hypothesis is true.</li>
+  <li>Power (1 - \(\beta\)). Finally, in the lower right we have the situation where we correctly reject the null hypothesis in favor of the alternative when the alternative is, in fact, true. The probability associated with this outcome is called <strong>power</strong>. Because the top and bottom possibility in each column are direct negations, the sum of probabilities in each column is 1. Therefore:</li>
 </ol>
 
-<p>      power = 1 - <script type="math/tex">\beta</script></p>
+<p>      power = 1 - \(\beta\)</p>
 
 <p>While we cannot eliminate the possibility of committing either type of error, a well-designed experiment will explicitly define the chance of committing either a Type I or Type II Error.</p>
 
-<p><strong>Limiting Type I Errors.</strong> Because the P-value represents the probability that the observed sample mean came from the null sampling distribution, it tells us directly what our chance of committing a Type I Error. Thus, we generally control Type I Errors explicitly by choosing a value for <script type="math/tex">\alpha</script> and only accepting P-values that fall below that threshold.</p>
+<p><strong>Limiting Type I Errors.</strong> Because the P-value represents the probability that the observed sample mean came from the null sampling distribution, it tells us directly what our chance of committing a Type I Error. Thus, we generally control Type I Errors explicitly by choosing a value for \(\alpha\) and only accepting P-values that fall below that threshold.</p>
 
-<p><strong>Limiting Type II Errors.</strong> Type II Errors are simply a failure to detect a real difference when once exists. Because they are not explicitly built into the statistical testing process like the <script type="math/tex">\alpha</script> threshold used to control Type I Errors, they often go uncontrolled and unremarked upon. Deliberately controlling Type II Errors requires more work up front in careful study design. As we will see, there are a couple of options here, but the main one is in the selection of sample size.</p>
+<p><strong>Limiting Type II Errors.</strong> Type II Errors are simply a failure to detect a real difference when once exists. Because they are not explicitly built into the statistical testing process like the \(\alpha\) threshold used to control Type I Errors, they often go uncontrolled and unremarked upon. Deliberately controlling Type II Errors requires more work up front in careful study design. As we will see, there are a couple of options here, but the main one is in the selection of sample size.</p>
 
 <p>To better understand these concepts, let’s look at them visually by examining our distributions. To set up our thought experiment, we want to consider the situation where a real difference exists (because this is what we are ultimately interested in detecting):</p>
 
@@ -353,27 +355,27 @@
 
 <p> </p>
 
-<p>The sampling means for two distributions are separated by some distance (<script type="math/tex">\Delta</script>). The variance in the distribution defines what fraction of the distributions overlap.</p>
+<p>The sampling means for two distributions are separated by some distance (\(\Delta\)). The variance in the distribution defines what fraction of the distributions overlap.</p>
 
-<p>The dotted vertical line represents our selected P-value threshold (<script type="math/tex">\alpha</script>): if the sample mean from the compared sample falls within the threshold (between the dotted lines), we accept the null hypothesis. If it falls outside the threshold, we reject the null hypothesis in favor of the alternative. <script type="math/tex">\alpha</script> is visually represented as the area under the distribution curve of the null distribution that falls outside the threshold mean.</p>
+<p>The dotted vertical line represents our selected P-value threshold (\(\alpha\)): if the sample mean from the compared sample falls within the threshold (between the dotted lines), we accept the null hypothesis. If it falls outside the threshold, we reject the null hypothesis in favor of the alternative. \(\alpha\) is visually represented as the area under the distribution curve of the null distribution that falls outside the threshold mean.</p>
 
-<p>In contrast to <script type="math/tex">\alpha</script>, the <script type="math/tex">\beta</script> represents the fraction of the area of the second distribution that falls within the threshold sample means. If a measured sample mean falls within this range, we will erroneously accept the null hypothesis (the distributions are the same) when the alternative hypothesis (the means are different, as drawn) is true.</p>
+<p>In contrast to \(\alpha\), the \(\beta\) represents the fraction of the area of the second distribution that falls within the threshold sample means. If a measured sample mean falls within this range, we will erroneously accept the null hypothesis (the distributions are the same) when the alternative hypothesis (the means are different, as drawn) is true.</p>
 
 <hr />
 <h3 id="what-variables-are-important-for-minimizing-error">What variables are important for minimizing error?</h3>
 
-<p>What are the key features of the above distributions that can be manipulated to control our two types of error? As noted above, we control <script type="math/tex">\alpha</script> directly by setting our desired value as the P-value threshold (or significance level). Looking at the above distributions, it turns out that we have five features that are inter-dependent:</p>
+<p>What are the key features of the above distributions that can be manipulated to control our two types of error? As noted above, we control \(\alpha\) directly by setting our desired value as the P-value threshold (or significance level). Looking at the above distributions, it turns out that we have five features that are inter-dependent:</p>
 <ul>
-  <li><strong>Population standard deviations:</strong> <script type="math/tex">\sigma_1</script>, <script type="math/tex">\sigma_2</script></li>
-  <li><strong>Sample size:</strong> <script type="math/tex">n_1</script>, <script type="math/tex">n_2</script></li>
+  <li><strong>Population standard deviations:</strong> \(\sigma_1\), \(\sigma_2\)</li>
+  <li><strong>Sample size:</strong> \(n_1\), \(n_2\)</li>
   <li><strong>Effect size:</strong> This is the minimum difference in means that we would like to detect, and has two common symbolic representations.</li>
-  <li><strong>Difference in means:</strong> <script type="math/tex">\Delta = \mu_2 - \mu_1</script></li>
-  <li><strong>Cohen’s <em>d</em>:</strong> <script type="math/tex">d = \frac{\sqrt{2}*(\mu_2 - \mu_1)}{\sqrt{\sigma_1^2 + \sigma_2^2}}</script>.</li>
-  <li><strong>Significance level:</strong> <script type="math/tex">\alpha</script></li>
-  <li><strong>Power:</strong> <script type="math/tex">1 - \beta</script></li>
+  <li><strong>Difference in means:</strong> \(\Delta = \mu_2 - \mu_1\)</li>
+  <li><strong>Cohen’s <em>d</em>:</strong> \(d = \frac{\sqrt{2}*(\mu_2 - \mu_1)}{\sqrt{\sigma_1^2 + \sigma_2^2}}\).</li>
+  <li><strong>Significance level:</strong> \(\alpha\)</li>
+  <li><strong>Power:</strong> \(1 - \beta\)</li>
 </ul>
 
-<p><em>If we know 4, we can calculate the 5th.</em> This means that we can define our desired <script type="math/tex">\alpha</script> and <script type="math/tex">\beta</script> if we can control the other 3.</p>
+<p><em>If we know 4, we can calculate the 5th.</em> This means that we can define our desired \(\alpha\) and \(\beta\) if we can control the other 3.</p>
 
 <p>Two of these remaining variables are generally defined by biological features of our system:</p>
 <ul>
@@ -400,29 +402,29 @@ one of two ways:</p>
   </ol>
 </blockquote>
 
-<p>That leaves <strong>sample size</strong> as our only real tool to control error terms. Since we typically set <script type="math/tex">\alpha</script> to 0.05 by convention, what we are left with is a direct relatinship between power and sample size. By examining the impact of sample size on the distribution shapes and relationships, we can see how this relationship holds:</p>
+<p>That leaves <strong>sample size</strong> as our only real tool to control error terms. Since we typically set \(\alpha\) to 0.05 by convention, what we are left with is a direct relatinship between power and sample size. By examining the impact of sample size on the distribution shapes and relationships, we can see how this relationship holds:</p>
 
 <p><img src="../fig/power-sample-size.png" alt="Power Analysis" /></p>
 
 <p> </p>
 
-<p>By increasing sample size we reduce the variance in the sampling distribution. For a given population with a specified <script type="math/tex">\Delta</script> and <script type="math/tex">\alpha</script>, this reduces the overlap in the sampling distributions, reducing the probability of making a Type II Error (<script type="math/tex">\beta</script>) and increasing the power to detect a real difference in distribution means, if one exists.</p>
+<p>By increasing sample size we reduce the variance in the sampling distribution. For a given population with a specified \(\Delta\) and \(\alpha\), this reduces the overlap in the sampling distributions, reducing the probability of making a Type II Error (\(\beta\)) and increasing the power to detect a real difference in distribution means, if one exists.</p>
 
 <p>In reality, effect size is another parameter that can be manipulated in the effort to maximize power while minimizing resource expenditure. You might, for instance, decide opt for a larger power to detect a bigger effect size. The interplay between these various factors can be intuitively manipulated using a visualization tool at <a href="http://rpsychologist.com/d3/NHST/">R Psychologist</a>.</p>
 
 <hr />
 <h3 id="calculating-power-in-r">Calculating power in R</h3>
 
-<p>The <code class="highlighter-rouge">pwr</code> package in R has power analysis tools for the t-test and a number of other statistical tests. Let’s explore the t-test power tool using our mouse body weight data. First, let’s install and load the package, and load our data set:</p>
+<p>The <code class="language-plaintext highlighter-rouge">pwr</code> package in R has power analysis tools for the t-test and a number of other statistical tests. Let’s explore the t-test power tool using our mouse body weight data. First, let’s install and load the package, and load our data set:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># install and load "pwr" package</span><span class="w">
 </span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">package</span> <span class="s1">'pwr'</span> <span class="n">successfully</span> <span class="n">unpacked</span> <span class="k">and</span> <span class="n">MD5</span> <span class="n">sums</span> <span class="n">checked</span>
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>package 'pwr' successfully unpacked and MD5 sums checked
 
-<span class="n">The</span> <span class="n">downloaded</span> <span class="n">binary</span> <span class="n">packages</span> <span class="n">are</span> <span class="k">in</span>
-	<span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sutph</span><span class="p">\</span><span class="n">AppData</span><span class="p">\</span><span class="n">Local</span><span class="p">\</span><span class="n">Temp</span><span class="p">\</span><span class="n">RtmpMnDWxK</span><span class="p">\</span><span class="n">downloaded_packages</span>
+The downloaded binary packages are in
+	C:\Users\sutph\AppData\Local\Temp\RtmpUTFDqG\downloaded_packages
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
@@ -431,12 +433,12 @@ one of two ways:</p>
 </span><span class="n">data.diet</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/b6.aj.hfhs.diet.txt"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<p>The power t-test function is <code class="highlighter-rouge">pwr.t.test()</code>. Let’s examine the inputs first:</p>
+<p>The power t-test function is <code class="language-plaintext highlighter-rouge">pwr.t.test()</code>. Let’s examine the inputs first:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">pwr.t.test</span><span class="w">
 </span></code></pre></div></div>
 
-<p>The function requires n (sample size), d (Cohen’s d effect size, which incorporates mean and standard deviation), significance level (<script type="math/tex">\alpha</script>), and power (1 - <script type="math/tex">\beta</script>), as well as two arguments that define the type of t-test (we generally want <code class="highlighter-rouge">type = "two.sample"</code> and <code class="highlighter-rouge">alternative = "two.sided"</code>). You can actually calculate any of the first 4. Just enter any three, and set the desired output to <code class="highlighter-rouge">NULL</code>.</p>
+<p>The function requires n (sample size), d (Cohen’s d effect size, which incorporates mean and standard deviation), significance level (\(\alpha\)), and power (1 - \(\beta\)), as well as two arguments that define the type of t-test (we generally want <code class="language-plaintext highlighter-rouge">type = "two.sample"</code> and <code class="language-plaintext highlighter-rouge">alternative = "two.sided"</code>). You can actually calculate any of the first 4. Just enter any three, and set the desired output to <code class="language-plaintext highlighter-rouge">NULL</code>.</p>
 
 <p>For our purposes, we want to determine the sample size needed to detect a 20% change in body weight with 95% power at a 0.05 significance level in C57BL/6J mice.</p>
 
@@ -472,7 +474,7 @@ one of two ways:</p>
 </span><span class="n">n.t</span><span class="o">$</span><span class="n">n</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 6.776594
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 6.776594
 </code></pre></div></div>
 
 <p> </p>
@@ -510,7 +512,7 @@ significance</p>
 </span><span class="n">n.t</span><span class="o">$</span><span class="n">n</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 22.44183
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 22.44183
 </code></pre></div>    </div>
 
     <p>The smaller effect size desired means that we need quite a bit higher sample size to detect the change in A/J mice.</p>
@@ -521,13 +523,13 @@ significance</p>
   <h2 id="should-you-always-use-equal-sample-size-in-compared-groups">Should you always use equal sample size in compared groups?</h2>
 
   <p>Using equal samples sizes between groups maximizes power to detect a desired effect when 
-comparing populations that have identical variance (e.g. <script type="math/tex">\sigma_1 = \sigma_2</script>). Many
+comparing populations that have identical variance (e.g. \(\sigma_1 = \sigma_2\)). Many
 tools assume equal sample sizes. This is a good rule of thumb.</p>
 
   <p>However, different sample sizes can be helpful in some situations. Comparing samples with 
 unequal variance for instance:</p>
   <ul>
-    <li>If <script type="math/tex">\sigma_2 = 2\sigma_1</script>, use <script type="math/tex">n_2 = 2n_1</script> animals to maximize power.</li>
+    <li>If \(\sigma_2 = 2\sigma_1\), use \(n_2 = 2n_1\) animals to maximize power.</li>
     <li>When testing an expensive drug, use more controls and fewer treated animals. You can achieve the same power with more animals but use a lot less drug.</li>
     <li>When testing multiple drugs, increase increase power by increasing control n only.</li>
     <li>When studying a rare disease, your disease population will often have a low n. Use more control group samples to increase power.</li>
@@ -539,7 +541,7 @@ unequal variance for instance:</p>
 
 <p>What about data that does not meet the normality assumption of the t-test? There are more sophisticated ways to handle this type of data, which we will discuss next week, but the t-test power calculation is much simpler and still gives a good ballpark estimate. In face, this is probably the most common method for running power analyses in non-normal data, despite the violation of the normality assumption. The estimate that it gives is still useful, just treat sample size estimates as <em>bare minimum</em> numbers, at best.</p>
 
-<p>To illustrate, let’s say we want to move to the next step and determine the impact of high-fat high-sucrose diet on mouse lifespan. Design an experiment to determine whether the high-fat, high- sucrose diet affects lifespan in C57BL/6J. We need to detect a 20% change in lifespan at 95% power. We have pilot lifespan data from a published inbred strain survey study in the file <code class="highlighter-rouge">inbred.lifespan.txt</code>.</p>
+<p>To illustrate, let’s say we want to move to the next step and determine the impact of high-fat high-sucrose diet on mouse lifespan. Design an experiment to determine whether the high-fat, high- sucrose diet affects lifespan in C57BL/6J. We need to detect a 20% change in lifespan at 95% power. We have pilot lifespan data from a published inbred strain survey study in the file <code class="language-plaintext highlighter-rouge">inbred.lifespan.txt</code>.</p>
 
 <p>First load the data and take a look:</p>
 
@@ -550,7 +552,7 @@ unequal variance for instance:</p>
 </span><span class="n">str</span><span class="p">(</span><span class="n">data.surv</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	1881 obs. of  5 variables:
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	1881 obs. of  5 variables:
  $ strain       : chr  "129S1/SvImJ" "129S1/SvImJ" "129S1/SvImJ" "129S1/SvImJ" ...
  $ sex          : chr  "f" "f" "f" "f" ...
  $ animal_id    : chr  "1" "2" "3" "4" ...
@@ -561,7 +563,7 @@ unequal variance for instance:</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">unique</span><span class="p">(</span><span class="n">data.surv</span><span class="o">$</span><span class="n">strain</span><span class="p">)</span><span class="w"> </span><span class="c1"># generate strain list</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "129S1/SvImJ"       "A/J"               "BALB/cByJ"        
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "129S1/SvImJ"       "A/J"               "BALB/cByJ"        
  [4] "BTBR T+ tf/J"      "BUB/BnJ"           "C3H/HeJ"          
  [7] "C57BL/10J"         "C57BL/6J"          "C57BLKS/J"        
 [10] "C57BR/cdJ"         "C57L/J"            "CAST/EiJ"         
@@ -608,7 +610,7 @@ unequal variance for instance:</p>
 </span><span class="n">n.t</span><span class="o">$</span><span class="n">n</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 29.94459
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 29.94459
 </code></pre></div></div>
 
 <p> </p>
@@ -658,7 +660,7 @@ unequal variance for instance:</p>
 </span><span class="n">n.t</span><span class="o">$</span><span class="n">n</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 127.356
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 127.356
 </code></pre></div>    </div>
 
     <p>That’s a lot of mice! Decreasing the detectable change and the significance 
@@ -709,7 +711,7 @@ level had a big impact even though we reduced power to detect a bit.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating n for power 0.5"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating n for power 0.5"
 [1] "Calculating n for power 0.51"
 [1] "Calculating n for power 0.52"
 [1] "Calculating n for power 0.53"
@@ -816,7 +818,7 @@ level had a big impact even though we reduced power to detect a bit.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating sample size for power 0.5"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating sample size for power 0.5"
 [1] "Calculating sample size for power 0.8"
 [1] "Calculating sample size for power 0.9"
 [1] "Calculating sample size for power 0.95"
@@ -905,7 +907,7 @@ values that we used above (50%, 80%, 90%, 95%).</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating sample size for power 0.5"
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating sample size for power 0.5"
 [1] "Calculating sample size for power 0.8"
 [1] "Calculating sample size for power 0.9"
 [1] "Calculating sample size for power 0.95"
@@ -1001,7 +1003,7 @@ and female C57BL/6J mice and present them on the same chart for comparison.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating sample size for change 0.1"
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating sample size for change 0.1"
 [1] "Calculating sample size for change 0.11"
 [1] "Calculating sample size for change 0.12"
 [1] "Calculating sample size for change 0.13"
@@ -1049,25 +1051,25 @@ a look at the population parameter estimate:</p>
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mu.f</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 812.9375
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 812.9375
 </code></pre></div>    </div>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mu.m</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 894.2812
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 894.2812
 </code></pre></div>    </div>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sigma.f</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 222.6933
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 222.6933
 </code></pre></div>    </div>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sigma.m</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 113.8831
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 113.8831
 </code></pre></div>    </div>
 
     <p>The standard deviation in female lifespan is nearly double that of males. We need a 
@@ -1132,7 +1134,7 @@ a high-fat high-sucrose diet in C57BL/6J mice.</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating sample size for power 0.5"
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Calculating sample size for power 0.5"
 [1] "Calculating sample size for power 0.8"
 [1] "Calculating sample size for power 0.9"
 [1] "Calculating sample size for power 0.95"
@@ -1180,7 +1182,7 @@ small (5%) changes in body weight with only a few mice.</p>
     <li><p>The primary tool for improving statistical power is sample size.</p>
 </li>
     
-    <li><p>R has basic tools for power analysis in the <code class="highlighter-rouge">pwr</code> package.</p>
+    <li><p>R has basic tools for power analysis in the <code class="language-plaintext highlighter-rouge">pwr</code> package.</p>
 </li>
     
   </ul>
