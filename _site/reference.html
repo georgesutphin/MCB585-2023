@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-23 21:10:15 -0700">
+    <meta http-equiv="last-modified" content="2020-08-27 22:17:36 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -119,11 +119,13 @@
             
             <li><a href="./02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
+            <li><a href="./02-oyo-R-data-types-in-depth/index.html">R Data Types -- In-Depth</a></li>
+            
             <li><a href="./02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a></li>
             
             <li><a href="./03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="./03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
+            <li><a href="./03-oyo-Lists/index.html">Lists and Advanced Indexing</a></li>
             
             <li><a href="./04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
             
@@ -245,7 +247,7 @@
         <li><p>Functions are the basic tool used to manipulate data and other objects in R.</p>
 </li>
         
-        <li><p>Functions take the form <code class="highlighter-rouge">output &lt;- function(argument1, argument2, ...)</code>.</p>
+        <li><p>Functions take the form <code class="language-plaintext highlighter-rouge">output &lt;- function(argument1, argument2, ...)</code>.</p>
 </li>
         
         <li><p>Arguments can be passed to functions by matching based on name, by position, or by omitting them (in which case the default value is used).</p>
@@ -264,7 +266,7 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>Use <code class="highlighter-rouge">#</code> to add comments to programs.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">#</code> to add comments to programs.</p>
 </li>
         
         <li><p>Annotate your code!</p>
@@ -291,7 +293,7 @@
         <li><p>Load all required packages at the beginning of a script.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">#----</code> comments to mark off sections of code.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">#----</code> comments to mark off sections of code.</p>
 </li>
         
         <li><p>When working with large datasets, removing variables that you no longer need and releasing memory can improve performance.</p>
@@ -300,7 +302,7 @@
         <li><p>Writing functions for sets of commands that you will be running repeatedly will make your data processing more efficient.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">install.packages()</code> to install new packages and <code class="highlighter-rouge">library()</code> to load and use installed packages in your current workspace.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">install.packages()</code> to install new packages and <code class="language-plaintext highlighter-rouge">library()</code> to load and use installed packages in your current workspace.</p>
 </li>
         
         <li><p>Use help() and ? to get basic information about functions.</p>
@@ -334,10 +336,41 @@
         <li><p>Objects may have attributes, such as name, dimension, and class.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">object[x]</code> and <code class="highlighter-rouge">object[x, y]</code> to select a single element from a 2- and 3-dimensional data structure, respectively.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">object[x]</code> and <code class="language-plaintext highlighter-rouge">object[x, y]</code> to select a single element from a 2- and 3-dimensional data structure, respectively.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">from:to</code> to specify a sequence that includes the indices from <code class="highlighter-rouge">from</code> to <code class="highlighter-rouge">to</code>.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">from:to</code> to specify a sequence that includes the indices from <code class="language-plaintext highlighter-rouge">from</code> to <code class="language-plaintext highlighter-rouge">to</code>.</p>
+</li>
+        
+        </ul>
+      </td>
+    </tr>
+  
+
+  
+    <tr>
+      <td class="col-md-3">
+        <a href="./02-oyo-R-data-types-in-depth/index.html">R Data Types -- In-Depth</a>
+      </td>
+      <td class="col-md-9">
+        <ul>
+        
+        <li><p>R’s basic data types are character, numeric, integer, complex, and logical.</p>
+</li>
+        
+        <li><p>R’s data structures include the vector, list, matrix, data frame, and factors. Some of these structures require that all members be of the same data type (e.g. vectors, matrices) while others permit multiple data types (e.g. lists, data frames).</p>
+</li>
+        
+        <li><p>Factors are used to represent categorical data.</p>
+</li>
+        
+        <li><p>Factors can be <em>ordered</em> or <em>unordered</em>.</p>
+</li>
+        
+        <li><p>Some R functions have special methods for handling factors.</p>
+</li>
+        
+        <li><p>The function <code class="language-plaintext highlighter-rouge">dim</code> gives the dimensions of a data structure.</p>
 </li>
         
         </ul>
@@ -368,7 +401,7 @@
         <li><p>Some R functions have special methods for handling factors.</p>
 </li>
         
-        <li><p>The function <code class="highlighter-rouge">dim</code> gives the dimensions of a data structure.</p>
+        <li><p>The function <code class="language-plaintext highlighter-rouge">dim</code> gives the dimensions of a data structure.</p>
 </li>
         
         </ul>
@@ -384,19 +417,19 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>Import data from a .csv or .txt file using the <code class="highlighter-rouge">read.table(...)</code>, <code class="highlighter-rouge">read.csv(...)</code>, and <code class="highlighter-rouge">read.delim(...)</code> functions.</p>
+        <li><p>Import data from a .csv or .txt file using the <code class="language-plaintext highlighter-rouge">read.table(...)</code>, <code class="language-plaintext highlighter-rouge">read.csv(...)</code>, and <code class="language-plaintext highlighter-rouge">read.delim(...)</code> functions.</p>
 </li>
         
-        <li><p>Write data to a new .csv or .txt file using the <code class="highlighter-rouge">write.table(...)</code> and <code class="highlighter-rouge">write.csv(...)</code> functions.</p>
+        <li><p>Write data to a new .csv or .txt file using the <code class="language-plaintext highlighter-rouge">write.table(...)</code> and <code class="language-plaintext highlighter-rouge">write.csv(...)</code> functions.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">object[x, y]</code> to select a single element from a data frame.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">object[x, y]</code> to select a single element from a data frame.</p>
 </li>
         
         <li><p>All the indexing and subsetting that works on matrices also works on data frames.</p>
 </li>
         
-        <li><p>Each column of a data frame can be directly addressed by specifying the column name using the <code class="highlighter-rouge">$</code> operator (e.g. <code class="highlighter-rouge">mydataframe$column1</code>).</p>
+        <li><p>Each column of a data frame can be directly addressed by specifying the column name using the <code class="language-plaintext highlighter-rouge">$</code> operator (e.g. <code class="language-plaintext highlighter-rouge">mydataframe$column1</code>).</p>
 </li>
         
         <li><p>Data in data structures can by accessed by specifying the appropriate index, by logical vector, or by column/row name (if defined).</p>
@@ -410,7 +443,7 @@
   
     <tr>
       <td class="col-md-3">
-        <a href="./03-oyo-lists/index.html">Lists and Advanced Indexing</a>
+        <a href="./03-oyo-Lists/index.html">Lists and Advanced Indexing</a>
       </td>
       <td class="col-md-9">
         <ul>
@@ -424,10 +457,10 @@
         <li><p>Data frames are a specific type of list in which all elements are vectors of the same length. Each vector can contain data of different classes.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">object[[x]]</code> to select a single element from a list.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">object[[x]]</code> to select a single element from a list.</p>
 </li>
         
-        <li><p>Each element of a list can be assigned a name that can be addressed using the <code class="highlighter-rouge">$</code> operator (e.g. <code class="highlighter-rouge">mylist$element1</code>).</p>
+        <li><p>Each element of a list can be assigned a name that can be addressed using the <code class="language-plaintext highlighter-rouge">$</code> operator (e.g. <code class="language-plaintext highlighter-rouge">mylist$element1</code>).</p>
 </li>
         
         </ul>
@@ -443,16 +476,16 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>Use <code class="highlighter-rouge">mean</code>, <code class="highlighter-rouge">max</code>, <code class="highlighter-rouge">min</code>, and <code class="highlighter-rouge">sd</code> to calculate simple statistics.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">mean</code>, <code class="language-plaintext highlighter-rouge">max</code>, <code class="language-plaintext highlighter-rouge">min</code>, and <code class="language-plaintext highlighter-rouge">sd</code> to calculate simple statistics.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">plot</code> to create simple visualizations.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">plot</code> to create simple visualizations.</p>
 </li>
         
         <li><p>Display simple graphs.</p>
 </li>
         
-        <li><p>Save a plot in a pdf file using <code class="highlighter-rouge">pdf(...)</code> and stop writing to the pdf file with <code class="highlighter-rouge">dev.off()</code>.</p>
+        <li><p>Save a plot in a pdf file using <code class="language-plaintext highlighter-rouge">pdf(...)</code> and stop writing to the pdf file with <code class="language-plaintext highlighter-rouge">dev.off()</code>.</p>
 </li>
         
         </ul>
@@ -468,13 +501,13 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>Use <code class="highlighter-rouge">apply()</code>, <code class="highlighter-rouge">lapply()</code>, and <code class="highlighter-rouge">sapply()</code> to calculate statistics across the rows or columns of a data frame.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">apply()</code>, <code class="language-plaintext highlighter-rouge">lapply()</code>, and <code class="language-plaintext highlighter-rouge">sapply()</code> to calculate statistics across the rows or columns of a data frame.</p>
 </li>
         
-        <li><p>There are more advanced tools for complex data manipulation, including the <code class="highlighter-rouge">dplyr</code> and <code class="highlighter-rouge">data.table</code> packages.</p>
+        <li><p>There are more advanced tools for complex data manipulation, including the <code class="language-plaintext highlighter-rouge">dplyr</code> and <code class="language-plaintext highlighter-rouge">data.table</code> packages.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">aggregate()</code> to calculate statistics based on the structure of a dataset.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">aggregate()</code> to calculate statistics based on the structure of a dataset.</p>
 </li>
         
         </ul>
@@ -490,25 +523,25 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>Use <code class="highlighter-rouge">if (condition)</code> to start a conditional statement, <code class="highlighter-rouge">else if (condition)</code> to provide additional tests, and <code class="highlighter-rouge">else</code> to provide a default alternative.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">if (condition)</code> to start a conditional statement, <code class="language-plaintext highlighter-rouge">else if (condition)</code> to provide additional tests, and <code class="language-plaintext highlighter-rouge">else</code> to provide a default alternative.</p>
 </li>
         
-        <li><p>The bodies of conditional statements must be surrounded by curly braces <code class="highlighter-rouge">{ }</code>.</p>
+        <li><p>The bodies of conditional statements must be surrounded by curly braces <code class="language-plaintext highlighter-rouge">{ }</code>.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">==</code> to test for equality.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">==</code> to test for equality.</p>
 </li>
         
-        <li><p><code class="highlighter-rouge">X &amp;&amp; Y</code> is only true if both X and Y are true.</p>
+        <li><p><code class="language-plaintext highlighter-rouge">X &amp;&amp; Y</code> is only true if both X and Y are true.</p>
 </li>
         
-        <li><p><code class="highlighter-rouge">X || Y</code> is true if either X, Y, or both, are true.</p>
+        <li><p><code class="language-plaintext highlighter-rouge">X || Y</code> is true if either X, Y, or both, are true.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">for (variable in collection)</code> to process the elements of a collection one at a time.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">for (variable in collection)</code> to process the elements of a collection one at a time.</p>
 </li>
         
-        <li><p>The body of a <code class="highlighter-rouge">for</code> loop is surrounded by curly braces (<code class="highlighter-rouge">{}</code>).</p>
+        <li><p>The body of a <code class="language-plaintext highlighter-rouge">for</code> loop is surrounded by curly braces (<code class="language-plaintext highlighter-rouge">{}</code>).</p>
 </li>
         
         </ul>
@@ -530,16 +563,16 @@
         <li><p>If a simple operation is requested on vectors of different lengths, R will either return and error or repeatedly loop through the elements of the shorter vector, depending on the operation.</p>
 </li>
         
-        <li><p>Where possible, use vectorized operations instead of <code class="highlighter-rouge">for</code> loops to make code faster and more concise.</p>
+        <li><p>Where possible, use vectorized operations instead of <code class="language-plaintext highlighter-rouge">for</code> loops to make code faster and more concise.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">length(thing)</code> to determine the length of something that contains other values.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">length(thing)</code> to determine the length of something that contains other values.</p>
 </li>
         
-        <li><p>Use functions such as <code class="highlighter-rouge">apply</code> instead of <code class="highlighter-rouge">for</code> loops to operate on the values in a data structure.</p>
+        <li><p>Use functions such as <code class="language-plaintext highlighter-rouge">apply</code> instead of <code class="language-plaintext highlighter-rouge">for</code> loops to operate on the values in a data structure.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">list.files(path = "path", pattern = "pattern", full.names = TRUE)</code> to create a list of files whose names match a pattern.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">list.files(path = "path", pattern = "pattern", full.names = TRUE)</code> to create a list of files whose names match a pattern.</p>
 </li>
         
         </ul>
@@ -564,7 +597,7 @@
         <li><p>The sampling distribution describes the characteristics of all possible samples of a given size.</p>
 </li>
         
-        <li><p>Use <code class="highlighter-rouge">hist()</code>, <code class="highlighter-rouge">density()</code>, <code class="highlighter-rouge">dnorm()</code>, <code class="highlighter-rouge">qqnorm()</code>, and <code class="highlighter-rouge">qqline()</code> to visually assess whether a sample is normally distributed.</p>
+        <li><p>Use <code class="language-plaintext highlighter-rouge">hist()</code>, <code class="language-plaintext highlighter-rouge">density()</code>, <code class="language-plaintext highlighter-rouge">dnorm()</code>, <code class="language-plaintext highlighter-rouge">qqnorm()</code>, and <code class="language-plaintext highlighter-rouge">qqline()</code> to visually assess whether a sample is normally distributed.</p>
 </li>
         
         </ul>
@@ -624,7 +657,7 @@
         <li><p>Different multiple test correction strategies correct for different types of errors (Type I vs. Type II) using different strategies.</p>
 </li>
         
-        <li><p>The basic outcome of a multiple test correction is to lower the P-value threshold (<script type="math/tex">lpha</script>) below which you reject the null hypothesis.</p>
+        <li><p>The basic outcome of a multiple test correction is to lower the P-value threshold (\(lpha\)) below which you reject the null hypothesis.</p>
 </li>
         
         </ul>
@@ -693,7 +726,7 @@
         <li><p>The primary tool for improving statistical power is sample size.</p>
 </li>
         
-        <li><p>R has basic tools for power analysis in the <code class="highlighter-rouge">pwr</code> package.</p>
+        <li><p>R has basic tools for power analysis in the <code class="language-plaintext highlighter-rouge">pwr</code> package.</p>
 </li>
         
         </ul>
@@ -744,28 +777,28 @@
 <h2 id="basic-operation">Basic Operation</h2>
 
 <ul>
-  <li><code class="highlighter-rouge"># this is a comment in R</code></li>
-  <li>Use <code class="highlighter-rouge">x &lt;- 3</code> to assign a value, <code class="highlighter-rouge">3</code>,  to a variable, <code class="highlighter-rouge">x</code></li>
+  <li><code class="language-plaintext highlighter-rouge"># this is a comment in R</code></li>
+  <li>Use <code class="language-plaintext highlighter-rouge">x &lt;- 3</code> to assign a value, <code class="language-plaintext highlighter-rouge">3</code>,  to a variable, <code class="language-plaintext highlighter-rouge">x</code></li>
   <li>R counts from 1, unlike many other programming languages (e.g., Python)</li>
-  <li><code class="highlighter-rouge">length(thing)</code> returns the number of elements contained in the variable
-<code class="highlighter-rouge">collection</code></li>
-  <li><code class="highlighter-rouge">c(value1, value2, value3)</code> creates a vector</li>
-  <li><code class="highlighter-rouge">container[i]</code> selects the i’th element from the variable <code class="highlighter-rouge">container</code></li>
+  <li><code class="language-plaintext highlighter-rouge">length(thing)</code> returns the number of elements contained in the variable
+<code class="language-plaintext highlighter-rouge">collection</code></li>
+  <li><code class="language-plaintext highlighter-rouge">c(value1, value2, value3)</code> creates a vector</li>
+  <li><code class="language-plaintext highlighter-rouge">container[i]</code> selects the i’th element from the variable <code class="language-plaintext highlighter-rouge">container</code></li>
 </ul>
 
 <p>List objects in current environment
-<code class="highlighter-rouge">ls()</code></p>
+<code class="language-plaintext highlighter-rouge">ls()</code></p>
 
 <p>Remove objects in current environment
-<code class="highlighter-rouge">rm(x)</code></p>
+<code class="language-plaintext highlighter-rouge">rm(x)</code></p>
 
 <p>Remove all objects from current environment
-<code class="highlighter-rouge">rm(list = ls())</code></p>
+<code class="language-plaintext highlighter-rouge">rm(list = ls())</code></p>
 
 <h2 id="control-flow">Control Flow</h2>
 
 <ul>
-  <li>Create a conditional using <code class="highlighter-rouge">if</code>, <code class="highlighter-rouge">else if</code>, and <code class="highlighter-rouge">else</code></li>
+  <li>Create a conditional using <code class="language-plaintext highlighter-rouge">if</code>, <code class="language-plaintext highlighter-rouge">else if</code>, and <code class="language-plaintext highlighter-rouge">else</code></li>
 </ul>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">){</span><span class="w">
@@ -778,7 +811,7 @@
 </span></code></pre></div></div>
 
 <ul>
-  <li>create a <code class="highlighter-rouge">for</code> loop to process elements in a collection one at a time</li>
+  <li>create a <code class="language-plaintext highlighter-rouge">for</code> loop to process elements in a collection one at a time</li>
 </ul>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -788,7 +821,7 @@
 
 <p>This will print:</p>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
 2
 3
 4
@@ -796,14 +829,14 @@
 </code></pre></div></div>
 
 <ul>
-  <li>Use <code class="highlighter-rouge">==</code> to test for equality
+  <li>Use <code class="language-plaintext highlighter-rouge">==</code> to test for equality
     <ul>
-      <li><code class="highlighter-rouge">3 == 3</code>, will return <code class="highlighter-rouge">TRUE</code>,</li>
-      <li><code class="highlighter-rouge">'apple' == 'orange'</code> will return <code class="highlighter-rouge">FALSE</code></li>
+      <li><code class="language-plaintext highlighter-rouge">3 == 3</code>, will return <code class="language-plaintext highlighter-rouge">TRUE</code>,</li>
+      <li><code class="language-plaintext highlighter-rouge">'apple' == 'orange'</code> will return <code class="language-plaintext highlighter-rouge">FALSE</code></li>
     </ul>
   </li>
-  <li><code class="highlighter-rouge">X &amp; Y</code> is <code class="highlighter-rouge">TRUE</code> is both X and Y are true</li>
-  <li><code class="highlighter-rouge">X | Y</code> is <code class="highlighter-rouge">TRUE</code> if either X or Y, or both are true</li>
+  <li><code class="language-plaintext highlighter-rouge">X &amp; Y</code> is <code class="language-plaintext highlighter-rouge">TRUE</code> is both X and Y are true</li>
+  <li><code class="language-plaintext highlighter-rouge">X | Y</code> is <code class="language-plaintext highlighter-rouge">TRUE</code> if either X or Y, or both are true</li>
 </ul>
 
 <h2 id="functions">Functions</h2>
@@ -833,27 +866,27 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<p><code class="highlighter-rouge">increment_me(4)</code>, will return 5</p>
+<p><code class="language-plaintext highlighter-rouge">increment_me(4)</code>, will return 5</p>
 
-<p><code class="highlighter-rouge">increment_me(4, 6)</code>, will return 10</p>
+<p><code class="language-plaintext highlighter-rouge">increment_me(4, 6)</code>, will return 10</p>
 
 <ul>
   <li>
-    <p>Call a function by using <code class="highlighter-rouge">function_name(function_arguments)</code></p>
+    <p>Call a function by using <code class="language-plaintext highlighter-rouge">function_name(function_arguments)</code></p>
   </li>
   <li>
-    <p>apply family of functions: <code class="highlighter-rouge">apply()</code>, <code class="highlighter-rouge">sapply()</code>, <code class="highlighter-rouge">lapply()</code>, and <code class="highlighter-rouge">mapply()</code></p>
+    <p>apply family of functions: <code class="language-plaintext highlighter-rouge">apply()</code>, <code class="language-plaintext highlighter-rouge">sapply()</code>, <code class="language-plaintext highlighter-rouge">lapply()</code>, and <code class="language-plaintext highlighter-rouge">mapply()</code></p>
   </li>
 </ul>
 
-<p><code class="highlighter-rouge">apply(dat, MARGIN = 2, mean)</code> will return the average (<code class="highlighter-rouge">mean</code>) of each column in <code class="highlighter-rouge">dat</code></p>
+<p><code class="language-plaintext highlighter-rouge">apply(dat, MARGIN = 2, mean)</code> will return the average (<code class="language-plaintext highlighter-rouge">mean</code>) of each column in <code class="language-plaintext highlighter-rouge">dat</code></p>
 
 <h2 id="packages">Packages</h2>
 
 <ul>
-  <li>Install package by using <code class="highlighter-rouge">install.packages("package-name")</code></li>
-  <li>Update packages by using <code class="highlighter-rouge">update.packages("package-name")</code></li>
-  <li>Load packages by using <code class="highlighter-rouge">library("package-name")</code></li>
+  <li>Install package by using <code class="language-plaintext highlighter-rouge">install.packages("package-name")</code></li>
+  <li>Update packages by using <code class="language-plaintext highlighter-rouge">update.packages("package-name")</code></li>
+  <li>Load packages by using <code class="language-plaintext highlighter-rouge">library("package-name")</code></li>
 </ul>
 
 <h2 id="glossary">Glossary</h2>
@@ -870,14 +903,14 @@ for each call, and discarded when the call is finished.</dd>
   <dd>A common textual representation for tables in which the values in each row are separated by commas.</dd>
   <dt id="comment">comment</dt>
   <dd>A remark in a program that is intended to help human readers understand what is going on, but is
-ignored by the computer. Comments in Python, R, and the Unix shell start with a <code class="highlighter-rouge">#</code> character and run
-to the end of the line; comments in SQL start with <code class="highlighter-rouge">--</code>, and other languages have other conventions.</dd>
+ignored by the computer. Comments in Python, R, and the Unix shell start with a <code class="language-plaintext highlighter-rouge">#</code> character and run
+to the end of the line; comments in SQL start with <code class="language-plaintext highlighter-rouge">--</code>, and other languages have other conventions.</dd>
   <dt id="conditional-statement">conditional statement</dt>
   <dd>A statement in a program that might or might not be executed depending on whether a test is true
 or false.</dd>
   <dt id="dimensions-of-an-array">dimensions (of an array)</dt>
   <dd>An array’s extent, represented as a vector. For example, an array with 5 rows and 3 columns has
-dimensions <code class="highlighter-rouge">(5,3)</code>.</dd>
+dimensions <code class="language-plaintext highlighter-rouge">(5,3)</code>.</dd>
   <dt id="documentation">documentation</dt>
   <dd>Human-language text written to explain what software does, how it works, or how to use it.</dd>
   <dt id="encapsulation">encapsulation</dt>
@@ -891,7 +924,7 @@ worry about <em>what</em> it does rather than <em>how</em> it does it.</dd>
   <dt id="function-call">function call</dt>
   <dd>A use of a function in another piece of software.</dd>
   <dt id="function-composition">function composition</dt>
-  <dd>The immediate application of one function to the result of another, such as <code class="highlighter-rouge">f(g(x))</code>.</dd>
+  <dd>The immediate application of one function to the result of another, such as <code class="language-plaintext highlighter-rouge">f(g(x))</code>.</dd>
   <dt id="index">index</dt>
   <dd>A subscript that specifies the location of a single value in a collection, such as a single
 pixel in an image.</dd>

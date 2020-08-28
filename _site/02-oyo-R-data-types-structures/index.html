@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-23 21:10:15 -0700">
+    <meta http-equiv="last-modified" content="2020-08-27 22:17:36 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -119,11 +119,13 @@
             
             <li><a href="../02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
+            <li><a href="../02-oyo-R-data-types-in-depth/index.html">R Data Types -- In-Depth</a></li>
+            
             <li><a href="../02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a></li>
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
+            <li><a href="../03-oyo-Lists/index.html">Lists and Advanced Indexing</a></li>
             
             <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
             
@@ -213,7 +215,7 @@
   <div class="col-xs-1">
     <h3 class="text-left">
       
-      <a href="../02-class-R-data-types-structures/index.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      <a href="../02-oyo-R-data-types-in-depth/index.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
       
     </h3>
   </div>
@@ -334,22 +336,22 @@ holds data of a single data type. Below are examples of atomic character vecotrs
 numeric vectors, integer vectors, etc.</p>
 
 <ul>
-  <li><strong>character</strong>: <code class="highlighter-rouge">"a"</code>, <code class="highlighter-rouge">"swc"</code></li>
-  <li><strong>numeric</strong>: <code class="highlighter-rouge">2</code>, <code class="highlighter-rouge">15.5</code></li>
-  <li><strong>integer</strong>: <code class="highlighter-rouge">2L</code> (the <code class="highlighter-rouge">L</code> tells R to store this as an integer)</li>
-  <li><strong>logical</strong>: <code class="highlighter-rouge">TRUE</code>, <code class="highlighter-rouge">FALSE</code></li>
-  <li><strong>complex</strong>: <code class="highlighter-rouge">1+4i</code> (complex numbers with real and imaginary parts)</li>
+  <li><strong>character</strong>: <code class="language-plaintext highlighter-rouge">"a"</code>, <code class="language-plaintext highlighter-rouge">"swc"</code></li>
+  <li><strong>numeric</strong>: <code class="language-plaintext highlighter-rouge">2</code>, <code class="language-plaintext highlighter-rouge">15.5</code></li>
+  <li><strong>integer</strong>: <code class="language-plaintext highlighter-rouge">2L</code> (the <code class="language-plaintext highlighter-rouge">L</code> tells R to store this as an integer)</li>
+  <li><strong>logical</strong>: <code class="language-plaintext highlighter-rouge">TRUE</code>, <code class="language-plaintext highlighter-rouge">FALSE</code></li>
+  <li><strong>complex</strong>: <code class="language-plaintext highlighter-rouge">1+4i</code> (complex numbers with real and imaginary parts)</li>
 </ul>
 
 <p>R provides many functions to examine features of vectors and other objects, for
 example</p>
 
 <ul>
-  <li><code class="highlighter-rouge">class()</code> - what kind of object is it (high-level)?</li>
-  <li><code class="highlighter-rouge">typeof()</code> - what is the object’s data type (low-level)?</li>
-  <li><code class="highlighter-rouge">length()</code> - how long is it (one-dimensional objects)?</li>
-  <li><code class="highlighter-rouge">dim()</code> - what are its dimensions? (two-dimensional objects)?</li>
-  <li><code class="highlighter-rouge">attributes()</code> - does it have any metadata?</li>
+  <li><code class="language-plaintext highlighter-rouge">class()</code> - what kind of object is it (high-level)?</li>
+  <li><code class="language-plaintext highlighter-rouge">typeof()</code> - what is the object’s data type (low-level)?</li>
+  <li><code class="language-plaintext highlighter-rouge">length()</code> - how long is it (one-dimensional objects)?</li>
+  <li><code class="language-plaintext highlighter-rouge">dim()</code> - what are its dimensions? (two-dimensional objects)?</li>
+  <li><code class="language-plaintext highlighter-rouge">attributes()</code> - does it have any metadata?</li>
 </ul>
 
 <p>Here are a couple of examples:</p>
@@ -359,19 +361,19 @@ example</p>
 </span><span class="n">typeof</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">attributes</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c1"># simple objects to not have attributes by default</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NULL
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NULL
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Example 2 -- an integer vector object</span><span class="w">
@@ -379,19 +381,19 @@ example</p>
 </span><span class="n">y</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">length</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 10
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 10
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Example 3 -- a numeric vector object</span><span class="w">
@@ -399,70 +401,70 @@ example</p>
 </span><span class="n">z</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "double"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "double"
 </code></pre></div></div>
 
 <p> </p>
 <h4 id="examining-vectors">Examining Vectors</h4>
 
-<p>The functions <code class="highlighter-rouge">typeof()</code>, <code class="highlighter-rouge">length()</code>, <code class="highlighter-rouge">class()</code> and <code class="highlighter-rouge">str()</code> provide useful
+<p>The functions <code class="language-plaintext highlighter-rouge">typeof()</code>, <code class="language-plaintext highlighter-rouge">length()</code>, <code class="language-plaintext highlighter-rouge">class()</code> and <code class="language-plaintext highlighter-rouge">str()</code> provide useful
 information about your vectors and R objects in general.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "double"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "double"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">length</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 10
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 10
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "numeric"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "numeric"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="w"> </span><span class="c1"># stands for "structure" of an object</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> num [1:10] 1 2 3 4 5 6 7 8 9 10
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> num [1:10] 1 2 3 4 5 6 7 8 9 10
 </code></pre></div></div>
 
 <p> </p>
 
-<p>The first example creates a vector <code class="highlighter-rouge">x</code> of mode <code class="highlighter-rouge">numeric</code>. These are the most common kind, and are treated as double precision real numbers. If you wanted to explicitly create integers, you need to add an <code class="highlighter-rouge">L</code> to each element</p>
+<p>The first example creates a vector <code class="language-plaintext highlighter-rouge">x</code> of mode <code class="language-plaintext highlighter-rouge">numeric</code>. These are the most common kind, and are treated as double precision real numbers. If you wanted to explicitly create integers, you need to add an <code class="language-plaintext highlighter-rouge">L</code> to each element</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="m">1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1L</span><span class="p">,</span><span class="w"> </span><span class="m">2L</span><span class="p">,</span><span class="w"> </span><span class="m">3L</span><span class="p">)</span><span class="w">
-</span><span class="n">typeof</span><span class="p">(</span><span class="n">x</span><span class="m">1</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1L</span><span class="p">,</span><span class="w"> </span><span class="m">2L</span><span class="p">,</span><span class="w"> </span><span class="m">3L</span><span class="p">)</span><span class="w">
+</span><span class="n">typeof</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
 </code></pre></div></div>
 
 <p> </p>
 
-<p>You can also <em>coerce</em> a vector to the integer type using <code class="highlighter-rouge">as.integer()</code>.</p>
+<p>You can also <em>coerce</em> a vector to the integer type using <code class="language-plaintext highlighter-rouge">as.integer()</code>.</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="m">2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.integer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: NAs introduced by coercion
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: NAs introduced by coercion
 </code></pre></div></div>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="n">x</span><span class="m">2</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
 </code></pre></div></div>
 
 <p> </p>
@@ -496,51 +498,51 @@ like strings.</p>
 
 <p>Once created, factors can only contain a pre-defined set values, known as
 <em>levels</em>. By default, R sorts <em>levels</em> in alphabetical order. For
-instance, let’s use the <code class="highlighter-rouge">factor()</code> command to create a factor with 2 levels:</p>
+instance, let’s use the <code class="language-plaintext highlighter-rouge">factor()</code> command to create a factor with 2 levels:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sex</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s2">"male"</span><span class="p">,</span><span class="w"> </span><span class="s2">"female"</span><span class="p">,</span><span class="w"> </span><span class="s2">"female"</span><span class="p">,</span><span class="w"> </span><span class="s2">"male"</span><span class="p">))</span><span class="w">
 </span><span class="n">sex</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] male   female female male  
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] male   female female male  
 Levels: female male
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Now compare this to a similar <code class="highlighter-rouge">character</code> vector:</p>
+<p>Now compare this to a similar <code class="language-plaintext highlighter-rouge">character</code> vector:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sex.char</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"male"</span><span class="p">,</span><span class="w"> </span><span class="s2">"female"</span><span class="p">,</span><span class="w"> </span><span class="s2">"female"</span><span class="p">,</span><span class="w"> </span><span class="s2">"male"</span><span class="p">)</span><span class="w">
 </span><span class="n">sex.char</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "male"   "female" "female" "male"  
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "male"   "female" "female" "male"  
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Note that the elements of <code class="highlighter-rouge">sex.char</code> have quotation marks, while the object <code class="highlighter-rouge">sex</code> had a list of levels.</p>
+<p>Note that the elements of <code class="language-plaintext highlighter-rouge">sex.char</code> have quotation marks, while the object <code class="language-plaintext highlighter-rouge">sex</code> had a list of levels.</p>
 
-<p>R will assign <code class="highlighter-rouge">1</code> to the level <code class="highlighter-rouge">"female"</code> and <code class="highlighter-rouge">2</code> to the level <code class="highlighter-rouge">"male"</code> (because
-<code class="highlighter-rouge">f</code> comes before <code class="highlighter-rouge">m</code>, even though the first element in this vector is
-<code class="highlighter-rouge">"male"</code>). You can check this by using the function <code class="highlighter-rouge">levels()</code>, and check the
-number of levels using <code class="highlighter-rouge">nlevels()</code>:</p>
+<p>R will assign <code class="language-plaintext highlighter-rouge">1</code> to the level <code class="language-plaintext highlighter-rouge">"female"</code> and <code class="language-plaintext highlighter-rouge">2</code> to the level <code class="language-plaintext highlighter-rouge">"male"</code> (because
+<code class="language-plaintext highlighter-rouge">f</code> comes before <code class="language-plaintext highlighter-rouge">m</code>, even though the first element in this vector is
+<code class="language-plaintext highlighter-rouge">"male"</code>). You can check this by using the function <code class="language-plaintext highlighter-rouge">levels()</code>, and check the
+number of levels using <code class="language-plaintext highlighter-rouge">nlevels()</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">levels</span><span class="p">(</span><span class="n">sex</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "female" "male"  
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "female" "male"  
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nlevels</span><span class="p">(</span><span class="n">sex</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2
 </code></pre></div></div>
 
 <p> </p>
 
-<p>One major functional difference is that the elements of the <code class="highlighter-rouge">character</code> vector only have the inherent order defined by their values (e.g. alphabetical). Sometimes, the order of the factors does not matter, other times you might want
+<p>One major functional difference is that the elements of the <code class="language-plaintext highlighter-rouge">character</code> vector only have the inherent order defined by their values (e.g. alphabetical). Sometimes, the order of the factors does not matter, other times you might want
 to specify the order because it is meaningful. For instance, “low”, “medium”, “high” as elements of a character vector have the implicit alphabetical order:</p>
 
 <p>      “high” &lt; “low” &lt; “medium”</p>
@@ -555,13 +557,13 @@ to specify the order because it is meaningful. For instance, “low”, “mediu
 </span><span class="n">levels</span><span class="p">(</span><span class="n">food</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "high"   "low"    "medium"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "high"   "low"    "medium"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">food</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "factor"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "factor"
 </code></pre></div></div>
 
 <p> </p>
@@ -572,19 +574,19 @@ to specify the order because it is meaningful. For instance, “low”, “mediu
 </span><span class="n">levels</span><span class="p">(</span><span class="n">food</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "low"    "medium" "high"  
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "low"    "medium" "high"  
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">food</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "factor"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "factor"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">min</span><span class="p">(</span><span class="n">food</span><span class="p">)</span><span class="w"> </span><span class="c1"># note that relative operations do not work; why not?</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in Summary.factor(structure(c(1L, 3L, 2L, 3L, 1L, 2L, 3L), .Label = c("low", : 'min' not meaningful for factors
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in Summary.factor(structure(c(1L, 3L, 2L, 3L, 1L, 2L, 3L), .Label = c("low", : 'min' not meaningful for factors
 </code></pre></div></div>
 
 <p> </p>
@@ -595,19 +597,19 @@ to specify the order because it is meaningful. For instance, “low”, “mediu
 </span><span class="n">levels</span><span class="p">(</span><span class="n">food</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "low"    "medium" "high"  
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "low"    "medium" "high"  
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">food</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "ordered" "factor" 
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "ordered" "factor" 
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">min</span><span class="p">(</span><span class="n">food</span><span class="p">)</span><span class="w"> </span><span class="c1"># now it works!</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] low
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] low
 Levels: low &lt; medium &lt; high
 </code></pre></div></div>
 
@@ -618,18 +620,18 @@ Levels: low &lt; medium &lt; high
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">food</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">food</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in Ops.ordered(food[1], food[2]): '+' is not meaningful for ordered
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in Ops.ordered(food[1], food[2]): '+' is not meaningful for ordered
 factors
 </code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] NA
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] NA
 </code></pre></div></div>
 
 <p> </p>
 
 <p>In R’s memory, these factors are represented by numbers (1, 2, 3). They are
 better than using simple integer labels because factors are self describing:
-<code class="highlighter-rouge">"low"</code>, <code class="highlighter-rouge">"medium"</code>, and <code class="highlighter-rouge">"high"</code>” is more descriptive than <code class="highlighter-rouge">1</code>, <code class="highlighter-rouge">2</code>, <code class="highlighter-rouge">3</code>. Which
+<code class="language-plaintext highlighter-rouge">"low"</code>, <code class="language-plaintext highlighter-rouge">"medium"</code>, and <code class="language-plaintext highlighter-rouge">"high"</code>” is more descriptive than <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code>, <code class="language-plaintext highlighter-rouge">3</code>. Which
 is low?  You wouldn’t be able to tell with just integer data. Factors have this
 information built in. It is particularly helpful when there are many levels
 (like the subjects in our example data set).</p>
@@ -639,13 +641,13 @@ information built in. It is particularly helpful when there are many levels
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">length</span><span class="p">(</span><span class="n">food</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 7
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 7
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">food</span><span class="p">[</span><span class="m">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"frog"</span><span class="w"> </span><span class="c1"># doesn't work! The level "frog" is not defined</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in `[&lt;-.factor`(`*tmp*`, 8, value = "frog"): invalid factor level, NA
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in `[&lt;-.factor`(`*tmp*`, 8, value = "frog"): invalid factor level, NA
 generated
 </code></pre></div></div>
 
@@ -653,7 +655,7 @@ generated
 </span><span class="n">food</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] low    high   medium high   low    medium high   low   
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] low    high   medium high   low    medium high   low   
 Levels: low &lt; medium &lt; high
 </code></pre></div></div>
 
@@ -661,7 +663,7 @@ Levels: low &lt; medium &lt; high
 </span><span class="n">food</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] low    high   medium high   low    medium high   low    &lt;NA&gt;   high  
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] low    high   medium high   low    medium high   low    &lt;NA&gt;   high  
 Levels: low &lt; medium &lt; high
 </code></pre></div></div>
 
@@ -688,13 +690,13 @@ Levels: low &lt; medium &lt; high
 </span><span class="n">exercise</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] l n n i l
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] l n n i l
 Levels: n &lt; l &lt; i
 </code></pre></div>    </div>
     <p> </p>
 
     <p>We only expect three categories (“n”, “l”, “i”).
-We can order these from least intense to most intense, so let’s use <code class="highlighter-rouge">ordered</code>.</p>
+We can order these from least intense to most intense, so let’s use <code class="language-plaintext highlighter-rouge">ordered</code>.</p>
   </blockquote>
 </blockquote>
 
@@ -707,50 +709,50 @@ We can order these from least intense to most intense, so let’s use <code clas
 </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2 1 3
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2 1 3
 </code></pre></div></div>
 
 <p> </p>
 
-<p>This does not behave as expected (and there is no warning). The reason is that the apparent numeric values are actually stored as integers (2, 1, 3) with labels (“3.4”, “1.2”, “5”). R uses the integer vaue when trying to perform the <code class="highlighter-rouge">as.numeric()</code> function.</p>
+<p>This does not behave as expected (and there is no warning). The reason is that the apparent numeric values are actually stored as integers (2, 1, 3) with labels (“3.4”, “1.2”, “5”). R uses the integer vaue when trying to perform the <code class="language-plaintext highlighter-rouge">as.numeric()</code> function.</p>
 
 <p>The recommended way is to use the integer vector to index the factor levels:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">levels</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="n">f</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "3.4" "1.2" "5"  
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "3.4" "1.2" "5"  
 </code></pre></div></div>
 
 <p> </p>
 
 <p>The factor really consists of two elements:</p>
 <ul>
-  <li>The ordered integer list: <code class="highlighter-rouge">2, 1, 3</code></li>
-  <li>The “key” indicating which integer corresponds to which level: <code class="highlighter-rouge">1 = 1.2</code>, <code class="highlighter-rouge">2 = 3.4</code>, <code class="highlighter-rouge">3 = 5</code></li>
+  <li>The ordered integer list: <code class="language-plaintext highlighter-rouge">2, 1, 3</code></li>
+  <li>The “key” indicating which integer corresponds to which level: <code class="language-plaintext highlighter-rouge">1 = 1.2</code>, <code class="language-plaintext highlighter-rouge">2 = 3.4</code>, <code class="language-plaintext highlighter-rouge">3 = 5</code></li>
 </ul>
 
-<p>To break this down the <code class="highlighter-rouge">levels(f)[f]</code>:</p>
+<p>To break this down the <code class="language-plaintext highlighter-rouge">levels(f)[f]</code>:</p>
 <ol>
-  <li>First we grabe the list of levels using <code class="highlighter-rouge">levels(f)</code>, which outputs a character vector: “1.2” “3.4” “5”.</li>
-  <li>Next we index this list with <code class="highlighter-rouge">[f]</code>. Because the index requests a numeric representation of the factor <code class="highlighter-rouge">f</code>, R replaces the <code class="highlighter-rouge">[f]</code> with <code class="highlighter-rouge">[c(2,1,3)]</code> (the integer portion of the factor object).</li>
+  <li>First we grabe the list of levels using <code class="language-plaintext highlighter-rouge">levels(f)</code>, which outputs a character vector: “1.2” “3.4” “5”.</li>
+  <li>Next we index this list with <code class="language-plaintext highlighter-rouge">[f]</code>. Because the index requests a numeric representation of the factor <code class="language-plaintext highlighter-rouge">f</code>, R replaces the <code class="language-plaintext highlighter-rouge">[f]</code> with <code class="language-plaintext highlighter-rouge">[c(2,1,3)]</code> (the integer portion of the factor object).</li>
   <li>R returns the elements of the character list in (1) with the order indicated by the integer list in (2).</li>
 </ol>
 
-<p>To convert that value of <code class="highlighter-rouge">f</code> to a basic <code class="highlighter-rouge">numeric</code> type, we still need to assign the values output above using <code class="highlighter-rouge">&lt;-</code> and the <code class="highlighter-rouge">as.numeric()</code>:</p>
+<p>To convert that value of <code class="language-plaintext highlighter-rouge">f</code> to a basic <code class="language-plaintext highlighter-rouge">numeric</code> type, we still need to assign the values output above using <code class="language-plaintext highlighter-rouge">&lt;-</code> and the <code class="language-plaintext highlighter-rouge">as.numeric()</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">levels</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="n">f</span><span class="p">]</span><span class="w">
 </span><span class="n">f</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="w">
 </span><span class="n">f</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 3.4 1.2 5.0
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 3.4 1.2 5.0
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "numeric"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "numeric"
 </code></pre></div></div>
 
 <hr />
@@ -761,19 +763,19 @@ We can order these from least intense to most intense, so let’s use <code clas
 <p> </p>
 <h4 id="missing-data">Missing Data</h4>
 
-<p>Missing data is represented as <code class="highlighter-rouge">NA</code> (Not Available)
+<p>Missing data is represented as <code class="language-plaintext highlighter-rouge">NA</code> (Not Available)
 and can be used for all the vector types covered in this lesson:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span><span class="m">1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="m">0.7</span><span class="p">)</span><span class="w">
-</span><span class="n">y</span><span class="m">2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">)</span><span class="w">
-</span><span class="n">y</span><span class="m">3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="s2">"c"</span><span class="p">,</span><span class="w"> </span><span class="s2">"d"</span><span class="p">,</span><span class="w"> </span><span class="s2">"e"</span><span class="p">)</span><span class="w">
-</span><span class="n">y</span><span class="m">4</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1+5i</span><span class="p">,</span><span class="w"> </span><span class="m">2-3i</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="m">0.7</span><span class="p">)</span><span class="w">
+</span><span class="n">y2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">)</span><span class="w">
+</span><span class="n">y3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="s2">"c"</span><span class="p">,</span><span class="w"> </span><span class="s2">"d"</span><span class="p">,</span><span class="w"> </span><span class="s2">"e"</span><span class="p">)</span><span class="w">
+</span><span class="n">y4</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1+5i</span><span class="p">,</span><span class="w"> </span><span class="m">2-3i</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <p> </p>
 
-<p>The function <code class="highlighter-rouge">is.na()</code> indicates the elements of the vectors that represent
-missing data, and the function <code class="highlighter-rouge">anyNA()</code> returns <code class="highlighter-rouge">TRUE</code> if the vector contains
+<p>The function <code class="language-plaintext highlighter-rouge">is.na()</code> indicates the elements of the vectors that represent
+missing data, and the function <code class="language-plaintext highlighter-rouge">anyNA()</code> returns <code class="language-plaintext highlighter-rouge">TRUE</code> if the vector contains
 any missing values:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="s2">"c"</span><span class="p">,</span><span class="w"> </span><span class="s2">"d"</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">)</span><span class="w">
@@ -781,83 +783,83 @@ any missing values:</p>
 </span><span class="nf">is.na</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE  TRUE FALSE FALSE  TRUE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE  TRUE FALSE FALSE  TRUE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">is.na</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE FALSE FALSE FALSE FALSE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE FALSE FALSE FALSE FALSE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">anyNA</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">anyNA</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
 </code></pre></div></div>
 
 <p> </p>
 <h4 id="other-special-values">Other Special Values</h4>
 
-<p><code class="highlighter-rouge">Inf</code> is infinity. You can have either positive or negative infinity.</p>
+<p><code class="language-plaintext highlighter-rouge">Inf</code> is infinity. You can have either positive or negative infinity.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span><span class="o">/</span><span class="m">0</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] Inf
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] Inf
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">-1</span><span class="o">/</span><span class="m">0</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] -Inf
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] -Inf
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">10</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kc">Inf</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] Inf
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] Inf
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span><span class="o">/</span><span class="kc">Inf</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0
 </code></pre></div></div>
 
 <p> </p>
 
-<p><code class="highlighter-rouge">NaN</code> means Not a Number. It’s an undefined value. However, it can still be a placeholder in a numeric vector.</p>
+<p><code class="language-plaintext highlighter-rouge">NaN</code> means Not a Number. It’s an undefined value. However, it can still be a placeholder in a numeric vector.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">0</span><span class="o">/</span><span class="m">0</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] NaN
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] NaN
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kc">NaN</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] NaN
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] NaN
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kc">Inf</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kc">NaN</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] NaN
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] NaN
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="kc">NaN</span><span class="p">)</span><span class="w">
 </span><span class="n">typeof</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "double"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "double"
 </code></pre></div></div>
 
 <hr />
@@ -883,7 +885,7 @@ any missing values:</p>
     <li><p>Some R functions have special methods for handling factors.</p>
 </li>
     
-    <li><p>The function <code class="highlighter-rouge">dim</code> gives the dimensions of a data structure.</p>
+    <li><p>The function <code class="language-plaintext highlighter-rouge">dim</code> gives the dimensions of a data structure.</p>
 </li>
     
   </ul>
@@ -910,7 +912,7 @@ any missing values:</p>
   <div class="col-xs-1">
     <h3 class="text-left">
       
-      <a href="../02-class-R-data-types-structures/index.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
+      <a href="../02-oyo-R-data-types-in-depth/index.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span><span class="sr-only">previous episode</span></a>
       
     </h3>
   </div>

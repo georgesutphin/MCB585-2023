@@ -129,7 +129,7 @@ install.packages("pwr")
 package 'pwr' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\RtmpMnDWxK\downloaded_packages
+	C:\Users\sutph\AppData\Local\Temp\RtmpUTFDqG\downloaded_packages
 ~~~
 {: .output}
 

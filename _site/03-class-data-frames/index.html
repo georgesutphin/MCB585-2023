@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-23 21:10:15 -0700">
+    <meta http-equiv="last-modified" content="2020-08-27 22:17:36 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -119,11 +119,13 @@
             
             <li><a href="../02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
+            <li><a href="../02-oyo-R-data-types-in-depth/index.html">R Data Types -- In-Depth</a></li>
+            
             <li><a href="../02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a></li>
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
+            <li><a href="../03-oyo-Lists/index.html">Lists and Advanced Indexing</a></li>
             
             <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
             
@@ -225,7 +227,7 @@
   <div class="col-xs-1">
     <h3 class="text-right">
       
-      <a href="../03-oyo-lists/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      <a href="../03-oyo-Lists/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
       
     </h3>
   </div>
@@ -287,10 +289,10 @@
 	<li><p>Be able to apply the basic functions for reading and writing tabular data stored in common text file formats (.txt, .csv).</p>
 </li>
 	
-	<li><p>Understand the key arguments for importing data properly, such as <code class="highlighter-rouge">header</code> and <code class="highlighter-rouge">stringsAsFactors</code>.</p>
+	<li><p>Understand the key arguments for importing data properly, such as <code class="language-plaintext highlighter-rouge">header</code> and <code class="language-plaintext highlighter-rouge">stringsAsFactors</code>.</p>
 </li>
 	
-	<li><p>Understand the key arguments for exporting the data properly, such as <code class="highlighter-rouge">row.names</code>, <code class="highlighter-rouge">col.names</code>, and <code class="highlighter-rouge">quote</code>.</p>
+	<li><p>Understand the key arguments for exporting the data properly, such as <code class="language-plaintext highlighter-rouge">row.names</code>, <code class="language-plaintext highlighter-rouge">col.names</code>, and <code class="language-plaintext highlighter-rouge">quote</code>.</p>
 </li>
 	
 	<li><p>Understand the structure and properties of data frames in R.</p>
@@ -328,14 +330,14 @@ property makes them fundamentally different from atomic vectors.</p>
 
 <p>A list is a special type of vector. Each element can be a different type, and is not restricted to a single value.</p>
 
-<p>Create lists using <code class="highlighter-rouge">list()</code> or coerce other objects using <code class="highlighter-rouge">as.list()</code>. An empty
-list of the required length can be created using <code class="highlighter-rouge">vector()</code></p>
+<p>Create lists using <code class="language-plaintext highlighter-rouge">list()</code> or coerce other objects using <code class="language-plaintext highlighter-rouge">as.list()</code>. An empty
+list of the required length can be created using <code class="language-plaintext highlighter-rouge">vector()</code></p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="m">1+4i</span><span class="p">)</span><span class="w">
 </span><span class="n">x</span><span class="w"> </span><span class="c1"># A list does not print to the console like a vector. Instead, each element of the list starts on a new line.</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[1]]
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[1]]
 [1] 1
 
 [[2]]
@@ -352,13 +354,13 @@ list of the required length can be created using <code class="highlighter-rouge"
 </span><span class="nf">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 5
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 5
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> 
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[1]]
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[1]]
 NULL
 
 [[2]]
@@ -383,26 +385,26 @@ NULL
 </span><span class="nf">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 10
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 10
 </code></pre></div></div>
 
 <p> </p>
 <h4 id="indexing-lists">Indexing lists</h4>
 
-<p>Indexing works a bit differently for lists. The content of elements of a list can be retrieved by using double square brackets <code class="highlighter-rouge">[[n]]</code>, as opposed to the single square brackets <code class="highlighter-rouge">[n]</code> used for vectors and matrices.</p>
+<p>Indexing works a bit differently for lists. The content of elements of a list can be retrieved by using double square brackets <code class="language-plaintext highlighter-rouge">[[n]]</code>, as opposed to the single square brackets <code class="language-plaintext highlighter-rouge">[n]</code> used for vectors and matrices.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1
 </code></pre></div></div>
 
 <blockquote class="challenge">
   <h2 id="examining-lists">Examining Lists</h2>
 
   <ol>
-    <li>What is the class of <code class="highlighter-rouge">x[1]</code>?</li>
-    <li>What is the class of <code class="highlighter-rouge">x[[1]]</code>?</li>
+    <li>What is the class of <code class="language-plaintext highlighter-rouge">x[1]</code>?</li>
+    <li>What is the class of <code class="language-plaintext highlighter-rouge">x[[1]]</code>?</li>
   </ol>
 
   <blockquote class="solution">
@@ -413,7 +415,7 @@ NULL
         <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">])</span><span class="w">
 </span></code></pre></div>        </div>
 
-        <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "list"
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "list"
 </code></pre></div>        </div>
       </li>
       <li>
@@ -421,7 +423,7 @@ NULL
         <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">x</span><span class="p">[[</span><span class="m">1</span><span class="p">]])</span><span class="w">
 </span></code></pre></div>        </div>
 
-        <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
 </code></pre></div>        </div>
       </li>
     </ol>
@@ -430,13 +432,13 @@ NULL
 
 <p> </p>
 
-<p>Elements of a list can be named (i.e. lists can have the <code class="highlighter-rouge">names</code> attribute)</p>
+<p>Elements of a list can be named (i.e. lists can have the <code class="language-plaintext highlighter-rouge">names</code> attribute)</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xlist</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Karthik Ram"</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="p">(</span><span class="n">iris</span><span class="p">))</span><span class="w">
 </span><span class="n">xlist</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$a
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$a
 [1] "Karthik Ram"
 
 $b
@@ -455,37 +457,37 @@ $data
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">names</span><span class="p">(</span><span class="n">xlist</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "a"    "b"    "data"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "a"    "b"    "data"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">attributes</span><span class="p">(</span><span class="n">xlist</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$names
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$names
 [1] "a"    "b"    "data"
 </code></pre></div></div>
 
 <p> </p>
 
-<p>You can use the <code class="highlighter-rouge">$</code> operator to directly refer to named list elements by their name:</p>
+<p>You can use the <code class="language-plaintext highlighter-rouge">$</code> operator to directly refer to named list elements by their name:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xlist</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Karthik Ram"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Karthik Ram"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">xlist</span><span class="o">$</span><span class="n">a</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Karthik Ram"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Karthik Ram"
 </code></pre></div></div>
 
 <blockquote class="challenge">
   <h2 id="examining-named-lists">Examining Named Lists</h2>
 
   <ol>
-    <li>What is the length of the <code class="highlighter-rouge">xlist</code> object?</li>
+    <li>What is the length of the <code class="language-plaintext highlighter-rouge">xlist</code> object?</li>
     <li>What is its structure?</li>
   </ol>
 
@@ -497,7 +499,7 @@ $data
         <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">length</span><span class="p">(</span><span class="n">xlist</span><span class="p">)</span><span class="w">
 </span></code></pre></div>        </div>
 
-        <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 3
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 3
 </code></pre></div>        </div>
       </li>
       <li>
@@ -505,7 +507,7 @@ $data
         <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">xlist</span><span class="p">)</span><span class="w">
 </span></code></pre></div>        </div>
 
-        <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>List of 3
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>List of 3
  $ a   : chr "Karthik Ram"
  $ b   : int [1:10] 1 2 3 4 5 6 7 8 9 10
  $ data:'data.frame':	6 obs. of  5 variables:
@@ -533,7 +535,7 @@ $data
 </span><span class="n">my.list</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[1]]
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[1]]
  [1]  1  2  3  4  5  6  7  8  9 10
 
 [[2]]
@@ -556,26 +558,26 @@ $data
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my.list</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">my.list</span><span class="p">[[</span><span class="m">1</span><span class="p">]])</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">my.list</span><span class="p">[[</span><span class="m">2</span><span class="p">]])</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "logical"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "logical"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my.list</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="c1"># use the `=` to name your list elements</span><span class="w">
 </span><span class="n">my.list</span><span class="o">$</span><span class="n">x</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
 </code></pre></div></div>
 
 <p> </p>
@@ -590,20 +592,20 @@ kinds of results into a single object that a function can return.</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my.list</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$x
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$x
  [1]  1  2  3  4  5  6  7  8  9 10
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my.list</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
 </code></pre></div></div>
 
 <p> </p>
 
 <p>Again, if the elements of a list are named, they can be referenced by
-the <code class="highlighter-rouge">$</code> notation (i.e. <code class="highlighter-rouge">xlist$data</code>). This can be useful if a function runs a complex analysis. It can export a lot of different types of information as different elements in a single list (raw data, processes data, analysis summary, analysis statistics, etc.)</p>
+the <code class="language-plaintext highlighter-rouge">$</code> notation (i.e. <code class="language-plaintext highlighter-rouge">xlist$data</code>). This can be useful if a function runs a complex analysis. It can export a lot of different types of information as different elements in a single list (raw data, processes data, analysis summary, analysis statistics, etc.)</p>
 
 <hr />
 <h3 id="data-frames">Data Frames</h3>
@@ -611,8 +613,8 @@ the <code class="highlighter-rouge">$</code> notation (i.e. <code class="highlig
 <p>The data frame is the most important data type in R. It is the <em>de facto</em>
 data structure for most tabular data and what we use for statistics. At its heart, the data frame is a <em>special type of list</em> where every element of the list has same length (i.e. data frame is a “rectangular” list).</p>
 
-<p>Data frames can have additional attributes such as <code class="highlighter-rouge">rownames()</code>, which can be
-useful for annotating data, like <code class="highlighter-rouge">subject_id</code> or <code class="highlighter-rouge">sample_id</code>. But most of the
+<p>Data frames can have additional attributes such as <code class="language-plaintext highlighter-rouge">rownames()</code>, which can be
+useful for annotating data, like <code class="language-plaintext highlighter-rouge">subject_id</code> or <code class="language-plaintext highlighter-rouge">sample_id</code>. But most of the
 time they are not used.</p>
 
 <p>Data frame characteristics:</p>
@@ -620,17 +622,17 @@ time they are not used.</p>
   <li>Each column must contain a single data type</li>
   <li>Different columns can have different data types</li>
   <li>All columns must have the same number of elements</li>
-  <li>Like lists, column names can be directly called using the <code class="highlighter-rouge">$</code> operator</li>
-  <li>Like matrices, data frames can be indexed using the <code class="highlighter-rouge">df[row,column]</code> notation.</li>
+  <li>Like lists, column names can be directly called using the <code class="language-plaintext highlighter-rouge">$</code> operator</li>
+  <li>Like matrices, data frames can be indexed using the <code class="language-plaintext highlighter-rouge">df[row,column]</code> notation.</li>
 </ul>
 
 <p>Some additional information on data frames:</p>
 
 <ul>
-  <li>Created by the <code class="highlighter-rouge">read.csv()</code> and <code class="highlighter-rouge">read.table()</code> when importing the data into R.</li>
+  <li>Created by the <code class="language-plaintext highlighter-rouge">read.csv()</code> and <code class="language-plaintext highlighter-rouge">read.table()</code> when importing the data into R.</li>
   <li>Assuming all columns in a data frame are of same type, data frame can be converted to a matrix with data.matrix() (preferred) or as.matrix(). Otherwise type coercion will be enforced and the results may not always be what you expect.</li>
-  <li>Can be created <em>de novo</em> with the <code class="highlighter-rouge">data.frame()</code> or <code class="highlighter-rouge">as.data.frame()</code> functions.</li>
-  <li>Like matrices, the number of rows and columns can be queried with <code class="highlighter-rouge">nrow(dat)</code> and <code class="highlighter-rouge">ncol(dat)</code>, respectively.</li>
+  <li>Can be created <em>de novo</em> with the <code class="language-plaintext highlighter-rouge">data.frame()</code> or <code class="language-plaintext highlighter-rouge">as.data.frame()</code> functions.</li>
+  <li>Like matrices, the number of rows and columns can be queried with <code class="language-plaintext highlighter-rouge">nrow(dat)</code> and <code class="language-plaintext highlighter-rouge">ncol(dat)</code>, respectively.</li>
   <li>Rownames are often automatically generated and look like 1, 2, …, n. Consistency in numbering of rownames may not be honored when rows are reshuffled or subset.</li>
   <li>A common way to use data frames is with columns as “variables” (e.g. body weight, blood pressure) and rows as “patients” or “observations” (e.g. “subject 1”, “subject 2”, …).</li>
 </ul>
@@ -669,7 +671,7 @@ R in relation to diversity of data types they can contain.</p>
 </span><span class="n">dat</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   id  x  y
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   id  x  y
 1   a  1 11
 2   b  2 12
 3   c  3 13
@@ -689,27 +691,27 @@ R in relation to diversity of data types they can contain.</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">is.list</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">is.data.frame</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span><span class="w"> </span><span class="c1"># "data.frame" is a sub-class of "list"</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "data.frame"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "data.frame"
 </code></pre></div></div>
 
 <p> </p>
 <h4 id="sample-data-in-r">Sample data in R</h4>
 
-<p>R includes a default dataset that can be used for examples caused <code class="highlighter-rouge">iris</code>. The <code class="highlighter-rouge">iris</code> data frame is already defined and loaded in memory. We will use this data frame to learn how to interact with data frames.</p>
+<p>R includes a default dataset that can be used for examples caused <code class="language-plaintext highlighter-rouge">iris</code>. The <code class="language-plaintext highlighter-rouge">iris</code> data frame is already defined and loaded in memory. We will use this data frame to learn how to interact with data frames.</p>
 
-<p>Let’s get some information on the <code class="highlighter-rouge">iris</code> data set:</p>
+<p>Let’s get some information on the <code class="language-plaintext highlighter-rouge">iris</code> data set:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">iris</span><span class="w">
 </span></code></pre></div></div>
@@ -723,25 +725,25 @@ R in relation to diversity of data types they can contain.</p>
   <h2 id="useful-data-frame-functions">Useful Data Frame Functions</h2>
 
   <ul>
-    <li><code class="highlighter-rouge">head()</code> - shows first 6 rows</li>
-    <li><code class="highlighter-rouge">tail()</code> - shows last 6 rows</li>
-    <li><code class="highlighter-rouge">dim()</code> - returns the dimensions of data frame (i.e. number of rows and number of columns)</li>
-    <li><code class="highlighter-rouge">nrow()</code> - number of rows</li>
-    <li><code class="highlighter-rouge">ncol()</code> - number of columns</li>
-    <li><code class="highlighter-rouge">str()</code> - structure of data frame - name, type and preview of data in each column</li>
-    <li><code class="highlighter-rouge">names()</code> or <code class="highlighter-rouge">colnames()</code> - both show the <code class="highlighter-rouge">names</code> attribute for a data frame</li>
-    <li><code class="highlighter-rouge">sapply(dataframe, class)</code> - shows the class of each column in the data frame</li>
+    <li><code class="language-plaintext highlighter-rouge">head()</code> - shows first 6 rows</li>
+    <li><code class="language-plaintext highlighter-rouge">tail()</code> - shows last 6 rows</li>
+    <li><code class="language-plaintext highlighter-rouge">dim()</code> - returns the dimensions of data frame (i.e. number of rows and number of columns)</li>
+    <li><code class="language-plaintext highlighter-rouge">nrow()</code> - number of rows</li>
+    <li><code class="language-plaintext highlighter-rouge">ncol()</code> - number of columns</li>
+    <li><code class="language-plaintext highlighter-rouge">str()</code> - structure of data frame - name, type and preview of data in each column</li>
+    <li><code class="language-plaintext highlighter-rouge">names()</code> or <code class="language-plaintext highlighter-rouge">colnames()</code> - both show the <code class="language-plaintext highlighter-rouge">names</code> attribute for a data frame</li>
+    <li><code class="language-plaintext highlighter-rouge">sapply(dataframe, class)</code> - shows the class of each column in the data frame</li>
   </ul>
 </blockquote>
 
 <p> </p>
 
-<p>I find <code class="highlighter-rouge">head()</code>, which displays the first 6 rows and all columns of the data frame, particularly useful to get a feel for the contents and organization of a new data frame. Let’s take a quick look at <code class="highlighter-rouge">iris</code> with <code class="highlighter-rouge">head()</code> and <code class="highlighter-rouge">dim()</code>:</p>
+<p>I find <code class="language-plaintext highlighter-rouge">head()</code>, which displays the first 6 rows and all columns of the data frame, particularly useful to get a feel for the contents and organization of a new data frame. Let’s take a quick look at <code class="language-plaintext highlighter-rouge">iris</code> with <code class="language-plaintext highlighter-rouge">head()</code> and <code class="language-plaintext highlighter-rouge">dim()</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
 2          4.9         3.0          1.4         0.2  setosa
 3          4.7         3.2          1.3         0.2  setosa
@@ -753,7 +755,7 @@ R in relation to diversity of data types they can contain.</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># you can look at more or fewer rows if 6 is not what you want</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
 2          4.9         3.0          1.4         0.2  setosa
 </code></pre></div></div>
@@ -761,7 +763,7 @@ R in relation to diversity of data types they can contain.</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">dim</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 150   5
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 150   5
 </code></pre></div></div>
 
 <blockquote class="challenge">
@@ -769,8 +771,8 @@ R in relation to diversity of data types they can contain.</p>
 
   <p>Knowing that data frames are lists, can columns be of different type?</p>
 
-  <p>What type of structure do you expect to see when you explore the structure of the <code class="highlighter-rouge">iris</code> data 
-frame? Hint: Use <code class="highlighter-rouge">str()</code>.</p>
+  <p>What type of structure do you expect to see when you explore the structure of the <code class="language-plaintext highlighter-rouge">iris</code> data 
+frame? Hint: Use <code class="language-plaintext highlighter-rouge">str()</code>.</p>
 
   <blockquote class="solution">
     <h2 id="solution-2">Solution</h2>
@@ -783,7 +785,7 @@ differing type (although, remember that type must be consistent within each colu
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	150 obs. of  5 variables:
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	150 obs. of  5 variables:
  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
@@ -814,17 +816,17 @@ the row and the column index in single square brackets (similar to matrix).</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1.4
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1.4
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Like matrices, we can also ask for multiple columns and rows using the <code class="highlighter-rouge">:</code> operator:</p>
+<p>Like matrices, we can also ask for multiple columns and rows using the <code class="language-plaintext highlighter-rouge">:</code> operator:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="o">:</span><span class="m">3</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Width Petal.Length
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Width Petal.Length
 1          3.5          1.4
 2          3.0          1.4
 3          3.2          1.3
@@ -854,7 +856,7 @@ the row and the column index in single square brackets (similar to matrix).</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="m">20</span><span class="o">:</span><span class="m">25</span><span class="p">),</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">)]</span><span class="w"> </span><span class="c1"># note the use of sequences within the `c()` list</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Length Petal.Length
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Length Petal.Length
 1           5.1          1.4
 2           4.9          1.4
 3           4.7          1.3
@@ -880,7 +882,7 @@ the row and the column index in single square brackets (similar to matrix).</p>
 <blockquote class="challenge">
   <h2 id="asking-for-a-single-index-from-a-data-frame">Asking for a single index from a data frame</h2>
 
-  <p>What do you expect if we query <code class="highlighter-rouge">iris</code> with just one index?</p>
+  <p>What do you expect if we query <code class="language-plaintext highlighter-rouge">iris</code> with just one index?</p>
 
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">3</span><span class="p">]</span><span class="w">
 </span></code></pre></div>  </div>
@@ -890,7 +892,7 @@ the row and the column index in single square brackets (similar to matrix).</p>
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">3</span><span class="p">]</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Petal.Length
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Petal.Length
 1            1.4
 2            1.4
 3            1.3
@@ -1050,12 +1052,12 @@ the indicated column.</p>
 
 <p> </p>
 
-<p>What if we include the <code class="highlighter-rouge">,</code>, but don’t give an actual index?</p>
+<p>What if we include the <code class="language-plaintext highlighter-rouge">,</code>, but don’t give an actual index?</p>
 
 <blockquote class="challenge">
   <h2 id="selecting-more-values">Selecting More Values</h2>
 
-  <p>What will be returned by <code class="highlighter-rouge">dat[, 2]</code>?</p>
+  <p>What will be returned by <code class="language-plaintext highlighter-rouge">dat[, 2]</code>?</p>
 
   <blockquote class="solution">
     <h2 id="solution-4">Solution</h2>
@@ -1063,7 +1065,7 @@ the indicated column.</p>
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">2</span><span class="p">]</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
 </code></pre></div>    </div>
 
     <p>If we leave out a dimension R will interpret this as a request for all values in 
@@ -1076,13 +1078,13 @@ that dimension.</p>
 <p><strong>By name (columns only)</strong></p>
 
 <p>As data frames are also lists, it is possible to refer to columns (which are elements of
-such list) using the list notation, i.e. either double square brackets or a <code class="highlighter-rouge">$</code>.</p>
+such list) using the list notation, i.e. either double square brackets or a <code class="language-plaintext highlighter-rouge">$</code>.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># These all return the same vector:</span><span class="w">
 </span><span class="n">iris</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
  [19] 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0
  [37] 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0 6.4 6.9 5.5
  [55] 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2 5.6 5.9 6.1
@@ -1096,7 +1098,7 @@ such list) using the list notation, i.e. either double square brackets or a <cod
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[[</span><span class="s2">"Sepal.Length"</span><span class="p">]]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
  [19] 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0
  [37] 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0 6.4 6.9 5.5
  [55] 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2 5.6 5.9 6.1
@@ -1110,7 +1112,7 @@ such list) using the list notation, i.e. either double square brackets or a <cod
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="o">$</span><span class="n">Sepal.Length</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
  [19] 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0
  [37] 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0 6.4 6.9 5.5
  [55] 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2 5.6 5.9 6.1
@@ -1123,12 +1125,12 @@ such list) using the list notation, i.e. either double square brackets or a <cod
 
 <p> </p>
 
-<p>We can ask for a set of columns using <code class="highlighter-rouge">c()</code>:</p>
+<p>We can ask for a set of columns using <code class="language-plaintext highlighter-rouge">c()</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Sepal.Length"</span><span class="p">,</span><span class="s2">"Petal.Length"</span><span class="p">)]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Length Petal.Length
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Length Petal.Length
 1           5.1          1.4
 2           4.9          1.4
 3           4.7          1.3
@@ -1148,7 +1150,7 @@ such list) using the list notation, i.e. either double square brackets or a <cod
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="o">$</span><span class="n">Sepal.Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1]  6.5  6.3  6.0  6.1  6.4  7.1  6.0  6.5  5.8  6.4  6.9  6.4  6.2  5.4  7.0
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1]  6.5  6.3  6.0  6.1  6.4  7.1  6.0  6.5  5.8  6.4  6.9  6.4  6.2  5.4  7.0
  [16]  7.2  6.7  6.5  7.4  6.6  7.1  6.6  5.6  6.8  6.7  6.6  6.6  6.7  6.6  6.3
  [31]  6.4  6.9  6.7  6.9  6.4  6.2  6.8  6.3  5.7  6.6  6.3  5.8  5.7  6.6  7.0
  [46]  6.2  6.7  6.0  6.8  6.4 11.7 10.9 11.8  9.5 11.1 10.2 11.0  8.2 11.2  9.1
@@ -1163,14 +1165,14 @@ such list) using the list notation, i.e. either double square brackets or a <cod
 <blockquote class="callout">
   <h2 id="default-names">Default Names</h2>
 
-  <p>If column names are not specified, <code class="highlighter-rouge">V1, V2, ..., Vn</code> are automatically used as the defaults. For example, if we convert a matrix to a data frame:</p>
+  <p>If column names are not specified, <code class="language-plaintext highlighter-rouge">V1, V2, ..., Vn</code> are automatically used as the defaults. For example, if we convert a matrix to a data frame:</p>
 
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
 </span><span class="n">m.data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.data.frame</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span><span class="n">m.data</span><span class="w">
 </span></code></pre></div>  </div>
 
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  V1 V2 V3 V4 V5
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  V1 V2 V3 V4 V5
 1  1  3  5  7  9
 2  2  4  6  8 10
 </code></pre></div>  </div>
@@ -1180,25 +1182,25 @@ such list) using the list notation, i.e. either double square brackets or a <cod
 
 <p><strong>By logical vector</strong></p>
 
-<p>Recall that a logical vector contains only the special values <code class="highlighter-rouge">TRUE</code> and <code class="highlighter-rouge">FALSE</code>.</p>
+<p>Recall that a logical vector contains only the special values <code class="language-plaintext highlighter-rouge">TRUE</code> and <code class="language-plaintext highlighter-rouge">FALSE</code>.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  TRUE  TRUE FALSE FALSE  TRUE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  TRUE  TRUE FALSE FALSE  TRUE
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Logical vectors can be created using <code class="highlighter-rouge">relational operators</code>:</p>
+<p>Logical vectors can be created using <code class="language-plaintext highlighter-rouge">relational operators</code>:</p>
 <ul>
-  <li><code class="highlighter-rouge">&lt;</code> = less than</li>
-  <li><code class="highlighter-rouge">&gt;</code> = greater than</li>
-  <li><code class="highlighter-rouge">&lt;=</code> = less than or equal to</li>
-  <li><code class="highlighter-rouge">&gt;=</code> = greater than or equal to</li>
-  <li><code class="highlighter-rouge">==</code> = exactly equal to</li>
-  <li><code class="highlighter-rouge">!=</code> = not equal to</li>
-  <li><code class="highlighter-rouge">%in%</code> = is present in (to as if the value on the left is present in the vector/matrix on the right)</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;</code> = less than</li>
+  <li><code class="language-plaintext highlighter-rouge">&gt;</code> = greater than</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;=</code> = less than or equal to</li>
+  <li><code class="language-plaintext highlighter-rouge">&gt;=</code> = greater than or equal to</li>
+  <li><code class="language-plaintext highlighter-rouge">==</code> = exactly equal to</li>
+  <li><code class="language-plaintext highlighter-rouge">!=</code> = not equal to</li>
+  <li><code class="language-plaintext highlighter-rouge">%in%</code> = is present in (to as if the value on the left is present in the vector/matrix on the right)</li>
 </ul>
 
 <p>A few single variable examples:</p>
@@ -1206,37 +1208,37 @@ such list) using the list notation, i.e. either double square brackets or a <cod
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">2</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">4</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">7</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">18</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">18</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="m">15</span><span class="o">:</span><span class="m">25</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
 </code></pre></div></div>
 
 <p> </p>
@@ -1248,13 +1250,13 @@ such list) using the list notation, i.e. either double square brackets or a <cod
 </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">10</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE
 </code></pre></div></div>
 
 <p> </p>
@@ -1265,7 +1267,7 @@ such list) using the list notation, i.e. either double square brackets or a <cod
 </span><span class="n">index</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
  [13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
  [25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
  [37]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
@@ -1283,7 +1285,7 @@ such list) using the list notation, i.e. either double square brackets or a <cod
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="n">index</span><span class="p">,]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1           5.1         3.5          1.4         0.2  setosa
 2           4.9         3.0          1.4         0.2  setosa
 3           4.7         3.2          1.3         0.2  setosa
@@ -1343,7 +1345,7 @@ such list) using the list notation, i.e. either double square brackets or a <cod
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'setosa'</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1           5.1         3.5          1.4         0.2  setosa
 2           4.9         3.0          1.4         0.2  setosa
 3           4.7         3.2          1.3         0.2  setosa
@@ -1399,7 +1401,7 @@ such list) using the list notation, i.e. either double square brackets or a <cod
 <blockquote class="challenge">
   <h2 id="using-logical-indices">Using logical indices</h2>
 
-  <p>Create a new data frame that is the subset of <code class="highlighter-rouge">iris</code> with sepal length greater than or
+  <p>Create a new data frame that is the subset of <code class="language-plaintext highlighter-rouge">iris</code> with sepal length greater than or
 equal to 5.0.</p>
 
   <blockquote class="solution">
@@ -1414,11 +1416,11 @@ equal to 5.0.</p>
 
 <p>In addition to the numeric comparisons, there are a set of operators that compare logical variables and output a new logical variable:</p>
 <ul>
-  <li><code class="highlighter-rouge">!</code> = NOT (changes <code class="highlighter-rouge">TRUE</code> to <code class="highlighter-rouge">FALSE</code> and vice versa)</li>
-  <li><code class="highlighter-rouge">&amp;</code> = element-wise AND (both are true; outputs vector for vector input comparing elements)</li>
-  <li><code class="highlighter-rouge">&amp;&amp;</code> = logical AND (both are true; only considers first index of a vector)</li>
-  <li><code class="highlighter-rouge">|</code> = element-wise OR (one or both are true; outputs vector for vector input comparing elements)</li>
-  <li><code class="highlighter-rouge">&amp;&amp;</code> = logical OR (both are true; only considers first index of a vector)</li>
+  <li><code class="language-plaintext highlighter-rouge">!</code> = NOT (changes <code class="language-plaintext highlighter-rouge">TRUE</code> to <code class="language-plaintext highlighter-rouge">FALSE</code> and vice versa)</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;</code> = element-wise AND (both are true; outputs vector for vector input comparing elements)</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;&amp;</code> = logical AND (both are true; only considers first index of a vector)</li>
+  <li><code class="language-plaintext highlighter-rouge">|</code> = element-wise OR (one or both are true; outputs vector for vector input comparing elements)</li>
+  <li><code class="language-plaintext highlighter-rouge">&amp;&amp;</code> = logical OR (both are true; only considers first index of a vector)</li>
 </ul>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">truth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
@@ -1426,37 +1428,37 @@ equal to 5.0.</p>
 </span><span class="n">truth</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  TRUE FALSE  TRUE  TRUE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  TRUE FALSE  TRUE  TRUE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lie</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE  TRUE FALSE FALSE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE  TRUE FALSE FALSE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">T</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nb">T</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">T</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nb">F</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">T</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nb">F</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">F</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nb">F</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
 </code></pre></div></div>
 
 <hr />
@@ -1465,7 +1467,7 @@ equal to 5.0.</p>
 <blockquote class="challenge">
   <h2 id="using-logical-indices-1">Using logical indices</h2>
 
-  <p>Create a new data frame that is the subset of <code class="highlighter-rouge">iris</code> with sepal length greater than or &gt; equal to 5.0 for the setosa species.</p>
+  <p>Create a new data frame that is the subset of <code class="language-plaintext highlighter-rouge">iris</code> with sepal length greater than or &gt; equal to 5.0 for the setosa species.</p>
 
   <blockquote class="solution">
     <h2 id="solution-6">Solution</h2>
@@ -1479,7 +1481,7 @@ equal to 5.0.</p>
   <h2 id="subsetting-using-a-vector-or-name">Subsetting using a vector or name</h2>
 
   <p>Use the colon operator to index the first five observations of just the sepal<br />
-length and species from <code class="highlighter-rouge">iris</code></p>
+length and species from <code class="language-plaintext highlighter-rouge">iris</code></p>
 
   <blockquote class="solution">
     <h2 id="solution-7">Solution</h2>
@@ -1488,7 +1490,7 @@ length and species from <code class="highlighter-rouge">iris</code></p>
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">5</span><span class="p">)]</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Species
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Species
 1          5.1  setosa
 2          4.9  setosa
 3          4.7  setosa
@@ -1499,7 +1501,7 @@ length and species from <code class="highlighter-rouge">iris</code></p>
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="nf">c</span><span class="p">(</span><span class="s2">"Sepal.Length"</span><span class="p">,</span><span class="s2">"Species"</span><span class="p">)]</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Species
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Species
 1          5.1  setosa
 2          4.9  setosa
 3          4.7  setosa
@@ -1512,7 +1514,7 @@ length and species from <code class="highlighter-rouge">iris</code></p>
 <blockquote class="challenge">
   <h2 id="subsetting-with-sequences">Subsetting with Sequences</h2>
 
-  <p>Use the colon operator to index just the data on sepal size from <code class="highlighter-rouge">iris</code></p>
+  <p>Use the colon operator to index just the data on sepal size from <code class="language-plaintext highlighter-rouge">iris</code></p>
 
   <blockquote class="solution">
     <h2 id="solution-8">Solution</h2>
@@ -1520,7 +1522,7 @@ length and species from <code class="highlighter-rouge">iris</code></p>
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">]</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Sepal.Length Sepal.Width
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Sepal.Length Sepal.Width
 1            5.1         3.5
 2            4.9         3.0
 3            4.7         3.2
@@ -1678,7 +1680,7 @@ length and species from <code class="highlighter-rouge">iris</code></p>
 <blockquote class="challenge">
   <h2 id="adding-a-new-variable">Adding a new variable</h2>
 
-  <p>We want to add a variable called “Petal.Color” the <code class="highlighter-rouge">iris</code> data frame to record a new set of 
+  <p>We want to add a variable called “Petal.Color” the <code class="language-plaintext highlighter-rouge">iris</code> data frame to record a new set of 
 observations. Let’s first define a new data frame ‘iris.update’ (so as not to modify our original raw data).</p>
 
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris.update</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="w">
@@ -1692,14 +1694,14 @@ no values to indicate that we have not recorded any observations.</p>
 
     <p>We have a couple of options:</p>
 
-    <p>1) Define the vector and append it to the data frame using <code class="highlighter-rouge">cbind()</code>:</p>
+    <p>1) Define the vector and append it to the data frame using <code class="language-plaintext highlighter-rouge">cbind()</code>:</p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Petal.Color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">character</span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">dim</span><span class="p">(</span><span class="n">iris.update</span><span class="p">)[</span><span class="m">1</span><span class="p">])</span><span class="w"> </span><span class="c1"># use the dim function to figure out how long to make the new vector</span><span class="w">
 </span><span class="n">iris.update</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cbind</span><span class="p">(</span><span class="n">iris.update</span><span class="p">,</span><span class="w"> </span><span class="n">Petal.Color</span><span class="p">)</span><span class="w">
 </span><span class="n">head</span><span class="p">(</span><span class="n">iris.update</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species Petal.Color
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species Petal.Color
 1          5.1         3.5          1.4         0.2  setosa            
 2          4.9         3.0          1.4         0.2  setosa            
 3          4.7         3.2          1.3         0.2  setosa            
@@ -1713,7 +1715,7 @@ no values to indicate that we have not recorded any observations.</p>
 </span><span class="n">head</span><span class="p">(</span><span class="n">iris.update</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species Petal.Color
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species Petal.Color
 1          5.1         3.5          1.4         0.2  setosa            
 2          4.9         3.0          1.4         0.2  setosa            
 3          4.7         3.2          1.3         0.2  setosa            
@@ -1729,7 +1731,7 @@ no values to indicate that we have not recorded any observations.</p>
 <blockquote class="challenge">
   <h2 id="updating-a-subset-of-values">Updating a Subset of Values</h2>
 
-  <p>Update the <code class="highlighter-rouge">iris.update</code> data frame by indicating that the “setosa” species had purple petals (without
+  <p>Update the <code class="language-plaintext highlighter-rouge">iris.update</code> data frame by indicating that the “setosa” species had purple petals (without
 changing the values for the other species).</p>
 
   <blockquote class="solution">
@@ -1739,7 +1741,7 @@ changing the values for the other species).</p>
 </span><span class="n">iris.update</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Color
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Color
 1            5.1         3.5          1.4         0.2     setosa      purple
 2            4.9         3.0          1.4         0.2     setosa      purple
 3            4.7         3.2          1.3         0.2     setosa      purple
@@ -1902,19 +1904,19 @@ changing the values for the other species).</p>
   <h2>Key Points</h2>
   <ul>
     
-    <li><p>Import data from a .csv or .txt file using the <code class="highlighter-rouge">read.table(...)</code>, <code class="highlighter-rouge">read.csv(...)</code>, and <code class="highlighter-rouge">read.delim(...)</code> functions.</p>
+    <li><p>Import data from a .csv or .txt file using the <code class="language-plaintext highlighter-rouge">read.table(...)</code>, <code class="language-plaintext highlighter-rouge">read.csv(...)</code>, and <code class="language-plaintext highlighter-rouge">read.delim(...)</code> functions.</p>
 </li>
     
-    <li><p>Write data to a new .csv or .txt file using the <code class="highlighter-rouge">write.table(...)</code> and <code class="highlighter-rouge">write.csv(...)</code> functions.</p>
+    <li><p>Write data to a new .csv or .txt file using the <code class="language-plaintext highlighter-rouge">write.table(...)</code> and <code class="language-plaintext highlighter-rouge">write.csv(...)</code> functions.</p>
 </li>
     
-    <li><p>Use <code class="highlighter-rouge">object[x, y]</code> to select a single element from a data frame.</p>
+    <li><p>Use <code class="language-plaintext highlighter-rouge">object[x, y]</code> to select a single element from a data frame.</p>
 </li>
     
     <li><p>All the indexing and subsetting that works on matrices also works on data frames.</p>
 </li>
     
-    <li><p>Each column of a data frame can be directly addressed by specifying the column name using the <code class="highlighter-rouge">$</code> operator (e.g. <code class="highlighter-rouge">mydataframe$column1</code>).</p>
+    <li><p>Each column of a data frame can be directly addressed by specifying the column name using the <code class="language-plaintext highlighter-rouge">$</code> operator (e.g. <code class="language-plaintext highlighter-rouge">mydataframe$column1</code>).</p>
 </li>
     
     <li><p>Data in data structures can by accessed by specifying the appropriate index, by logical vector, or by column/row name (if defined).</p>
@@ -1954,7 +1956,7 @@ changing the values for the other species).</p>
   <div class="col-xs-1">
     <h3 class="text-right">
       
-      <a href="../03-oyo-lists/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      <a href="../03-oyo-Lists/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
       
     </h3>
   </div>

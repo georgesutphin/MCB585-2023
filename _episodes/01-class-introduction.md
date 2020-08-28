@@ -560,7 +560,7 @@ getwd()
 
 
 ~~~
-[1] "C:/Users/sutph/Documents/GitHub/MCB585/_episodes_rmd"
+[1] "C:/Users/sutph/OneDrive/Documents/GitHub/MCB585/_episodes_rmd"
 ~~~
 {: .output}
 
@@ -777,7 +777,7 @@ getwd()
 
 
 ~~~
-[1] "C:/Users/sutph/Documents/GitHub/MCB585/_episodes_rmd"
+[1] "C:/Users/sutph/OneDrive/Documents/GitHub/MCB585/_episodes_rmd"
 ~~~
 {: .output}
 
@@ -794,24 +794,25 @@ list.files()
  [1] "01-class-introduction.Rmd"              
  [2] "01-oyo-introduction.Rmd"                
  [3] "02-class-R-data-types-structures.Rmd"   
- [4] "02-oyo-R-data-types-structures.Rmd"     
- [5] "03-class-data-frames.Rmd"               
- [6] "03-oyo-lists.Rmd"                       
- [7] "04-class-manipulating-plotting-data.Rmd"
- [8] "04-oyo-advanced-data-manipulation.Rmd"  
- [9] "05-class-decisions-loops.Rmd"           
-[10] "05-oyo-more-decisions-loops.Rmd"        
-[11] "06-class-distributions.Rmd"             
-[12] "06-oyo-more-distributions.Rmd"          
-[13] "07-class-hypothesis-testing.Rmd"        
-[14] "07-oyo-multiple-test-correction.Rmd"    
-[15] "08-class-survival-analysis.Rmd"         
-[16] "08-oyo-advanced-survival-analysis.Rmd"  
-[17] "09-class-power-analysis.Rmd"            
-[18] "09-oyo-simulation.Rmd"                  
-[19] "99-projects.Rmd"                        
-[20] "data"                                   
-[21] "results"                                
+ [4] "02-oyo-R-data-types-in-depth.Rmd"       
+ [5] "02-oyo-R-data-types-structures.Rmd"     
+ [6] "03-class-data-frames.Rmd"               
+ [7] "03-oyo-Lists.Rmd"                       
+ [8] "04-class-manipulating-plotting-data.Rmd"
+ [9] "04-oyo-advanced-data-manipulation.Rmd"  
+[10] "05-class-decisions-loops.Rmd"           
+[11] "05-oyo-more-decisions-loops.Rmd"        
+[12] "06-class-distributions.Rmd"             
+[13] "06-oyo-more-distributions.Rmd"          
+[14] "07-class-hypothesis-testing.Rmd"        
+[15] "07-oyo-multiple-test-correction.Rmd"    
+[16] "08-class-survival-analysis.Rmd"         
+[17] "08-oyo-advanced-survival-analysis.Rmd"  
+[18] "09-class-power-analysis.Rmd"            
+[19] "09-oyo-simulation.Rmd"                  
+[20] "99-projects.Rmd"                        
+[21] "data"                                   
+[22] "results"                                
 ~~~
 {: .output}
 

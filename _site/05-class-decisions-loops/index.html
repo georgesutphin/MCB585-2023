@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-23 21:10:15 -0700">
+    <meta http-equiv="last-modified" content="2020-08-27 22:17:36 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -119,11 +119,13 @@
             
             <li><a href="../02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
+            <li><a href="../02-oyo-R-data-types-in-depth/index.html">R Data Types -- In-Depth</a></li>
+            
             <li><a href="../02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a></li>
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
+            <li><a href="../03-oyo-Lists/index.html">Lists and Advanced Indexing</a></li>
             
             <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
             
@@ -278,19 +280,19 @@
       <strong>Objectives</strong>
       <ul>
 	
-	<li><p>Write conditional statements with <code class="highlighter-rouge">if</code> and <code class="highlighter-rouge">else</code>.</p>
+	<li><p>Write conditional statements with <code class="language-plaintext highlighter-rouge">if</code> and <code class="language-plaintext highlighter-rouge">else</code>.</p>
 </li>
 	
-	<li><p>Correctly evaluate expressions containing <code class="highlighter-rouge">&amp;&amp;</code> (‘and’) and <code class="highlighter-rouge">||</code> (‘or’).</p>
+	<li><p>Correctly evaluate expressions containing <code class="language-plaintext highlighter-rouge">&amp;&amp;</code> (‘and’) and <code class="language-plaintext highlighter-rouge">||</code> (‘or’).</p>
 </li>
 	
-	<li><p>Use a <code class="highlighter-rouge">for</code> loop to process multiple files.</p>
+	<li><p>Use a <code class="language-plaintext highlighter-rouge">for</code> loop to process multiple files.</p>
 </li>
 	
-	<li><p>Explain the basic process underlying what a <code class="highlighter-rouge">for</code> loop does.</p>
+	<li><p>Explain the basic process underlying what a <code class="language-plaintext highlighter-rouge">for</code> loop does.</p>
 </li>
 	
-	<li><p>Correctly write <code class="highlighter-rouge">for</code> loops to repeat simple calculations.</p>
+	<li><p>Correctly write <code class="language-plaintext highlighter-rouge">for</code> loops to repeat simple calculations.</p>
 </li>
 	
       </ul>
@@ -320,28 +322,28 @@
 </span><span class="n">print</span><span class="p">(</span><span class="s2">"done"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "not greater"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "not greater"
 [1] "done"
 </code></pre></div></div>
 
 <p> </p>
 
-<p>The second line of this code uses an <code class="highlighter-rouge">if</code> statement to tell R that we want to make a choice.
-If the following test is true, the body of the <code class="highlighter-rouge">if</code> (i.e. the lines in the curly braces underneath it) are executed. If the test is false, the body of the <code class="highlighter-rouge">else</code> is executed instead. Only one or the other is ever executed:</p>
+<p>The second line of this code uses an <code class="language-plaintext highlighter-rouge">if</code> statement to tell R that we want to make a choice.
+If the following test is true, the body of the <code class="language-plaintext highlighter-rouge">if</code> (i.e. the lines in the curly braces underneath it) are executed. If the test is false, the body of the <code class="language-plaintext highlighter-rouge">else</code> is executed instead. Only one or the other is ever executed:</p>
 
 <p><img src="../fig/python-flowchart-conditional.svg" alt="Executing a Conditional" /></p>
 
-<p>In the example above, the test <code class="highlighter-rouge">num &gt; 100</code> returns the value <code class="highlighter-rouge">FALSE</code>, which is why the code inside the <code class="highlighter-rouge">if</code> block was skipped and the code inside the <code class="highlighter-rouge">else</code> statement was run instead.</p>
+<p>In the example above, the test <code class="language-plaintext highlighter-rouge">num &gt; 100</code> returns the value <code class="language-plaintext highlighter-rouge">FALSE</code>, which is why the code inside the <code class="language-plaintext highlighter-rouge">if</code> block was skipped and the code inside the <code class="language-plaintext highlighter-rouge">else</code> statement was run instead.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">num</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">100</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Conditional statements don’t have to include an <code class="highlighter-rouge">else</code>. If there isn’t one, R simply does nothing if the test is false:</p>
+<p>Conditional statements don’t have to include an <code class="language-plaintext highlighter-rouge">else</code>. If there isn’t one, R simply does nothing if the test is false:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">num</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">53</span><span class="w">
 </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -367,36 +369,36 @@ This makes it simple to write a function that returns the sign of a number:</p>
 </span><span class="nf">sign</span><span class="p">(</span><span class="m">-3</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] -1
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] -1
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sign</span><span class="p">(</span><span class="m">0</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sign</span><span class="p">(</span><span class="m">2</span><span class="o">/</span><span class="m">3</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Note that when combining <code class="highlighter-rouge">else</code> and <code class="highlighter-rouge">if</code> in an <code class="highlighter-rouge">else if</code> statement, the <code class="highlighter-rouge">if</code> portion still requires a direct input condition.  This is never the case for the <code class="highlighter-rouge">else</code> statement alone, which is only executed if all other conditions go unsatisfied. As a reminder, the test for equality uses two equal signs, <code class="highlighter-rouge">==</code>.</p>
+<p>Note that when combining <code class="language-plaintext highlighter-rouge">else</code> and <code class="language-plaintext highlighter-rouge">if</code> in an <code class="language-plaintext highlighter-rouge">else if</code> statement, the <code class="language-plaintext highlighter-rouge">if</code> portion still requires a direct input condition.  This is never the case for the <code class="language-plaintext highlighter-rouge">else</code> statement alone, which is only executed if all other conditions go unsatisfied. As a reminder, the test for equality uses two equal signs, <code class="language-plaintext highlighter-rouge">==</code>.</p>
 
 <blockquote class="callout">
   <h2 id="other-comparisons">Other Comparisons</h2>
 
-  <p>Other tests include greater than or equal to (<code class="highlighter-rouge">&gt;=</code>), less than or equal to
-(<code class="highlighter-rouge">&lt;=</code>), and not equal to (<code class="highlighter-rouge">!=</code>).</p>
+  <p>Other tests include greater than or equal to (<code class="language-plaintext highlighter-rouge">&gt;=</code>), less than or equal to
+(<code class="language-plaintext highlighter-rouge">&lt;=</code>), and not equal to (<code class="language-plaintext highlighter-rouge">!=</code>).</p>
 </blockquote>
 
 <p> </p>
 
-<p>We can also combine tests. Two ampersands, <code class="highlighter-rouge">&amp;&amp;</code>, symbolize “and”. Two vertical bars, <code class="highlighter-rouge">||</code>, symbolize “or”.
-<code class="highlighter-rouge">&amp;&amp;</code> is only true if both parts are true:</p>
+<p>We can also combine tests. Two ampersands, <code class="language-plaintext highlighter-rouge">&amp;&amp;</code>, symbolize “and”. Two vertical bars, <code class="language-plaintext highlighter-rouge">||</code>, symbolize “or”.
+<code class="language-plaintext highlighter-rouge">&amp;&amp;</code> is only true if both parts are true:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="m">-1</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="n">print</span><span class="p">(</span><span class="s2">"both parts are true"</span><span class="p">)</span><span class="w">
@@ -405,12 +407,12 @@ This makes it simple to write a function that returns the sign of a number:</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "at least one part is not true"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "at least one part is not true"
 </code></pre></div></div>
 
 <p> </p>
 
-<p>while <code class="highlighter-rouge">||</code> is true if either part is true:</p>
+<p>while <code class="language-plaintext highlighter-rouge">||</code> is true if either part is true:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="m">-1</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="n">print</span><span class="p">(</span><span class="s2">"at least one part is true"</span><span class="p">)</span><span class="w">
@@ -419,7 +421,7 @@ This makes it simple to write a function that returns the sign of a number:</p>
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "at least one part is true"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "at least one part is true"
 </code></pre></div></div>
 
 <p> </p>
@@ -438,7 +440,7 @@ This makes it simple to write a function that returns the sign of a number:</p>
 </span><span class="n">carSpeeds</span><span class="o">$</span><span class="n">Color</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] "Green" " Red"  "Green" "White" "Red"   "Green" "Green" "Black" "White"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] "Green" " Red"  "Green" "White" "Red"   "Green" "Green" "Black" "White"
  [10] "Red"   "Red"   "White" "Green" "Green" "Black" "Red"   "Green" "Green"
  [19] "White" "Green" "Green" "Green" "Red"   "Green" "Red"   "Red"   "Red"  
  [28] "Red"   "White" "Green" "Red"   "White" "Black" "Red"   "Black" "Black"
@@ -458,10 +460,10 @@ This makes it simple to write a function that returns the sign of a number:</p>
 <blockquote class="challenge">
   <h2 id="choosing-plots-based-on-data">Choosing Plots Based on Data</h2>
 
-  <p>Write a function <code class="highlighter-rouge">plot_dist</code> that plots a boxplot if the length of the vector is
+  <p>Write a function <code class="language-plaintext highlighter-rouge">plot_dist</code> that plots a boxplot if the length of the vector is
 greater than a specified threshold and a stripchart otherwise.</p>
 
-  <p>To do this you’ll use the R functions <code class="highlighter-rouge">boxplot</code> and <code class="highlighter-rouge">stripchart</code>.</p>
+  <p>To do this you’ll use the R functions <code class="language-plaintext highlighter-rouge">boxplot</code> and <code class="language-plaintext highlighter-rouge">stripchart</code>.</p>
 
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"data/inflammation-01.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
 </span><span class="n">plot_dist</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">10</span><span class="p">],</span><span class="w"> </span><span class="n">threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w">     </span><span class="c1"># day (column) 10</span><span class="w">
@@ -492,15 +494,15 @@ greater than a specified threshold and a stripchart otherwise.</p>
 
   <p>One of your collaborators prefers to see the distributions of the larger vectors
 as a histogram instead of as a boxplot. In order to choose between a histogram 
-and a boxplot we will edit the function <code class="highlighter-rouge">plot_dist</code> and add an additional argument 
-<code class="highlighter-rouge">use_boxplot</code>.  By default we will set <code class="highlighter-rouge">use_boxplot</code> to <code class="highlighter-rouge">TRUE</code> which will create a 
-boxplot when the vector is longer than <code class="highlighter-rouge">threshold</code>.</p>
+and a boxplot we will edit the function <code class="language-plaintext highlighter-rouge">plot_dist</code> and add an additional argument 
+<code class="language-plaintext highlighter-rouge">use_boxplot</code>.  By default we will set <code class="language-plaintext highlighter-rouge">use_boxplot</code> to <code class="language-plaintext highlighter-rouge">TRUE</code> which will create a 
+boxplot when the vector is longer than <code class="language-plaintext highlighter-rouge">threshold</code>.</p>
 
-  <p>When <code class="highlighter-rouge">use_boxplot</code> is set to <code class="highlighter-rouge">FALSE</code>, <code class="highlighter-rouge">plot_dist</code> will instead plot a histogram for 
+  <p>When <code class="language-plaintext highlighter-rouge">use_boxplot</code> is set to <code class="language-plaintext highlighter-rouge">FALSE</code>, <code class="language-plaintext highlighter-rouge">plot_dist</code> will instead plot a histogram for 
 the larger vectors. As before, if the length of the vector is shorter than 
-<code class="highlighter-rouge">threshold</code>, <code class="highlighter-rouge">plot_dist</code> will create a stripchart.</p>
+<code class="language-plaintext highlighter-rouge">threshold</code>, <code class="language-plaintext highlighter-rouge">plot_dist</code> will create a stripchart.</p>
 
-  <p>A histogram is made with the <code class="highlighter-rouge">hist</code> command in R.</p>
+  <p>A histogram is made with the <code class="language-plaintext highlighter-rouge">hist</code> command in R.</p>
 
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"data/inflammation-01.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
 </span><span class="n">plot_dist</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">10</span><span class="p">],</span><span class="w"> </span><span class="n">threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">use_boxplot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">   </span><span class="c1"># day (column) 10 - create boxplot</span><span class="w">
@@ -536,7 +538,7 @@ the larger vectors. As before, if the length of the vector is shorter than
 <hr />
 <h3 id="using-for-loops-to-repeat-simple-tasks">Using <strong>for</strong> Loops to repeat simple tasks</h3>
 
-<p>Suppose we want to print each word in a sentence. One way is to use six <code class="highlighter-rouge">print</code> statements:</p>
+<p>Suppose we want to print each word in a sentence. One way is to use six <code class="language-plaintext highlighter-rouge">print</code> statements:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">best_practice</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Let"</span><span class="p">,</span><span class="w"> </span><span class="s2">"the"</span><span class="p">,</span><span class="w"> </span><span class="s2">"computer"</span><span class="p">,</span><span class="w"> </span><span class="s2">"do"</span><span class="p">,</span><span class="w"> </span><span class="s2">"the"</span><span class="p">,</span><span class="w"> </span><span class="s2">"work"</span><span class="p">)</span><span class="w">
 
@@ -552,7 +554,7 @@ the larger vectors. As before, if the length of the vector is shorter than
 </span><span class="n">print_words</span><span class="p">(</span><span class="n">best_practice</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Let"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Let"
 [1] "the"
 [1] "computer"
 [1] "do"
@@ -569,20 +571,20 @@ the larger vectors. As before, if the length of the vector is shorter than
     <p>It doesn’t scale: if we want to print the elements in a vector that’s hundreds long, we’d be better off just typing them in.</p>
   </li>
   <li>
-    <p>It’s fragile: if we give it a longer vector, it only prints part of the data, and if we give it a shorter input, it returns <code class="highlighter-rouge">NA</code> values because we’re asking for elements that don’t exist!</p>
+    <p>It’s fragile: if we give it a longer vector, it only prints part of the data, and if we give it a shorter input, it returns <code class="language-plaintext highlighter-rouge">NA</code> values because we’re asking for elements that don’t exist!</p>
   </li>
 </ol>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">best_practice</span><span class="p">[</span><span class="m">-6</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Let"      "the"      "computer" "do"       "the"     
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Let"      "the"      "computer" "do"       "the"     
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">print_words</span><span class="p">(</span><span class="n">best_practice</span><span class="p">[</span><span class="m">-6</span><span class="p">])</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Let"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Let"
 [1] "the"
 [1] "computer"
 [1] "do"
@@ -603,7 +605,7 @@ the larger vectors. As before, if the length of the vector is shorter than
 </span><span class="n">print_words</span><span class="p">(</span><span class="n">best_practice</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Let"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Let"
 [1] "the"
 [1] "computer"
 [1] "do"
@@ -618,7 +620,7 @@ the larger vectors. As before, if the length of the vector is shorter than
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">print_words</span><span class="p">(</span><span class="n">best_practice</span><span class="p">[</span><span class="m">-6</span><span class="p">])</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Let"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Let"
 [1] "the"
 [1] "computer"
 [1] "do"
@@ -627,7 +629,7 @@ the larger vectors. As before, if the length of the vector is shorter than
 
 <p> </p>
 
-<p>The improved version of <code class="highlighter-rouge">print_words</code> uses a <a href="../reference.html#for-loop">for loop</a> to repeat an operation—in this case, printing—once for each thing in a collection.</p>
+<p>The improved version of <code class="language-plaintext highlighter-rouge">print_words</code> uses a <a href="../reference.html#for-loop">for loop</a> to repeat an operation—in this case, printing—once for each thing in a collection.</p>
 
 <p>The general form of a loop is:</p>
 
@@ -639,12 +641,12 @@ the larger vectors. As before, if the length of the vector is shorter than
 <p> </p>
 
 <p>We can name the <a href="../reference.html#loop-variable">loop variable</a> anything we like (with a few <a href="https://cran.r-project.org/doc/manuals/R-intro.html#R-commands_003b-case-sensitivity-etc">restrictions</a>, e.g. the name of the variable cannot start with a digit).
-<code class="highlighter-rouge">in</code> is part of the <code class="highlighter-rouge">for</code> syntax.</p>
+<code class="language-plaintext highlighter-rouge">in</code> is part of the <code class="language-plaintext highlighter-rouge">for</code> syntax.</p>
 
-<p>Note that the condition (<code class="highlighter-rouge">variable in collection</code>) is enclosed in parentheses,
-and the body of the loop is enclosed in curly braces <code class="highlighter-rouge">{ }</code>. For a single-line loop body, as here, the braces aren’t needed, but it is good practice to include them as we did.</p>
+<p>Note that the condition (<code class="language-plaintext highlighter-rouge">variable in collection</code>) is enclosed in parentheses,
+and the body of the loop is enclosed in curly braces <code class="language-plaintext highlighter-rouge">{ }</code>. For a single-line loop body, as here, the braces aren’t needed, but it is good practice to include them as we did.</p>
 
-<p>Here’s another loop that repeatedly updates a variable and completes the same task as the <code class="highlighter-rouge">length()</code> function:</p>
+<p>Here’s another loop that repeatedly updates a variable and completes the same task as the <code class="language-plaintext highlighter-rouge">length()</code> function:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">len</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span><span class="w">
 </span><span class="n">vowels</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="s2">"e"</span><span class="p">,</span><span class="w"> </span><span class="s2">"i"</span><span class="p">,</span><span class="w"> </span><span class="s2">"o"</span><span class="p">,</span><span class="w"> </span><span class="s2">"u"</span><span class="p">)</span><span class="w">
@@ -655,18 +657,18 @@ and the body of the loop is enclosed in curly braces <code class="highlighter-ro
 </span><span class="n">len</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 5
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 5
 </code></pre></div></div>
 
 <p> </p>
 
 <p>It’s worth tracing the execution of this little program step by step:</p>
 <ol>
-  <li>Since there are five elements in the vector <code class="highlighter-rouge">vowels</code>, the statement inside the loop will be executed five times.</li>
-  <li>The first time around, <code class="highlighter-rouge">len</code> is zero (the value assigned to it on line 1) and <code class="highlighter-rouge">v</code> is <code class="highlighter-rouge">"a"</code>.</li>
-  <li>The statement adds 1 to the old value of <code class="highlighter-rouge">len</code>, producing 1, and updates <code class="highlighter-rouge">len</code> to refer to that new value.</li>
-  <li>The next time around, <code class="highlighter-rouge">v</code> is <code class="highlighter-rouge">"e"</code> and <code class="highlighter-rouge">len</code> is 1, so <code class="highlighter-rouge">len</code> is updated to be 2.</li>
-  <li>After three more updates, <code class="highlighter-rouge">len</code> is 5; since there is nothing left in the vector <code class="highlighter-rouge">vowels</code> for R to process, the loop finishes.</li>
+  <li>Since there are five elements in the vector <code class="language-plaintext highlighter-rouge">vowels</code>, the statement inside the loop will be executed five times.</li>
+  <li>The first time around, <code class="language-plaintext highlighter-rouge">len</code> is zero (the value assigned to it on line 1) and <code class="language-plaintext highlighter-rouge">v</code> is <code class="language-plaintext highlighter-rouge">"a"</code>.</li>
+  <li>The statement adds 1 to the old value of <code class="language-plaintext highlighter-rouge">len</code>, producing 1, and updates <code class="language-plaintext highlighter-rouge">len</code> to refer to that new value.</li>
+  <li>The next time around, <code class="language-plaintext highlighter-rouge">v</code> is <code class="language-plaintext highlighter-rouge">"e"</code> and <code class="language-plaintext highlighter-rouge">len</code> is 1, so <code class="language-plaintext highlighter-rouge">len</code> is updated to be 2.</li>
+  <li>After three more updates, <code class="language-plaintext highlighter-rouge">len</code> is 5; since there is nothing left in the vector <code class="language-plaintext highlighter-rouge">vowels</code> for R to process, the loop finishes.</li>
 </ol>
 
 <p>Note that a loop variable is just a variable that’s being used to record progress in a loop.
@@ -678,7 +680,7 @@ It still exists after the loop is over, and we can re-use variables previously d
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "a"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "a"
 [1] "b"
 [1] "c"
 </code></pre></div></div>
@@ -687,12 +689,12 @@ It still exists after the loop is over, and we can re-use variables previously d
 </span><span class="n">letter</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "c"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "c"
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Note that <code class="highlighter-rouge">length()</code> is much faster than any R function we could write ourselves, and much easier to read than a two-line loop; it will also give us the length of many other things that we haven’t met yet, so we should always use it when we can.</p>
+<p>Note that <code class="language-plaintext highlighter-rouge">length()</code> is much faster than any R function we could write ourselves, and much easier to read than a two-line loop; it will also give us the length of many other things that we haven’t met yet, so we should always use it when we can.</p>
 
 <p> </p>
 <h4 id="exercises-1">Exercises</h4>
@@ -700,20 +702,20 @@ It still exists after the loop is over, and we can re-use variables previously d
 <blockquote class="challenge">
   <h2 id="printing-numbers">Printing Numbers</h2>
 
-  <p>R has a built-in function called <code class="highlighter-rouge">seq()</code> that creates a list of numbers:</p>
+  <p>R has a built-in function called <code class="language-plaintext highlighter-rouge">seq()</code> that creates a list of numbers:</p>
 
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">seq</span><span class="p">(</span><span class="m">3</span><span class="p">)</span><span class="w">
 </span></code></pre></div>  </div>
 
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1 2 3
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1 2 3
 </code></pre></div>  </div>
 
-  <p>Using <code class="highlighter-rouge">seq()</code>, write a function that prints the first <strong>N</strong> natural numbers, one per line:</p>
+  <p>Using <code class="language-plaintext highlighter-rouge">seq()</code>, write a function that prints the first <strong>N</strong> natural numbers, one per line:</p>
 
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">print_N</span><span class="p">(</span><span class="m">3</span><span class="p">)</span><span class="w">
 </span></code></pre></div>  </div>
 
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1
 [1] 2
 [1] 3
 </code></pre></div>  </div>
@@ -733,9 +735,9 @@ It still exists after the loop is over, and we can re-use variables previously d
 <blockquote class="challenge">
   <h2 id="summing-values">Summing Values</h2>
 
-  <p>Write a function called <code class="highlighter-rouge">total()</code> that calculates the sum of the values in a vector.</p>
+  <p>Write a function called <code class="language-plaintext highlighter-rouge">total()</code> that calculates the sum of the values in a vector.</p>
 
-  <p>Yes, R has a built-in function called <code class="highlighter-rouge">sum()</code> that does this for you. Please don’t
+  <p>Yes, R has a built-in function called <code class="language-plaintext highlighter-rouge">sum()</code> that does this for you. Please don’t
 use it for this exercise. The goal is to understand how this type of function might 
 work under the surface.</p>
 
@@ -743,7 +745,7 @@ work under the surface.</p>
 </span><span class="n">total</span><span class="p">(</span><span class="n">ex_vec</span><span class="p">)</span><span class="w">
 </span></code></pre></div>  </div>
 
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 108
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 108
 </code></pre></div>  </div>
 
   <blockquote class="solution">
@@ -768,15 +770,15 @@ work under the surface.</p>
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">2</span><span class="o">^</span><span class="m">4</span><span class="w">
 </span></code></pre></div>  </div>
 
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 16
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 16
 </code></pre></div>  </div>
-  <p>Write a function called <code class="highlighter-rouge">expo()</code> that uses a loop to calculate the same result without
-using the <code class="highlighter-rouge">^</code> operator.</p>
+  <p>Write a function called <code class="language-plaintext highlighter-rouge">expo()</code> that uses a loop to calculate the same result without
+using the <code class="language-plaintext highlighter-rouge">^</code> operator.</p>
 
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">expo</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
 </span></code></pre></div>  </div>
 
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 16
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 16
 </code></pre></div>  </div>
 
   <blockquote class="solution">
@@ -793,9 +795,9 @@ using the <code class="highlighter-rouge">^</code> operator.</p>
 </blockquote>
 
 <hr />
-<h3 id="using-for-loops-to-process-multiple-files">Using <code class="highlighter-rouge">for</code> loops to process multiple files</h3>
+<h3 id="using-for-loops-to-process-multiple-files">Using <code class="language-plaintext highlighter-rouge">for</code> loops to process multiple files</h3>
 
-<p>In many real world data sets, you will want to process a series of files that contain data in the same format using the same set of analysis steps. <code class="highlighter-rouge">for</code> loops are a useful tool for this purpose.</p>
+<p>In many real world data sets, you will want to process a series of files that contain data in the same format using the same set of analysis steps. <code class="language-plaintext highlighter-rouge">for</code> loops are a useful tool for this purpose.</p>
 
 <p>In the <em>data</em> folder we have a series of files containing information about inflammation. These files give data on patients treated with a new drug for arthritis. Each file contains a series of patients (in rows) with a series of inflammation measurements on subsequent days (in columns). Each file contains information from the same set of patients on different rounds of treatment. We looked at the first file in this series previously. Let’s read in the file to recall the data format:</p>
 
@@ -803,7 +805,7 @@ using the <code class="highlighter-rouge">^</code> operator.</p>
 </span><span class="n">head</span><span class="p">(</span><span class="n">inflam1</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14 V15 V16 V17 V18 V19 V20 V21
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14 V15 V16 V17 V18 V19 V20 V21
 1  0  0  1  3  1  2  4  7  8   3   3   3  10   5   7   4   7   7  12  18   6
 2  0  1  2  1  2  1  3  2  2   6  10  11   5   9   4   4   7  16   8   6  18
 3  0  1  1  3  3  2  6  2  5   9   5   7   4   5   4  15   5  11   9  10  19
@@ -862,30 +864,30 @@ using the <code class="highlighter-rouge">^</code> operator.</p>
 
 <p>Okay, so the chart looks good, but something appears to be strange with the data. The maximum measurement across patients appears to increase exactly linearly up to day 20, then decline exactly linearly thereafter. The minimum value looks to stair-step up to day 20, then stair-step down thereafter.</p>
 
-<p>Does this happen with all the files? Let’s write a script to run the above analysis on all files and save the resulting report to a PDF file. For this, we can use our <code class="highlighter-rouge">for</code> loop capability to carry out the following steps:</p>
+<p>Does this happen with all the files? Let’s write a script to run the above analysis on all files and save the resulting report to a PDF file. For this, we can use our <code class="language-plaintext highlighter-rouge">for</code> loop capability to carry out the following steps:</p>
 <ol>
   <li>Identify a list of files with a similar naming pattern.</li>
   <li>Initiate a PDF file for capturing the output plots.</li>
-  <li>Set up a <code class="highlighter-rouge">for</code> loop to process each file in the list.</li>
+  <li>Set up a <code class="language-plaintext highlighter-rouge">for</code> loop to process each file in the list.</li>
   <li>For each file, complete the following steps:
  a. Calculate minimum, mean, and maximum across patients for each day.
  b. Generate a plot of minimum, mean, and maximum inflammation across the time course for each file.</li>
-  <li>Finalize the PDF file with <code class="highlighter-rouge">dev.off()</code>.</li>
+  <li>Finalize the PDF file with <code class="language-plaintext highlighter-rouge">dev.off()</code>.</li>
 </ol>
 
-<p>The first point requires that we have some way to recognize patterns in file names. This can be accomplished with the <code class="highlighter-rouge">list.files()</code> function, which we looked at briefly in an earlier lesson.</p>
+<p>The first point requires that we have some way to recognize patterns in file names. This can be accomplished with the <code class="language-plaintext highlighter-rouge">list.files()</code> function, which we looked at briefly in an earlier lesson.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">list.files</span><span class="w">
 </span></code></pre></div></div>
 
 <p> </p>
 
-<p>We can use the <code class="highlighter-rouge">pattern</code> argument to specify a search pattern using <a href="https://www.aivosto.com/articles/regex.html">regular expressions</a>, which is a systematic language for searching strings of text. For, example, we can use the <code class="highlighter-rouge">pattern</code> argument to look for all files containing “csv”:</p>
+<p>We can use the <code class="language-plaintext highlighter-rouge">pattern</code> argument to specify a search pattern using <a href="https://www.aivosto.com/articles/regex.html">regular expressions</a>, which is a systematic language for searching strings of text. For, example, we can use the <code class="language-plaintext highlighter-rouge">pattern</code> argument to look for all files containing “csv”:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"csv"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "car-speeds-cleaned.csv"     "car-speeds.csv"            
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "car-speeds-cleaned.csv"     "car-speeds.csv"            
  [3] "combined-inflammation.csv"  "inflammation-01.csv"       
  [5] "inflammation-02.csv"        "inflammation-03.csv"       
  [7] "inflammation-04.csv"        "inflammation-05.csv"       
@@ -905,7 +907,7 @@ using the <code class="highlighter-rouge">^</code> operator.</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"inflammation"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "combined-inflammation.csv" "inflammation-01.csv"      
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "combined-inflammation.csv" "inflammation-01.csv"      
  [3] "inflammation-02.csv"       "inflammation-03.csv"      
  [5] "inflammation-04.csv"       "inflammation-05.csv"      
  [7] "inflammation-06.csv"       "inflammation-07.csv"      
@@ -925,7 +927,7 @@ using the <code class="highlighter-rouge">^</code> operator.</p>
 
 <p> </p>
 
-<p>For the <code class="highlighter-rouge">pattern</code> argument, we use several regular expression operators that tell R what to look for. The <code class="highlighter-rouge">^</code> indicates that this is where the file name begins. We are essentially saying “begins with <em>‘inflammation’</em>”. The <code class="highlighter-rouge">.*</code> is a wildcard (i.e. “anything can go here”). The <code class="highlighter-rouge">$</code> indicates the end of the file name. Now we have a way to pull just the “inflammation” file names out automatically and assign them to a variable, which we can use later.</p>
+<p>For the <code class="language-plaintext highlighter-rouge">pattern</code> argument, we use several regular expression operators that tell R what to look for. The <code class="language-plaintext highlighter-rouge">^</code> indicates that this is where the file name begins. We are essentially saying “begins with <em>‘inflammation’</em>”. The <code class="language-plaintext highlighter-rouge">.*</code> is a wildcard (i.e. “anything can go here”). The <code class="language-plaintext highlighter-rouge">$</code> indicates the end of the file name. Now we have a way to pull just the “inflammation” file names out automatically and assign them to a variable, which we can use later.</p>
 
 <p>Now that we have the last piece of the puzzle, we can build our loop.</p>
 
@@ -977,7 +979,7 @@ using the <code class="highlighter-rouge">^</code> operator.</p>
 </span><span class="n">dev.off</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>png 
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>png 
   2 
 </code></pre></div></div>
 
@@ -993,24 +995,24 @@ computational biology projects</a> by William Stafford Noble.</p>
 </blockquote>
 
 <p> </p>
-<h4 id="for-or-apply"><code class="highlighter-rouge">for</code> or <code class="highlighter-rouge">apply</code>?</h4>
+<h4 id="for-or-apply"><code class="language-plaintext highlighter-rouge">for</code> or <code class="language-plaintext highlighter-rouge">apply</code>?</h4>
 
-<p>A <code class="highlighter-rouge">for</code> loop is used to apply the same function calls to a collection of objects. R has a family of functions, the <code class="highlighter-rouge">apply</code> family, which can be used in much the same way.</p>
+<p>A <code class="language-plaintext highlighter-rouge">for</code> loop is used to apply the same function calls to a collection of objects. R has a family of functions, the <code class="language-plaintext highlighter-rouge">apply</code> family, which can be used in much the same way.</p>
 
-<p>You’ve already used one of the family, <code class="highlighter-rouge">apply</code>. The <code class="highlighter-rouge">apply</code> family members include:</p>
+<p>You’ve already used one of the family, <code class="language-plaintext highlighter-rouge">apply</code>. The <code class="language-plaintext highlighter-rouge">apply</code> family members include:</p>
 <ul>
-  <li><code class="highlighter-rouge">apply</code>  - apply over the margins of an array (e.g. the rows or columns of a matrix)</li>
-  <li><code class="highlighter-rouge">lapply</code> - apply over an object and return list</li>
-  <li><code class="highlighter-rouge">sapply</code> - apply over an object and return a simplified object (an array) if possible</li>
-  <li><code class="highlighter-rouge">vapply</code> - similar to <code class="highlighter-rouge">sapply</code> but you specify the type of object returned by the iterations</li>
+  <li><code class="language-plaintext highlighter-rouge">apply</code>  - apply over the margins of an array (e.g. the rows or columns of a matrix)</li>
+  <li><code class="language-plaintext highlighter-rouge">lapply</code> - apply over an object and return list</li>
+  <li><code class="language-plaintext highlighter-rouge">sapply</code> - apply over an object and return a simplified object (an array) if possible</li>
+  <li><code class="language-plaintext highlighter-rouge">vapply</code> - similar to <code class="language-plaintext highlighter-rouge">sapply</code> but you specify the type of object returned by the iterations</li>
 </ul>
 
-<p>Each of these has an argument <code class="highlighter-rouge">FUN</code> which takes a function to apply to each element of the object. Instead of looping over <code class="highlighter-rouge">filenames</code> and calling <code class="highlighter-rouge">analyze</code>, as you did earlier, you could <code class="highlighter-rouge">sapply</code> over <code class="highlighter-rouge">filenames</code> with <code class="highlighter-rouge">FUN = analyze</code>:</p>
+<p>Each of these has an argument <code class="language-plaintext highlighter-rouge">FUN</code> which takes a function to apply to each element of the object. Instead of looping over <code class="language-plaintext highlighter-rouge">filenames</code> and calling <code class="language-plaintext highlighter-rouge">analyze</code>, as you did earlier, you could <code class="language-plaintext highlighter-rouge">sapply</code> over <code class="language-plaintext highlighter-rouge">filenames</code> with <code class="language-plaintext highlighter-rouge">FUN = analyze</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sapply</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">analyze</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<p>Deciding whether to use <code class="highlighter-rouge">for</code> or one of the <code class="highlighter-rouge">apply</code> family is really personal preference. Using an <code class="highlighter-rouge">apply</code> family function forces to you encapsulate your operations as a function rather than separate calls with <code class="highlighter-rouge">for</code>. <code class="highlighter-rouge">for</code> loops are often more natural in some circumstances; for several related operations, a <code class="highlighter-rouge">for</code> loop will avoid you having to pass in a lot of extra arguments to your function.</p>
+<p>Deciding whether to use <code class="language-plaintext highlighter-rouge">for</code> or one of the <code class="language-plaintext highlighter-rouge">apply</code> family is really personal preference. Using an <code class="language-plaintext highlighter-rouge">apply</code> family function forces to you encapsulate your operations as a function rather than separate calls with <code class="language-plaintext highlighter-rouge">for</code>. <code class="language-plaintext highlighter-rouge">for</code> loops are often more natural in some circumstances; for several related operations, a <code class="language-plaintext highlighter-rouge">for</code> loop will avoid you having to pass in a lot of extra arguments to your function.</p>
 
 <p> </p>
 <h4 id="loops-in-r-are-slow">Loops in R Are Slow</h4>
@@ -1018,11 +1020,11 @@ computational biology projects</a> by William Stafford Noble.</p>
 <p>You will probably hear this at some point if you keep using R, or see it in a forum. In point of fact, loops are not slow <em>if</em> you follow some golden rules:</p>
 <ol>
   <li>Don’t use a loop when a vectorized alternative exists</li>
-  <li>Don’t grow objects (via <code class="highlighter-rouge">c</code>, <code class="highlighter-rouge">cbind</code>, etc) during the loop - R has to create a new object and copy across the information just to add a new element or row/column</li>
+  <li>Don’t grow objects (via <code class="language-plaintext highlighter-rouge">c</code>, <code class="language-plaintext highlighter-rouge">cbind</code>, etc) during the loop - R has to create a new object and copy across the information just to add a new element or row/column</li>
   <li>Instead, pre-allocate an object to hold the results and fill it in during the loop</li>
 </ol>
 
-<p>As an example, we could ‘ll create a new function called <code class="highlighter-rouge">analyze</code> that will return the mean inflammation per day (column) of each file. We will start by breaking rule 2, and grow our output by adding new data to a growing dataframe using <code class="highlighter-rouge">cbind()</code></p>
+<p>As an example, we could ‘ll create a new function called <code class="language-plaintext highlighter-rouge">analyze</code> that will return the mean inflammation per day (column) of each file. We will start by breaking rule 2, and grow our output by adding new data to a growing dataframe using <code class="language-plaintext highlighter-rouge">cbind()</code></p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nf">seq_along</span><span class="p">(</span><span class="n">filenames</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -1045,9 +1047,9 @@ computational biology projects</a> by William Stafford Noble.</p>
 
 <p> </p>
 
-<p>Note how we add a new column to <code class="highlighter-rouge">out</code> at each iteration? This is a cardinal sin of writing a <code class="highlighter-rouge">for</code> loop in R.</p>
+<p>Note how we add a new column to <code class="language-plaintext highlighter-rouge">out</code> at each iteration? This is a cardinal sin of writing a <code class="language-plaintext highlighter-rouge">for</code> loop in R.</p>
 
-<p>Instead, we can create an empty matrix with the right dimensions (rows/columns) to hold the results. Then we loop over the files but this time we fill in the <code class="highlighter-rouge">f</code>th column of our results matrix <code class="highlighter-rouge">out</code>. This time there is no copying/growing for R to deal with.</p>
+<p>Instead, we can create an empty matrix with the right dimensions (rows/columns) to hold the results. Then we loop over the files but this time we fill in the <code class="language-plaintext highlighter-rouge">f</code>th column of our results matrix <code class="language-plaintext highlighter-rouge">out</code>. This time there is no copying/growing for R to deal with.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="c1"># pre-allocate the right number of rows and columns for the data</span><span class="w">
@@ -1068,36 +1070,36 @@ computational biology projects</a> by William Stafford Noble.</p>
 
 <p> </p>
 
-<p>Now we can use the function <code class="highlighter-rouge">system.time()</code> to find out how long it takes to run each of these functions:</p>
+<p>Now we can use the function <code class="language-plaintext highlighter-rouge">system.time()</code> to find out how long it takes to run each of these functions:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gc</span><span class="p">()</span><span class="w"> </span><span class="c1"># clean things up first</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells  588444 31.5    1264360 67.6  1264360 67.6
-Vcells 1106836  8.5    8388608 64.0  2265217 17.3
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>         used (Mb) gc trigger (Mb) max used (Mb)
+Ncells 512694 27.4    1145560 61.2   666091 35.6
+Vcells 991929  7.6    8388608 64.0  1632380 12.5
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system.time</span><span class="p">(</span><span class="n">avg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">analyze</span><span class="p">(</span><span class="n">inflam.files</span><span class="p">))</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   user  system elapsed 
-   0.03    0.00    0.03 
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   user  system elapsed 
+   0.02    0.00    0.01 
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system.time</span><span class="p">(</span><span class="n">avg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">analyze2</span><span class="p">(</span><span class="n">inflam.files</span><span class="p">))</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   user  system elapsed 
-   0.05    0.00    0.04 
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   user  system elapsed 
+   0.02    0.00    0.02 
 </code></pre></div></div>
 
 <p> </p>
 
-<p>In this simple example there is little difference in the compute time of <code class="highlighter-rouge">analyze</code> and <code class="highlighter-rouge">analyze2</code>. This is because we are only iterating over 12 files and hence we only incur 12 copy/grow operations. If we were doing this over more files or the data objects we were growing were larger, the penalty for copying/growing would be much larger. This demonstrates how to evaluate efficiency when it starts to matter.</p>
+<p>In this simple example there is little difference in the compute time of <code class="language-plaintext highlighter-rouge">analyze</code> and <code class="language-plaintext highlighter-rouge">analyze2</code>. This is because we are only iterating over 12 files and hence we only incur 12 copy/grow operations. If we were doing this over more files or the data objects we were growing were larger, the penalty for copying/growing would be much larger. This demonstrates how to evaluate efficiency when it starts to matter.</p>
 
-<p>Note that <code class="highlighter-rouge">apply</code> handles these memory allocation issues for you, but then you have to write the loop part as a function to pass to <code class="highlighter-rouge">apply</code>.
-At its heart, <code class="highlighter-rouge">apply</code> is just a <code class="highlighter-rouge">for</code> loop with extra convenience.</p>
+<p>Note that <code class="language-plaintext highlighter-rouge">apply</code> handles these memory allocation issues for you, but then you have to write the loop part as a function to pass to <code class="language-plaintext highlighter-rouge">apply</code>.
+At its heart, <code class="language-plaintext highlighter-rouge">apply</code> is just a <code class="language-plaintext highlighter-rouge">for</code> loop with extra convenience.</p>
 
 <hr />
 <h3 id="exercises-2">Exercises</h3>
@@ -1209,7 +1211,7 @@ trials. Write a script that plots inflammation for the first patient from each t
 </span><span class="n">dev.off</span><span class="p">()</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>png 
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>png 
   2 
 </code></pre></div>    </div>
 
@@ -1278,25 +1280,25 @@ that your script is robust enough to run on any number of inflammation data file
   <h2>Key Points</h2>
   <ul>
     
-    <li><p>Use <code class="highlighter-rouge">if (condition)</code> to start a conditional statement, <code class="highlighter-rouge">else if (condition)</code> to provide additional tests, and <code class="highlighter-rouge">else</code> to provide a default alternative.</p>
+    <li><p>Use <code class="language-plaintext highlighter-rouge">if (condition)</code> to start a conditional statement, <code class="language-plaintext highlighter-rouge">else if (condition)</code> to provide additional tests, and <code class="language-plaintext highlighter-rouge">else</code> to provide a default alternative.</p>
 </li>
     
-    <li><p>The bodies of conditional statements must be surrounded by curly braces <code class="highlighter-rouge">{ }</code>.</p>
+    <li><p>The bodies of conditional statements must be surrounded by curly braces <code class="language-plaintext highlighter-rouge">{ }</code>.</p>
 </li>
     
-    <li><p>Use <code class="highlighter-rouge">==</code> to test for equality.</p>
+    <li><p>Use <code class="language-plaintext highlighter-rouge">==</code> to test for equality.</p>
 </li>
     
-    <li><p><code class="highlighter-rouge">X &amp;&amp; Y</code> is only true if both X and Y are true.</p>
+    <li><p><code class="language-plaintext highlighter-rouge">X &amp;&amp; Y</code> is only true if both X and Y are true.</p>
 </li>
     
-    <li><p><code class="highlighter-rouge">X || Y</code> is true if either X, Y, or both, are true.</p>
+    <li><p><code class="language-plaintext highlighter-rouge">X || Y</code> is true if either X, Y, or both, are true.</p>
 </li>
     
-    <li><p>Use <code class="highlighter-rouge">for (variable in collection)</code> to process the elements of a collection one at a time.</p>
+    <li><p>Use <code class="language-plaintext highlighter-rouge">for (variable in collection)</code> to process the elements of a collection one at a time.</p>
 </li>
     
-    <li><p>The body of a <code class="highlighter-rouge">for</code> loop is surrounded by curly braces (<code class="highlighter-rouge">{}</code>).</p>
+    <li><p>The body of a <code class="language-plaintext highlighter-rouge">for</code> loop is surrounded by curly braces (<code class="language-plaintext highlighter-rouge">{}</code>).</p>
 </li>
     
   </ul>

@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-23 21:10:15 -0700">
+    <meta http-equiv="last-modified" content="2020-08-27 22:17:36 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -119,11 +119,13 @@
             
             <li><a href="../02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
+            <li><a href="../02-oyo-R-data-types-in-depth/index.html">R Data Types -- In-Depth</a></li>
+            
             <li><a href="../02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a></li>
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
+            <li><a href="../03-oyo-Lists/index.html">Lists and Advanced Indexing</a></li>
             
             <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
             
@@ -336,7 +338,7 @@
 
 <h4 id="the-population-distribution">The population distribution</h4>
 
-<p>The population is described by <strong>parameters</strong>, which are quantities that can be measured. The two most commonly examined parameters are the population <em>mean</em> (<script type="math/tex">\mu</script>) testing and <em>standard deviation</em> (<script type="math/tex">\sigma</script>). Many parameters in biological systems are normally distributed, meaning the follow a well-known bell curve with variability centered symmetrically around a population mean. Distributions are commonly presented as probability distributions, with the phenotype value on the x-axis and the relative likelihood of observing a given phenotype value on the y-axis:</p>
+<p>The population is described by <strong>parameters</strong>, which are quantities that can be measured. The two most commonly examined parameters are the population <em>mean</em> (\(\mu\)) testing and <em>standard deviation</em> (\(\sigma\)). Many parameters in biological systems are normally distributed, meaning the follow a well-known bell curve with variability centered symmetrically around a population mean. Distributions are commonly presented as probability distributions, with the phenotype value on the x-axis and the relative likelihood of observing a given phenotype value on the y-axis:</p>
 
 <p><img src="../fig/population-distribution.png" alt="Normal Population Distribution" /></p>
 
@@ -351,8 +353,8 @@
 
 <ul>
   <li>n = sample size</li>
-  <li><script type="math/tex">\bar{x}</script> = sample mean</li>
-  <li><script type="math/tex">\sigma_x</script> = sample standard deviation</li>
+  <li>\(\bar{x}\) = sample mean</li>
+  <li>\(\sigma_x\) = sample standard deviation</li>
 </ul>
 
 <p>Here we come to a critical point: what we are actually measuring are characteristics fo the sample, not of the entire population. Therefore, what we want to know when running statistics is:</p>
@@ -369,7 +371,7 @@
   <li>Each possible sample of <em>n</em> observations is equally likely to be selected.</li>
 </ul>
 
-<p>The last point is critical, as the sampling statistics will form a distribution of their own, the <strong>sampling distribution</strong>, which will have regular properties. These properties allow us to calculate probabilities and compare samples taken from different populations. A theoretical sampling distribution is formed by taking all possible samples of size <em>n</em> from a population, and plotting the density function of the mean of each sample. Thus, the <strong>sample mean</strong> (<script type="math/tex">\bar{x}</script>) is plotted on the x-axis, while the probability density of the sample mean is plotted on the y-axis:</p>
+<p>The last point is critical, as the sampling statistics will form a distribution of their own, the <strong>sampling distribution</strong>, which will have regular properties. These properties allow us to calculate probabilities and compare samples taken from different populations. A theoretical sampling distribution is formed by taking all possible samples of size <em>n</em> from a population, and plotting the density function of the mean of each sample. Thus, the <strong>sample mean</strong> (\(\bar{x}\)) is plotted on the x-axis, while the probability density of the sample mean is plotted on the y-axis:</p>
 
 <p><img src="../fig/sampling-distribution.png" alt="Sampling Distribution" /></p>
 
@@ -377,15 +379,15 @@
 
 <p>The sampling distribution has the following characteristics:</p>
 <ul>
-  <li><script type="math/tex">\mu_x</script> = mean of the individual sample means.</li>
-  <li><script type="math/tex">SE_x</script> = standard error of the mean, and also the standard deviation of the individual sample means.</li>
+  <li>\(\mu_x\) = mean of the individual sample means.</li>
+  <li>\(SE_x\) = standard error of the mean, and also the standard deviation of the individual sample means.</li>
   <li>n = sample size</li>
 </ul>
 
 <p>The sampling distribution has several key features in relation to the population distribution. In most cases, the number of observations in your sample will be much smaller than the size of your population (though depending on the sampling method, sample size can in some cases be the same or larger than your population size). If we make this an assumption (N » n), then:</p>
 <ul>
-  <li><script type="math/tex">\mu_x = \mu \rightarrow</script> Population and sampling distributions have the same mean.</li>
-  <li><script type="math/tex">SE_x = \frac{\sigma}{\sqrt{n}}*\sqrt{\frac{N-n}{N-1}} \approx \frac{\sigma}{\sqrt{n}}</script> <script type="math/tex">\rightarrow</script> <script type="math/tex">N-n \approx N-1</script> when <script type="math/tex">N >> n</script>, therefore <script type="math/tex">\sqrt{\frac{N-n}{N-1}} \rightarrow 1</script>. Note that the standard error of the mean is the same thing as the standard deviation of the sampling distribution for a given n. This means that the sampling distribution will generally be narrower than the population distribution, as shown above.</li>
+  <li>\(\mu_x = \mu \rightarrow\) Population and sampling distributions have the same mean.</li>
+  <li>\(SE_x = \frac{\sigma}{\sqrt{n}}*\sqrt{\frac{N-n}{N-1}} \approx \frac{\sigma}{\sqrt{n}}\) \(\rightarrow\) \(N-n \approx N-1\) when \(N &gt;&gt; n\), therefore \(\sqrt{\frac{N-n}{N-1}} \rightarrow 1\). Note that the standard error of the mean is the same thing as the standard deviation of the sampling distribution for a given n. This means that the sampling distribution will generally be narrower than the population distribution, as shown above.</li>
   <li>For large n, the sampling distribution is approximately normal, regardless of the distribution of the observation in the population (according to the <a href="https://en.wikipedia.org/wiki/Central_limit_theorem">Central Limit Theorem</a>, see below).</li>
 </ul>
 
@@ -520,10 +522,10 @@ you can.</p>
         </span><span class="n">border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col.fill</span><span class="p">)</span><span class="w">
 
 </span><span class="c1"># add arrows and data intervals</span><span class="w">
-</span><span class="n">arrows</span><span class="p">(</span><span class="n">x</span><span class="m">0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="m">0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.18</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="m">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w">
+</span><span class="n">arrows</span><span class="p">(</span><span class="n">x0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">y0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.18</span><span class="p">,</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w">
        </span><span class="n">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="c1"># draw arrow heads at both ends</span><span class="w">
        </span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">25</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.07</span><span class="p">)</span><span class="w"> </span><span class="c1"># arrow head angle and length</span><span class="w">
-</span><span class="n">arrows</span><span class="p">(</span><span class="n">x</span><span class="m">0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="m">0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.03</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="m">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">,</span><span class="w">
+</span><span class="n">arrows</span><span class="p">(</span><span class="n">x0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">y0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.03</span><span class="p">,</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">,</span><span class="w">
        </span><span class="n">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="c1"># draw arrow heads at both ends</span><span class="w">
        </span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">25</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.07</span><span class="p">)</span><span class="w"> </span><span class="c1"># arrow head angle and length</span><span class="w">
 
@@ -631,7 +633,7 @@ you can.</p>
 </span><span class="n">str</span><span class="p">(</span><span class="n">data.diet</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	191 obs. of  17 variables:
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	191 obs. of  17 variables:
  $ strain         : chr  "A/J" "A/J" "A/J" "A/J" ...
  $ sex            : chr  "m" "m" "m" "m" ...
  $ animal_id      : int  16 17 18 19 20 21 22 23 24 25 ...
@@ -655,7 +657,7 @@ you can.</p>
 
 <p>To save some typing, let’s separate out the data for the C57BL/6 strain.</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span><span class="m">6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.diet</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">,]</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.diet</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">,]</span><span class="w">
 </span></code></pre></div></div>
 
 <p> </p>
@@ -663,18 +665,18 @@ you can.</p>
 
 <p>The most common first step to look for normality (or lack thereof) in a sample is to plot the histogram/density function and quantile-quantile (Q-Q) plot in order to examine the visual similarity to a theoretical normal distribution.</p>
 
-<p>Let’s start by looking at the distribution of starting body weights for C57BL/6 mice. Histograms can be generated using the <code class="highlighter-rouge">hist()</code> function:</p>
+<p>Let’s start by looking at the distribution of starting body weights for C57BL/6 mice. Histograms can be generated using the <code class="language-plaintext highlighter-rouge">hist()</code> function:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hist</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hist</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <p><img src="../fig/rmd-06-class-distributions-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" /></p>
 
 <p> </p>
 
-<p>By default, <code class="highlighter-rouge">hist()</code> breaks the histogram into 10 bins with “counts” (e.g. number of observations) plotted on the y-axis. This is rarely appealing. Let’s break down the structure a bit further using the <code class="highlighter-rouge">breaks</code> argument and change the histogram to probability density (fraction of the total observations in each bin) using the <code class="highlighter-rouge">freq</code> argument:</p>
+<p>By default, <code class="language-plaintext highlighter-rouge">hist()</code> breaks the histogram into 10 bins with “counts” (e.g. number of observations) plotted on the y-axis. This is rarely appealing. Let’s break down the structure a bit further using the <code class="language-plaintext highlighter-rouge">breaks</code> argument and change the histogram to probability density (fraction of the total observations in each bin) using the <code class="language-plaintext highlighter-rouge">freq</code> argument:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hist.bw.b6</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">hist</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">,</span><span class="w"> </span><span class="n">breaks</span><span class="o">=</span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">freq</span><span class="o">=</span><span class="nb">F</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hist.bw.b6</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">hist</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">,</span><span class="w"> </span><span class="n">breaks</span><span class="o">=</span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="n">freq</span><span class="o">=</span><span class="nb">F</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <p><img src="../fig/rmd-06-class-distributions-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" /></p>
@@ -682,7 +684,7 @@ you can.</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hist.bw.b6</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$breaks
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$breaks
  [1] 15.0 15.5 16.0 16.5 17.0 17.5 18.0 18.5 19.0 19.5 20.0 20.5 21.0 21.5 22.0
 [16] 22.5 23.0 23.5
 
@@ -711,7 +713,7 @@ attr(,"class")
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">hist.bw.b6</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>List of 6
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>List of 6
  $ breaks  : num [1:18] 15 15.5 16 16.5 17 17.5 18 18.5 19 19.5 ...
  $ counts  : int [1:17] 1 1 3 3 2 7 5 11 6 11 ...
  $ density : num [1:17] 0.0208 0.0208 0.0625 0.0625 0.0417 ...
@@ -723,16 +725,16 @@ attr(,"class")
 
 <p> </p>
 
-<p>The histogram object is a list that contains a variety of information on the structure of our data. The relevant bit for plotting is the <code class="highlighter-rouge">mids</code> variable, which indicates the x-position of the box midpoints, and the <code class="highlighter-rouge">density</code> variable, which indicates the heights.</p>
+<p>The histogram object is a list that contains a variety of information on the structure of our data. The relevant bit for plotting is the <code class="language-plaintext highlighter-rouge">mids</code> variable, which indicates the x-position of the box midpoints, and the <code class="language-plaintext highlighter-rouge">density</code> variable, which indicates the heights.</p>
 
-<p>It is often useful to overlay the density function (which in one sense is the smoothed version of the histogram) using the <code class="highlighter-rouge">density()</code> function. Let’s setup and assign the density of body weight to a new variable:</p>
+<p>It is often useful to overlay the density function (which in one sense is the smoothed version of the histogram) using the <code class="language-plaintext highlighter-rouge">density()</code> function. Let’s setup and assign the density of body weight to a new variable:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">## ?density</span><span class="w">
-</span><span class="n">dens.bw.b6</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">density</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
+</span><span class="n">dens.bw.b6</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">density</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
 </span><span class="n">dens.bw.b6</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 Call:
 	density.default(x = b6$bw_start)
 
@@ -750,7 +752,7 @@ Data: b6$bw_start (96 obs.);	Bandwidth 'bw' = 0.5924
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">dens.bw.b6</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>List of 7
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>List of 7
  $ x        : num [1:512] 13.4 13.4 13.4 13.4 13.5 ...
  $ y        : num [1:512] 8.00e-05 9.01e-05 1.01e-04 1.13e-04 1.27e-04 ...
  $ bw       : num 0.592
@@ -763,18 +765,18 @@ Data: b6$bw_start (96 obs.);	Bandwidth 'bw' = 0.5924
 
 <p> </p>
 
-<p>Like <code class="highlighter-rouge">hist()</code>, <code class="highlighter-rouge">density()</code> generates a list with a variety of information about our data. For our purposes, the <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">y</code> values represent the density distribution function for the data and can be plotted.</p>
+<p>Like <code class="language-plaintext highlighter-rouge">hist()</code>, <code class="language-plaintext highlighter-rouge">density()</code> generates a list with a variety of information about our data. For our purposes, the <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> values represent the density distribution function for the data and can be plotted.</p>
 
-<p>Finally, for a direct comparison, we can calculate the expected theoretical normal distribution of a sample with the same mean and standard deviation as our body weight data using the <code class="highlighter-rouge">dnorm()</code> function. <code class="highlighter-rouge">dnorm()</code> will return the probability density function for a given phenotype value (relative probability that the specific value will occur) for a normal distribution with a given mean and standard deviation.</p>
+<p>Finally, for a direct comparison, we can calculate the expected theoretical normal distribution of a sample with the same mean and standard deviation as our body weight data using the <code class="language-plaintext highlighter-rouge">dnorm()</code> function. <code class="language-plaintext highlighter-rouge">dnorm()</code> will return the probability density function for a given phenotype value (relative probability that the specific value will occur) for a normal distribution with a given mean and standard deviation.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first we need to define the range of phenotype values that we are interested</span><span class="w">
 </span><span class="c1"># in, i.e. the range of values represented in our data. I will ask for a sequence of </span><span class="w">
 </span><span class="c1"># values from the minimum observation to the maximum with 100 equally spaced points in # between</span><span class="w">
-</span><span class="n">norm.x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">),</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">),</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w">
+</span><span class="n">norm.x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">),</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">),</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w">
 
 </span><span class="c1"># now we can use the phenotype value range to grab the corresponding normal density </span><span class="w">
 </span><span class="c1"># function from dnorm() using the mean and standard deviation of our data</span><span class="w">
-</span><span class="n">norm.y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dnorm</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">norm.x</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">),</span><span class="w"> </span><span class="n">sd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">))</span><span class="w">
+</span><span class="n">norm.y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dnorm</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">norm.x</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mean</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">),</span><span class="w"> </span><span class="n">sd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">))</span><span class="w">
 </span></code></pre></div></div>
 <p> </p>
 
@@ -796,10 +798,10 @@ Data: b6$bw_start (96 obs.);	Bandwidth 'bw' = 0.5924
 
 <p> </p>
 
-<p>In this case, the distributions look to be very close to one another. The histogram and density function of a plot give useful information about the shape of the data and can be used to quickly assess whether a sample is, for example, skewed or bimodal. To more directly assess normality, a Q-Q plot, which plots quantiles of a distribution against the quantiles of the corresponding normal distribution, is simpler and makes picking out divergence from normality more obvious. In R this can be simply accomplished using the <code class="highlighter-rouge">qqnorm()</code> function. A second function, <code class="highlighter-rouge">qqline()</code> adds a line representing perfect normality:</p>
+<p>In this case, the distributions look to be very close to one another. The histogram and density function of a plot give useful information about the shape of the data and can be used to quickly assess whether a sample is, for example, skewed or bimodal. To more directly assess normality, a Q-Q plot, which plots quantiles of a distribution against the quantiles of the corresponding normal distribution, is simpler and makes picking out divergence from normality more obvious. In R this can be simply accomplished using the <code class="language-plaintext highlighter-rouge">qqnorm()</code> function. A second function, <code class="language-plaintext highlighter-rouge">qqline()</code> adds a line representing perfect normality:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
-</span><span class="n">qqline</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
+</span><span class="n">qqline</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <p><img src="../fig/rmd-06-class-distributions-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" /></p>
@@ -836,18 +838,18 @@ Data: b6$bw_start (96 obs.);	Bandwidth 'bw' = 0.5924
 
 <p>While it is always good to look at your data first, there is a statistical test for normality called the <a href="https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test">Shapiro-Wilk test</a>, originally published in 1965. The Shapiro-Wilk test sets up the following hypothesis test:</p>
 
-<p>      <script type="math/tex">H_0</script>: <em>The sample belongs to a normally distribution.</em></p>
+<p>      \(H_0\): <em>The sample belongs to a normally distribution.</em></p>
 
 <p> </p>
 
-<p>      <script type="math/tex">H_1</script>: <em>The sample does not belong to a normally distribution.</em></p>
+<p>      \(H_1\): <em>The sample does not belong to a normally distribution.</em></p>
 
-<p>Essentially the test looks for statistical deviation from the corresponding theoretical normal distribution. We can run the test in R using the <code class="highlighter-rouge">shapiro.test()</code> function:</p>
+<p>Essentially the test looks for statistical deviation from the corresponding theoretical normal distribution. We can run the test in R using the <code class="language-plaintext highlighter-rouge">shapiro.test()</code> function:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 	Shapiro-Wilk normality test
 
 data:  b6$bw_start
@@ -858,10 +860,10 @@ W = 0.98847, p-value = 0.5732
 
 <p>As we may have suspected from looking at the Q-Q plot and distributions, the P-value is comfortably far from significance, and we accept the null hypothesis that the sample is drawn from a normal distribution. As a demonstration, the exponential of this data is clearly not normal:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="nf">exp</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">))</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="nf">exp</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">))</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 	Shapiro-Wilk normality test
 
 data:  exp(b6$bw_start)
@@ -898,16 +900,16 @@ be anyway).</p>
 
 <p>So what happens if your data is clearly non-normal? Let’s look at plasma triglycerides for our C57BL/6 mice:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">TG</span><span class="p">)</span><span class="w">
-</span><span class="n">qqline</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">TG</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">TG</span><span class="p">)</span><span class="w">
+</span><span class="n">qqline</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">TG</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <p><img src="../fig/rmd-06-class-distributions-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" /></p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">TG</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">TG</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 	Shapiro-Wilk normality test
 
 data:  b6$TG
@@ -918,16 +920,16 @@ W = 0.83851, p-value = 7.657e-09
 
 <p>This sample looks to be clearly non-normal. In this case the data has a somewhat characteristic shape, with both low and values higher than expected from a normal distribution. What happens if we examine normality of the log of triglycerides?</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">TG</span><span class="p">))</span><span class="w">
-</span><span class="n">qqline</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">TG</span><span class="p">))</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">TG</span><span class="p">))</span><span class="w">
+</span><span class="n">qqline</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">TG</span><span class="p">))</span><span class="w">
 </span></code></pre></div></div>
 
 <p><img src="../fig/rmd-06-class-distributions-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" /></p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">TG</span><span class="p">))</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">TG</span><span class="p">))</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 	Shapiro-Wilk normality test
 
 data:  log(b6$TG)
@@ -936,12 +938,12 @@ W = 0.97882, p-value = 0.1227
 
 <p> </p>
 
-<p>That’s much better! Now we can continue with our analysis using log(TG) as our random variable, rather than the raw value of TG. This is an ideal case, because taking the logarithm of a value is a <em>reversible</em> data transformation. We can easily reverse the process by raising e to log(TG) power (note that by default, <code class="highlighter-rouge">log()</code> in R takes the natural logarithm of the input). Therefore, not information if lost when performing the transformation. Other reversible transformations include:</p>
+<p>That’s much better! Now we can continue with our analysis using log(TG) as our random variable, rather than the raw value of TG. This is an ideal case, because taking the logarithm of a value is a <em>reversible</em> data transformation. We can easily reverse the process by raising e to log(TG) power (note that by default, <code class="language-plaintext highlighter-rouge">log()</code> in R takes the natural logarithm of the input). Therefore, not information if lost when performing the transformation. Other reversible transformations include:</p>
 <ul>
-  <li>square root: <script type="math/tex">\sqrt{x}</script></li>
-  <li>polynomial powers (<script type="math/tex">x^2</script>)</li>
-  <li>inverse (<script type="math/tex">\frac{1}{x}</script>)</li>
-  <li>exponential (<script type="math/tex">e^x</script>)</li>
+  <li>square root: \(\sqrt{x}\)</li>
+  <li>polynomial powers (\(x^2\))</li>
+  <li>inverse (\(\frac{1}{x}\))</li>
+  <li>exponential (\(e^x\))</li>
 </ul>
 
 <p>The best reversible transformation is not always immediately obvious. You can just try a few until you find the one that gives the most normal outcome. However, in some cases you won’t be able to find a nice transformation that brings you closer to a normal distribution. You may also have outliers that are having an out-weighted effect. In these cases, you may need a more extreme measure. While we do not cover these options in detail, two common approaches are to use a <a href="https://en.wikipedia.org/wiki/Feature_scaling#Standardization_(Z-score_Normalization)">Z-Score Normalization</a> <a href="https://rdrr.io/bioc/DOQTL/man/rankZ.html">Rank Z Transformation</a>, or a <a href="https://en.wikipedia.org/wiki/Feature_scaling#Rescaling_(min-max_normalization)">Min-Max Scaling</a>. These methods have different strengths and weaknesses, and tend to change some aspect of the data. For example, Min-Max Scaling suppresses the impact of outliers, while the Rank Z Transformation maintains data order, but forces a normal distribution and thus removes information about relative value.</p>
@@ -997,7 +999,7 @@ analysis using the A/J strain. In particular,</p>
 </span><span class="n">shapiro.test</span><span class="p">(</span><span class="n">aj</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 	Shapiro-Wilk normality test
 
 data:  aj$bw_start
@@ -1010,23 +1012,23 @@ W = 0.98581, p-value = 0.3992
   <h2 id="the-weightier-matter">The weightier matter</h2>
 
   <p>While the starting body weight is important, what we really care about is 
-the change in body weight following the diet. Examine the <code class="highlighter-rouge">bw_gain</code> variable. 
+the change in body weight following the diet. Examine the <code class="language-plaintext highlighter-rouge">bw_gain</code> variable. 
 Can we use this directly? Is there a better metric to assess change in body weight?</p>
 
   <blockquote class="solution">
     <h2 id="solution-3">Solution</h2>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># examine Q-Q plots for B6 and AJ mice separately</span><span class="w">
-</span><span class="n">qqnorm</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">)</span><span class="w">
-</span><span class="n">qqline</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">)</span><span class="w">
+</span><span class="n">qqnorm</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">)</span><span class="w">
+</span><span class="n">qqline</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
     <p><img src="../fig/rmd-06-class-distributions-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" /></p>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">)</span><span class="w">
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 	Shapiro-Wilk normality test
 
 data:  b6$bw_gain
@@ -1042,7 +1044,7 @@ W = 0.93757, p-value = 0.0001893
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="n">aj</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 	Shapiro-Wilk normality test
 
 data:  aj$bw_gain
@@ -1050,32 +1052,32 @@ W = 0.94935, p-value = 0.001068
 </code></pre></div>    </div>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># both are skewed. Try a log transformation:</span><span class="w">
-</span><span class="n">qqnorm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">))</span><span class="w">
-</span><span class="n">qqline</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">))</span><span class="w">
+</span><span class="n">qqnorm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">))</span><span class="w">
+</span><span class="n">qqline</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">))</span><span class="w">
 </span></code></pre></div>    </div>
 
     <p><img src="../fig/rmd-06-class-distributions-unnamed-chunk-17-3.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" /></p>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">))</span><span class="w">
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">))</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 	Shapiro-Wilk normality test
 
 data:  log(b6$bw_gain)
 W = 0.88267, p-value = 3.692e-07
 </code></pre></div>    </div>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">))</span><span class="w">
-</span><span class="n">qqline</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">))</span><span class="w">
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">))</span><span class="w">
+</span><span class="n">qqline</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">))</span><span class="w">
 </span></code></pre></div>    </div>
 
     <p><img src="../fig/rmd-06-class-distributions-unnamed-chunk-17-4.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" /></p>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">))</span><span class="w">
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="p">))</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 	Shapiro-Wilk normality test
 
 data:  log(b6$bw_gain)
@@ -1083,16 +1085,16 @@ W = 0.88267, p-value = 3.692e-07
 </code></pre></div>    </div>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># That didn't work. What if we normalize to the starting body weight?</span><span class="w">
-</span><span class="n">qqnorm</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="o">/</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
-</span><span class="n">qqline</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="o">/</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
+</span><span class="n">qqnorm</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="o">/</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
+</span><span class="n">qqline</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="o">/</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
     <p><img src="../fig/rmd-06-class-distributions-unnamed-chunk-17-5.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" /></p>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="o">/</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="o">/</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 	Shapiro-Wilk normality test
 
 data:  b6$bw_gain/b6$bw_start
@@ -1108,7 +1110,7 @@ W = 0.98215, p-value = 0.2167
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="n">aj</span><span class="o">$</span><span class="n">bw_gain</span><span class="o">/</span><span class="n">aj</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 	Shapiro-Wilk normality test
 
 data:  aj$bw_gain/aj$bw_start
@@ -1116,16 +1118,16 @@ W = 0.95953, p-value = 0.005023
 </code></pre></div>    </div>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># still not perfect. Let's try to transform the new data with a square root</span><span class="w">
-</span><span class="n">qqnorm</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="o">/</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">))</span><span class="w">
-</span><span class="n">qqline</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="o">/</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">))</span><span class="w">
+</span><span class="n">qqnorm</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="o">/</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">))</span><span class="w">
+</span><span class="n">qqline</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="o">/</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">))</span><span class="w">
 </span></code></pre></div>    </div>
 
     <p><img src="../fig/rmd-06-class-distributions-unnamed-chunk-17-7.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" /></p>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_gain</span><span class="o">/</span><span class="n">b</span><span class="m">6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">))</span><span class="w">
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">shapiro.test</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_gain</span><span class="o">/</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">))</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 	Shapiro-Wilk normality test
 
 data:  sqrt(b6$bw_gain/b6$bw_start)
@@ -1141,7 +1143,7 @@ W = 0.97056, p-value = 0.02933
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="n">shapiro.test</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">aj</span><span class="o">$</span><span class="n">bw_gain</span><span class="o">/</span><span class="n">aj</span><span class="o">$</span><span class="n">bw_start</span><span class="p">))</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 	Shapiro-Wilk normality test
 
 data:  sqrt(aj$bw_gain/aj$bw_start)
@@ -1178,7 +1180,7 @@ the t-test more robust.</p>
     <li><p>The sampling distribution describes the characteristics of all possible samples of a given size.</p>
 </li>
     
-    <li><p>Use <code class="highlighter-rouge">hist()</code>, <code class="highlighter-rouge">density()</code>, <code class="highlighter-rouge">dnorm()</code>, <code class="highlighter-rouge">qqnorm()</code>, and <code class="highlighter-rouge">qqline()</code> to visually assess whether a sample is normally distributed.</p>
+    <li><p>Use <code class="language-plaintext highlighter-rouge">hist()</code>, <code class="language-plaintext highlighter-rouge">density()</code>, <code class="language-plaintext highlighter-rouge">dnorm()</code>, <code class="language-plaintext highlighter-rouge">qqnorm()</code>, and <code class="language-plaintext highlighter-rouge">qqline()</code> to visually assess whether a sample is normally distributed.</p>
 </li>
     
   </ul>

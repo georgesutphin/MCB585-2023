@@ -1,0 +1,2 @@
+I"Õ<p>Save a plot in a pdf file using <code class="language-plaintext highlighter-rouge">pdf(...)</code> and stop writing to the pdf file with <code class="language-plaintext highlighter-rouge">dev.off()</code>.</p>
+:ET

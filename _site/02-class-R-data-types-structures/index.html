@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-23 21:10:15 -0700">
+    <meta http-equiv="last-modified" content="2020-08-27 22:17:36 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -119,11 +119,13 @@
             
             <li><a href="../02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
+            <li><a href="../02-oyo-R-data-types-in-depth/index.html">R Data Types -- In-Depth</a></li>
+            
             <li><a href="../02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a></li>
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
+            <li><a href="../03-oyo-Lists/index.html">Lists and Advanced Indexing</a></li>
             
             <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
             
@@ -225,7 +227,7 @@
   <div class="col-xs-1">
     <h3 class="text-right">
       
-      <a href="../02-oyo-R-data-types-structures/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      <a href="../02-oyo-R-data-types-in-depth/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
       
     </h3>
   </div>
@@ -303,165 +305,259 @@
 
 <p>R uses a variety of data types, which define the properties of the value stored in a variable. The three data types that you will use most commonly are <strong>character</strong> (text strings), <strong>logical</strong> (TRUE/FALSE values), and <strong>numeric</strong> (decimal or “double” numeric values) objects. For the most part, the data type of a variable is detected by the format of the value assigned:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">char1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"hello!"</span><span class="w">
-</span><span class="n">num1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">20.5</span><span class="w">
-</span><span class="n">logic1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">TRUE</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">char1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"hello!"</span><span class="w"> </span><span class="c1"># "character" is your basic text string data type</span><span class="w">
+</span><span class="n">num1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">20.5</span><span class="w"> </span><span class="c1"># "numeric" is your most general data type for real, decimal numbers</span><span class="w">
+</span><span class="n">logic1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">TRUE</span><span class="w"> </span><span class="c1"># "logical" data type is a simply binary: TRUE or FALSE</span><span class="w">
+</span><span class="n">logic2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nb">F</span><span class="w"> </span><span class="c1"># T or F also work</span><span class="w">
 </span></code></pre></div></div>
 
 <p> </p>
 
-<p>Use the <code class="highlighter-rouge">class()</code> function to determine the of a variable:</p>
+<p>Use the <code class="language-plaintext highlighter-rouge">class()</code> function to determine the of a variable:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">char1</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">num1</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "numeric"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "numeric"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">logic1</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "logical"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "logical"
+</code></pre></div></div>
+
+<p> </p>
+<h4 id="character-variables">Character Variables</h4>
+
+<p>The <strong>character</strong> data type is used to store basic textual information. A character vector is defined by text in quotes (<code class="language-plaintext highlighter-rouge">""</code>). You can include most forms of text:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">greeting</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"How are you today?"</span><span class="w">
+</span><span class="n">response</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"Just fine. How are you?"</span><span class="w">
+</span><span class="n">equation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"1 + 3 - 2 = 2"</span><span class="w">
+</span></code></pre></div></div>
+
+<p> </p>
+
+<p>The major exception is the backslash (<code class="language-plaintext highlighter-rouge">\</code>), which R uses as an escape character. In computing, an escape character is a <em>metacharacter</em> that is not interpreted literally, but instead causes the computer to interpret <em>the character following the escape character</em> in a different way.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">escape</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"This string \does not compute."</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: '\d' is an unrecognized escape in character string starting ""This string \d"
 </code></pre></div></div>
 
 <p> </p>
 
-<p>You can shift between data types using the <code class="highlighter-rouge">as</code> functions:</p>
+<p>Note that the error message is complaining about the <code class="language-plaintext highlighter-rouge">\d</code>, not just the <code class="language-plaintext highlighter-rouge">\</code>. Many characters invoke specific behavior when preceded by the <code class="language-plaintext highlighter-rouge">\</code> which can be useful depending on your goals. For example, <code class="language-plaintext highlighter-rouge">\n</code> is interpreted as a <em>line break</em>:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">num1.as.char</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="n">num1</span><span class="p">)</span><span class="w">
-</span><span class="n">num1.as.char</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">two.lines</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"Line 1\nLine 2"</span><span class="w">
+</span><span class="n">writeLines</span><span class="p">(</span><span class="n">two.lines</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "20.5"
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ... now check the class of the new variable:</span><span class="w">
-</span><span class="nf">class</span><span class="p">(</span><span class="n">num1.as.char</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># you can't add numbers to characters!</span><span class="w">
-</span><span class="n">num1.as.char</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">4</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in num1.as.char + 4: non-numeric argument to binary operator
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Line 1
+Line 2
 </code></pre></div></div>
 
 <p> </p>
 
-<p>It only works if the conversion makes sense in context. R also does not understand
-non-numeric references to numbers (e.g. using “two” to refer to the number 2):</p>
+<p>This can be useful when you are trying to add text to a chart but want the text to appear on separate lines. Some functions just display the string verbatim, instead of trying to interpret the escape characters:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># this one works:</span><span class="w">
-</span><span class="nf">as.numeric</span><span class="p">(</span><span class="s2">"44"</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">print</span><span class="p">(</span><span class="n">two.lines</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 44
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Line 1\nLine 2"
 </code></pre></div></div>
+<p> </p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># these don't</span><span class="w">
-</span><span class="nf">as.numeric</span><span class="p">(</span><span class="s2">"hello!"</span><span class="p">)</span><span class="w">
+<p>As you might expect, you can’t perform numeric operations on characters:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">two.lines</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: NAs introduced by coercion
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in 2 * two.lines: non-numeric argument to binary operator
 </code></pre></div></div>
+<p> </p>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] NA
-</code></pre></div></div>
+<p>You can also successfully print a backslash (<code class="language-plaintext highlighter-rouge">\</code>) by typing a double backslash (<code class="language-plaintext highlighter-rouge">\\</code>), which is effectively using the first <code class="language-plaintext highlighter-rouge">\</code> to “escape” the second <code class="language-plaintext highlighter-rouge">\</code>:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">as.numeric</span><span class="p">(</span><span class="s2">"forty-four"</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">writeLines</span><span class="p">(</span><span class="s2">"Single\\backslash."</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: NAs introduced by coercion
-</code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] NA
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Single\backslash.
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Note that when one of the <code class="highlighter-rouge">as.</code> functions throws an error, it doesn’t simply fail to return a variable. Instead it throws an error message and assigns an <code class="highlighter-rouge">NA</code> value to the variable. <code class="highlighter-rouge">NA</code> is one of several special values that represents missing data, or “Not Available”. You will explore these special characters in more detail <em>On Your Own</em>.</p>
+<p>There are many functions for manipulating character data types. Two examples are <code class="language-plaintext highlighter-rouge">paste()</code>, which combines text strings into a single variable separated by spaces (<code class="language-plaintext highlighter-rouge">paste0()</code> does the same without the spaces):</p>
 
-<p>The <code class="highlighter-rouge">as.logical()</code> function will take <code class="highlighter-rouge">0</code> as <code class="highlighter-rouge">FALSE</code> and any non-zero numeric as <code class="highlighter-rouge">TRUE</code>. It will throw an error for any character input that is a common spelling of <code class="highlighter-rouge">TRUE</code> or <code class="highlighter-rouge">FALSE</code>. Note that <code class="highlighter-rouge">T</code> works, but <code class="highlighter-rouge">t</code> does not.</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">as.logical</span><span class="p">(</span><span class="m">0</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">paste</span><span class="p">(</span><span class="s2">"Hello"</span><span class="p">,</span><span class="s2">"world!"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Hello world!"
 </code></pre></div></div>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">as.logical</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">paste0</span><span class="p">(</span><span class="s2">"Hello-"</span><span class="p">,</span><span class="s2">"world!"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Hello-world!"
 </code></pre></div></div>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">as.logical</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">as.logical</span><span class="p">(</span><span class="m">0.01</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">as.logical</span><span class="p">(</span><span class="m">-4</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">as.logical</span><span class="p">(</span><span class="s2">"TRUE"</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">as.logical</span><span class="p">(</span><span class="s2">"True"</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">as.logical</span><span class="p">(</span><span class="s2">"tRUE"</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] NA
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">as.logical</span><span class="p">(</span><span class="s2">"T"</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">as.logical</span><span class="p">(</span><span class="s2">"t"</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] NA
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">as.logical</span><span class="p">(</span><span class="s2">"false"</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
-</code></pre></div></div>
 <p> </p>
-<h3 id="data-structures-in-r">Data Structures in R</h3>
+
+<p><code class="language-plaintext highlighter-rouge">sub()</code> allows you to replace a defined portion of a text string:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cat.person</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"I love cats!"</span><span class="w">
+</span><span class="n">cat.person</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "I love cats!"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dog.person</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sub</span><span class="p">(</span><span class="s2">"cats"</span><span class="p">,</span><span class="w"> </span><span class="s2">"dogs"</span><span class="p">,</span><span class="w"> </span><span class="n">cat.person</span><span class="p">)</span><span class="w">
+</span><span class="n">dog.person</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "I love dogs!"
+</code></pre></div></div>
+
+<p> </p>
+<h4 id="numeric-variables">Numeric Variables</h4>
+
+<p>The <strong>numeric</strong> data type is your most common tool for storing quantitative real numbers:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dozen</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">12</span><span class="w">
+</span><span class="n">dozen</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 12
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">e</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">exp</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="c1"># exp is a function that defines the constant e to a given power</span><span class="w">
+</span><span class="n">e</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2.718282
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">negatives</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">-3.5</span><span class="w">
+</span><span class="n">negatives</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] -3.5
+</code></pre></div></div>
+
+<p> </p>
+
+<p>We have already looked at two of many, many functions that manipulate numeric variables:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sum</span><span class="p">(</span><span class="n">dozen</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">negatives</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 11.21828
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sqrt</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1.648721
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Some character functions automatically treat numbers (e.g. <code class="language-plaintext highlighter-rouge">12</code>) as the character equivalent (<code class="language-plaintext highlighter-rouge">"12"</code>):</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sub</span><span class="p">(</span><span class="s2">"2"</span><span class="p">,</span><span class="s2">"4"</span><span class="p">,</span><span class="n">dozen</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "14"
+</code></pre></div></div>
+
+<p> </p>
+
+<p>While others do not:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">writeLines</span><span class="p">(</span><span class="n">dozen</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in writeLines(dozen): can only write character objects
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Just try them to find out!</p>
+
+<p> </p>
+<h3 id="logical-variables">Logical Variables</h3>
+
+<p>The <strong>logical</strong> data type is used to store basic TRUE vs. FALSE data:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">this.is.true</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">TRUE</span><span class="w">
+</span><span class="n">this.is.true</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">this.is.false</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nb">F</span><span class="w">
+</span><span class="n">this.is.false</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
+</code></pre></div></div>
+
+<p> </p>
+
+<p>These are useful for asking R questions about your data. For example, we can compare relative values:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">y</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] TRUE
+</code></pre></div></div>
+
+<p> </p>
+
+<p>This is useful for making decisions, with an <code class="language-plaintext highlighter-rouge">if</code> statement for example:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">test1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nb">T</span><span class="w">
+</span><span class="n">test2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nb">F</span><span class="w">
+</span><span class="k">if</span><span class="p">(</span><span class="n">test1</span><span class="p">)</span><span class="w"> </span><span class="s2">"Test 1 is TRUE!"</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Test 1 is TRUE!"
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="n">test2</span><span class="p">)</span><span class="w"> </span><span class="s2">"Test 2 is TRUE!"</span><span class="w">
+</span></code></pre></div></div>
+
+<p> 
+The code following the if statement will only execute if the variable or statement entered in the <code class="language-plaintext highlighter-rouge">()</code> is <code class="language-plaintext highlighter-rouge">TRUE</code>. We will talk more about how to use <code class="language-plaintext highlighter-rouge">if</code> statements later in the course.</p>
 
 <hr />
-<h3 id="vectors">Vectors</h3>
+<h3 id="data-structures">Data Structures</h3>
+
+<p>Elements of these data types may be combined to form data structures–collections of individual datum. There are many data structure in R, for example:</p>
+<ul>
+  <li>factors</li>
+  <li>atomic vector (aka vector)</li>
+  <li>list</li>
+  <li>matrix</li>
+  <li>data frame</li>
+</ul>
+
+<p>Here we will discuss the two most basic data structures: <strong>vectors</strong> and <strong>matrices</strong>. In later lessons we will discuss two advanced data structure, <strong>data frames</strong> (the most common data storage structure in R) and <strong>lists</strong>. <strong>Factors</strong> are a type of data structure, but function more like an advanced data type. You will explor <strong>factors</strong> in detail <em>On Your Own</em>.</p>
+
+<p> </p>
+<h4 id="vectors">Vectors</h4>
 
 <p>A vector is the most common and basic data structure in R. Vectors are also the major workhorse data structure of R. Technically, vectors can be one of two types:</p>
 
@@ -475,73 +571,72 @@ non-numeric references to numbers (e.g. using “two” to refer to the number 2
 <p> </p>
 <h4 id="the-different-vector-modes">The Different Vector Modes</h4>
 
-<p>A vector is a collection of elements that are most commonly of mode <code class="highlighter-rouge">character</code>,
-<code class="highlighter-rouge">logical</code>, <code class="highlighter-rouge">integer</code> or <code class="highlighter-rouge">numeric</code>.</p>
+<p>A vector is a collection of elements that are most commonly of mode <code class="language-plaintext highlighter-rouge">character</code>, <code class="language-plaintext highlighter-rouge">logical</code>, <code class="language-plaintext highlighter-rouge">integer</code> or <code class="language-plaintext highlighter-rouge">numeric</code>.</p>
 
-<p>You can create an empty vector with the <code class="highlighter-rouge">vector()</code> function. By default, the mode is <code class="highlighter-rouge">logical</code>, but you can be more explicit using additional arguments, as shown in the examples below. A simpler solution is to just directly construct vectors of the desired mode using on of several available functions, such as <code class="highlighter-rouge">character()</code>, <code class="highlighter-rouge">numeric()</code>, etc.</p>
+<p>You can create an empty vector with the <code class="language-plaintext highlighter-rouge">vector()</code> function. By default, the mode is <code class="language-plaintext highlighter-rouge">logical</code>, but you can be more explicit using additional arguments, as shown in the examples below. A simpler solution is to just directly construct vectors of the desired mode using on of several available functions, such as <code class="language-plaintext highlighter-rouge">character()</code>, <code class="language-plaintext highlighter-rouge">numeric()</code>, etc.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="p">()</span><span class="w"> </span><span class="c1"># an empty 'logical' (the default) vector</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logical(0)
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logical(0)
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vector</span><span class="p">(</span><span class="s2">"character"</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="c1"># a vector of mode 'character' with 5 elements</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "" "" "" "" ""
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "" "" "" "" ""
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">character</span><span class="p">(</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="c1"># the same thing, but using the direct constructor function</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "" "" "" "" ""
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "" "" "" "" ""
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">numeric</span><span class="p">(</span><span class="m">5</span><span class="p">)</span><span class="w">   </span><span class="c1"># a numeric vector with 5 elements</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0 0 0 0 0
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0 0 0 0 0
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">logical</span><span class="p">(</span><span class="m">5</span><span class="p">)</span><span class="w">   </span><span class="c1"># a logical vector with 5 elements</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE FALSE FALSE FALSE FALSE
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE FALSE FALSE FALSE FALSE
 </code></pre></div></div>
 
 <p> </p>
 
-<p>You can also create vectors by directly specifying their content. R will then guess the appropriate mode of storage for the vector based on your input data. To do this, you use the function <code class="highlighter-rouge">c()</code> (which stands for “combine”):</p>
+<p>You can also create vectors by directly specifying their content. R will then guess the appropriate mode of storage for the vector based on your input data. To do this, you use the function <code class="language-plaintext highlighter-rouge">c()</code> (which stands for “combine”):</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># numeric vector</span><span class="w">
 </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">
 </span><span class="nf">class</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "numeric"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "numeric"
 </code></pre></div></div>
 
 <p> </p>
 
-<p>The <code class="highlighter-rouge">c()</code> function is the most common way to define a vector of objects for manipulation. Directly specifying <code class="highlighter-rouge">TRUE</code> and <code class="highlighter-rouge">FALSE</code> will create a vector of mode <code class="highlighter-rouge">logical</code>:</p>
+<p>The <code class="language-plaintext highlighter-rouge">c()</code> function is the most common way to define a vector of objects for manipulation. Directly specifying <code class="language-plaintext highlighter-rouge">TRUE</code> and <code class="language-plaintext highlighter-rouge">FALSE</code> will create a vector of mode <code class="language-plaintext highlighter-rouge">logical</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
 </span><span class="nf">class</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "logical"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "logical"
 </code></pre></div></div>
 
 <p> </p>
 
-<p>While quoted text will create a vector of mode <code class="highlighter-rouge">character</code>:</p>
+<p>While quoted text will create a vector of mode <code class="language-plaintext highlighter-rouge">character</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Sarah"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Tracy"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Jon"</span><span class="p">)</span><span class="w">
 </span><span class="nf">class</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># adding quotes to numbers forces a character vector</span><span class="w">
@@ -549,53 +644,53 @@ non-numeric references to numbers (e.g. using “two” to refer to the number 2
 </span><span class="nf">class</span><span class="p">(</span><span class="n">x.char</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
 </code></pre></div></div>
 
 <p> </p>
 <h4 id="adding-elements">Adding Elements</h4>
 
-<p>The function <code class="highlighter-rouge">c()</code> can also be used to add elements to a vector:</p>
+<p>The function <code class="language-plaintext highlighter-rouge">c()</code> can also be used to add elements to a vector:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="s2">"Annette"</span><span class="p">)</span><span class="w">
 </span><span class="n">z</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Sarah"   "Tracy"   "Jon"     "Annette"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Sarah"   "Tracy"   "Jon"     "Annette"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Greg"</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">)</span><span class="w">
 </span><span class="n">z</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Greg"    "Sarah"   "Tracy"   "Jon"     "Annette"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Greg"    "Sarah"   "Tracy"   "Jon"     "Annette"
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Note that order matters and defines the order in the output vector. <code class="highlighter-rouge">c()</code> treats any argument that is a vector as just another set of elements in the list.</p>
+<p>Note that order matters and defines the order in the output vector. <code class="language-plaintext highlighter-rouge">c()</code> treats any argument that is a vector as just another set of elements in the list.</p>
 
 <p> </p>
 <h4 id="vectors-from-a-sequence-of-numbers">Vectors from a Sequence of Numbers</h4>
 
-<p>Use the <code class="highlighter-rouge">seq()</code> function or the <code class="highlighter-rouge">:</code> operator to create a vector as a sequence of numbers.</p>
+<p>Use the <code class="language-plaintext highlighter-rouge">seq()</code> function or the <code class="language-plaintext highlighter-rouge">:</code> operator to create a vector as a sequence of numbers.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">seq</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">seq</span><span class="p">(</span><span class="n">from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1.0  1.1  1.2  1.3  1.4  1.5  1.6  1.7  1.8  1.9  2.0  2.1  2.2  2.3  2.4
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1.0  1.1  1.2  1.3  1.4  1.5  1.6  1.7  1.8  1.9  2.0  2.1  2.2  2.3  2.4
 [16]  2.5  2.6  2.7  2.8  2.9  3.0  3.1  3.2  3.3  3.4  3.5  3.6  3.7  3.8  3.9
 [31]  4.0  4.1  4.2  4.3  4.4  4.5  4.6  4.7  4.8  4.9  5.0  5.1  5.2  5.3  5.4
 [46]  5.5  5.6  5.7  5.8  5.9  6.0  6.1  6.2  6.3  6.4  6.5  6.6  6.7  6.8  6.9
@@ -612,62 +707,61 @@ non-numeric references to numbers (e.g. using “two” to refer to the number 2
 </span><span class="n">series1</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  5  6  7  8  9 10 11 12 13 14 15
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  5  6  7  8  9 10 11 12 13 14 15
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">series2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="n">from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.2</span><span class="p">)</span><span class="w">
 </span><span class="n">series2</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] 3.0 3.2 3.4 3.6 3.8 4.0 4.2 4.4 4.6 4.8 5.0 5.2 5.4 5.6 5.8 6.0 6.2 6.4 6.6
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] 3.0 3.2 3.4 3.6 3.8 4.0 4.2 4.4 4.6 4.8 5.0 5.2 5.4 5.6 5.8 6.0 6.2 6.4 6.6
 [20] 6.8 7.0 7.2 7.4 7.6 7.8 8.0
 </code></pre></div></div>
 
 <p> </p>
 <h4 id="what-happens-when-you-mix-types-inside-a-vector">What happens when you mix types inside a vector?</h4>
 
-<p>R will create a resulting vector with a mode that can most easily accommodate
-all the elements it contains (similar to using the <code class="highlighter-rouge">as.</code> functions). This conversion between modes of storage is called “coercion”. When R converts the mode of storage based on its content, it is referred to as “implicit coercion”.</p>
+<p>R will create a resulting vector with a mode that can most easily accommodate all the elements it contains (similar to using the <code class="language-plaintext highlighter-rouge">as.</code> functions). This conversion between modes of storage is called “coercion”. When R converts the mode of storage based on its content, it is referred to as “implicit coercion”.</p>
 
 <blockquote class="challenge">
   <h2 id="mixing-data-types-in-vectors">Mixing data types in vectors</h2>
 
   <p>What the do you think the following will do (without running them first)?</p>
 
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z</span><span class="m">1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1.7</span><span class="p">,</span><span class="w"> </span><span class="s2">"a"</span><span class="p">)</span><span class="w">
-</span><span class="n">z</span><span class="m">2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
-</span><span class="n">z</span><span class="m">3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1.7</span><span class="p">,</span><span class="w"> </span><span class="s2">"a"</span><span class="p">)</span><span class="w">
+</span><span class="n">z2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span><span class="n">z3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
 </span></code></pre></div>  </div>
   <blockquote class="solution">
     <h2 id="solution">Solution</h2>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z</span><span class="m">1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1.7</span><span class="p">,</span><span class="w"> </span><span class="s2">"a"</span><span class="p">)</span><span class="w"> 
-</span><span class="nf">class</span><span class="p">(</span><span class="n">z</span><span class="m">1</span><span class="p">)</span><span class="w">
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1.7</span><span class="p">,</span><span class="w"> </span><span class="s2">"a"</span><span class="p">)</span><span class="w"> 
+</span><span class="nf">class</span><span class="p">(</span><span class="n">z1</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
 </code></pre></div>    </div>
-    <p><code class="highlighter-rouge">z1</code> is forced to be a character vector. <code class="highlighter-rouge">"1.7"</code> can be a character, while 
-<code class="highlighter-rouge">"a"</code> cannot be a number.</p>
+    <p><code class="language-plaintext highlighter-rouge">z1</code> is forced to be a character vector. <code class="language-plaintext highlighter-rouge">"1.7"</code> can be a character, while 
+<code class="language-plaintext highlighter-rouge">"a"</code> cannot be a number.</p>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z</span><span class="m">2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> 
-</span><span class="nf">class</span><span class="p">(</span><span class="n">z</span><span class="m">2</span><span class="p">)</span><span class="w">
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> 
+</span><span class="nf">class</span><span class="p">(</span><span class="n">z2</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "numeric"
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "numeric"
 </code></pre></div>    </div>
-    <p><code class="highlighter-rouge">z2</code> is forced to be a numeric vector. <code class="highlighter-rouge">TRUE</code> can be interpreted as a number 
-(<code class="highlighter-rouge">TRUE</code> = <code class="highlighter-rouge">1</code>, <code class="highlighter-rouge">FALSE</code> = <code class="highlighter-rouge">0</code>), while <code class="highlighter-rouge">2</code> cannot be interpreted as a logical 
+    <p><code class="language-plaintext highlighter-rouge">z2</code> is forced to be a numeric vector. <code class="language-plaintext highlighter-rouge">TRUE</code> can be interpreted as a number 
+(<code class="language-plaintext highlighter-rouge">TRUE</code> = <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">FALSE</code> = <code class="language-plaintext highlighter-rouge">0</code>), while <code class="language-plaintext highlighter-rouge">2</code> cannot be interpreted as a logical 
 value (or can it?)</p>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z</span><span class="m">3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
-</span><span class="nf">class</span><span class="p">(</span><span class="n">z</span><span class="m">3</span><span class="p">)</span><span class="w">
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="nf">class</span><span class="p">(</span><span class="n">z3</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "character"
 </code></pre></div>    </div>
-    <p><code class="highlighter-rouge">z3</code> is forced to be a character vector. <code class="highlighter-rouge">"TRUE"</code> can be a character, while 
-<code class="highlighter-rouge">"a"</code> cannot be interpreted as a logical value</p>
+    <p><code class="language-plaintext highlighter-rouge">z3</code> is forced to be a character vector. <code class="language-plaintext highlighter-rouge">"TRUE"</code> can be a character, while 
+<code class="language-plaintext highlighter-rouge">"a"</code> cannot be interpreted as a logical value</p>
 
   </blockquote>
 </blockquote>
@@ -691,38 +785,38 @@ value (or can it?)</p>
 <p> </p>
 <h4 id="indexing-vectors">Indexing vectors</h4>
 
-<p>In R, <code class="highlighter-rouge">[]</code> are used to index vectors and other objects. For vectors, the number entered in the <code class="highlighter-rouge">[n]</code> will return the nth element of the vector.</p>
+<p>In R, <code class="language-plaintext highlighter-rouge">[]</code> are used to index vectors and other objects. For vectors, the number entered in the <code class="language-plaintext highlighter-rouge">[n]</code> will return the nth element of the vector.</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="s2">"b"</span><span class="p">,</span><span class="s2">"c"</span><span class="p">,</span><span class="s2">"d"</span><span class="p">,</span><span class="s2">"e"</span><span class="p">,</span><span class="s2">"f"</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="s2">"b"</span><span class="p">,</span><span class="s2">"c"</span><span class="p">,</span><span class="s2">"d"</span><span class="p">,</span><span class="s2">"e"</span><span class="p">,</span><span class="s2">"f"</span><span class="p">)</span><span class="w">
 </span><span class="n">x</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "a" "b" "c" "d" "e" "f"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "a" "b" "c" "d" "e" "f"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="m">5</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "e"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "e"
 </code></pre></div></div>
 
 <p> </p>
 
 <p>You can also use pre-defined variables or even other vectors to index different parts of the vector:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="w">
-</span><span class="n">range</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="o">:</span><span class="m">4</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">6</span><span class="w">
+</span><span class="n">range</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">2</span><span class="o">:</span><span class="m">4</span><span class="w">
 
 </span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="w"> </span><span class="c1"># returns the 6th element, as defined by n = 6</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "f"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "f"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">[</span><span class="n">range</span><span class="p">]</span><span class="w"> </span><span class="c1"># returns the range of values specified by "range", in this case elements 2 to 4.</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "b" "c" "d"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "b" "c" "d"
 </code></pre></div></div>
 
 <blockquote class="challenge">
@@ -736,14 +830,14 @@ value (or can it?)</p>
 </span><span class="n">animal</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">]</span><span class="w">
 </span></code></pre></div>  </div>
 
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "m" "o" "n"
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "m" "o" "n"
 </code></pre></div>  </div>
 
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># last three characters</span><span class="w">
 </span><span class="n">animal</span><span class="p">[</span><span class="m">4</span><span class="o">:</span><span class="m">6</span><span class="p">]</span><span class="w">
 </span></code></pre></div>  </div>
 
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "k" "e" "y"
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "k" "e" "y"
 </code></pre></div>  </div>
 
   <p> </p>
@@ -752,20 +846,20 @@ value (or can it?)</p>
 
   <ol>
     <li>
-      <p>If the first four characters are selected using the subset <code class="highlighter-rouge">animal[1:4]</code>, 
+      <p>If the first four characters are selected using the subset <code class="language-plaintext highlighter-rouge">animal[1:4]</code>, 
 how can we obtain the first four characters in reverse order?</p>
     </li>
     <li>
-      <p>What output results from <code class="highlighter-rouge">animal[-1]</code>?</p>
+      <p>What output results from <code class="language-plaintext highlighter-rouge">animal[-1]</code>?</p>
     </li>
     <li>
-      <p>What ouptut results from <code class="highlighter-rouge">animal[-4]</code>?</p>
+      <p>What ouptut results from <code class="language-plaintext highlighter-rouge">animal[-4]</code>?</p>
     </li>
     <li>
-      <p>Given 1-3, what do you expect <code class="highlighter-rouge">animal[-1:-4]</code> to produce?</p>
+      <p>Given 1-3, what do you expect <code class="language-plaintext highlighter-rouge">animal[-1:-4]</code> to produce?</p>
     </li>
     <li>
-      <p>Use a subset of the <code class="highlighter-rouge">animal</code> vector to create a new character vector that spells the word “main”, i.e. <code class="highlighter-rouge">c("m", "a", "i", "n")</code>.</p>
+      <p>Use a subset of the <code class="language-plaintext highlighter-rouge">animal</code> vector to create a new character vector that spells the word “main”, i.e. <code class="language-plaintext highlighter-rouge">c("m", "a", "i", "n")</code>.</p>
     </li>
   </ol>
 
@@ -774,42 +868,42 @@ how can we obtain the first four characters in reverse order?</p>
 
     <ol>
       <li>
-        <p><code class="highlighter-rouge">animal[4:1]</code></p>
+        <p><code class="language-plaintext highlighter-rouge">animal[4:1]</code></p>
       </li>
       <li>
-        <p><code class="highlighter-rouge">"o" "n" "k" "e" "y"</code></p>
+        <p><code class="language-plaintext highlighter-rouge">"o" "n" "k" "e" "y"</code></p>
       </li>
       <li>
-        <p><code class="highlighter-rouge">"m" "o" "n" "e" "y"</code>, which means that a single <code class="highlighter-rouge">-</code> removes the element 
+        <p><code class="language-plaintext highlighter-rouge">"m" "o" "n" "e" "y"</code>, which means that a single <code class="language-plaintext highlighter-rouge">-</code> removes the element 
 at the given index position.</p>
       </li>
       <li>
-        <p><code class="highlighter-rouge">animal[-1:-4]</code> remove the subset at indexes 1 to 4, returning <code class="highlighter-rouge">"e" "y"</code>,
-which is equivalent to <code class="highlighter-rouge">animal[5:6]</code>.</p>
+        <p><code class="language-plaintext highlighter-rouge">animal[-1:-4]</code> remove the subset at indexes 1 to 4, returning <code class="language-plaintext highlighter-rouge">"e" "y"</code>,
+which is equivalent to <code class="language-plaintext highlighter-rouge">animal[5:6]</code>.</p>
       </li>
     </ol>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">animal</span><span class="p">[</span><span class="m">-1</span><span class="o">:</span><span class="m">-4</span><span class="p">]</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "e" "y"
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "e" "y"
 </code></pre></div>    </div>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">animal</span><span class="p">[</span><span class="m">5</span><span class="o">:</span><span class="m">6</span><span class="p">]</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "e" "y"
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "e" "y"
 </code></pre></div>    </div>
 
     <ol>
-      <li><code class="highlighter-rouge">animal[c(5,2,3)]</code> combines indexing with the <code class="highlighter-rouge">c</code>ombine function to 
+      <li><code class="language-plaintext highlighter-rouge">animal[c(5,2,3)]</code> combines indexing with the <code class="language-plaintext highlighter-rouge">c</code>ombine function to 
 spell the word “eon” in a new vector:</li>
     </ol>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">animal</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">)]</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "e" "o" "n"
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "e" "o" "n"
 </code></pre></div>    </div>
   </blockquote>
 </blockquote>
@@ -821,31 +915,31 @@ spell the word “eon” in a new vector:</li>
 <p> </p>
 <h4 id="vectorized-operations">Vectorized operations</h4>
 
-<p>R has a special way of dealing with vectors when dealing with operations. We know what to expect from <code class="highlighter-rouge">1 + 1</code>, but what happens if you try to add two vectors?</p>
+<p>R has a special way of dealing with vectors when dealing with operations. We know what to expect from <code class="language-plaintext highlighter-rouge">1 + 1</code>, but what happens if you try to add two vectors?</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">)</span><span class="w">
-</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">6</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">)</span><span class="w">
+</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">6</span><span class="p">)</span><span class="w">
 
-</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="w">
+</span><span class="n">z</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="w">
 </span><span class="n">z</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 5 7 9
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 5 7 9
 </code></pre></div></div>
 
 <p> </p>
 
 <p>R creates a new vector in which each element the sum of the elements with the same index from x and y. In essence, R is performing 3 separate “addition” operations and combining the results into a new vector. We can mimick this behavior manually:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z</span><span class="m">1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w">
-</span><span class="n">z</span><span class="m">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="w">
-</span><span class="n">z</span><span class="m">3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="m">3</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="m">3</span><span class="p">]</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w">
+</span><span class="n">z2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="w">
+</span><span class="n">z3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="m">3</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">[</span><span class="m">3</span><span class="p">]</span><span class="w">
 
-</span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">z</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="m">3</span><span class="p">)</span><span class="w">
+</span><span class="n">z</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">z1</span><span class="p">,</span><span class="w"> </span><span class="n">z2</span><span class="p">,</span><span class="w"> </span><span class="n">z3</span><span class="p">)</span><span class="w">
 </span><span class="n">z</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 5 7 9
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 5 7 9
 </code></pre></div></div>
 
 <p> </p>
@@ -855,36 +949,36 @@ spell the word “eon” in a new vector:</li>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">y</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] -3 -3 -3
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] -3 -3 -3
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">y</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  4 10 18
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  4 10 18
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">y</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0.25 0.40 0.50
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0.25 0.40 0.50
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="n">y</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]   1  32 729
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]   1  32 729
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Many functions also behave in a vectorized manner. Take the <code class="highlighter-rouge">paste()</code> function, for example, which combines two or more character variables into a single variable:</p>
+<p>Many functions also behave in a vectorized manner. Take the <code class="language-plaintext highlighter-rouge">paste()</code> function, for example, which combines two or more character variables into a single variable:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Here is the output with two strings</span><span class="w">
 </span><span class="n">paste</span><span class="p">(</span><span class="s2">"I like"</span><span class="p">,</span><span class="w"> </span><span class="s2">"dogs."</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "I like dogs."
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "I like dogs."
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Now let's try pasting two character vectors together:</span><span class="w">
@@ -894,7 +988,7 @@ spell the word “eon” in a new vector:</li>
 </span><span class="n">paste</span><span class="p">(</span><span class="n">attitude</span><span class="p">,</span><span class="n">animal</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "I like dogs."              "I dislike fish."          
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "I like dogs."              "I dislike fish."          
 [3] "I am indifferent to cats."
 </code></pre></div></div>
 
@@ -919,13 +1013,13 @@ spell the word “eon” in a new vector:</li>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">length</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 10
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 10
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nchar</span><span class="p">(</span><span class="s2">"MCB 585"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 7
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 7
 </code></pre></div></div>
 
 <p> </p>
@@ -935,7 +1029,7 @@ spell the word “eon” in a new vector:</li>
 <hr />
 <h3 id="matrices">Matrices</h3>
 
-<p>In R matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with dimensions; the number of rows and columns. As with atomic vectors, the elements of a matrix must be of the same data type. Like vectors, we can use the generic <code class="highlighter-rouge">matrix()</code> function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. <code class="highlighter-rouge">character()</code>):</p>
+<p>In R matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with dimensions; the number of rows and columns. As with atomic vectors, the elements of a matrix must be of the same data type. Like vectors, we can use the generic <code class="language-plaintext highlighter-rouge">matrix()</code> function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. <code class="language-plaintext highlighter-rouge">character()</code>):</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first create a vector, then coerce that vector into a matrix:</span><span class="w">
 </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="w">
@@ -945,76 +1039,76 @@ spell the word “eon” in a new vector:</li>
 </span><span class="n">v</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1 2 3 4
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1 2 3 4
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2]
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2]
 [1,]    1    3
 [2,]    2    4
 </code></pre></div></div>
 
 <p> </p>
 
-<p>We can no examine some of the attributes of our new matrix <code class="highlighter-rouge">m</code>:</p>
+<p>We can no examine some of the attributes of our new matrix <code class="language-plaintext highlighter-rouge">m</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">dim</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2 2
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2 2
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">attributes</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$dim
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$dim
 [1] 2 2
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Note that under the surface, R still treats <code class="highlighter-rouge">m</code> as a vector, so the <code class="highlighter-rouge">length()</code> of <code class="highlighter-rouge">v</code> and <code class="highlighter-rouge">m</code> are the same (i.e. both contain 4 elements):</p>
+<p>Note that under the surface, R still treats <code class="language-plaintext highlighter-rouge">m</code> as a vector, so the <code class="language-plaintext highlighter-rouge">length()</code> of <code class="language-plaintext highlighter-rouge">v</code> and <code class="language-plaintext highlighter-rouge">m</code> are the same (i.e. both contain 4 elements):</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">length</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 4
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 4
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">length</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 4
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 4
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Matrices are a higher-oder object (a vector with additional properties). Thus the <code class="highlighter-rouge">class()</code> function no longer tells you the data type for each element, but rather the data structure type of the entire object:</p>
+<p>Matrices are a higher-oder object (a vector with additional properties). Thus the <code class="language-plaintext highlighter-rouge">class()</code> function no longer tells you the data type for each element, but rather the data structure type of the entire object:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "matrix" "array" 
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "matrix" "array" 
 </code></pre></div></div>
 
 <p> </p>
 
-<p>You can check the data type of the elements of the matrix using <code class="highlighter-rouge">typeof()</code>:</p>
+<p>You can check the data type of the elements of the matrix using <code class="language-plaintext highlighter-rouge">typeof()</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
 </code></pre></div></div>
 
 <p> </p>
 
-<p>While <code class="highlighter-rouge">class()</code> shows that m is a matrix, <code class="highlighter-rouge">typeof()</code> shows that fundamentally the
+<p>While <code class="language-plaintext highlighter-rouge">class()</code> shows that m is a matrix, <code class="language-plaintext highlighter-rouge">typeof()</code> shows that fundamentally the
 matrix is an integer vector.</p>
 
-<p>Note that one difference between vectors and matrices is that an otherwise identical vector will return the data type of each element when you use <code class="highlighter-rouge">class()</code>, while the matrix is a new type of object with <code class="highlighter-rouge">class()</code> “matrix”.</p>
+<p>Note that one difference between vectors and matrices is that an otherwise identical vector will return the data type of each element when you use <code class="language-plaintext highlighter-rouge">class()</code>, while the matrix is a new type of object with <code class="language-plaintext highlighter-rouge">class()</code> “matrix”.</p>
 
 <blockquote class="challenge">
   <h2 id="data-types-of-matrix-elements">Data types of matrix elements</h2>
@@ -1027,16 +1121,16 @@ matrix is an integer vector.</p>
   </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
 </span></code></pre></div>  </div>
 
-  <p>Given that <code class="highlighter-rouge">typeof(FOURS[1])</code> returns <code class="highlighter-rouge">"double"</code>, what would you expect
-<code class="highlighter-rouge">typeof(FOURS)</code> to return? How do you know this is the case even without
+  <p>Given that <code class="language-plaintext highlighter-rouge">typeof(FOURS[1])</code> returns <code class="language-plaintext highlighter-rouge">"double"</code>, what would you expect
+<code class="language-plaintext highlighter-rouge">typeof(FOURS)</code> to return? How do you know this is the case even without
 running this code?</p>
 
   <blockquote class="solution">
     <h2 id="solution-2">Solution</h2>
-    <p>We know that <code class="highlighter-rouge">typeof(FOURS)</code> will also return <code class="highlighter-rouge">"double"</code> since matrices 
+    <p>We know that <code class="language-plaintext highlighter-rouge">typeof(FOURS)</code> will also return <code class="language-plaintext highlighter-rouge">"double"</code> since matrices 
 are just vectors, and vectors must be made of elements of the same data
-type. Note that you could do something like <code class="highlighter-rouge">as.character(FOURS)</code> if you
-needed the elements of <code class="highlighter-rouge">FOURS</code> to be <em>characters</em>.</p>
+type. Note that you could do something like <code class="language-plaintext highlighter-rouge">as.character(FOURS)</code> if you
+needed the elements of <code class="language-plaintext highlighter-rouge">FOURS</code> to be <em>characters</em>.</p>
   </blockquote>
 </blockquote>
 
@@ -1044,22 +1138,22 @@ needed the elements of <code class="highlighter-rouge">FOURS</code> to be <em>ch
 
 <p>By default, matrices in R are filled column-wise:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span><span class="m">1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">6</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">
-</span><span class="n">m</span><span class="m">1</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">6</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">
+</span><span class="n">m1</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3]
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3]
 [1,]    1    3    5
 [2,]    2    4    6
 </code></pre></div></div>
 
-<p>… unless you tell it to fill by row explicitly using the <code class="highlighter-rouge">byrow</code> argument:</p>
+<p>… unless you tell it to fill by row explicitly using the <code class="language-plaintext highlighter-rouge">byrow</code> argument:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span><span class="m">2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">6</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">byrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
-</span><span class="n">m</span><span class="m">2</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">6</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">byrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="n">m2</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3]
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3]
 [1,]    1    2    3
 [2,]    4    5    6
 </code></pre></div></div>
@@ -1074,13 +1168,13 @@ needed the elements of <code class="highlighter-rouge">FOURS</code> to be <em>ch
 </span><span class="n">m</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># defining the "dimensions" attribute automatically converts m to a matrix</span><span class="w">
@@ -1088,7 +1182,7 @@ needed the elements of <code class="highlighter-rouge">FOURS</code> to be <em>ch
 </span><span class="n">m</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3] [,4] [,5]
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3] [,4] [,5]
 [1,]    1    3    5    7    9
 [2,]    2    4    6    8   10
 </code></pre></div></div>
@@ -1096,14 +1190,14 @@ needed the elements of <code class="highlighter-rouge">FOURS</code> to be <em>ch
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "matrix" "array" 
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "matrix" "array" 
 </code></pre></div></div>
 
 <p> </p>
 
 <p>This takes a vector and transforms it into a matrix with 2 rows and 5 columns.</p>
 
-<p>Another way is to bind columns or rows using <code class="highlighter-rouge">rbind()</code> and <code class="highlighter-rouge">cbind()</code> (“row bind”
+<p>Another way is to bind columns or rows using <code class="language-plaintext highlighter-rouge">rbind()</code> and <code class="language-plaintext highlighter-rouge">cbind()</code> (“row bind”
 and “column bind”, respectively).</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="w">
@@ -1111,7 +1205,7 @@ and “column bind”, respectively).</p>
 </span><span class="n">cbind</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     x  y
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     x  y
 [1,] 1 10
 [2,] 2 11
 [3,] 3 12
@@ -1120,7 +1214,7 @@ and “column bind”, respectively).</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rbind</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [,1] [,2] [,3]
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [,1] [,2] [,3]
 x    1    2    3
 y   10   11   12
 </code></pre></div></div>
@@ -1128,13 +1222,13 @@ y   10   11   12
 <p> </p>
 <h4 id="indexing-matrices">Indexing matrices</h4>
 
-<p>Like vectors, <code class="highlighter-rouge">[]</code> are used to index matrices. Since matrices are, by definition, two-dimensional, use <code class="highlighter-rouge">[m,n]</code> to index the <em>m</em>th row and <em>n</em>th column of a matrix. The row is always specified before the <code class="highlighter-rouge">,</code> and the column after.</p>
+<p>Like vectors, <code class="language-plaintext highlighter-rouge">[]</code> are used to index matrices. Since matrices are, by definition, two-dimensional, use <code class="language-plaintext highlighter-rouge">[m,n]</code> to index the <em>m</em>th row and <em>n</em>th column of a matrix. The row is always specified before the <code class="language-plaintext highlighter-rouge">,</code> and the column after.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w">
 </span><span class="n">m</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3] [,4] [,5]
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3] [,4] [,5]
 [1,]    1    3    5    7    9
 [2,]    2    4    6    8   10
 </code></pre></div></div>
@@ -1142,17 +1236,17 @@ y   10   11   12
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span><span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 6
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 6
 </code></pre></div></div>
 
 <p> </p>
 
-<p>If you are only interested in indexing a specific row, but do not want to change the columns, you can just leave the column index blank (but don’t forget the <code class="highlighter-rouge">,</code>!):</p>
+<p>If you are only interested in indexing a specific row, but do not want to change the columns, you can just leave the column index blank (but don’t forget the <code class="language-plaintext highlighter-rouge">,</code>!):</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span><span class="p">[</span><span class="m">2</span><span class="p">,]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  2  4  6  8 10
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  2  4  6  8 10
 </code></pre></div></div>
 
 <blockquote class="challenge">
@@ -1165,7 +1259,7 @@ a simple matrix to play with:</p>
 </span><span class="n">m</span><span class="w">
 </span></code></pre></div>  </div>
 
-  <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3] [,4]
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3] [,4]
 [1,]    1    4    7   10
 [2,]    2    5    8   11
 [3,]    3    6    9   12
@@ -1178,28 +1272,28 @@ following questions:</p>
 
   <ol>
     <li>
-      <p>How can you use indexing to extract the middle of the matrix (e.g. <code class="highlighter-rouge">5</code> 
-and <code class="highlighter-rouge">8</code>)?</p>
+      <p>How can you use indexing to extract the middle of the matrix (e.g. <code class="language-plaintext highlighter-rouge">5</code> 
+and <code class="language-plaintext highlighter-rouge">8</code>)?</p>
     </li>
     <li>
-      <p>What output do you expect from <code class="highlighter-rouge">m[-2,]</code>?</p>
+      <p>What output do you expect from <code class="language-plaintext highlighter-rouge">m[-2,]</code>?</p>
     </li>
     <li>
-      <p>What output do you expect from <code class="highlighter-rouge">m[,2:3]</code>?</p>
+      <p>What output do you expect from <code class="language-plaintext highlighter-rouge">m[,2:3]</code>?</p>
     </li>
     <li>
-      <p>What result do expect when you try including <code class="highlighter-rouge">m</code> in simple 
-multiplication: <code class="highlighter-rouge">2*m</code>?</p>
+      <p>What result do expect when you try including <code class="language-plaintext highlighter-rouge">m</code> in simple 
+multiplication: <code class="language-plaintext highlighter-rouge">2*m</code>?</p>
     </li>
     <li>
-      <p>Can you predict what will happen if you try <code class="highlighter-rouge">m[,c(1,3)]</code>?</p>
+      <p>Can you predict what will happen if you try <code class="language-plaintext highlighter-rouge">m[,c(1,3)]</code>?</p>
     </li>
     <li>
-      <p>There is a useful function <code class="highlighter-rouge">t()</code>. Try <code class="highlighter-rouge">t(m)</code>. Based on the output,
-what does <code class="highlighter-rouge">t()</code> do? What do you think the <code class="highlighter-rouge">t</code> stands for?</p>
+      <p>There is a useful function <code class="language-plaintext highlighter-rouge">t()</code>. Try <code class="language-plaintext highlighter-rouge">t(m)</code>. Based on the output,
+what does <code class="language-plaintext highlighter-rouge">t()</code> do? What do you think the <code class="language-plaintext highlighter-rouge">t</code> stands for?</p>
     </li>
     <li>
-      <p>What happens if we only ask for a single index (<code class="highlighter-rouge">m[4]</code>)?</p>
+      <p>What happens if we only ask for a single index (<code class="language-plaintext highlighter-rouge">m[4]</code>)?</p>
     </li>
   </ol>
 
@@ -1207,25 +1301,25 @@ what does <code class="highlighter-rouge">t()</code> do? What do you think the <
     <h2 id="solutions-1">Solutions</h2>
 
     <ol>
-      <li>The numbers <code class="highlighter-rouge">5</code> and <code class="highlighter-rouge">8</code> appear in the second row, and the second and third &gt; &gt; columns, respectively. To extract this matrix subset, we use the index:</li>
+      <li>The numbers <code class="language-plaintext highlighter-rouge">5</code> and <code class="language-plaintext highlighter-rouge">8</code> appear in the second row, and the second and third &gt; &gt; columns, respectively. To extract this matrix subset, we use the index:</li>
     </ol>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span><span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="o">:</span><span class="m">3</span><span class="p">]</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 5 8
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 5 8
 </code></pre></div>    </div>
 
     <p> </p>
 
     <ol start="2">
-      <li>Like in vectors, the <code class="highlighter-rouge">-</code> tells R to exclude the index that follows. In 
+      <li>Like in vectors, the <code class="language-plaintext highlighter-rouge">-</code> tells R to exclude the index that follows. In 
 this case, exclude row 2. The column index is blank, so all columns are 
 returned. Thus we end up with a smaller matrix with only rows 1 and 3, and 
 all elements in row 2 removed:</li>
     </ol>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3] [,4]
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3] [,4]
 [1,]    1    4    7   10
 [2,]    3    6    9   12
 </code></pre></div>    </div>
@@ -1239,7 +1333,7 @@ will return all of the indexes in that range. In this case rows are blank
 following 2x2 matrix:</li>
     </ol>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2]
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2]
 [1,]    4    7
 [2,]    5    8
 [3,]    6    9
@@ -1254,7 +1348,7 @@ dimensions as m, but with each element equal to twice the corresponding
 element in m:</li>
     </ol>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3] [,4]
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3] [,4]
 [1,]    2    8   14   20
 [2,]    4   10   16   22
 [3,]    6   12   18   24
@@ -1263,14 +1357,14 @@ element in m:</li>
     <p> </p>
 
     <ol start="5">
-      <li>While we haven’t covered it explicity, entering <code class="highlighter-rouge">2:3</code> into an index
+      <li>While we haven’t covered it explicity, entering <code class="language-plaintext highlighter-rouge">2:3</code> into an index
 (like in question 3) is equivalent to entering an list of values (e.g. 
-<code class="highlighter-rouge">c(2,3)</code>). Any list of this sort can be used to index a specific (and 
+<code class="language-plaintext highlighter-rouge">c(2,3)</code>). Any list of this sort can be used to index a specific (and 
 not necessarily sequential) set of rows or columns. Thus we expect 
-the list <code class="highlighter-rouge">c(1,3)</code> entered into the column index to return columns 1 and 3:</li>
+the list <code class="language-plaintext highlighter-rouge">c(1,3)</code> entered into the column index to return columns 1 and 3:</li>
     </ol>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2]
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2]
 [1,]    1    7
 [2,]    2    8
 [3,]    3    9
@@ -1279,13 +1373,13 @@ the list <code class="highlighter-rouge">c(1,3)</code> entered into the column i
     <p> </p>
 
     <ol start="6">
-      <li>Let’s see what happens if we use the <code class="highlighter-rouge">t()</code> function on <code class="highlighter-rouge">m</code>:</li>
+      <li>Let’s see what happens if we use the <code class="language-plaintext highlighter-rouge">t()</code> function on <code class="language-plaintext highlighter-rouge">m</code>:</li>
     </ol>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3]
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3]
 [1,]    1    2    3
 [2,]    4    5    6
 [3,]    7    8    9
@@ -1294,7 +1388,7 @@ the list <code class="highlighter-rouge">c(1,3)</code> entered into the column i
 
     <p> </p>
 
-    <p>The <code class="highlighter-rouge">t</code> stands for “transpose”, and as we can see from the result, <code class="highlighter-rouge">t(m)</code>
+    <p>The <code class="language-plaintext highlighter-rouge">t</code> stands for “transpose”, and as we can see from the result, <code class="language-plaintext highlighter-rouge">t(m)</code>
 simply “flips” the matrix so that rows are now columns and columns are now
 rows.</p>
 
@@ -1302,10 +1396,10 @@ rows.</p>
 
     <ol start="7">
       <li>Since a matrix is just a fancy vector, requesting R to return the 4th
-index (<code class="highlighter-rouge">m[4]</code>) will simply return the 4th value in the underlying vector:</li>
+index (<code class="language-plaintext highlighter-rouge">m[4]</code>) will simply return the 4th value in the underlying vector:</li>
     </ol>
 
-    <div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 4
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 4
 </code></pre></div>    </div>
   </blockquote>
 </blockquote>
@@ -1317,7 +1411,7 @@ index (<code class="highlighter-rouge">m[4]</code>) will simply return the 4th v
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span><span class="p">[</span><span class="m">3</span><span class="p">,</span><span class="m">15</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in m[3, 15]: subscript out of bounds
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in m[3, 15]: subscript out of bounds
 </code></pre></div></div>
 
 <p> </p>
@@ -1341,10 +1435,10 @@ index (<code class="highlighter-rouge">m[4]</code>) will simply return the 4th v
     <li><p>Objects may have attributes, such as name, dimension, and class.</p>
 </li>
     
-    <li><p>Use <code class="highlighter-rouge">object[x]</code> and <code class="highlighter-rouge">object[x, y]</code> to select a single element from a 2- and 3-dimensional data structure, respectively.</p>
+    <li><p>Use <code class="language-plaintext highlighter-rouge">object[x]</code> and <code class="language-plaintext highlighter-rouge">object[x, y]</code> to select a single element from a 2- and 3-dimensional data structure, respectively.</p>
 </li>
     
-    <li><p>Use <code class="highlighter-rouge">from:to</code> to specify a sequence that includes the indices from <code class="highlighter-rouge">from</code> to <code class="highlighter-rouge">to</code>.</p>
+    <li><p>Use <code class="language-plaintext highlighter-rouge">from:to</code> to specify a sequence that includes the indices from <code class="language-plaintext highlighter-rouge">from</code> to <code class="language-plaintext highlighter-rouge">to</code>.</p>
 </li>
     
   </ul>
@@ -1381,7 +1475,7 @@ index (<code class="highlighter-rouge">m[4]</code>) will simply return the 4th v
   <div class="col-xs-1">
     <h3 class="text-right">
       
-      <a href="../02-oyo-R-data-types-structures/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
+      <a href="../02-oyo-R-data-types-in-depth/index.html"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span><span class="sr-only">next episode</span></a>
       
     </h3>
   </div>

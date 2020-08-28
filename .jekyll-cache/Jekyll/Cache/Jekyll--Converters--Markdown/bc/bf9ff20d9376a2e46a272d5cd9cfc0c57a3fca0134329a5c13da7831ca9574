@@ -1,0 +1,2 @@
+I"¾<p>Use <code class="language-plaintext highlighter-rouge">list.files(path = "path", pattern = "pattern", full.names = TRUE)</code> to create a list of files whose names match a pattern.</p>
+:ET

@@ -485,9 +485,9 @@ gc()
 
 
 ~~~
-          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells  554993 29.7    1261337 67.4   904961 48.4
-Vcells 1022089  7.8    8388608 64.0  1632739 12.5
+         used (Mb) gc trigger (Mb) max used (Mb)
+Ncells 478548 25.6    1047988   56   638582 34.2
+Vcells 905731  7.0    8388608   64  1632380 12.5
 ~~~
 {: .output}
 
@@ -504,8 +504,8 @@ gc()
 
 ~~~
           used (Mb) gc trigger (Mb) max used (Mb)
-Ncells  555039 29.7    1261337 67.4   904961 48.4
-Vcells 1122380  8.6    8388608 64.0  8388600 64.0
+Ncells  478633 25.6    1047988   56   638582 34.2
+Vcells 1006086  7.7    8388608   64  8388597 64.0
 ~~~
 {: .output}
 
@@ -520,9 +520,9 @@ gc()
 
 
 ~~~
-          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells  555010 29.7    1261337 67.4   904961 48.4
-Vcells 1022217  7.8    8388608 64.0  8388600 64.0
+         used (Mb) gc trigger (Mb) max used (Mb)
+Ncells 478604 25.6    1047988   56   638582 34.2
+Vcells 905923  7.0    8388608   64  8388597 64.0
 ~~~
 {: .output}
 
@@ -609,7 +609,7 @@ install.packages("pwr")
 package 'pwr' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\RtmpAX9f8N\downloaded_packages
+	C:\Users\sutph\AppData\Local\Temp\RtmpGIJvpj\downloaded_packages
 ~~~
 {: .output}
 

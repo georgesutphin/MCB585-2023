@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-23 21:10:15 -0700">
+    <meta http-equiv="last-modified" content="2020-08-27 22:17:36 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -119,11 +119,13 @@
             
             <li><a href="../02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
+            <li><a href="../02-oyo-R-data-types-in-depth/index.html">R Data Types -- In-Depth</a></li>
+            
             <li><a href="../02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a></li>
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
-            <li><a href="../03-oyo-lists/index.html">Lists and Advanced Indexing</a></li>
+            <li><a href="../03-oyo-Lists/index.html">Lists and Advanced Indexing</a></li>
             
             <li><a href="../04-class-manipulating-plotting-data/index.html">Manipulating and Plotting Data</a></li>
             
@@ -302,7 +304,7 @@
 	<li><p>Demonstrate useful shortcuts.</p>
 </li>
 	
-	<li><p>Know when to use <code class="highlighter-rouge">setwd()</code>.</p>
+	<li><p>Know when to use <code class="language-plaintext highlighter-rouge">setwd()</code>.</p>
 </li>
 	
       </ul>
@@ -354,11 +356,11 @@
 <p>You also need to download some files to follow along with the lessons in class:</p>
 
 <ol>
-  <li>Make a new folder in your Desktop called <code class="highlighter-rouge">MCB585</code>.</li>
+  <li>Make a new folder in your Desktop called <code class="language-plaintext highlighter-rouge">MCB585</code>.</li>
   <li>Download <a href="../data/MCB585-sample-data.zip">MCB585-sample-data.zip</a>
 and move the file to this folder.</li>
   <li>If it’s not unzipped yet, double-click on it to unzip it. You should end up
-with a new folder called <code class="highlighter-rouge">data</code>.</li>
+with a new folder called <code class="language-plaintext highlighter-rouge">data</code>.</li>
 </ol>
 
 <p> </p>
@@ -395,7 +397,7 @@ with a new folder called <code class="highlighter-rouge">data</code>.</li>
 
 <p><strong>Plots:</strong> By default, any charts or graphics that you produce will be displayed in the Plots panel (second table of the lower-right panel).</p>
 
-<p><strong>Help:</strong> The Help tab on the lower-right panel let’s you browse the built-in documentation for R functions. If you request documentation on a function (e.g. <code class="highlighter-rouge">?sum</code>), the help file will appear in this panel.</p>
+<p><strong>Help:</strong> The Help tab on the lower-right panel let’s you browse the built-in documentation for R functions. If you request documentation on a function (e.g. <code class="language-plaintext highlighter-rouge">?sum</code>), the help file will appear in this panel.</p>
 
 <p> </p>
 <blockquote class="callout">
@@ -419,9 +421,9 @@ with a new folder called <code class="highlighter-rouge">data</code>.</li>
 <hr />
 <h3 id="interacting-with-the-console">Interacting with the console</h3>
 
-<p>If R is ready to accept commands, the R console shows a <code class="highlighter-rouge">&gt;</code> prompt. If it receives a command (by typing, copy-pasting or sent from the script editor using <kbd>Ctrl</kbd>+<kbd>Return</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd>, R will try to execute it, and when ready, show the results and come back with a new <code class="highlighter-rouge">&gt;</code>-prompt to wait for new commands.</p>
+<p>If R is ready to accept commands, the R console shows a <code class="language-plaintext highlighter-rouge">&gt;</code> prompt. If it receives a command (by typing, copy-pasting or sent from the script editor using <kbd>Ctrl</kbd>+<kbd>Return</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd>, R will try to execute it, and when ready, show the results and come back with a new <code class="language-plaintext highlighter-rouge">&gt;</code>-prompt to wait for new commands.</p>
 
-<p>If R is still waiting for you to enter more data because the command you entered is not yet complete, the console will show a <code class="highlighter-rouge">+</code> prompt. This means that you haven’t finished entering a complete command, perhaps because you haven’t ‘closed’ a parenthesis or quotation. If you’re in RStudio and this happens, either complete the command and press <kbd>Enter</kbd> or click inside the console window and press <kbd>Esc</kbd> to cancel the current command. That should help you out of trouble.</p>
+<p>If R is still waiting for you to enter more data because the command you entered is not yet complete, the console will show a <code class="language-plaintext highlighter-rouge">+</code> prompt. This means that you haven’t finished entering a complete command, perhaps because you haven’t ‘closed’ a parenthesis or quotation. If you’re in RStudio and this happens, either complete the command and press <kbd>Enter</kbd> or click inside the console window and press <kbd>Esc</kbd> to cancel the current command. That should help you out of trouble.</p>
 
 <p> </p>
 <h4 id="basic-commands">Basic commands</h4>
@@ -434,48 +436,48 @@ with a new folder called <code class="highlighter-rouge">data</code>.</li>
 </span><span class="m">40+2</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 42
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 42
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Subtraction</span><span class="w">
 </span><span class="m">98-56</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 42
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 42
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Multiplication</span><span class="w">
 </span><span class="m">6</span><span class="o">*</span><span class="m">7</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 42
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 42
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Division</span><span class="w">
 </span><span class="m">74088</span><span class="o">/</span><span class="m">1764</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 42
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 42
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Exponential</span><span class="w">
 </span><span class="m">6.480741</span><span class="o">^</span><span class="m">2</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 42
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 42
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Equations with parenthetical operations</span><span class="w">
 </span><span class="p">(((</span><span class="m">6</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="o">^</span><span class="m">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">9</span><span class="p">)</span><span class="o">/</span><span class="m">3</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">9</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 42
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 42
 </code></pre></div></div>
 
 <p> </p>
 <h4 id="commenting">Commenting</h4>
 
-<p>Note above the use of <code class="highlighter-rouge">#</code> signs to add comment. Comments are for you and anyone coming later to read your script. Anything to the right of a <code class="highlighter-rouge">#</code> is ignored by R.</p>
+<p>Note above the use of <code class="language-plaintext highlighter-rouge">#</code> signs to add comment. Comments are for you and anyone coming later to read your script. Anything to the right of a <code class="language-plaintext highlighter-rouge">#</code> is ignored by R.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># R ignores this part:</span><span class="w">
 </span><span class="c1"># print("Do not print!")</span><span class="w">
@@ -484,14 +486,14 @@ with a new folder called <code class="highlighter-rouge">data</code>.</li>
 </span><span class="n">print</span><span class="p">(</span><span class="s2">"Print me!"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Print me!"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Print me!"
 </code></pre></div></div>
 
 <p> </p>
 
 <p>Comment liberally in your R scripts. We will discuss best practices in coding and the use of comments more later on in the course.</p>
 
-<p>You can also use commenting in RStudio to build collapsible sections, allowing you to hide a portion of code that you are not currently working on in order to make the rest easier to navigate. To do so, add a comment line with at least four consecutive “-“ (e.g. <code class="highlighter-rouge">#----------</code>). RStudion will add a small arrow to your script allowing you to collapse or expand all coding that follows until the next <code class="highlighter-rouge">#----</code> is encountered:</p>
+<p>You can also use commenting in RStudio to build collapsible sections, allowing you to hide a portion of code that you are not currently working on in order to make the rest easier to navigate. To do so, add a comment line with at least four consecutive “-“ (e.g. <code class="language-plaintext highlighter-rouge">#----------</code>). RStudion will add a small arrow to your script allowing you to collapse or expand all coding that follows until the next <code class="language-plaintext highlighter-rouge">#----</code> is encountered:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#--------------- Section 1</span><span class="w">
 </span><span class="n">print</span><span class="p">(</span><span class="s2">"This is section 1."</span><span class="p">)</span><span class="w">
@@ -507,12 +509,12 @@ with a new folder called <code class="highlighter-rouge">data</code>.</li>
 <p> </p>
 <h4 id="assigning-values-to-variables">Assigning values to variables</h4>
 
-<p>We can create a new variable and assign a value to it using <code class="highlighter-rouge">&lt;-</code> or <code class="highlighter-rouge">=</code>, which are the assignment operators in R. It assigns values on the right to objects on
-the left. So, after executing <code class="highlighter-rouge">x &lt;- 3</code>, the value of <code class="highlighter-rouge">x</code> is <code class="highlighter-rouge">3</code>. The arrow can
-be read as 3 <em>goes into</em> <code class="highlighter-rouge">x</code>.  You can also use <code class="highlighter-rouge">=</code> for assignments but not in
-all contexts so it is good practice to use <code class="highlighter-rouge">&lt;-</code> for assignments.</p>
+<p>We can create a new variable and assign a value to it using <code class="language-plaintext highlighter-rouge">&lt;-</code> or <code class="language-plaintext highlighter-rouge">=</code>, which are the assignment operators in R. It assigns values on the right to objects on
+the left. So, after executing <code class="language-plaintext highlighter-rouge">x &lt;- 3</code>, the value of <code class="language-plaintext highlighter-rouge">x</code> is <code class="language-plaintext highlighter-rouge">3</code>. The arrow can
+be read as 3 <em>goes into</em> <code class="language-plaintext highlighter-rouge">x</code>.  You can also use <code class="language-plaintext highlighter-rouge">=</code> for assignments but not in
+all contexts so it is good practice to use <code class="language-plaintext highlighter-rouge">&lt;-</code> for assignments.</p>
 
-<p>In RStudio, the <kbd>Alt</kbd>+<kbd>-</kbd> will write <code class="highlighter-rouge">&lt;-</code> in a single keystroke. Let’s give it a go:</p>
+<p>In RStudio, the <kbd>Alt</kbd>+<kbd>-</kbd> will write <code class="language-plaintext highlighter-rouge">&lt;-</code> in a single keystroke. Let’s give it a go:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">55</span><span class="w">   </span><span class="c1"># using &lt;- sets the value of the variable x to 42.</span><span class="w">
 </span><span class="n">weight_kg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">55</span><span class="w">    </span><span class="c1"># using `=` in place of `&lt;-` works in almost all situation (but not quite all; it is better to get into the habit of using `&lt;-`).</span><span class="w">
@@ -520,7 +522,7 @@ all contexts so it is good practice to use <code class="highlighter-rouge">&lt;-
 
 <p> </p>
 
-<p>Once a variable is created, we can use the variable name to refer to the value it was assigned. The variable name now acts as a tag. Whenever R reads that tag (<code class="highlighter-rouge">weight_kg</code>), it substitutes the value (<code class="highlighter-rouge">55</code>).</p>
+<p>Once a variable is created, we can use the variable name to refer to the value it was assigned. The variable name now acts as a tag. Whenever R reads that tag (<code class="language-plaintext highlighter-rouge">weight_kg</code>), it substitutes the value (<code class="language-plaintext highlighter-rouge">55</code>).</p>
 
 <p><img src="../fig/tag-variables.svg" alt="Variables as Tags" /></p>
 
@@ -528,18 +530,18 @@ all contexts so it is good practice to use <code class="highlighter-rouge">&lt;-
 </span><span class="n">weight_kg</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 55
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 55
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Also note that when you assign a value to a variable, a new object is created in the <strong>Environment</strong> panel (upper right). This panel lists all <em>objects</em> in your <em>workspace</em>. Note that whenever you make an assignment with <code class="highlighter-rouge">&lt;-</code> or <code class="highlighter-rouge">=</code>, R creates a new object in memory. Your workspace is simply the collection of objects currently stored in memory that are available to access in your current R session.</p>
+<p>Also note that when you assign a value to a variable, a new object is created in the <strong>Environment</strong> panel (upper right). This panel lists all <em>objects</em> in your <em>workspace</em>. Note that whenever you make an assignment with <code class="language-plaintext highlighter-rouge">&lt;-</code> or <code class="language-plaintext highlighter-rouge">=</code>, R creates a new object in memory. Your workspace is simply the collection of objects currently stored in memory that are available to access in your current R session.</p>
 
 <p>Assigning a new value to a variable breaks the connection with the old value; R forgets that number and applies the variable name to the new value.</p>
 
 <p>When you assign a value to a variable, R only stores the value, not the calculation you used to create it. This is an important point if you’re used to the way spreadsheet programs automatically updates linked cells. Let’s look at an example.</p>
 
-<p>First, we’ll convert <code class="highlighter-rouge">weight_kg</code> into pounds, and store the new value in the variable <code class="highlighter-rouge">weight_lb</code>:</p>
+<p>First, we’ll convert <code class="language-plaintext highlighter-rouge">weight_kg</code> into pounds, and store the new value in the variable <code class="language-plaintext highlighter-rouge">weight_lb</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># assign a weight in kg, then use it to calculate the weight in lbs</span><span class="w">
 </span><span class="n">weight_kg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">57.5</span><span class="w">
@@ -549,22 +551,22 @@ all contexts so it is good practice to use <code class="highlighter-rouge">&lt;-
 </span><span class="n">weight_kg</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 57.5
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 57.5
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ...and in pounds</span><span class="w">
 </span><span class="n">weight_lb</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 126.5
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 126.5
 </code></pre></div></div>
 <p> </p>
 
-<p>We are asking R to look up the value we tagged <code class="highlighter-rouge">weight_kg</code>, multiply it by 2.2, and tag the result with the name <code class="highlighter-rouge">weight_lb</code>:</p>
+<p>We are asking R to look up the value we tagged <code class="language-plaintext highlighter-rouge">weight_kg</code>, multiply it by 2.2, and tag the result with the name <code class="language-plaintext highlighter-rouge">weight_lb</code>:</p>
 
 <p><img src="../fig/new-variables.svg" alt="Creating Another Variable" /></p>
 
-<p>If we now change the value of <code class="highlighter-rouge">weight_kg</code>:</p>
+<p>If we now change the value of <code class="language-plaintext highlighter-rouge">weight_kg</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">100.0</span><span class="w">
 
@@ -572,19 +574,19 @@ all contexts so it is good practice to use <code class="highlighter-rouge">&lt;-
 </span><span class="n">weight_kg</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 100
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 100
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ...and weight in pounds is still:</span><span class="w">
 </span><span class="n">weight_lb</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 126.5
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 126.5
 </code></pre></div></div>
 
 <p><img src="../fig/memory-variables.svg" alt="Updating a Variable" /></p>
 
-<p>Since <code class="highlighter-rouge">weight_lb</code> doesn’t “remember” where its value came from, it isn’t automatically updated when <code class="highlighter-rouge">weight_kg</code> changes.</p>
+<p>Since <code class="language-plaintext highlighter-rouge">weight_lb</code> doesn’t “remember” where its value came from, it isn’t automatically updated when <code class="language-plaintext highlighter-rouge">weight_kg</code> changes.</p>
 
 <p>This is different from the way spreadsheets work.</p>
 
@@ -598,12 +600,12 @@ all contexts so it is good practice to use <code class="highlighter-rouge">&lt;-
 
 <p> </p>
 
-<p>R hangs with a <code class="highlighter-rouge">+</code> in the console, waiting for you to finish your thought…</p>
+<p>R hangs with a <code class="language-plaintext highlighter-rouge">+</code> in the console, waiting for you to finish your thought…</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">1</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1
 </code></pre></div></div>
 
 <p> </p>
@@ -618,21 +620,21 @@ all contexts so it is good practice to use <code class="highlighter-rouge">&lt;-
   <p>Try assigning values to the following variables. Which work and which do not? What is 
 causing the errors?</p>
 
-  <p><code class="highlighter-rouge">min_height &lt;- 1</code></p>
+  <p><code class="language-plaintext highlighter-rouge">min_height &lt;- 1</code></p>
 
-  <p><code class="highlighter-rouge">max.height &lt;- 1</code></p>
+  <p><code class="language-plaintext highlighter-rouge">max.height &lt;- 1</code></p>
 
-  <p><code class="highlighter-rouge">_age &lt;- 1</code></p>
+  <p><code class="language-plaintext highlighter-rouge">_age &lt;- 1</code></p>
 
-  <p><code class="highlighter-rouge">.mass &lt;- 1</code></p>
+  <p><code class="language-plaintext highlighter-rouge">.mass &lt;- 1</code></p>
 
-  <p><code class="highlighter-rouge">MaxLength &lt;- 1</code></p>
+  <p><code class="language-plaintext highlighter-rouge">MaxLength &lt;- 1</code></p>
 
-  <p><code class="highlighter-rouge">min-length &lt;- 1</code></p>
+  <p><code class="language-plaintext highlighter-rouge">min-length &lt;- 1</code></p>
 
-  <p><code class="highlighter-rouge">2widths &lt;- 1</code></p>
+  <p><code class="language-plaintext highlighter-rouge">2widths &lt;- 1</code></p>
 
-  <p><code class="highlighter-rouge">celsius2kelvin &lt;- 1</code></p>
+  <p><code class="language-plaintext highlighter-rouge">celsius2kelvin &lt;- 1</code></p>
 
   <blockquote class="solution">
     <h2 id="solution">Solution</h2>
@@ -650,7 +652,7 @@ causing the errors?</p>
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">_</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w"> 
 </span></code></pre></div>    </div>
 
-    <div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: &lt;text&gt;:1:1: unexpected input
+    <div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: &lt;text&gt;:1:1: unexpected input
 1: _
     ^
 </code></pre></div>    </div>
@@ -671,7 +673,7 @@ the “.” results in a hidden variable.</p>
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">min</span><span class="o">-</span><span class="n">length</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in min - length &lt;- 1: could not find function "-&lt;-"
+    <div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in min - length &lt;- 1: could not find function "-&lt;-"
 </code></pre></div>    </div>
 
     <p>Error – “-“ is an operator (subtraction).</p>
@@ -679,7 +681,7 @@ the “.” results in a hidden variable.</p>
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">2</span><span class="n">widths</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: &lt;text&gt;:1:2: unexpected symbol
+    <div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: &lt;text&gt;:1:2: unexpected symbol
 1: 2widths
      ^
 </code></pre></div>    </div>
@@ -703,90 +705,90 @@ the “.” results in a hidden variable.</p>
 
 <p> </p>
 
-<p>if the output variable and <code class="highlighter-rouge">&lt;-</code> are not used, the output is written directly to your console window. Functions carry out a wide range of tasks, and some take no <em>arguments</em>. For example, <code class="highlighter-rouge">getwd()</code> will return the path to the current RStudio folder. We will talk more about folders and workspaces below.</p>
+<p>if the output variable and <code class="language-plaintext highlighter-rouge">&lt;-</code> are not used, the output is written directly to your console window. Functions carry out a wide range of tasks, and some take no <em>arguments</em>. For example, <code class="language-plaintext highlighter-rouge">getwd()</code> will return the path to the current RStudio folder. We will talk more about folders and workspaces below.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">getwd</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "C:/Users/sutph/Documents/GitHub/MCB585/_episodes_rmd"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "C:/Users/sutph/OneDrive/Documents/GitHub/MCB585/_episodes_rmd"
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Other functions take many different <em>arguments</em>, separated by <code class="highlighter-rouge">,</code>s, that modify the output. For example, the <code class="highlighter-rouge">sum()</code> function will output the sum of all numeric input arguments:</p>
+<p>Other functions take many different <em>arguments</em>, separated by <code class="language-plaintext highlighter-rouge">,</code>s, that modify the output. For example, the <code class="language-plaintext highlighter-rouge">sum()</code> function will output the sum of all numeric input arguments:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sum</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">6</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 9
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 9
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Functions can also be nested. For example, let’s combine the <code class="highlighter-rouge">sum()</code> and <code class="highlighter-rouge">sqrt()</code> (short for “square root”) functions to add up the square roots of 4, 9, and 16:</p>
+<p>Functions can also be nested. For example, let’s combine the <code class="language-plaintext highlighter-rouge">sum()</code> and <code class="language-plaintext highlighter-rouge">sqrt()</code> (short for “square root”) functions to add up the square roots of 4, 9, and 16:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">sum</span><span class="p">(</span><span class="nf">sqrt</span><span class="p">(</span><span class="m">4</span><span class="p">),</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="m">9</span><span class="p">),</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="m">16</span><span class="p">))</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 9
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 9
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Many functions take multiple inputs. Let’s take a look at the <code class="highlighter-rouge">log()</code> function, which takes two arguments. Take a look at the documentation for log using the <code class="highlighter-rouge">?</code> operator:</p>
+<p>Many functions take multiple inputs. Let’s take a look at the <code class="language-plaintext highlighter-rouge">log()</code> function, which takes two arguments. Take a look at the documentation for log using the <code class="language-plaintext highlighter-rouge">?</code> operator:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">log</span><span class="w">
 </span></code></pre></div></div>
 
 <p> </p>
 
-<p>More on the help document for each function later, but for now, Under the <strong>Usage</strong> and <strong>Arguments</strong> section, this function takes two arguments, the number which we want to take the logarithm of (<code class="highlighter-rouge">x</code>) and the base for the logarithm (<code class="highlighter-rouge">base</code>). There are three ways to enter this function:</p>
+<p>More on the help document for each function later, but for now, Under the <strong>Usage</strong> and <strong>Arguments</strong> section, this function takes two arguments, the number which we want to take the logarithm of (<code class="language-plaintext highlighter-rouge">x</code>) and the base for the logarithm (<code class="language-plaintext highlighter-rouge">base</code>). There are three ways to enter this function:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># be explicit about which input is which</span><span class="w">
 </span><span class="nf">log</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w"> 
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># note that in this case the order does not matter:</span><span class="w">
 </span><span class="nf">log</span><span class="p">(</span><span class="n">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2
 </code></pre></div></div>
 <p> </p>
 
-<p>In this case, we told <code class="highlighter-rouge">log()</code> exactly which values were assigned to <code class="highlighter-rouge">x</code> and <code class="highlighter-rouge">base</code>, so the order was unimportant. Here is another option:</p>
+<p>In this case, we told <code class="language-plaintext highlighter-rouge">log()</code> exactly which values were assigned to <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">base</code>, so the order was unimportant. Here is another option:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># drop the variable names</span><span class="w">
 </span><span class="nf">log</span><span class="p">(</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 2
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># now the order does matter:</span><span class="w">
 </span><span class="nf">log</span><span class="p">(</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0.5
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 0.5
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Looking at <strong>Help</strong>, <code class="highlighter-rouge">x</code> is listed first and <code class="highlighter-rouge">base</code> second. If you aren’t explicity, R will assume that you enter arguments define in the documentation. Thus on the first line R took <code class="highlighter-rouge">x</code> to be <code class="highlighter-rouge">100</code> and <code class="highlighter-rouge">base</code> to be <code class="highlighter-rouge">10</code>, while on the second line it took <code class="highlighter-rouge">x</code> to be <code class="highlighter-rouge">10</code> and <code class="highlighter-rouge">base</code> to be <code class="highlighter-rouge">100</code>. And a final option:</p>
+<p>Looking at <strong>Help</strong>, <code class="language-plaintext highlighter-rouge">x</code> is listed first and <code class="language-plaintext highlighter-rouge">base</code> second. If you aren’t explicity, R will assume that you enter arguments define in the documentation. Thus on the first line R took <code class="language-plaintext highlighter-rouge">x</code> to be <code class="language-plaintext highlighter-rouge">100</code> and <code class="language-plaintext highlighter-rouge">base</code> to be <code class="language-plaintext highlighter-rouge">10</code>, while on the second line it took <code class="language-plaintext highlighter-rouge">x</code> to be <code class="language-plaintext highlighter-rouge">10</code> and <code class="language-plaintext highlighter-rouge">base</code> to be <code class="language-plaintext highlighter-rouge">100</code>. And a final option:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># what if we don't give log() a base argument?</span><span class="w">
 </span><span class="nf">log</span><span class="p">(</span><span class="m">100</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 4.60517
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 4.60517
 </code></pre></div></div>
 
 <p> </p>
 
-<p>Again looging at the <strong>Usage</strong> section of help, <code class="highlighter-rouge">log()</code> uses a default value of <code class="highlighter-rouge">exp(1)</code> (which is <code class="highlighter-rouge">e</code> or <code class="highlighter-rouge">2.71828</code>). Thus, if you don’t give <code class="highlighter-rouge">log()</code> any input for <code class="highlighter-rouge">base</code>, it defaults to the natural logarithm. Some functions will have dozens of inputs, but most of them will have a default value. This allows you to use the most common application of a function without having to manually define each input, but gives you the flexibility to change these inputs if you want the function to behave differently.</p>
+<p>Again looging at the <strong>Usage</strong> section of help, <code class="language-plaintext highlighter-rouge">log()</code> uses a default value of <code class="language-plaintext highlighter-rouge">exp(1)</code> (which is <code class="language-plaintext highlighter-rouge">e</code> or <code class="language-plaintext highlighter-rouge">2.71828</code>). Thus, if you don’t give <code class="language-plaintext highlighter-rouge">log()</code> any input for <code class="language-plaintext highlighter-rouge">base</code>, it defaults to the natural logarithm. Some functions will have dozens of inputs, but most of them will have a default value. This allows you to use the most common application of a function without having to manually define each input, but gives you the flexibility to change these inputs if you want the function to behave differently.</p>
 
 <hr />
 <h3 id="working-directories-in-r">Working directories in R</h3>
@@ -806,7 +808,7 @@ the “.” results in a hidden variable.</p>
 
 <p>In the future, you can either just open this file from your file explorer to load you MCB585 project, or you can open it from RStudio by clicking <strong>File &gt; Open Project…</strong>, navigating to your <em>MCB585</em> folder, and selecting the <strong>MCB585.Rproj</strong> file.</p>
 
-<p>You can change the active working directly by using the function <code class="highlighter-rouge">setwd()</code>. For example, we can set the working directory to your <em>MCB585/data</em> folder using one of the following commands:</p>
+<p>You can change the active working directly by using the function <code class="language-plaintext highlighter-rouge">setwd()</code>. For example, we can set the working directory to your <em>MCB585/data</em> folder using one of the following commands:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setwd</span><span class="p">(</span><span class="s2">"./data"</span><span class="p">)</span><span class="w">
 </span><span class="n">setwd</span><span class="p">(</span><span class="s2">"data"</span><span class="p">)</span><span class="w">
@@ -836,60 +838,61 @@ the “.” results in a hidden variable.</p>
 
 <p> </p>
 
-<p><strong>Caution for Windows users:</strong> If you copy a file path from Windows Explorer and paste it into <code class="highlighter-rouge">setwd()</code>, you have to change the backslashes (“\”) used in Windows to forwardslashes (“/”). R interprets “\” as a special type of character called an <em>escape character</em> rather than a part of the string. If you don’t replace them, you will get an error:</p>
+<p><strong>Caution for Windows users:</strong> If you copy a file path from Windows Explorer and paste it into <code class="language-plaintext highlighter-rouge">setwd()</code>, you have to change the backslashes (“\”) used in Windows to forwardslashes (“/”). R interprets “\” as a special type of character called an <em>escape character</em> rather than a part of the string. If you don’t replace them, you will get an error:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setwd</span><span class="p">(</span><span class="s2">".\data"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: '\d' is an unrecognized escape in character string starting "".\d"
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: '\d' is an unrecognized escape in character string starting "".\d"
 </code></pre></div></div>
 
 <p> </p>
 
-<p>We can also ask R what the current working directory is using <code class="highlighter-rouge">getwd()</code>, and ask for a list of files in the current directly with <code class="highlighter-rouge">list.files()</code>:</p>
+<p>We can also ask R what the current working directory is using <code class="language-plaintext highlighter-rouge">getwd()</code>, and ask for a list of files in the current directly with <code class="language-plaintext highlighter-rouge">list.files()</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Retrieve the current working directory</span><span class="w">
 </span><span class="n">getwd</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "C:/Users/sutph/Documents/GitHub/MCB585/_episodes_rmd"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "C:/Users/sutph/OneDrive/Documents/GitHub/MCB585/_episodes_rmd"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># List all files in the current working directory</span><span class="w">
 </span><span class="n">list.files</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "01-class-introduction.Rmd"              
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "01-class-introduction.Rmd"              
  [2] "01-oyo-introduction.Rmd"                
  [3] "02-class-R-data-types-structures.Rmd"   
- [4] "02-oyo-R-data-types-structures.Rmd"     
- [5] "03-class-data-frames.Rmd"               
- [6] "03-oyo-lists.Rmd"                       
- [7] "04-class-manipulating-plotting-data.Rmd"
- [8] "04-oyo-advanced-data-manipulation.Rmd"  
- [9] "05-class-decisions-loops.Rmd"           
-[10] "05-oyo-more-decisions-loops.Rmd"        
-[11] "06-class-distributions.Rmd"             
-[12] "06-oyo-more-distributions.Rmd"          
-[13] "07-class-hypothesis-testing.Rmd"        
-[14] "07-oyo-multiple-test-correction.Rmd"    
-[15] "08-class-survival-analysis.Rmd"         
-[16] "08-oyo-advanced-survival-analysis.Rmd"  
-[17] "09-class-power-analysis.Rmd"            
-[18] "09-oyo-simulation.Rmd"                  
-[19] "99-projects.Rmd"                        
-[20] "data"                                   
-[21] "results"                                
+ [4] "02-oyo-R-data-types-in-depth.Rmd"       
+ [5] "02-oyo-R-data-types-structures.Rmd"     
+ [6] "03-class-data-frames.Rmd"               
+ [7] "03-oyo-Lists.Rmd"                       
+ [8] "04-class-manipulating-plotting-data.Rmd"
+ [9] "04-oyo-advanced-data-manipulation.Rmd"  
+[10] "05-class-decisions-loops.Rmd"           
+[11] "05-oyo-more-decisions-loops.Rmd"        
+[12] "06-class-distributions.Rmd"             
+[13] "06-oyo-more-distributions.Rmd"          
+[14] "07-class-hypothesis-testing.Rmd"        
+[15] "07-oyo-multiple-test-correction.Rmd"    
+[16] "08-class-survival-analysis.Rmd"         
+[17] "08-oyo-advanced-survival-analysis.Rmd"  
+[18] "09-class-power-analysis.Rmd"            
+[19] "09-oyo-simulation.Rmd"                  
+[20] "99-projects.Rmd"                        
+[21] "data"                                   
+[22] "results"                                
 </code></pre></div></div>
 
 <p> </p>
 <blockquote class="callout">
-  <h2 id="be-careful-when-using-setwd">Be careful when using <code class="highlighter-rouge">setwd()</code></h2>
+  <h2 id="be-careful-when-using-setwd">Be careful when using <code class="language-plaintext highlighter-rouge">setwd()</code></h2>
 
-  <p>One should exercise caution when using <code class="highlighter-rouge">setwd()</code>. Changing directories in the middle of a script file can limit reproducibility:</p>
+  <p>One should exercise caution when using <code class="language-plaintext highlighter-rouge">setwd()</code>. Changing directories in the middle of a script file can limit reproducibility:</p>
   <ul>
-    <li><code class="highlighter-rouge">setwd()</code> will return an error if the directory to which you’re trying to change doesn’t exist or if the user doesn’t have the correct permissions to access that directory. This becomes a problem when sharing scripts between users who have organized their directories differently.</li>
-    <li>If/when your script terminates with an error, you might leave the user in a different directory than the one they started in, and if they then call the script again, this will cause further problems. If you must use <code class="highlighter-rouge">setwd()</code>, it is best to put it at the top of the script to avoid these problems.</li>
+    <li><code class="language-plaintext highlighter-rouge">setwd()</code> will return an error if the directory to which you’re trying to change doesn’t exist or if the user doesn’t have the correct permissions to access that directory. This becomes a problem when sharing scripts between users who have organized their directories differently.</li>
+    <li>If/when your script terminates with an error, you might leave the user in a different directory than the one they started in, and if they then call the script again, this will cause further problems. If you must use <code class="language-plaintext highlighter-rouge">setwd()</code>, it is best to put it at the top of the script to avoid these problems.</li>
   </ul>
 
   <p>The following error message indicates that R has failed to set the working directory you specified (for example, if you misspell the directory name:</p>
@@ -897,7 +900,7 @@ the “.” results in a hidden variable.</p>
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setwd</span><span class="p">(</span><span class="s2">"./MispeledDirectory"</span><span class="p">)</span><span class="w">
 </span></code></pre></div>  </div>
 
-  <div class="error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in setwd("./MispeledDirectory"): cannot change working directory
+  <div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in setwd("./MispeledDirectory"): cannot change working directory
 </code></pre></div>  </div>
 
   <p> </p>
@@ -913,7 +916,7 @@ the “.” results in a hidden variable.</p>
 <p> </p>
 <h4 id="r-documentation">R documentation</h4>
 
-<p>For help with functions, the first place to look is in the R documentation. Use <code class="highlighter-rouge">?&lt;function name&gt;</code> to read the basic instructions for using a function. Try it with a function we have already used, <code class="highlighter-rouge">sqrt()</code>:</p>
+<p>For help with functions, the first place to look is in the R documentation. Use <code class="language-plaintext highlighter-rouge">?&lt;function name&gt;</code> to read the basic instructions for using a function. Try it with a function we have already used, <code class="language-plaintext highlighter-rouge">sqrt()</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">sqrt</span><span class="w"> </span><span class="c1"># note that you don't include the () after sqrt for help</span><span class="w">
 </span></code></pre></div></div>
@@ -922,7 +925,7 @@ the “.” results in a hidden variable.</p>
 
 <p>The documentation gives you a <strong>Description</strong> of the purpose of the function. <strong>Usage</strong> tells you the basic information about what <em>arguments</em> the function is expecting, and the <strong>Arguments</strong> section describes each argument. At the very end, most functions include several <strong>Examples</strong> demonstrating usage.</p>
 
-<p>Note that if you don’t know the name of a function, you can run a more general search using <code class="highlighter-rouge">??"&lt;search term&gt;"</code>:</p>
+<p>Note that if you don’t know the name of a function, you can run a more general search using <code class="language-plaintext highlighter-rouge">??"&lt;search term&gt;"</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">??</span><span class="s2">"square root"</span><span class="w">
 </span></code></pre></div></div>
@@ -947,10 +950,10 @@ the “.” results in a hidden variable.</p>
   <blockquote class="solution">
     <h2 id="solution-1">Solution</h2>
 
-    <p>The primary function that you are looking for is <code class="highlighter-rouge">read.table()</code> or
-possibly <code class="highlighter-rouge">read.delim()</code> (for “tab delimited text file”, which is
-just a more specific version of <code class="highlighter-rouge">read.table()</code>. Some hits point you
-to <code class="highlighter-rouge">readtext()</code>, which is a function for reading more complex text 
+    <p>The primary function that you are looking for is <code class="language-plaintext highlighter-rouge">read.table()</code> or
+possibly <code class="language-plaintext highlighter-rouge">read.delim()</code> (for “tab delimited text file”, which is
+just a more specific version of <code class="language-plaintext highlighter-rouge">read.table()</code>. Some hits point you
+to <code class="language-plaintext highlighter-rouge">readtext()</code>, which is a function for reading more complex text 
 files.</p>
 
     <p>I used “r read text file” in Google, and received many useful hits 
@@ -984,7 +987,7 @@ sites give you the most consistently useful answers.</p>
     <li><p>Functions are the basic tool used to manipulate data and other objects in R.</p>
 </li>
     
-    <li><p>Functions take the form <code class="highlighter-rouge">output &lt;- function(argument1, argument2, ...)</code>.</p>
+    <li><p>Functions take the form <code class="language-plaintext highlighter-rouge">output &lt;- function(argument1, argument2, ...)</code>.</p>
 </li>
     
     <li><p>Arguments can be passed to functions by matching based on name, by position, or by omitting them (in which case the default value is used).</p>
