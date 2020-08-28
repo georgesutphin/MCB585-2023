@@ -94,7 +94,6 @@ The **character** data type is used to store basic textual information. A charac
 
 ~~~
 greeting <- "How are you today?"
-response <- "Just fine. How are you?"
 equation <- "1 + 3 - 2 = 2"
 ~~~
 {: .language-r}

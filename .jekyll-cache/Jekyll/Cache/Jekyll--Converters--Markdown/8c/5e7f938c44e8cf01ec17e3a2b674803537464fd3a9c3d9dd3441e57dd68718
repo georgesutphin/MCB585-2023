@@ -1,4 +1,4 @@
-I"q|<hr />
+I"V}<hr />
 <h2 id="on-your-own">On Your Own</h2>
 
 <h3 id="a-more-in-depth-look-at-data-types-in-r">A more in-depth look at Data Types in R</h3>
@@ -528,7 +528,7 @@ Levels: low &lt; medium &lt; high
 
 <p> </p>
 
-<p>Note that numeric operations still do not work:</p>
+<p>Note that numeric operations still do not work, so you can’t assume <strong>factors</strong> behave like <strong>integers</strong> either:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">food</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">food</span><span class="p">[</span><span class="m">2</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
@@ -544,7 +544,7 @@ factors
 
 <p>In R’s memory, these factors are represented by numbers (1, 2, 3). This is better than using simple integer labels because factors are self describing:</p>
 
-<p><code class="language-plaintext highlighter-rouge">"low"</code>, <code class="language-plaintext highlighter-rouge">"medium"</code>, and <code class="language-plaintext highlighter-rouge">"high"</code>” is more descriptive than <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code>, <code class="language-plaintext highlighter-rouge">3</code>. Which is low? You would not necessarily be able to tell with just integer data. Factors have this information built in. It is particularly helpful when there are many levels.</p>
+<p><code class="language-plaintext highlighter-rouge">"low"</code>, <code class="language-plaintext highlighter-rouge">"medium"</code>, and <code class="language-plaintext highlighter-rouge">"high"</code>” is more descriptive than <code class="language-plaintext highlighter-rouge">1</code>, <code class="language-plaintext highlighter-rouge">2</code>, <code class="language-plaintext highlighter-rouge">3</code>. Which is low? You would not necessarily be able to tell with just integer data. Factors have this information built in. It is particularly helpful when there are many levels, such as a <strong>factor</strong> vector containing the unique patient identifiers for a data set containing several thousand patients.</p>
 
 <p> </p>
 <h4 id="adding-elements-to-factors">Adding elements to factors</h4>
