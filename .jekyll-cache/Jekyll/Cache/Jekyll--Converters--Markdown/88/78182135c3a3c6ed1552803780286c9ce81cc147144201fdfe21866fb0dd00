@@ -1,4 +1,4 @@
-I"P{<hr />
+I"q|<hr />
 <h2 id="on-your-own">On Your Own</h2>
 
 <h3 id="a-more-in-depth-look-at-data-types-in-r">A more in-depth look at Data Types in R</h3>
@@ -19,12 +19,12 @@
   <li><strong>complex</strong>: <code class="language-plaintext highlighter-rouge">1+4i</code> (complex numbers with real and imaginary parts)</li>
 </ul>
 
-<p>We discussed the three most common data types–<strong>characters</strong></p>
+<p>We discussed the three most common data types <em>In Class</em>–<strong>characters</strong>, <strong>numeric</strong>, and <strong>logical</strong>. Now let’s take a closer look at the remaining two.</p>
 
 <p> </p>
 <h4 id="integers">Integers</h4>
 
-<p>During the <em>In Class</em> segment, we discussed three primary data types: <strong>character</strong>, <strong>numeric</strong>, and <strong>logical</strong>, because these are the most commonly used. Another The first example creates a vector <code class="language-plaintext highlighter-rouge">x</code> of mode <code class="language-plaintext highlighter-rouge">numeric</code>. These are the most common kind, and are treated as double precision real numbers. If you wanted to explicitly create integers–the set of 0, all whole numbers (1, 2, 3, …), and their negative inverses (-1, -2, -3, …)–you need to add an <code class="language-plaintext highlighter-rouge">L</code> to the numeric value:</p>
+<p>During the <em>In Class</em> segment, we discussed three primary data types: <strong>character</strong>, <strong>numeric</strong>, and <strong>logical</strong>, because these are the most commonly used. Technically, <strong>numeric</strong> is a data type category that contains both <strong>doubles</strong> (double precision, or decimal, numbers) and <strong>integers</strong>, though often <strong>numeric</strong> is used as short-hand to refer to <strong>doubles</strong>. If you wanted to explicitly create <strong>integers</strong>–the set of 0, all whole numbers (1, 2, 3, …), and their negative inverses (-1, -2, -3, …)–you need to add an <code class="language-plaintext highlighter-rouge">L</code> to the numeric value:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1L</span><span class="w">
 </span><span class="nf">class</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span><span class="w">
@@ -85,7 +85,7 @@
 <p> </p>
 <h4 id="complex-numbers">Complex numbers</h4>
 
-<p>Complex numbers are numbers that consist of two parts, $a + bi$, in which $i^2 = -1$. Because the solution to this equation, $i = \sqrt{-1}$, is not a real number, $i$ is referred to as an <em>imaginary number</em>. In complex numbers, $a$ is the <em>real part</em> and $b$ is the <em>imaginary part</em>.</p>
+<p>Complex numbers are numbers that consist of two parts, \(a + bi\), in which \(i^2 = -1\). Because the solution to this equation, \(i = \sqrt{-1}\), is not a real number, \(i\) is referred to as an <em>imaginary number</em>. In complex numbers, \(a\) is the <em>real part</em> and \(b\) is the <em>imaginary part</em>.</p>
 
 <p>Complex numbers are represented in R using the <em>complex</em> data type. These can be created directly or using the <code class="language-plaintext highlighter-rouge">complex()</code> function:</p>
 
@@ -117,7 +117,7 @@
 
 <p> </p>
 
-<p>Note that you have to define $b$ explicitly:</p>
+<p>Note that you have to define \(b\) explicitly:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">c3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">+</span><span class="n">i</span><span class="w">
 </span></code></pre></div></div>
@@ -177,7 +177,7 @@
 
 <p>Both <em>integer</em> or <em>complex</em> data types are necessary for certain types of analysis. Know they exist and how to deal with them if they come up in one of your applications.</p>
 
-<p>&amp;nbps;</p>
+<p> </p>
 <h4 id="converting-between-data-types">Converting between data types</h4>
 
 <p>You can shift between data types using the <code class="language-plaintext highlighter-rouge">as.</code> functions:</p>
@@ -363,9 +363,9 @@
 <hr />
 <h3 id="factors">Factors</h3>
 
-<p>Factors are a special data type in R, primarily used to represent categorical data. Factors can be <em>ordered</em> or <em>unordered</em> and are an important class for statistical analysis and for plotting.</p>
+<p>Factors are technically a data structure but function as a special data type in R. Factors are primarily used to represent categorical data. Factors can be <em>ordered</em> or <em>unordered</em> and are an important class for statistical analysis and for plotting.</p>
 
-<p>Factors look (and often behave) like character vectors, but assuming that they are character vectors can lead to unexpected behavior. Factors are actually integers under the hood, and you need to be careful when treating them like strings.</p>
+<p>Factors look (and often behave) like character vectors, but assuming that they are character vectors can lead to unexpected behavior. Factors are actually an odd hybrid of <strong>integers</strong> and <strong>characters</strong> under the hood, and you need to be careful when treating them like strings.</p>
 
 <p>Factors have three essential properties:</p>
 <ul>
@@ -429,7 +429,7 @@ Levels: female male
 
 <p>Note that the order in which the <em>levels</em> appear defines which level corresponds to which integer number.</p>
 
-<p>The major functional difference between <strong>character</strong> and <strong>factor</strong> objects is that the elements of the <strong>character</strong> vector only have the inherent order defined by their values (e.g. alphabetical). Sometimes, the order of the <strong>factor</strong> elements does not matter, other times you might want to specify the order because it is meaningful. For instance, “low”, “medium”, “high” as elements of a character vector have the implicit alphabetical order:</p>
+<p>The major functional difference between <strong>character</strong> and <strong>factor</strong> objects is that the elements of the <strong>character</strong> vector only have the inherent order defined by their values (e.g. alphabetical). Sometimes, the order of the <strong>factor</strong> elements does not matter; other times you might want to specify the order because it is meaningful. For instance, “low”, “medium”, “high” as elements of a character vector have the implicit alphabetical order:</p>
 
 <p>      “high” &lt; “low” &lt; “medium”</p>
 

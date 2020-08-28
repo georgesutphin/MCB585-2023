@@ -48,12 +48,12 @@ R has 6 basic data types. In addition to the five listed below, there is also *r
 * **logical**: `TRUE`, `FALSE`
 * **complex**: `1+4i` (complex numbers with real and imaginary parts)
 
-We discussed the three most common data types--**characters**
+We discussed the three most common data types *In Class*--**characters**, **numeric**, and **logical**. Now let's take a closer look at the remaining two.
 
 &nbsp;
 #### Integers
 
-During the *In Class* segment, we discussed three primary data types: **character**, **numeric**, and **logical**, because these are the most commonly used. Another The first example creates a vector `x` of mode `numeric`. These are the most common kind, and are treated as double precision real numbers. If you wanted to explicitly create integers--the set of 0, all whole numbers (1, 2, 3, ...), and their negative inverses (-1, -2, -3, ...)--you need to add an `L` to the numeric value:
+During the *In Class* segment, we discussed three primary data types: **character**, **numeric**, and **logical**, because these are the most commonly used. Technically, **numeric** is a data type category that contains both **doubles** (double precision, or decimal, numbers) and **integers**, though often **numeric** is used as short-hand to refer to **doubles**. If you wanted to explicitly create **integers**--the set of 0, all whole numbers (1, 2, 3, ...), and their negative inverses (-1, -2, -3, ...)--you need to add an `L` to the numeric value:
 
 ```{r}
 x1 <- 1L
@@ -88,7 +88,7 @@ class(not.an.integer)
 &nbsp;
 #### Complex numbers
 
-Complex numbers are numbers that consist of two parts, $a + bi$, in which $i^2 = -1$. Because the solution to this equation, $i = \sqrt{-1}$, is not a real number, $i$ is referred to as an *imaginary number*. In complex numbers, $a$ is the *real part* and $b$ is the *imaginary part*. 
+Complex numbers are numbers that consist of two parts, $$a + bi$$, in which $$i^2 = -1$$. Because the solution to this equation, $$i = \sqrt{-1}$$, is not a real number, $$i$$ is referred to as an *imaginary number*. In complex numbers, $$a$$ is the *real part* and $$b$$ is the *imaginary part*. 
 
 Complex numbers are represented in R using the *complex* data type. These can be created directly or using the `complex()` function:
 
@@ -103,7 +103,7 @@ class(c2)
 
 &nbsp;
 
-Note that you have to define $b$ explicitly:
+Note that you have to define $$b$$ explicitly:
 
 ```{r}
 c3 <- 1+i
@@ -135,7 +135,7 @@ class(c4)
 
 Both *integer* or *complex* data types are necessary for certain types of analysis. Know they exist and how to deal with them if they come up in one of your applications.
 
-&nbps;
+&nbsp;
 #### Converting between data types
 
 You can shift between data types using the `as.` functions:
@@ -214,9 +214,9 @@ class(int.vec)
 ***
 ### Factors
 
-Factors are a special data type in R, primarily used to represent categorical data. Factors can be *ordered* or *unordered* and are an important class for statistical analysis and for plotting.
+Factors are technically a data structure but function as a special data type in R. Factors are primarily used to represent categorical data. Factors can be *ordered* or *unordered* and are an important class for statistical analysis and for plotting.
 
-Factors look (and often behave) like character vectors, but assuming that they are character vectors can lead to unexpected behavior. Factors are actually integers under the hood, and you need to be careful when treating them like strings. 
+Factors look (and often behave) like character vectors, but assuming that they are character vectors can lead to unexpected behavior. Factors are actually an odd hybrid of **integers** and **characters** under the hood, and you need to be careful when treating them like strings. 
 
 Factors have three essential properties:
 * A vector of *integers*.
@@ -265,7 +265,7 @@ str(sex)
 
 Note that the order in which the *levels* appear defines which level corresponds to which integer number. 
 
-The major functional difference between **character** and **factor** objects is that the elements of the **character** vector only have the inherent order defined by their values (e.g. alphabetical). Sometimes, the order of the **factor** elements does not matter, other times you might want to specify the order because it is meaningful. For instance, "low", "medium", "high" as elements of a character vector have the implicit alphabetical order:
+The major functional difference between **character** and **factor** objects is that the elements of the **character** vector only have the inherent order defined by their values (e.g. alphabetical). Sometimes, the order of the **factor** elements does not matter; other times you might want to specify the order because it is meaningful. For instance, "low", "medium", "high" as elements of a character vector have the implicit alphabetical order:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"high" < "low" < "medium"
 

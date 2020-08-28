@@ -1,4 +1,4 @@
-I"�@<hr />
+I"fK<hr />
 <h2 id="in-class">In Class</h2>
 
 <h3 id="basic-data-types-in-r">Basic Data Types in R</h3>
@@ -248,13 +248,13 @@ The code following the if statement will only execute if the variable or stateme
 <p>Elements of these data types may be combined to form data structures–collections of individual datum. There are many data structure in R, for example:</p>
 <ul>
   <li>factors</li>
-  <li>atomic vector (aka vector)</li>
-  <li>list</li>
-  <li>matrix</li>
-  <li>data frame</li>
+  <li>atomic vectors (aka vectors)</li>
+  <li>lists</li>
+  <li>matrixs</li>
+  <li>data frames</li>
 </ul>
 
-<p>Here we will discuss the two most basic data structures: <strong>vectors</strong> and <strong>matrices</strong>. In later lessons we will discuss two advanced data structure, <strong>data frames</strong> (the most common data storage structure in R) and <strong>lists</strong>. <strong>Factors</strong> are a type of data structure, but function more like an advanced data type. You will explor <strong>factors</strong> in detail <em>On Your Own</em>.</p>
+<p>Here we will discuss the two most basic data structures: <strong>vectors</strong> and <strong>matrices</strong>. In later lessons we will discuss two advanced data structure, <strong>data frames</strong> (the most common data storage structure in R) and <strong>lists</strong>. <strong>Factors</strong> are a type of data structure, but function more like an advanced data type. You will explore <strong>factors</strong> in detail <em>On Your Own</em>.</p>
 
 <p> </p>
 <h4 id="vectors">Vectors</h4>
@@ -319,7 +319,9 @@ The code following the if statement will only execute if the variable or stateme
 
 <p> </p>
 
-<p>The <code class="language-plaintext highlighter-rouge">c()</code> function is the most common way to define a vector of objects for manipulation. Directly specifying <code class="language-plaintext highlighter-rouge">TRUE</code> and <code class="language-plaintext highlighter-rouge">FALSE</code> will create a vector of mode <code class="language-plaintext highlighter-rouge">logical</code>:</p>
+<p>The <code class="language-plaintext highlighter-rouge">c()</code> function is the most common way to define a vector of values for manipulation. We will use it frequently throughout this course, and it will be one of the functions that you use the most in your own analyses.</p>
+
+<p>Directly specifying <code class="language-plaintext highlighter-rouge">TRUE</code> and <code class="language-plaintext highlighter-rouge">FALSE</code> will create a vector of mode <code class="language-plaintext highlighter-rouge">logical</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
 </span><span class="nf">class</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="w">
@@ -387,6 +389,10 @@ The code following the if statement will only execute if the variable or stateme
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
 </code></pre></div></div>
 
+<p>&amp;nbps;</p>
+
+<p>Check out the help documentation for the <code class="language-plaintext highlighter-rouge">seq()</code> function (<code class="language-plaintext highlighter-rouge">?seq</code>) to see what arguments we are providing and what arguments are being set to defaults. By specifying <code class="language-plaintext highlighter-rouge">from</code>, <code class="language-plaintext highlighter-rouge">to</code>, and <code class="language-plaintext highlighter-rouge">by</code> we can customize our output vector:</p>
+
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">seq</span><span class="p">(</span><span class="n">from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
@@ -421,7 +427,7 @@ The code following the if statement will only execute if the variable or stateme
 <p> </p>
 <h4 id="what-happens-when-you-mix-types-inside-a-vector">What happens when you mix types inside a vector?</h4>
 
-<p>R will create a resulting vector with a mode that can most easily accommodate all the elements it contains (similar to using the <code class="language-plaintext highlighter-rouge">as.</code> functions). This conversion between modes of storage is called “coercion”. When R converts the mode of storage based on its content, it is referred to as “implicit coercion”.</p>
+<p>R will create a resulting vector with a mode that can most easily accommodate all the elements it contains. This conversion between modes of storage is called “coercion”. When R converts the mode of storage based on its content, it is referred to as “implicit coercion”.</p>
 
 <blockquote class="challenge">
   <h2 id="mixing-data-types-in-vectors">Mixing data types in vectors</h2>
@@ -694,10 +700,20 @@ spell the word “eon” in a new vector:</li>
 
 <p> </p>
 
-<p>Depending on how they are written and the way their input/output works, some functions may not act on the vector, but on the list of values in the vector. The best way to find out is to just give it a try.</p>
+<blockquote class="callout">
+  <h2 id="vectorization-is-not-universal">Vectorization is not universal</h2>
+
+  <p>Vectorization is one of the reasons that R is so 
+powerful, and it is employed by a wide range of 
+functions. However, it is not universal. Depending on 
+how a specific function is written, it may act on the 
+vector, or on the list of values in the vector. The 
+best way to find out is to just give it a try and see 
+what output it produces.</p>
+</blockquote>
 
 <hr />
-<h3 id="objects-attributes">Objects Attributes</h3>
+<h3 id="object-attributes">Object Attributes</h3>
 
 <p>R objects can have <strong>attributes</strong>. Attributes are metadata and part of the object. Each attribute describes a different aspect of the object. These include:</p>
 
@@ -724,12 +740,12 @@ spell the word “eon” in a new vector:</li>
 
 <p> </p>
 
-<p>We will periodically use object attributes to manipulate objects throughout the course.</p>
+<p>We will periodically use object attributes to manipulate objects throughout the course, including the next topic: matrices.</p>
 
 <hr />
 <h3 id="matrices">Matrices</h3>
 
-<p>In R matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with dimensions; the number of rows and columns. As with atomic vectors, the elements of a matrix must be of the same data type. Like vectors, we can use the generic <code class="language-plaintext highlighter-rouge">matrix()</code> function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. <code class="language-plaintext highlighter-rouge">character()</code>):</p>
+<p>In R matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with an attribute called “dimensions”, i.e. a specified number of rows and columns. As with vectors, the elements of a matrix must be of the same data type. We can use the generic <code class="language-plaintext highlighter-rouge">matrix()</code> function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. <code class="language-plaintext highlighter-rouge">character()</code>). However, because matrices are really just vectors, we can use a predefined vector to build a matrix:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first create a vector, then coerce that vector into a matrix:</span><span class="w">
 </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="w">
@@ -752,7 +768,7 @@ spell the word “eon” in a new vector:</li>
 
 <p> </p>
 
-<p>We can no examine some of the attributes of our new matrix <code class="language-plaintext highlighter-rouge">m</code>:</p>
+<p>We can now examine the attributes of our new matrix <code class="language-plaintext highlighter-rouge">m</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">dim</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -785,7 +801,7 @@ spell the word “eon” in a new vector:</li>
 
 <p> </p>
 
-<p>Matrices are a higher-oder object (a vector with additional properties). Thus the <code class="language-plaintext highlighter-rouge">class()</code> function no longer tells you the data type for each element, but rather the data structure type of the entire object:</p>
+<p>Matrices are a higher-order object (a vector with additional properties). Thus the <code class="language-plaintext highlighter-rouge">class()</code> function no longer tells you the data type for each element, but rather the data structure type of the entire object:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -795,7 +811,7 @@ spell the word “eon” in a new vector:</li>
 
 <p> </p>
 
-<p>You can check the data type of the elements of the matrix using <code class="language-plaintext highlighter-rouge">typeof()</code>:</p>
+<p>You can check the data type of the elements of the matrix using <code class="language-plaintext highlighter-rouge">typeof()</code> or <code class="language-plaintext highlighter-rouge">mode()</code>, which give slightly different information:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -803,10 +819,15 @@ spell the word “eon” in a new vector:</li>
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "integer"
 </code></pre></div></div>
 
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mode</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "numeric"
+</code></pre></div></div>
+
 <p> </p>
 
-<p>While <code class="language-plaintext highlighter-rouge">class()</code> shows that m is a matrix, <code class="language-plaintext highlighter-rouge">typeof()</code> shows that fundamentally the
-matrix is an integer vector.</p>
+<p>While <code class="language-plaintext highlighter-rouge">class()</code> shows that m is a matrix, and <code class="language-plaintext highlighter-rouge">mode()</code> returns the higher-order data type <strong>numeric</strong>, <code class="language-plaintext highlighter-rouge">typeof()</code> shows that fundamentally the matrix is an <strong>integer</strong> vector.</p>
 
 <p>Note that one difference between vectors and matrices is that an otherwise identical vector will return the data type of each element when you use <code class="language-plaintext highlighter-rouge">class()</code>, while the matrix is a new type of object with <code class="language-plaintext highlighter-rouge">class()</code> “matrix”.</p>
 
@@ -828,9 +849,7 @@ running this code?</p>
   <blockquote class="solution">
     <h2 id="solution-2">Solution</h2>
     <p>We know that <code class="language-plaintext highlighter-rouge">typeof(FOURS)</code> will also return <code class="language-plaintext highlighter-rouge">"double"</code> since matrices 
-are just vectors, and vectors must be made of elements of the same data
-type. Note that you could do something like <code class="language-plaintext highlighter-rouge">as.character(FOURS)</code> if you
-needed the elements of <code class="language-plaintext highlighter-rouge">FOURS</code> to be <em>characters</em>.</p>
+are just vectors, and vectors must be made of elements of the same data  type.</p>
   </blockquote>
 </blockquote>
 
@@ -860,7 +879,7 @@ needed the elements of <code class="language-plaintext highlighter-rouge">FOURS<
 
 <p> </p>
 
-<p>Other ways to construct a matrix</p>
+<p>Another way to construct a matrix is to assign values to the <code class="language-plaintext highlighter-rouge">dim</code> attribute:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="w">
 
@@ -895,10 +914,7 @@ needed the elements of <code class="language-plaintext highlighter-rouge">FOURS<
 
 <p> </p>
 
-<p>This takes a vector and transforms it into a matrix with 2 rows and 5 columns.</p>
-
-<p>Another way is to bind columns or rows using <code class="language-plaintext highlighter-rouge">rbind()</code> and <code class="language-plaintext highlighter-rouge">cbind()</code> (“row bind”
-and “column bind”, respectively).</p>
+<p>This takes a vector and transforms it into a matrix with 2 rows and 5 columns. A third way is to bind columns or rows using <code class="language-plaintext highlighter-rouge">rbind()</code> and <code class="language-plaintext highlighter-rouge">cbind()</code> (“row bind” and “column bind”, respectively).</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="w">
 </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">10</span><span class="o">:</span><span class="m">12</span><span class="w">
@@ -917,6 +933,23 @@ and “column bind”, respectively).</p>
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [,1] [,2] [,3]
 x    1    2    3
 y   10   11   12
+</code></pre></div></div>
+
+<p> </p>
+
+<p>Note that the vectors being bound are of the same length in this case. If the vectors are of different length, the elements of the shorter vector will be repeated to fill in the missing space:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="w">
+</span><span class="n">rbind</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">z</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in rbind(x, z): number of columns of result is not a multiple of vector
+length (arg 1)
+</code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+x    1    2    3    1    2    3    1    2    3     1
+z    1    2    3    4    5    6    7    8    9    10
 </code></pre></div></div>
 
 <p> </p>

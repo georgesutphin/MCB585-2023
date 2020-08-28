@@ -453,12 +453,12 @@ The code following the if statement will only execute if the variable or stateme
 
 Elements of these data types may be combined to form data structures--collections of individual datum. There are many data structure in R, for example: 
 * factors
-* atomic vector (aka vector)
-* list
-* matrix
-* data frame
+* atomic vectors (aka vectors)
+* lists
+* matrixs
+* data frames
 
-Here we will discuss the two most basic data structures: **vectors** and **matrices**. In later lessons we will discuss two advanced data structure, **data frames** (the most common data storage structure in R) and **lists**. **Factors** are a type of data structure, but function more like an advanced data type. You will explor **factors** in detail *On Your Own*.  
+Here we will discuss the two most basic data structures: **vectors** and **matrices**. In later lessons we will discuss two advanced data structure, **data frames** (the most common data storage structure in R) and **lists**. **Factors** are a type of data structure, but function more like an advanced data type. You will explore **factors** in detail *On Your Own*.  
 
 &nbsp;
 #### Vectors
@@ -567,7 +567,9 @@ class(x)
 
 &nbsp;
 
-The `c()` function is the most common way to define a vector of objects for manipulation. Directly specifying `TRUE` and `FALSE` will create a vector of mode `logical`:
+The `c()` function is the most common way to define a vector of values for manipulation. We will use it frequently throughout this course, and it will be one of the functions that you use the most in your own analyses.
+
+Directly specifying `TRUE` and `FALSE` will create a vector of mode `logical`:
 
 
 ~~~
@@ -687,6 +689,9 @@ seq(10)
 ~~~
 {: .output}
 
+&nbps;
+
+Check out the help documentation for the `seq()` function (`?seq`) to see what arguments we are providing and what arguments are being set to defaults. By specifying `from`, `to`, and `by` we can customize our output vector:
 
 
 ~~~
@@ -744,7 +749,7 @@ series2
 &nbsp;
 #### What happens when you mix types inside a vector?
 
-R will create a resulting vector with a mode that can most easily accommodate all the elements it contains (similar to using the `as.` functions). This conversion between modes of storage is called "coercion". When R converts the mode of storage based on its content, it is referred to as "implicit coercion". 
+R will create a resulting vector with a mode that can most easily accommodate all the elements it contains. This conversion between modes of storage is called "coercion". When R converts the mode of storage based on its content, it is referred to as "implicit coercion". 
 
 > ## Mixing data types in vectors
 > 
@@ -1142,11 +1147,20 @@ paste(attitude,animal)
 
 &nbsp;
 
-Depending on how they are written and the way their input/output works, some functions may not act on the vector, but on the list of values in the vector. The best way to find out is to just give it a try. 
+> ## Vectorization is not universal
+> 
+> Vectorization is one of the reasons that R is so 
+> powerful, and it is employed by a wide range of 
+> functions. However, it is not universal. Depending on 
+> how a specific function is written, it may act on the 
+> vector, or on the list of values in the vector. The 
+> best way to find out is to just give it a try and see 
+> what output it produces.
+{: .callout}
 
 
 ***
-### Objects Attributes
+### Object Attributes
 
 R objects can have **attributes**. Attributes are metadata and part of the object. Each attribute describes a different aspect of the object. These include:
 
@@ -1186,12 +1200,12 @@ nchar("MCB 585")
 
 &nbsp;
 
-We will periodically use object attributes to manipulate objects throughout the course.
+We will periodically use object attributes to manipulate objects throughout the course, including the next topic: matrices.
 
 ***
 ### Matrices
 
-In R matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with dimensions; the number of rows and columns. As with atomic vectors, the elements of a matrix must be of the same data type. Like vectors, we can use the generic `matrix()` function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. `character()`):
+In R matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with an attribute called "dimensions", i.e. a specified number of rows and columns. As with vectors, the elements of a matrix must be of the same data type. We can use the generic `matrix()` function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. `character()`). However, because matrices are really just vectors, we can use a predefined vector to build a matrix:
 
 
 ~~~
@@ -1229,7 +1243,7 @@ m
 
 &nbsp;
 
-We can no examine some of the attributes of our new matrix `m`:
+We can now examine the attributes of our new matrix `m`:
 
 
 ~~~
@@ -1292,7 +1306,7 @@ length(m)
 
 &nbsp;
 
-Matrices are a higher-oder object (a vector with additional properties). Thus the `class()` function no longer tells you the data type for each element, but rather the data structure type of the entire object:
+Matrices are a higher-order object (a vector with additional properties). Thus the `class()` function no longer tells you the data type for each element, but rather the data structure type of the entire object:
 
 
 ~~~
@@ -1309,7 +1323,7 @@ class(m)
 
 &nbsp;
 
-You can check the data type of the elements of the matrix using `typeof()`:
+You can check the data type of the elements of the matrix using `typeof()` or `mode()`, which give slightly different information:
 
 
 ~~~
@@ -1324,10 +1338,23 @@ typeof(m)
 ~~~
 {: .output}
 
+
+
+~~~
+mode(m)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "numeric"
+~~~
+{: .output}
+
 &nbsp;
 
-While `class()` shows that m is a matrix, `typeof()` shows that fundamentally the
-matrix is an integer vector.
+While `class()` shows that m is a matrix, and `mode()` returns the higher-order data type **numeric**, `typeof()` shows that fundamentally the matrix is an **integer** vector.
 
 Note that one difference between vectors and matrices is that an otherwise identical vector will return the data type of each element when you use `class()`, while the matrix is a new type of object with `class()` "matrix".
 
@@ -1350,9 +1377,7 @@ Note that one difference between vectors and matrices is that an otherwise ident
 >
 > > ## Solution
 > > We know that `typeof(FOURS)` will also return `"double"` since matrices 
-> > are just vectors, and vectors must be made of elements of the same data
-> > type. Note that you could do something like `as.character(FOURS)` if you
-> > needed the elements of `FOURS` to be *characters*.
+> > are just vectors, and vectors must be made of elements of the same data  type. 
 > {: .solution}
 {: .challenge}
 
@@ -1396,7 +1421,7 @@ m2
 
 &nbsp;
 
-Other ways to construct a matrix
+Another way to construct a matrix is to assign values to the `dim` attribute:
 
 
 ~~~
@@ -1462,10 +1487,7 @@ class(m)
 
 &nbsp;
 
-This takes a vector and transforms it into a matrix with 2 rows and 5 columns.
-
-Another way is to bind columns or rows using `rbind()` and `cbind()` ("row bind"
-and "column bind", respectively).
+This takes a vector and transforms it into a matrix with 2 rows and 5 columns. A third way is to bind columns or rows using `rbind()` and `cbind()` ("row bind" and "column bind", respectively). 
 
 
 ~~~
@@ -1498,6 +1520,34 @@ rbind(x, y)
   [,1] [,2] [,3]
 x    1    2    3
 y   10   11   12
+~~~
+{: .output}
+
+&nbsp;
+
+Note that the vectors being bound are of the same length in this case. If the vectors are of different length, the elements of the shorter vector will be repeated to fill in the missing space:
+
+
+~~~
+z <- 1:10
+rbind(x,z)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in rbind(x, z): number of columns of result is not a multiple of vector
+length (arg 1)
+~~~
+{: .error}
+
+
+
+~~~
+  [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+x    1    2    3    1    2    3    1    2    3     1
+z    1    2    3    4    5    6    7    8    9    10
 ~~~
 {: .output}
 
