@@ -792,17 +792,19 @@ list.files(path = "data", pattern = "csv")
 
 
 ~~~
- [1] "car-speeds-cleaned.csv"     "car-speeds.csv"            
- [3] "combined-inflammation.csv"  "inflammation-01.csv"       
- [5] "inflammation-02.csv"        "inflammation-03.csv"       
- [7] "inflammation-04.csv"        "inflammation-05.csv"       
- [9] "inflammation-06.csv"        "inflammation-07.csv"       
-[11] "inflammation-08.csv"        "inflammation-09.csv"       
-[13] "inflammation-10.csv"        "inflammation-11.csv"       
-[15] "inflammation-12.csv"        "Nadeau2_table.csv"         
-[17] "sample-gendercorrected.csv" "sample-noquotes.csv"       
-[19] "sample.csv"                 "small-01.csv"              
-[21] "small-02.csv"               "small-03.csv"              
+ [1] "car-speeds-cleaned.csv"        "car-speeds-corrected-9999.csv"
+ [3] "car-speeds-corrected-na.csv"   "car-speeds-corrected.csv"     
+ [5] "car-speeds.csv"                "combined-inflammation.csv"    
+ [7] "inflammation-01.csv"           "inflammation-02.csv"          
+ [9] "inflammation-03.csv"           "inflammation-04.csv"          
+[11] "inflammation-05.csv"           "inflammation-06.csv"          
+[13] "inflammation-07.csv"           "inflammation-08.csv"          
+[15] "inflammation-09.csv"           "inflammation-10.csv"          
+[17] "inflammation-11.csv"           "inflammation-12.csv"          
+[19] "Nadeau2_table.csv"             "sample-gendercorrected.csv"   
+[21] "sample-noquotes.csv"           "sample.csv"                   
+[23] "small-01.csv"                  "small-02.csv"                 
+[25] "small-03.csv"                 
 ~~~
 {: .output}
 
@@ -1009,8 +1011,8 @@ gc() # clean things up first
 
 ~~~
          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 512694 27.4    1145560 61.2   666091 35.6
-Vcells 991929  7.6    8388608 64.0  1632380 12.5
+Ncells 512712 27.4    1145700 61.2   796868 42.6
+Vcells 991973  7.6    8388608 64.0  1632446 12.5
 ~~~
 {: .output}
 
@@ -1025,7 +1027,7 @@ system.time(avg <- analyze(inflam.files))
 
 ~~~
    user  system elapsed 
-   0.02    0.00    0.01 
+   0.01    0.00    0.02 
 ~~~
 {: .output}
 

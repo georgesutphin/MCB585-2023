@@ -6,501 +6,46 @@ classdate: "9/2/2020 -- In Class"
 teaching: 90
 exercises: 30
 questions:
-- "How do I read data from a .csv or .txt file into R?"
-- "How do I write data to a .csv or .txt file?"
 - "What is a data frame?"
 - "How does indexing differ for data frames relative to basic data structures?"
 - "How do I access data frame subsets?"
+- "How do I read data from a .csv or .txt file into R?"
+- "How do I write data to a .csv or .txt file?"
 objectives:
-- "Be able to apply the basic functions for reading and writing tabular data stored in common text file formats (.txt, .csv)."
-- "Understand the key arguments for importing data properly, such as `header` and `stringsAsFactors`."
-- "Understand the key arguments for exporting the data properly, such as `row.names`, `col.names`, and `quote`."
 - "Understand the structure and properties of data frames in R."
 - "Select individual values and subsections from data."
 - "Perform operations on a data frame."
 - "Understand the three primary ways R can access data inside a data frame."
+- "Be able to apply the basic functions for reading and writing tabular data stored in common text file formats (.txt, .csv)."
+- "Understand the key arguments for importing data properly, such as `header` and `stringsAsFactors`."
+- "Understand the key arguments for exporting the data properly, such as `row.names`, `col.names`, and `quote`."
 - "Combine different methods for accessing data with the assignment operator to update subsets of data."
 keypoints:
-- "Import data from a .csv or .txt file using the `read.table(...)`, `read.csv(...)`, and `read.delim(...)` functions."
-- "Write data to a new .csv or .txt file using the `write.table(...)` and `write.csv(...)` functions."
-- "Use `object[x, y]` to select a single element from a data frame."
 - "All the indexing and subsetting that works on matrices also works on data frames."
 - "Each column of a data frame can be directly addressed by specifying the column name using the `$` operator (e.g. `mydataframe$column1`)."
 - "Data in data structures can by accessed by specifying the appropriate index, by logical vector, or by column/row name (if defined)."
+- "Import data from a .csv or .txt file using the `read.table(...)`, `read.csv(...)`, and `read.delim(...)` functions."
+- "Write data to a new .csv or .txt file using the `write.table(...)` and `write.csv(...)` functions."
+- "Use `object[x, y]` to select a single element from a data frame."
 source: Rmd
 ---
 
 
 
-***
 ## In Class
 
-***
-### Lists
-
-Lists in R act as containers. Unlike atomic vectors, the contents of a list are
-not restricted to a single mode and can encompass any mixture of data
-types. Lists are sometimes called "generic vectors"", because the elements of a
-list can by of any type of R object, even lists containing further lists. This
-property makes them fundamentally different from atomic vectors.
-
-A list is a special type of vector. Each element can be a different type, and is not restricted to a single value.
-
-Create lists using `list()` or coerce other objects using `as.list()`. An empty
-list of the required length can be created using `vector()`
-
-
-~~~
-x <- list(1, "a", TRUE, 1+4i)
-x # A list does not print to the console like a vector. Instead, each element of the list starts on a new line.
-~~~
-{: .language-r}
-
-
-
-~~~
-[[1]]
-[1] 1
-
-[[2]]
-[1] "a"
-
-[[3]]
-[1] TRUE
-
-[[4]]
-[1] 1+4i
-~~~
-{: .output}
-
-
-
-~~~
-x <- vector("list", length = 5) # empty list
-length(x)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 5
-~~~
-{: .output}
-
-
-
-~~~
-x 
-~~~
-{: .language-r}
-
-
-
-~~~
-[[1]]
-NULL
-
-[[2]]
-NULL
-
-[[3]]
-NULL
-
-[[4]]
-NULL
-
-[[5]]
-NULL
-~~~
-{: .output}
-
-&nbsp;
-
-Vectors can be coerced to lists as follows:
-
-
-~~~
-x <- 1:10
-x <- as.list(x)
-length(x)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 10
-~~~
-{: .output}
-
-&nbsp;
-#### Indexing lists
-
-Indexing works a bit differently for lists. The content of elements of a list can be retrieved by using double square brackets `[[n]]`, as opposed to the single square brackets `[n]` used for vectors and matrices.
-
-
-~~~
-x[[1]]
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 1
-~~~
-{: .output}
-
-
-> ## Examining Lists
->
-> 1. What is the class of `x[1]`?
-> 2. What is the class of `x[[1]]`?
->
-> > ## Solution
-> > 1. 
-> >     
-> >     ~~~
-> >     class(x[1])
-> >     ~~~
-> >     {: .language-r}
-> >     
-> >     
-> >     
-> >     ~~~
-> >     [1] "list"
-> >     ~~~
-> >     {: .output}
-> > 2. 
-> >     
-> >     ~~~
-> >     class(x[[1]])
-> >     ~~~
-> >     {: .language-r}
-> >     
-> >     
-> >     
-> >     ~~~
-> >     [1] "integer"
-> >     ~~~
-> >     {: .output}
-> {: .solution}
-{: .challenge}
-
-&nbsp;
-
-Elements of a list can be named (i.e. lists can have the `names` attribute)
-
-
-~~~
-xlist <- list(a = "Karthik Ram", b = 1:10, data = head(iris))
-xlist
-~~~
-{: .language-r}
-
-
-
-~~~
-$a
-[1] "Karthik Ram"
-
-$b
- [1]  1  2  3  4  5  6  7  8  9 10
-
-$data
-  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-1          5.1         3.5          1.4         0.2  setosa
-2          4.9         3.0          1.4         0.2  setosa
-3          4.7         3.2          1.3         0.2  setosa
-4          4.6         3.1          1.5         0.2  setosa
-5          5.0         3.6          1.4         0.2  setosa
-6          5.4         3.9          1.7         0.4  setosa
-~~~
-{: .output}
-
-
-
-~~~
-names(xlist)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "a"    "b"    "data"
-~~~
-{: .output}
-
-
-
-~~~
-attributes(xlist)
-~~~
-{: .language-r}
-
-
-
-~~~
-$names
-[1] "a"    "b"    "data"
-~~~
-{: .output}
-
-&nbsp;
-
-You can use the `$` operator to directly refer to named list elements by their name:
-
-
-~~~
-xlist[[1]]
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "Karthik Ram"
-~~~
-{: .output}
-
-
-
-~~~
-xlist$a
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "Karthik Ram"
-~~~
-{: .output}
-
-> ## Examining Named Lists
->
-> 1. What is the length of the `xlist` object?
-> 2. What is its structure?
->
-> > ## Solution
-> > 1. 
-> >     
-> >     ~~~
-> >     length(xlist)
-> >     ~~~
-> >     {: .language-r}
-> >     
-> >     
-> >     
-> >     ~~~
-> >     [1] 3
-> >     ~~~
-> >     {: .output}
-> > 2. 
-> >     
-> >     ~~~
-> >     str(xlist)
-> >     ~~~
-> >     {: .language-r}
-> >     
-> >     
-> >     
-> >     ~~~
-> >     List of 3
-> >      $ a   : chr "Karthik Ram"
-> >      $ b   : int [1:10] 1 2 3 4 5 6 7 8 9 10
-> >      $ data:'data.frame':	6 obs. of  5 variables:
-> >       ..$ Sepal.Length: num [1:6] 5.1 4.9 4.7 4.6 5 5.4
-> >       ..$ Sepal.Width : num [1:6] 3.5 3 3.2 3.1 3.6 3.9
-> >       ..$ Petal.Length: num [1:6] 1.4 1.4 1.3 1.5 1.4 1.7
-> >       ..$ Petal.Width : num [1:6] 0.2 0.2 0.2 0.2 0.2 0.4
-> >       ..$ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1
-> >     ~~~
-> >     {: .output}
-> {: .solution}
-{: .challenge} 
-
-&nbsp;
-#### Lists of lists!
-
-A list can even have vectors (or other lists!) as one element of a list:
-
-
-~~~
-x <- 1:10
-y <- c(T, F, T, T) # "T" can be used in place of "TRUE"; "F" can be used in place of "FALSE"
-z <- list(1, "a", TRUE, 1+4i)
-
-my.list <- list(x, y, z)
-my.list
-~~~
-{: .language-r}
-
-
-
-~~~
-[[1]]
- [1]  1  2  3  4  5  6  7  8  9 10
-
-[[2]]
-[1]  TRUE FALSE  TRUE  TRUE
-
-[[3]]
-[[3]][[1]]
-[1] 1
-
-[[3]][[2]]
-[1] "a"
-
-[[3]][[3]]
-[1] TRUE
-
-[[3]][[4]]
-[1] 1+4i
-~~~
-{: .output}
-
-
-
-~~~
-my.list[[1]]
-~~~
-{: .language-r}
-
-
-
-~~~
- [1]  1  2  3  4  5  6  7  8  9 10
-~~~
-{: .output}
-
-
-
-~~~
-class(my.list[[1]])
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "integer"
-~~~
-{: .output}
-
-
-
-~~~
-class(my.list[[2]])
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] "logical"
-~~~
-{: .output}
-
-
-
-~~~
-my.list <- list(x = x, y = y, z = x) # use the `=` to name your list elements
-my.list$x
-~~~
-{: .language-r}
-
-
-
-~~~
- [1]  1  2  3  4  5  6  7  8  9 10
-~~~
-{: .output}
-
-&nbsp;
-#### Lists and functions
-
-Lists can be extremely useful inside functions. Because the functions in R are 
-able to return only a single object, you can "staple" together lots of different
-kinds of results into a single object that a function can return.
-
-Elements are indexed by double brackets. Double brackets return the object inside the indexed list element, while single brackets will just return a(nother) list containing the indicated elements. 
-
-
-~~~
-my.list[1]
-~~~
-{: .language-r}
-
-
-
-~~~
-$x
- [1]  1  2  3  4  5  6  7  8  9 10
-~~~
-{: .output}
-
-
-
-~~~
-my.list[[1]]
-~~~
-{: .language-r}
-
-
-
-~~~
- [1]  1  2  3  4  5  6  7  8  9 10
-~~~
-{: .output}
-
-
-&nbsp;
-
-Again, if the elements of a list are named, they can be referenced by
-the `$` notation (i.e. `xlist$data`). This can be useful if a function runs a complex analysis. It can export a lot of different types of information as different elements in a single list (raw data, processes data, analysis summary, analysis statistics, etc.)
-
-
-***
 ### Data Frames
 
-The data frame is the most important data type in R. It is the *de facto*
-data structure for most tabular data and what we use for statistics. At its heart, the data frame is a *special type of list* where every element of the list has same length (i.e. data frame is a "rectangular" list).
+The **data frame** is the most important data type in R. It is the *de facto* data structure for most tabular data and what we will use for calculating statistics and running other analyses. **Data frames** have some similarities to matrices. For example, both are two-dimensional structures and can be similarly indexed using `[]`. However, **data frames** have several features that distinguish them from **matrices** and make them more generally useful to store and manipulate datasets. 
 
-Data frames can have additional attributes such as `rownames()`, which can be
-useful for annotating data, like `subject_id` or `sample_id`. But most of the
-time they are not used.
-
-Data frame characteristics:
+**Data frames** have the following characteristics:
 * Each column must contain a single data type
 * Different columns can have different data types
-* All columns must have the same number of elements
-* Like lists, column names can be directly called using the `$` operator
+* All columns must have the same number of elements (i.e. rows)
+* Each column has a names can be directly called using the `$` operator
 * Like matrices, data frames can be indexed using the `df[row,column]` notation.
 
-Some additional information on data frames:
-
-* Created by the `read.csv()` and `read.table()` when importing the data into R.
-* Assuming all columns in a data frame are of same type, data frame can be converted to a matrix with data.matrix() (preferred) or as.matrix(). Otherwise type coercion will be enforced and the results may not always be what you expect.
-* Can be created *de novo* with the `data.frame()` or `as.data.frame()` functions.
-* Like matrices, the number of rows and columns can be queried with `nrow(dat)` and `ncol(dat)`, respectively.
-* Rownames are often automatically generated and look like 1, 2, ..., n. Consistency in numbering of rownames may not be honored when rows are reshuffled or subset.
-* A common way to use data frames is with columns as "variables" (e.g. body weight, blood pressure) and rows as "patients" or "observations" (e.g. "subject 1", "subject 2", ...).
-
-The following table summarizes the one-dimensional and two-dimensional data structures in 
-R in relation to diversity of data types they can contain.
-
-| Dimensions | Homogenous | Heterogeneous |
-| ------- | ---- | ---- |
-| 1-D | atomic vector | list |
-| 2-D | matrix | data frame |
-
-&nbsp;
-#### Creating Data Frames by Hand
-
-To create data frames by hand:
+As with other data types and structure, **data frames** can be generated manually using the `data.frame()` function:
 
 
 ~~~
@@ -528,32 +73,74 @@ dat
 
 &nbsp;
 
-See that it is actually a special list:
+Note the structural difference when compared to the same object coerced to a matrix, particularly the different data types in each column:
 
 
 ~~~
-is.list(dat)
+m <- as.matrix(dat)
+m
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] TRUE
+      id  x    y   
+ [1,] "a" " 1" "11"
+ [2,] "b" " 2" "12"
+ [3,] "c" " 3" "13"
+ [4,] "d" " 4" "14"
+ [5,] "e" " 5" "15"
+ [6,] "f" " 6" "16"
+ [7,] "g" " 7" "17"
+ [8,] "h" " 8" "18"
+ [9,] "i" " 9" "19"
+[10,] "j" "10" "20"
 ~~~
 {: .output}
 
+&nbsp;
+
+Converting a **data frame** to a **matrix** enforces the "single data type" requirement of the latter by coercing all elements to the most general data type already present (in this case **character**). If we try to reverse the conversion (using the `as.data.frame()` function) we lose the original data structure:
 
 
 ~~~
-is.data.frame(dat) # "data.frame" is a sub-class of "list"
+m.dat <- as.data.frame(m)
+m.dat
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] TRUE
+   id  x  y
+1   a  1 11
+2   b  2 12
+3   c  3 13
+4   d  4 14
+5   e  5 15
+6   f  6 16
+7   g  7 17
+8   h  8 18
+9   i  9 19
+10  j 10 20
+~~~
+{: .output}
+
+&nbsp;
+
+The attributes are also distinct for the two data types.
+
+
+~~~
+class(m)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "matrix" "array" 
 ~~~
 {: .output}
 
@@ -571,12 +158,107 @@ class(dat)
 ~~~
 {: .output}
 
+
+
+~~~
+attributes(m)
+~~~
+{: .language-r}
+
+
+
+~~~
+$dim
+[1] 10  3
+
+$dimnames
+$dimnames[[1]]
+NULL
+
+$dimnames[[2]]
+[1] "id" "x"  "y" 
+~~~
+{: .output}
+
+
+
+~~~
+attributes(dat)
+~~~
+{: .language-r}
+
+
+
+~~~
+$names
+[1] "id" "x"  "y" 
+
+$class
+[1] "data.frame"
+
+$row.names
+ [1]  1  2  3  4  5  6  7  8  9 10
+~~~
+{: .output}
+
+
+
+~~~
+dim(m)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 10  3
+~~~
+{: .output}
+
+
+
+~~~
+dim(dat)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 10  3
+~~~
+{: .output}
+
+&nbsp;
+
+The above features mean that **matrices** and **data frames** are suitable for different data types. For instance, **matrices** are optimized for data of the same type, and particularly data with a inherently two-dimensional structure--e.g. image data stored as pixel intensities at different x-y coordinates. **Data frames** are optimized for data sets with mixed data types--e.g. patient data with multiple phenotypes, such as patient ID (**character**), sex (**character**), body weight (**numeric**), and smoking status (**logical**). The mixed structure of data in **data frames** makes them non-suitable to matrix operations (e.g. matrix multiplication, transposition).
+
+Here is some additional information on **data frames**:
+
+* A **data frame** is created by the `read.csv()` and `read.table()` when importing the data into R (see below).
+* Assuming all columns in a data frame are of same type, data frame can be converted to a matrix with `data.matrix()` (preferred) or `as.matrix()`. Otherwise type coercion will be enforced and the results may not always be what you expect.
+* **Data frames** can be created *de novo* with the `data.frame()` or `as.data.frame()` functions.
+* Like matrices, the number of rows and columns can be queried with `nrow(dat)` and `ncol(dat)`, respectively.
+* **Data frames** can have additional attributes such as `rownames()`, which can be useful for annotating data, like `subject_id` or `sample_id`.
+* Rownames are often automatically generated to reflect the row number: `1, 2, ..., n`. Consistency in numbering of rownames may not be honored when rows are reshuffled or when a **data frame** is subsetted.
+* A common way to use data frames is with columns as "variables" (e.g. body weight, blood pressure) and rows as "patients" or "observations" (e.g. "subject 1", "subject 2", ...).
+
+Just as a **matrix** in R is a specialized **vector**, a **data frame** is a specialized **list**. More on this in today's *On Your Own* section. For now, the following table summarizes the one-dimensional and two-dimensional data structures in 
+R in relation to diversity of data types they can contain.
+
+| Dimensions | Homogenous | Heterogeneous |
+| ------- | ---- | ---- |
+| 1-D | atomic vector | list |
+| 2-D | matrix | data frame |
+
+
 &nbsp;
 #### Sample data in R
 
-R includes a default dataset that can be used for examples caused `iris`. The `iris` data frame is already defined and loaded in memory. We will use this data frame to learn how to interact with data frames. 
+R includes a number of built-in data sets that can be used to examine and test different functions and operators. The variable `iris` contains a pre-defined **data frame** that is automatically loaded into memory when R is initialized. We will use `iris` to begin learning how to interact with **data frames**. 
 
-Let's get some information on the `iris` data set:
+Let's start by looking at the documentation for the `iris` data set:
+
 
 ~~~
 ?iris
@@ -584,9 +266,8 @@ Let's get some information on the `iris` data set:
 {: .language-r}
 
 &nbsp;
-#### Useful function for examining and extracting information from data frames
 
-There are many ways to interact with data frames and get information about their contents.
+There are many ways to interact with **data frames** and get information about their contents. We have seen some of these previously:
 
 > ## Useful Data Frame Functions
 >
@@ -653,54 +334,101 @@ dim(iris)
 ~~~
 {: .output}
 
-> ## Column Types in Data Frames
->
-> Knowing that data frames are lists, can columns be of different type?
->
-> What type of structure do you expect to see when you explore the structure of the `iris` data 
-> frame? Hint: Use `str()`.
->
-> > ## Solution
-> > The Sepal.Length, Sepal.Width, Petal.Length and Petal.Width columns are all
-> > numeric types, while Species is a Factor.
-> > Lists can have elements of different types.
-> > Since a Data Frame is just a special type of list, it can have columns of
-> > differing type (although, remember that type must be consistent within each column!).
-> > 
-> > ~~~
-> > str(iris)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > 'data.frame':	150 obs. of  5 variables:
-> >  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
-> >  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
-> >  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
-> >  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
-> >  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-> > ~~~
-> > {: .output}
-> {: .solution}
-{: .challenge}
+&nbsp;
+
+We know that **data frames** can store different data types in different columns, but how do we tell which data types are present in a specific **data frame**?
+
+
+~~~
+class(iris)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "data.frame"
+~~~
+{: .output}
+
+
+
+~~~
+mode(iris)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "list"
+~~~
+{: .output}
+
+
+
+~~~
+typeof(iris)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "list"
+~~~
+{: .output}
+&nbsp;
+
+The usual functions for looking at the data type of basic variables and data structures don't seem to work. This is where the `str()` is particularly useful:
+
+
+~~~
+str(iris)
+~~~
+{: .language-r}
+
+
+
+~~~
+'data.frame':	150 obs. of  5 variables:
+ $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+ $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+ $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+ $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+ $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
+~~~
+{: .output}
+
+&nbsp;
+
+`str()` gives a lot of useful information about **data frames**:
+* number of rows (i.e. `150 obs.`)
+* number of columns (i.e. `5 variables`)
+* the name of each column (e.g. `$Sepal.Length`)
+* the data type of each column (e.g. `num`)
+* the first 10 entries in each column (e.g. `5.1, 4.9, 4.7, ...`)
+
+&nbsp;
+
+This is the same information displayed if you toggle the arrow for a **data frame** variable in the *Environment* panel (upper-right), for instance the `dat` variable we created earlier. Clicking on a variable opens a basic spreadsheet representation of the table in the *Source Editor* panel (upper-left). 
 
 &nbsp;
 #### Indexing data frames
 
-R is a powerful language for data manipulation. There are three main ways for addressing data inside R objects.
+We examined basic indexing using **vectors** and **matrices** in last week's lessons. These work the same for **data frames**. There are really three primary ways for accessing specific data inside **data frames**:
 
-* By index (subsetting)
-* By name (columns only)
+* By index
+* By name
 * By logical vector
+
+These can be combined to rapidly extract desired data subsets within **data frames**. You will be exploring these in depth *On Your Own*, but here I will give you the flavor of each.
 
 &nbsp;
 
 **By index**
 
-Because data frames are rectangular, elements of data frame can be referenced by specifying 
-the row and the column index in single square brackets (similar to matrix).
+Because **data frames** are rectangular, elements of data frame can be referenced by specifying the row and the column index in single square brackets (similar to **matrices**).
 
 
 ~~~
@@ -717,7 +445,8 @@ iris[1, 3]
 
 &nbsp;
 
-Like matrices, we can also ask for multiple columns and rows using the `:` operator:
+Like **matrices**, we can also ask for multiple columns and rows using the `:` operator:
+
 
 ~~~
 iris[1:20, 2:3]
@@ -753,7 +482,8 @@ iris[1:20, 2:3]
 
 &nbsp;
 
-Or for non-contiguous subsets using lists of indices:
+... or for non-contiguous subsets using lists of indices:
+
 
 ~~~
 iris[c(1:10,20:25), c(1,3)] # note the use of sequences within the `c()` list
@@ -784,6 +514,63 @@ iris[c(1:10,20:25), c(1,3)] # note the use of sequences within the `c()` list
 {: .output}
 
 &nbsp;
+
+As with other data types, leaving a dimension blank is interpretted as *return all values* in that dimension:
+
+
+~~~
+iris[2,] # return row 2
+~~~
+{: .language-r}
+
+
+
+~~~
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+2          4.9           3          1.4         0.2  setosa
+~~~
+{: .output}
+
+
+
+~~~
+iris[,2] # return column 2
+~~~
+{: .language-r}
+
+
+
+~~~
+  [1] 3.5 3.0 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 3.7 3.4 3.0 3.0 4.0 4.4 3.9 3.5
+ [19] 3.8 3.8 3.4 3.7 3.6 3.3 3.4 3.0 3.4 3.5 3.4 3.2 3.1 3.4 4.1 4.2 3.1 3.2
+ [37] 3.5 3.6 3.0 3.4 3.5 2.3 3.2 3.5 3.8 3.0 3.8 3.2 3.7 3.3 3.2 3.2 3.1 2.3
+ [55] 2.8 2.8 3.3 2.4 2.9 2.7 2.0 3.0 2.2 2.9 2.9 3.1 3.0 2.7 2.2 2.5 3.2 2.8
+ [73] 2.5 2.8 2.9 3.0 2.8 3.0 2.9 2.6 2.4 2.4 2.7 2.7 3.0 3.4 3.1 2.3 3.0 2.5
+ [91] 2.6 3.0 2.6 2.3 2.7 3.0 2.9 2.9 2.5 2.8 3.3 2.7 3.0 2.9 3.0 3.0 2.5 2.9
+[109] 2.5 3.6 3.2 2.7 3.0 2.5 2.8 3.2 3.0 3.8 2.6 2.2 3.2 2.8 2.8 2.7 3.3 3.2
+[127] 2.8 3.0 2.8 3.0 2.8 3.8 2.8 2.8 2.6 3.0 3.4 3.1 3.0 3.1 3.1 3.1 2.7 3.2
+[145] 3.3 3.0 2.5 3.0 3.4 3.0
+~~~
+{: .output}
+
+&nbsp;
+
+Note that the column version actually returns a vector of the data type in the requested column number, rather than a data frame with a single column:
+
+
+~~~
+class(iris[,2])
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "numeric"
+~~~
+{: .output}
+
+&nbps;
 
 What if we only ask for one dimension in data frame?
 
@@ -967,60 +754,10 @@ What if we only ask for one dimension in data frame?
 
 &nbsp;
 
-What if we include the `,`, but don't give an actual index?
 
-> ## Selecting More Values
->
-> What will be returned by `dat[, 2]`?
->
-> > ## Solution
-> > 
-> > ~~~
-> > dat[, 2]
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> >  [1]  1  2  3  4  5  6  7  8  9 10
-> > ~~~
-> > {: .output}
-> >
-> > If we leave out a dimension R will interpret this as a request for all values in 
-> > that dimension.
-> {: .solution}
-{: .challenge}
+**By name**
 
-&nbsp;
-
-**By name (columns only)**
-
-As data frames are also lists, it is possible to refer to columns (which are elements of
-such list) using the list notation, i.e. either double square brackets or a `$`.
-
-
-~~~
-# These all return the same vector:
-iris[[1]]
-~~~
-{: .language-r}
-
-
-
-~~~
-  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
- [19] 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0
- [37] 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0 6.4 6.9 5.5
- [55] 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2 5.6 5.9 6.1
- [73] 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4 6.0 6.7 6.3 5.6 5.5
- [91] 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7 6.3 5.8 7.1 6.3 6.5 7.6 4.9 7.3
-[109] 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7 6.0 6.9 5.6 7.7 6.3 6.7 7.2
-[127] 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7 6.3 6.4 6.0 6.9 6.7 6.9 5.8 6.8
-[145] 6.7 6.7 6.3 6.5 6.2 5.9
-~~~
-{: .output}
-
+**Data frames** (and **lists**; see *On Your Own* section) have a special property in that each column is considered a separate element with a unique name that can be used as a handle to call the data in that column. To exploit this feature, you can either use double square brackets (`[[]]`) or the `$`:
 
 
 ~~~
@@ -1067,34 +804,7 @@ iris$Sepal.Length
 
 &nbsp;
 
-We can ask for a set of columns using `c()`:
-
-
-~~~
-iris[1:10, c("Sepal.Length","Petal.Length")]
-~~~
-{: .language-r}
-
-
-
-~~~
-   Sepal.Length Petal.Length
-1           5.1          1.4
-2           4.9          1.4
-3           4.7          1.3
-4           4.6          1.5
-5           5.0          1.4
-6           5.4          1.7
-7           4.6          1.4
-8           5.0          1.5
-9           4.4          1.4
-10          4.9          1.5
-~~~
-{: .output}
-
-&nbsp;
-
-Named vectors can also be used in vectorized mathematical operations:
+These named columns can be used in vectorized mathematical operations:
 
 
 ~~~
@@ -1118,14 +828,16 @@ iris$Sepal.Length + iris$Petal.Length
 ~~~
 {: .output}
 
+&nbsp;
+
 > ## Default Names
 >
 > If column names are not specified, `V1, V2, ..., Vn` are automatically used as the defaults. For example, if we convert a matrix to a data frame:
 > 
 > 
 > ~~~
-> m = matrix(1:10, nrow = 2)
-> m.data = as.data.frame(m)
+> m <- matrix(1:10, nrow = 2)
+> m.data <- as.data.frame(m)
 > m.data
 > ~~~
 > {: .language-r}
@@ -1144,7 +856,7 @@ iris$Sepal.Length + iris$Petal.Length
 
 **By logical vector**
 
-Recall that a logical vector contains only the special values `TRUE` and `FALSE`.
+Recall that a logical vector contains only the special values `TRUE` and `FALSE`:
 
 
 ~~~
@@ -1161,140 +873,75 @@ c(TRUE, TRUE, FALSE, FALSE, TRUE)
 
 &nbsp;
 
-Logical vectors can be created using `relational operators`:
-* `<` = less than
-* `>` = greater than
-* `<=` = less than or equal to
-* `>=` = greater than or equal to
-* `==` = exactly equal to
-* `!=` = not equal to
-* `%in%` = is present in (to as if the value on the left is present in the vector/matrix on the right)
+**Data frames** and other data structures can accept **logical** vectors as indexing variables. Usually the length of the vector will be the same as the corresponding dimension of the **data frame**, with each vector element indicating whether the corresponding row or column in the **data frame** should be included (`TRUE`) or excluded (`FALSE`) in the output **data frame**. Let's look at a simple example using `dat`:
 
-A few single variable examples:
 
 ~~~
-1 == 1
+# grab the dimensions of dat
+dim(dat)
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] TRUE
+[1] 10  3
 ~~~
 {: .output}
 
 
 
 ~~~
-1 == 2
+# create a logical vector with 10 elements indicating that
+# elements 2, 3, and 7 should be returned
+index <- c(F,T,T,F,F,F,T,F,F,F)
+
+# use the created logical vector to index the rows of dat
+dat[index,]
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] FALSE
+  id x  y
+2  b 2 12
+3  c 3 13
+7  g 7 17
 ~~~
 {: .output}
 
+&nbsp,
+
+Logical indexing is one of the most powerful subsetting techniques in R. Generally, we won't be manually defining the index vector, but using R to generate the appropriate logical vector. We will go into more depth in the *On Your Own*, but let's look at an example and a few simple exercises to look at how logical indexing may be used in practice.
+
+Looking at the `iris` dataset, we can use the logical operator `==` to return the subset of data corresponding to the *Iris setosa* species. First, let's examine what the `==` operator does:
 
 
 ~~~
-1 != 1
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] FALSE
-~~~
-{: .output}
-
-
-
-~~~
-4 > 7
+# Which elements of a vector are exactly equal to 1?
+x <- c(3,2,1,2,1,2,1)
+x == 1
 ~~~
 {: .language-r}
 
 
 
 ~~~
-[1] FALSE
-~~~
-{: .output}
-
-
-
-~~~
-18 %in% 1:10
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] FALSE
-~~~
-{: .output}
-
-
-
-~~~
-18 %in% 15:25
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
+[1] FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE
 ~~~
 {: .output}
 
 &nbsp;
 
-We can use these operators to query entire vectors and generate logical vectors:
+The expression `x == 1` automatically returns a logical vector of the same length as `x` with `TRUE` elements where `x` is exactly `1` and `FALSE` elements where `x` is not exactly `1`. Let's apply this to our `iris` data set:
 
 
 ~~~
-# creating logical vectors from numeric data
-x <- c(1, 2, 3, 11, 12, 13)
-x < 10
-~~~
-{: .language-r}
-
-
-
-~~~
-[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE
-~~~
-{: .output}
-
-
-
-~~~
-x %in% 1:10
-~~~
-{: .language-r}
-
-
-
-~~~
-[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE
-~~~
-{: .output}
-
-&nbsp;
-
-We can use logical vectors to select data from a data frame.
-
-
-~~~
-index <- iris$Species == 'setosa'
-index
+# create a vector indicating which elements of the iris "Species"
+# variable are equal to "setosa"
+i.setosa <- iris$Species == "setosa"
+i.setosa
 ~~~
 {: .language-r}
 
@@ -1320,7 +967,10 @@ index
 
 
 ~~~
-iris[index,]
+# use the vector to extract the subset of the iris data for flowers
+# of the "Iris setosa" species
+setosa <- iris[i.setosa,] # don't forget to specify "all" columns!
+setosa
 ~~~
 {: .language-r}
 
@@ -1380,651 +1030,660 @@ iris[index,]
 50          5.0         3.3          1.4         0.2  setosa
 ~~~
 {: .output}
+
+
+
+~~~
+# note that you can also just do this all on one line:
+setosa <- iris[iris$Species == "setosa",]
+~~~
+{: .language-r}
 
 &nbsp;
-
-Often this operation is written as one line of code:
-
-
-~~~
-iris[iris$Species == 'setosa', ]
-~~~
-{: .language-r}
-
-
-
-~~~
-   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-1           5.1         3.5          1.4         0.2  setosa
-2           4.9         3.0          1.4         0.2  setosa
-3           4.7         3.2          1.3         0.2  setosa
-4           4.6         3.1          1.5         0.2  setosa
-5           5.0         3.6          1.4         0.2  setosa
-6           5.4         3.9          1.7         0.4  setosa
-7           4.6         3.4          1.4         0.3  setosa
-8           5.0         3.4          1.5         0.2  setosa
-9           4.4         2.9          1.4         0.2  setosa
-10          4.9         3.1          1.5         0.1  setosa
-11          5.4         3.7          1.5         0.2  setosa
-12          4.8         3.4          1.6         0.2  setosa
-13          4.8         3.0          1.4         0.1  setosa
-14          4.3         3.0          1.1         0.1  setosa
-15          5.8         4.0          1.2         0.2  setosa
-16          5.7         4.4          1.5         0.4  setosa
-17          5.4         3.9          1.3         0.4  setosa
-18          5.1         3.5          1.4         0.3  setosa
-19          5.7         3.8          1.7         0.3  setosa
-20          5.1         3.8          1.5         0.3  setosa
-21          5.4         3.4          1.7         0.2  setosa
-22          5.1         3.7          1.5         0.4  setosa
-23          4.6         3.6          1.0         0.2  setosa
-24          5.1         3.3          1.7         0.5  setosa
-25          4.8         3.4          1.9         0.2  setosa
-26          5.0         3.0          1.6         0.2  setosa
-27          5.0         3.4          1.6         0.4  setosa
-28          5.2         3.5          1.5         0.2  setosa
-29          5.2         3.4          1.4         0.2  setosa
-30          4.7         3.2          1.6         0.2  setosa
-31          4.8         3.1          1.6         0.2  setosa
-32          5.4         3.4          1.5         0.4  setosa
-33          5.2         4.1          1.5         0.1  setosa
-34          5.5         4.2          1.4         0.2  setosa
-35          4.9         3.1          1.5         0.2  setosa
-36          5.0         3.2          1.2         0.2  setosa
-37          5.5         3.5          1.3         0.2  setosa
-38          4.9         3.6          1.4         0.1  setosa
-39          4.4         3.0          1.3         0.2  setosa
-40          5.1         3.4          1.5         0.2  setosa
-41          5.0         3.5          1.3         0.3  setosa
-42          4.5         2.3          1.3         0.3  setosa
-43          4.4         3.2          1.3         0.2  setosa
-44          5.0         3.5          1.6         0.6  setosa
-45          5.1         3.8          1.9         0.4  setosa
-46          4.8         3.0          1.4         0.3  setosa
-47          5.1         3.8          1.6         0.2  setosa
-48          4.6         3.2          1.4         0.2  setosa
-49          5.3         3.7          1.5         0.2  setosa
-50          5.0         3.3          1.4         0.2  setosa
-~~~
-{: .output}
-
-> ## Using logical indices
+> ## Subsetting sepal length
 >
-> Create a new data frame that is the subset of `iris` with sepal length greater than or
-> equal to 5.0.
+> Use the `>` operator to create a new data frame that is the subset of `iris` with sepal length greater than 5.0 for the species.
 > 
 > > ## Solution
 > > 
 > > ~~~
-> > iris.new = iris[iris$Sepal.Length > 5,]
+> > iris.new <- iris[iris$Sepal.Length > 5,]
 > > ~~~
 > > {: .language-r}
 > {: .solution}
 {: .challenge}
 
-&nbsp;
+> ## Comparing variables -- petal aspect ratio
+>
+> Create a new data frame that includes all flowers for which the petal length is less than 3x the petal width.
+> 
+> > ## Solution
+> > 
+> > ~~~
+> > iris.new <- iris[iris$Petal.Length < 3 * iris$Petal.Width,]
+> > ~~~
+> > {: .language-r}
+> {: .solution}
+{: .challenge}
 
-In addition to the numeric comparisons, there are a set of operators that compare logical variables and output a new logical variable:
-* `!` = NOT (changes `TRUE` to `FALSE` and vice versa)
-* `&` = element-wise AND (both are true; outputs vector for vector input comparing elements)
-* `&&` = logical AND (both are true; only considers first index of a vector)
-* `|` = element-wise OR (one or both are true; outputs vector for vector input comparing elements)
-* `&&` = logical OR (both are true; only considers first index of a vector)
-
-
-~~~
-truth = c(TRUE, FALSE, TRUE, TRUE)
-lie = !truth
-truth
-~~~
-{: .language-r}
-
-
-
-~~~
-[1]  TRUE FALSE  TRUE  TRUE
-~~~
-{: .output}
-
-
-
-~~~
-lie
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] FALSE  TRUE FALSE FALSE
-~~~
-{: .output}
-
-
-
-~~~
-T & T
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
-~~~
-{: .output}
-
-
-
-~~~
-T & F
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] FALSE
-~~~
-{: .output}
-
-
-
-~~~
-T | F
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] TRUE
-~~~
-{: .output}
-
-
-
-~~~
-F | F
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] FALSE
-~~~
-{: .output}
+> ## Combining concepts -- subsetting and counting
+>
+> How many flower of each species in the current data set have petal length less than 3x the petal width?
+> 
+> > ## Solution
+> > 
+> > ~~~
+> > # First subset on the aspect ratio as in the previous exercise
+> > iris.new <- iris[iris$Petal.Length < 3 * iris$Petal.Width,]
+> > 
+> > # Now we have several options.
+> > # Option 1: Subset on species, then look at dimensions:
+> > iris.setosa <- iris.new[iris.new$Species == "setosa",]
+> > iris.versicolor <- iris.new[iris.new$Species == "versicolor",]
+> > iris.virginica <- iris.new[iris.new$Species == "virginica",]
+> > dim(iris.setosa)[1] # index dimensions to return # of rows
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 1
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > dim(iris.versicolor)[1]
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 8
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > dim(iris.virginica) [1]
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 34
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # Option 2: Use logical == combined with sum() to count each 
+> > # species name in the new data frame
+> > sum(iris.new$Species == "setosa")
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 1
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > sum(iris.new$Species == "versicolor")
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 8
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > sum(iris.new$Species == "virginica")
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > [1] 34
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
 
 ***
-### Exercises
+### Reading data from a tabulated file (.csv, .txt)
 
-> ## Using logical indices
->
-> Create a new data frame that is the subset of `iris` with sepal length greater than or > equal to 5.0 for the setosa species.
-> 
-> > ## Solution
-> > 
-> > ~~~
-> > iris.new = iris[iris$Sepal.Length > 5 & iris$Species == "setosa",]
-> > ~~~
-> > {: .language-r}
-> {: .solution}
-{: .challenge}
+In the majority of cases, your data will be stored in some type of external file. The most common way that scientists store data is in Excel spreadsheets. While there are R packages designed to access data directly from Excel spreadsheets--the best I have found so far is `readxl`, for those who have need--these packages are often difficult and non-intuitive to use. Opening Excel spreadsheets from R is also slow, and it is not uncommon for large datasets to exceed the size limits of Excel. It is usually easier and faster to save tabular data in one or more [comma-separated values]({{ page.root }}/reference.html#comma-separated-values-csv) (*CSV* or *.csv*) or text (*TXT* or *.txt*) files and then use R's built in functionality to read and manipulate the data. Both file types are primitive forms of spreadsheet data anyway, in which data is stored as text with distinct data elements separated by a *delimiting character*--a comma `,` for *.csv* files and usually a tab (denoted `\t` in R) for *.txt* files.
 
-> ## Subsetting using a vector or name
->
-> Use the colon operator to index the first five observations of just the sepal  
-> length and species from `iris`
->
-> > ## Solution
-> > Two options:
-> > 
-> > ~~~
-> > iris[1:5, c(1,5)]
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> >   Sepal.Length Species
-> > 1          5.1  setosa
-> > 2          4.9  setosa
-> > 3          4.7  setosa
-> > 4          4.6  setosa
-> > 5          5.0  setosa
-> > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > iris[1:5,c("Sepal.Length","Species")]
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> >   Sepal.Length Species
-> > 1          5.1  setosa
-> > 2          4.9  setosa
-> > 3          4.7  setosa
-> > 4          4.6  setosa
-> > 5          5.0  setosa
-> > ~~~
-> > {: .output}
-> {: .solution}
-{: .challenge}
+Thankfully, Excel is capable of opening, editing, and saving both *.csv* and *.txt* files, so we can go back and forth between R and Excel when we find it convenient. 
 
-> ## Subsetting with Sequences
->
-> Use the colon operator to index just the data on sepal size from `iris`
->
-> > ## Solution
-> > 
-> > ~~~
-> > iris[, 1:2]
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> >     Sepal.Length Sepal.Width
-> > 1            5.1         3.5
-> > 2            4.9         3.0
-> > 3            4.7         3.2
-> > 4            4.6         3.1
-> > 5            5.0         3.6
-> > 6            5.4         3.9
-> > 7            4.6         3.4
-> > 8            5.0         3.4
-> > 9            4.4         2.9
-> > 10           4.9         3.1
-> > 11           5.4         3.7
-> > 12           4.8         3.4
-> > 13           4.8         3.0
-> > 14           4.3         3.0
-> > 15           5.8         4.0
-> > 16           5.7         4.4
-> > 17           5.4         3.9
-> > 18           5.1         3.5
-> > 19           5.7         3.8
-> > 20           5.1         3.8
-> > 21           5.4         3.4
-> > 22           5.1         3.7
-> > 23           4.6         3.6
-> > 24           5.1         3.3
-> > 25           4.8         3.4
-> > 26           5.0         3.0
-> > 27           5.0         3.4
-> > 28           5.2         3.5
-> > 29           5.2         3.4
-> > 30           4.7         3.2
-> > 31           4.8         3.1
-> > 32           5.4         3.4
-> > 33           5.2         4.1
-> > 34           5.5         4.2
-> > 35           4.9         3.1
-> > 36           5.0         3.2
-> > 37           5.5         3.5
-> > 38           4.9         3.6
-> > 39           4.4         3.0
-> > 40           5.1         3.4
-> > 41           5.0         3.5
-> > 42           4.5         2.3
-> > 43           4.4         3.2
-> > 44           5.0         3.5
-> > 45           5.1         3.8
-> > 46           4.8         3.0
-> > 47           5.1         3.8
-> > 48           4.6         3.2
-> > 49           5.3         3.7
-> > 50           5.0         3.3
-> > 51           7.0         3.2
-> > 52           6.4         3.2
-> > 53           6.9         3.1
-> > 54           5.5         2.3
-> > 55           6.5         2.8
-> > 56           5.7         2.8
-> > 57           6.3         3.3
-> > 58           4.9         2.4
-> > 59           6.6         2.9
-> > 60           5.2         2.7
-> > 61           5.0         2.0
-> > 62           5.9         3.0
-> > 63           6.0         2.2
-> > 64           6.1         2.9
-> > 65           5.6         2.9
-> > 66           6.7         3.1
-> > 67           5.6         3.0
-> > 68           5.8         2.7
-> > 69           6.2         2.2
-> > 70           5.6         2.5
-> > 71           5.9         3.2
-> > 72           6.1         2.8
-> > 73           6.3         2.5
-> > 74           6.1         2.8
-> > 75           6.4         2.9
-> > 76           6.6         3.0
-> > 77           6.8         2.8
-> > 78           6.7         3.0
-> > 79           6.0         2.9
-> > 80           5.7         2.6
-> > 81           5.5         2.4
-> > 82           5.5         2.4
-> > 83           5.8         2.7
-> > 84           6.0         2.7
-> > 85           5.4         3.0
-> > 86           6.0         3.4
-> > 87           6.7         3.1
-> > 88           6.3         2.3
-> > 89           5.6         3.0
-> > 90           5.5         2.5
-> > 91           5.5         2.6
-> > 92           6.1         3.0
-> > 93           5.8         2.6
-> > 94           5.0         2.3
-> > 95           5.6         2.7
-> > 96           5.7         3.0
-> > 97           5.7         2.9
-> > 98           6.2         2.9
-> > 99           5.1         2.5
-> > 100          5.7         2.8
-> > 101          6.3         3.3
-> > 102          5.8         2.7
-> > 103          7.1         3.0
-> > 104          6.3         2.9
-> > 105          6.5         3.0
-> > 106          7.6         3.0
-> > 107          4.9         2.5
-> > 108          7.3         2.9
-> > 109          6.7         2.5
-> > 110          7.2         3.6
-> > 111          6.5         3.2
-> > 112          6.4         2.7
-> > 113          6.8         3.0
-> > 114          5.7         2.5
-> > 115          5.8         2.8
-> > 116          6.4         3.2
-> > 117          6.5         3.0
-> > 118          7.7         3.8
-> > 119          7.7         2.6
-> > 120          6.0         2.2
-> > 121          6.9         3.2
-> > 122          5.6         2.8
-> > 123          7.7         2.8
-> > 124          6.3         2.7
-> > 125          6.7         3.3
-> > 126          7.2         3.2
-> > 127          6.2         2.8
-> > 128          6.1         3.0
-> > 129          6.4         2.8
-> > 130          7.2         3.0
-> > 131          7.4         2.8
-> > 132          7.9         3.8
-> > 133          6.4         2.8
-> > 134          6.3         2.8
-> > 135          6.1         2.6
-> > 136          7.7         3.0
-> > 137          6.3         3.4
-> > 138          6.4         3.1
-> > 139          6.0         3.0
-> > 140          6.9         3.1
-> > 141          6.7         3.1
-> > 142          6.9         3.1
-> > 143          5.8         2.7
-> > 144          6.8         3.2
-> > 145          6.7         3.3
-> > 146          6.7         3.0
-> > 147          6.3         2.5
-> > 148          6.5         3.0
-> > 149          6.2         3.4
-> > 150          5.9         3.0
-> > ~~~
-> > {: .output}
-> {: .solution}
-{: .challenge}
+Here we will learn how to read external data from a *.csv* or *.txt* file, and write data modified or generated in R to a new *.csv* or *.txt* file. We will also explore the [arguments]({{ page.root }}/reference.html#argument) that allow you read and write the data correctly for your needs.
 
-> ## Adding a new variable
+&nbsp;
+#### Loading external data into a data frame
+
+Let's start by loading some sample data in *.csv* format using the `read.csv()` function and take a look at the first few rows of the contents using the `head()` function:
+
+
+~~~
+dat <- read.csv(file = 'data/sample.csv')
+head(dat)
+~~~
+{: .language-r}
+
+
+
+~~~
+      ID Gender      Group BloodPressure  Age Aneurisms_q1 Aneurisms_q2
+1 Sub001      m    Control           132 16.0          114          140
+2 Sub002      m Treatment2           139 17.2          148          209
+3 Sub003      m Treatment2           130 19.5          196          251
+4 Sub004      f Treatment1           105 15.7          199          140
+5 Sub005      m Treatment1           125 19.9          188          120
+6 Sub006      M Treatment2           112 14.3          260          266
+  Aneurisms_q3 Aneurisms_q4
+1          202          237
+2          248          248
+3          122          177
+4          233          220
+5          222          228
+6          320          294
+~~~
+{: .output}
+
+&nbsp;
+
+Open up the same file using a basic text editor (e.g. *Notepad* in Windows; *TextEdit* in MacOS). You should see something like this:
+
+> "ID","Gender","Group","BloodPressure","Age","Aneurisms_q1","Aneurisms_q2","Aneurisms_q3","Aneurisms_q4" 
+> "Sub001","m","Control",132,16,114,140,202,237
+> "Sub002","m","Treatment2",139,17.2,148,209,248,248
+> "Sub003","m","Treatment2",130,19.5,196,251,122,177
+> "Sub004","f","Treatment1",105,15.7,199,140,233,220
+> "Sub005","m","Treatment1",125,19.9,188,120,222,228
+> "Sub006","M","Treatment2",112,14.3,260,266,320,294
+{: .callout}
+
+&nbsp;
+
+A couple of things to notice:
+* The first line contains column headers.
+* The `,` delimiters tell the `read.csv(...)` function where the breaks in the data are located; that is, which data to put in which column of the output data frame.
+* Each new line is also a delimiter that tells `read.csv(...)` which data to put in which row in the output data frame
+* In this case, all strings are contained within quotation marks `""`. This is an optional way to tell the program where character strings start and stop. 
+
+On the topic of using quotation marks, open `sample-noquotes.csv` in your text editor to see the quote-free option:
+
+> ID,Gender,Group,BloodPressure,Age,Aneurisms_q1,Aneurisms_q2,Aneurisms_q3,Aneurisms_q4 
+> Sub001,m,Control,132,16,114,140,202,237
+> Sub002,m,Treatment2,139,17.2,148,209,248,248
+> Sub003,m,Treatment2,130,19.5,196,251,122,177
+> Sub004,f,Treatment1,105,15.7,199,140,233,220
+> Sub005,m,Treatment1,125,19.9,188,120,222,228
+> Sub006,M,Treatment2,112,14.3,260,266,320,294
+{: .callout}
+
+&nbsp;
+
+And note that the default `read.csv(...)` treats this file identically:
+
+
+~~~
+dat2 <- read.csv(file = 'data/sample-noquotes.csv')
+head(dat2)
+~~~
+{: .language-r}
+
+
+
+~~~
+      ID Gender      Group BloodPressure  Age Aneurisms_q1 Aneurisms_q2
+1 Sub001      m    Control           132 16.0          114          140
+2 Sub002      m Treatment2           139 17.2          148          209
+3 Sub003      m Treatment2           130 19.5          196          251
+4 Sub004      f Treatment1           105 15.7          199          140
+5 Sub005      m Treatment1           125 19.9          188          120
+6 Sub006      M Treatment2           112 14.3          260          266
+  Aneurisms_q3 Aneurisms_q4
+1          202          237
+2          248          248
+3          122          177
+4          233          220
+5          222          228
+6          320          294
+~~~
+{: .output}
+
+&nbsp;
+
+Whether to use quotes in your data files is up to you. The default behavior of `read.csv(...)` is smart enough to figure this out on it's own. However, the `read.csv(...)` has an argument called `quote` that dictates how to interpret quotation marks. 
+
+> ## Mis-loading quoted data
 >
-> We want to add a variable called "Petal.Color" the `iris` data frame to record a new set of 
-> observations. Let's first define a new data frame 'iris.update' (so as not to modify our original raw data).
-> 
+> What if we force `read.csv()` to ignore the quotes when they are present?
+> Before you run any code, think about what will happen to the data in quotes
+> if we tell R that there are no "quote" characters.
+>
 > 
 > ~~~
-> iris.update = iris
+> dat3 <- read.csv(file = 'data/sample.csv', quote="")
+> head(dat3)
 > ~~~
 > {: .language-r}
-> 
-> Now, to initialize the variable, add a new character column to your data frame populated with
-> no values to indicate that we have not recorded any observations.
-> 
+>
 > > ## Solution
 > > 
-> > We have a couple of options:
-> > 
-> > 1) Define the vector and append it to the data frame using `cbind()`:
-> > 
-> > 
-> > ~~~
-> > Petal.Color = character(length = dim(iris.update)[1]) # use the dim function to figure out how long to make the new vector
-> > iris.update = cbind(iris.update, Petal.Color)
-> > head(iris.update)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> >   Sepal.Length Sepal.Width Petal.Length Petal.Width Species Petal.Color
-> > 1          5.1         3.5          1.4         0.2  setosa            
-> > 2          4.9         3.0          1.4         0.2  setosa            
-> > 3          4.7         3.2          1.3         0.2  setosa            
-> > 4          4.6         3.1          1.5         0.2  setosa            
-> > 5          5.0         3.6          1.4         0.2  setosa            
-> > 6          5.4         3.9          1.7         0.4  setosa            
-> > ~~~
-> > {: .output}
-> > 2) Directly populate the new column while creating it:
-> > 
-> > 
-> > ~~~
-> > iris.update$Petal.Color = as.character("")
-> > head(iris.update)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> >   Sepal.Length Sepal.Width Petal.Length Petal.Width Species Petal.Color
-> > 1          5.1         3.5          1.4         0.2  setosa            
-> > 2          4.9         3.0          1.4         0.2  setosa            
-> > 3          4.7         3.2          1.3         0.2  setosa            
-> > 4          4.6         3.1          1.5         0.2  setosa            
-> > 5          5.0         3.6          1.4         0.2  setosa            
-> > 6          5.4         3.9          1.7         0.4  setosa            
-> > ~~~
-> > {: .output}
-> > 
-> > There are also other ways to accomplish this task.
+> > The quotes are now included as part of the character arguments. It also messed up the header 
+> > formatting, appending an "X" to the beginning and surrounding text with "."ss.
+> > Perhaps surprisingly, it does interpret teh numbers as numbers, rather than number "characters"
+> > with quotation marks around them.
 > {: .solution}
 {: .challenge}
 
-> ## Updating a Subset of Values
+&nbsp;
+
+What happens if we don't assign the output of `read.csv(...)` to a variable?
+
+
+~~~
+read.csv(file = 'data/sample.csv')
+~~~
+{: .language-r}
+
+&nbsp;
+
+As with any other function call, if the output is not explicitly assigned, it will be dumped into the console window. This can be annoying with large data files. Remember to assign your `read...()` functions!
+
+&nbsp;
+#### Changing Delimiters
+
+The default delimiter in the `read.csv()` function is a comma `,`, but you can
+use essentially any set of characters as a delimiter. `read.csv(...)` is actually a special case of a more general function called `read.table(...)`, with the delimiter argument (which is defined by the argument `sep`, for "separator") set to `,` by default. Check out the help file for these functions:
+
+
+~~~
+?read.table # note that `?read.csv` brings up the same help document.
+~~~
+{: .language-r}
+
+&nbsp;
+
+Under the **Usage** section there are multiple functions listed, including `read.table(...)` and `read.csv(...)`. In the parentheses for each function there is a list of arguments. Since `read.table(...)` is the parent function, all arguments are listed. Only arguments with different default values (as indicated by the `=`) are listed for `read.csv(...)`. A default value is the value that each argument assumes when you do not explicitly enter a value. For example, `read.table(...)` assumes that a data file has no header (`header = FALSE`) and no delimiting character (`sep = ""`) while `read.csv(...)` assumes that a data file does have a header (`header = TRUE`) and a comma as the delimiting character (`sep = ","`), unless you specify otherwise.
+
+If your data is stored in a tab-delimited text file, you will need to use `read.table(...)` with a different delimiting character, or another of the associated functions called `read.delim(...)` which has defaults to a tab-delimited file format. Note that to define a *tab* as a delimiting character, you have to use `\t`.
+
+Let's give it a try using a copy of the `sample.csv` data saved as a tab-delimited `sample.txt` file.
+
+*Note:* From the help file, `read.delim(...)` defaults to `header = TRUE` while we have to explicitly define it when using `read.table(...)`. We will talk about what this means in the next section.
+
+
+~~~
+# note that read
+dat4 <- read.delim(file = 'data/sample.txt')
+dat5 <- read.table(file = 'data/sample.txt', header = TRUE)
+head(dat4)
+~~~
+{: .language-r}
+
+
+
+~~~
+      ID Gender      Group BloodPressure  Age Aneurisms_q1 Aneurisms_q2
+1 Sub001      m    Control           132 16.0          114          140
+2 Sub002      m Treatment2           139 17.2          148          209
+3 Sub003      m Treatment2           130 19.5          196          251
+4 Sub004      f Treatment1           105 15.7          199          140
+5 Sub005      m Treatment1           125 19.9          188          120
+6 Sub006      M Treatment2           112 14.3          260          266
+  Aneurisms_q3 Aneurisms_q4
+1          202          237
+2          248          248
+3          122          177
+4          233          220
+5          222          228
+6          320          294
+~~~
+{: .output}
+
+
+
+~~~
+head(dat5)
+~~~
+{: .language-r}
+
+
+
+~~~
+      ID Gender      Group BloodPressure  Age Aneurisms_q1 Aneurisms_q2
+1 Sub001      m    Control           132 16.0          114          140
+2 Sub002      m Treatment2           139 17.2          148          209
+3 Sub003      m Treatment2           130 19.5          196          251
+4 Sub004      f Treatment1           105 15.7          199          140
+5 Sub005      m Treatment1           125 19.9          188          120
+6 Sub006      M Treatment2           112 14.3          260          266
+  Aneurisms_q3 Aneurisms_q4
+1          202          237
+2          248          248
+3          122          177
+4          233          220
+5          222          228
+6          320          294
+~~~
+{: .output}
+
+&nbsp;
+
+Now let's take a closer look at a couple of useful arguments in `read.table(...)` family of functions.
+
+&nbsp;
+#### The `header` argument
+
+The default for `read.csv(...)` and `read.delim(...)` is to set the `header` argument to `TRUE`. This means that the first row of values in the *.csv* or *.txt* is used to define the column names for the output **data frame**. If your dataset does not have a header, set the `header` argument to `FALSE`.
+
+> ## Mis-loading data with headers
 >
-> Update the `iris.update` data frame by indicating that the "setosa" species had purple petals (without
-> changing the values for the other species).
+> What happens if you forget to put `header = FALSE` when loading a *.csv*
+> file with `read.csv()`? The default value is `header = TRUE`, which you can 
+> check with `?read.csv` or `help(read.csv)`. What do you expect will happen if > you leave the default value?
+>
+> Before you run any code, think about what will happen to the first few rows
+> of your data frame, and its overall size. Then run the following code and
+> see if your expectations agree:
+>
 > 
+> ~~~
+> dat6 <- read.csv(file = 'data/sample.csv', header = FALSE)
+> head(dat6)
+> ~~~
+> {: .language-r}
+>
 > > ## Solution
-> > 
-> > ~~~
-> > iris.update[iris.update$Species == "setosa", ]$Petal.Color <- "purple"
-> > iris.update
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> >     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Color
-> > 1            5.1         3.5          1.4         0.2     setosa      purple
-> > 2            4.9         3.0          1.4         0.2     setosa      purple
-> > 3            4.7         3.2          1.3         0.2     setosa      purple
-> > 4            4.6         3.1          1.5         0.2     setosa      purple
-> > 5            5.0         3.6          1.4         0.2     setosa      purple
-> > 6            5.4         3.9          1.7         0.4     setosa      purple
-> > 7            4.6         3.4          1.4         0.3     setosa      purple
-> > 8            5.0         3.4          1.5         0.2     setosa      purple
-> > 9            4.4         2.9          1.4         0.2     setosa      purple
-> > 10           4.9         3.1          1.5         0.1     setosa      purple
-> > 11           5.4         3.7          1.5         0.2     setosa      purple
-> > 12           4.8         3.4          1.6         0.2     setosa      purple
-> > 13           4.8         3.0          1.4         0.1     setosa      purple
-> > 14           4.3         3.0          1.1         0.1     setosa      purple
-> > 15           5.8         4.0          1.2         0.2     setosa      purple
-> > 16           5.7         4.4          1.5         0.4     setosa      purple
-> > 17           5.4         3.9          1.3         0.4     setosa      purple
-> > 18           5.1         3.5          1.4         0.3     setosa      purple
-> > 19           5.7         3.8          1.7         0.3     setosa      purple
-> > 20           5.1         3.8          1.5         0.3     setosa      purple
-> > 21           5.4         3.4          1.7         0.2     setosa      purple
-> > 22           5.1         3.7          1.5         0.4     setosa      purple
-> > 23           4.6         3.6          1.0         0.2     setosa      purple
-> > 24           5.1         3.3          1.7         0.5     setosa      purple
-> > 25           4.8         3.4          1.9         0.2     setosa      purple
-> > 26           5.0         3.0          1.6         0.2     setosa      purple
-> > 27           5.0         3.4          1.6         0.4     setosa      purple
-> > 28           5.2         3.5          1.5         0.2     setosa      purple
-> > 29           5.2         3.4          1.4         0.2     setosa      purple
-> > 30           4.7         3.2          1.6         0.2     setosa      purple
-> > 31           4.8         3.1          1.6         0.2     setosa      purple
-> > 32           5.4         3.4          1.5         0.4     setosa      purple
-> > 33           5.2         4.1          1.5         0.1     setosa      purple
-> > 34           5.5         4.2          1.4         0.2     setosa      purple
-> > 35           4.9         3.1          1.5         0.2     setosa      purple
-> > 36           5.0         3.2          1.2         0.2     setosa      purple
-> > 37           5.5         3.5          1.3         0.2     setosa      purple
-> > 38           4.9         3.6          1.4         0.1     setosa      purple
-> > 39           4.4         3.0          1.3         0.2     setosa      purple
-> > 40           5.1         3.4          1.5         0.2     setosa      purple
-> > 41           5.0         3.5          1.3         0.3     setosa      purple
-> > 42           4.5         2.3          1.3         0.3     setosa      purple
-> > 43           4.4         3.2          1.3         0.2     setosa      purple
-> > 44           5.0         3.5          1.6         0.6     setosa      purple
-> > 45           5.1         3.8          1.9         0.4     setosa      purple
-> > 46           4.8         3.0          1.4         0.3     setosa      purple
-> > 47           5.1         3.8          1.6         0.2     setosa      purple
-> > 48           4.6         3.2          1.4         0.2     setosa      purple
-> > 49           5.3         3.7          1.5         0.2     setosa      purple
-> > 50           5.0         3.3          1.4         0.2     setosa      purple
-> > 51           7.0         3.2          4.7         1.4 versicolor            
-> > 52           6.4         3.2          4.5         1.5 versicolor            
-> > 53           6.9         3.1          4.9         1.5 versicolor            
-> > 54           5.5         2.3          4.0         1.3 versicolor            
-> > 55           6.5         2.8          4.6         1.5 versicolor            
-> > 56           5.7         2.8          4.5         1.3 versicolor            
-> > 57           6.3         3.3          4.7         1.6 versicolor            
-> > 58           4.9         2.4          3.3         1.0 versicolor            
-> > 59           6.6         2.9          4.6         1.3 versicolor            
-> > 60           5.2         2.7          3.9         1.4 versicolor            
-> > 61           5.0         2.0          3.5         1.0 versicolor            
-> > 62           5.9         3.0          4.2         1.5 versicolor            
-> > 63           6.0         2.2          4.0         1.0 versicolor            
-> > 64           6.1         2.9          4.7         1.4 versicolor            
-> > 65           5.6         2.9          3.6         1.3 versicolor            
-> > 66           6.7         3.1          4.4         1.4 versicolor            
-> > 67           5.6         3.0          4.5         1.5 versicolor            
-> > 68           5.8         2.7          4.1         1.0 versicolor            
-> > 69           6.2         2.2          4.5         1.5 versicolor            
-> > 70           5.6         2.5          3.9         1.1 versicolor            
-> > 71           5.9         3.2          4.8         1.8 versicolor            
-> > 72           6.1         2.8          4.0         1.3 versicolor            
-> > 73           6.3         2.5          4.9         1.5 versicolor            
-> > 74           6.1         2.8          4.7         1.2 versicolor            
-> > 75           6.4         2.9          4.3         1.3 versicolor            
-> > 76           6.6         3.0          4.4         1.4 versicolor            
-> > 77           6.8         2.8          4.8         1.4 versicolor            
-> > 78           6.7         3.0          5.0         1.7 versicolor            
-> > 79           6.0         2.9          4.5         1.5 versicolor            
-> > 80           5.7         2.6          3.5         1.0 versicolor            
-> > 81           5.5         2.4          3.8         1.1 versicolor            
-> > 82           5.5         2.4          3.7         1.0 versicolor            
-> > 83           5.8         2.7          3.9         1.2 versicolor            
-> > 84           6.0         2.7          5.1         1.6 versicolor            
-> > 85           5.4         3.0          4.5         1.5 versicolor            
-> > 86           6.0         3.4          4.5         1.6 versicolor            
-> > 87           6.7         3.1          4.7         1.5 versicolor            
-> > 88           6.3         2.3          4.4         1.3 versicolor            
-> > 89           5.6         3.0          4.1         1.3 versicolor            
-> > 90           5.5         2.5          4.0         1.3 versicolor            
-> > 91           5.5         2.6          4.4         1.2 versicolor            
-> > 92           6.1         3.0          4.6         1.4 versicolor            
-> > 93           5.8         2.6          4.0         1.2 versicolor            
-> > 94           5.0         2.3          3.3         1.0 versicolor            
-> > 95           5.6         2.7          4.2         1.3 versicolor            
-> > 96           5.7         3.0          4.2         1.2 versicolor            
-> > 97           5.7         2.9          4.2         1.3 versicolor            
-> > 98           6.2         2.9          4.3         1.3 versicolor            
-> > 99           5.1         2.5          3.0         1.1 versicolor            
-> > 100          5.7         2.8          4.1         1.3 versicolor            
-> > 101          6.3         3.3          6.0         2.5  virginica            
-> > 102          5.8         2.7          5.1         1.9  virginica            
-> > 103          7.1         3.0          5.9         2.1  virginica            
-> > 104          6.3         2.9          5.6         1.8  virginica            
-> > 105          6.5         3.0          5.8         2.2  virginica            
-> > 106          7.6         3.0          6.6         2.1  virginica            
-> > 107          4.9         2.5          4.5         1.7  virginica            
-> > 108          7.3         2.9          6.3         1.8  virginica            
-> > 109          6.7         2.5          5.8         1.8  virginica            
-> > 110          7.2         3.6          6.1         2.5  virginica            
-> > 111          6.5         3.2          5.1         2.0  virginica            
-> > 112          6.4         2.7          5.3         1.9  virginica            
-> > 113          6.8         3.0          5.5         2.1  virginica            
-> > 114          5.7         2.5          5.0         2.0  virginica            
-> > 115          5.8         2.8          5.1         2.4  virginica            
-> > 116          6.4         3.2          5.3         2.3  virginica            
-> > 117          6.5         3.0          5.5         1.8  virginica            
-> > 118          7.7         3.8          6.7         2.2  virginica            
-> > 119          7.7         2.6          6.9         2.3  virginica            
-> > 120          6.0         2.2          5.0         1.5  virginica            
-> > 121          6.9         3.2          5.7         2.3  virginica            
-> > 122          5.6         2.8          4.9         2.0  virginica            
-> > 123          7.7         2.8          6.7         2.0  virginica            
-> > 124          6.3         2.7          4.9         1.8  virginica            
-> > 125          6.7         3.3          5.7         2.1  virginica            
-> > 126          7.2         3.2          6.0         1.8  virginica            
-> > 127          6.2         2.8          4.8         1.8  virginica            
-> > 128          6.1         3.0          4.9         1.8  virginica            
-> > 129          6.4         2.8          5.6         2.1  virginica            
-> > 130          7.2         3.0          5.8         1.6  virginica            
-> > 131          7.4         2.8          6.1         1.9  virginica            
-> > 132          7.9         3.8          6.4         2.0  virginica            
-> > 133          6.4         2.8          5.6         2.2  virginica            
-> > 134          6.3         2.8          5.1         1.5  virginica            
-> > 135          6.1         2.6          5.6         1.4  virginica            
-> > 136          7.7         3.0          6.1         2.3  virginica            
-> > 137          6.3         3.4          5.6         2.4  virginica            
-> > 138          6.4         3.1          5.5         1.8  virginica            
-> > 139          6.0         3.0          4.8         1.8  virginica            
-> > 140          6.9         3.1          5.4         2.1  virginica            
-> > 141          6.7         3.1          5.6         2.4  virginica            
-> > 142          6.9         3.1          5.1         2.3  virginica            
-> > 143          5.8         2.7          5.1         1.9  virginica            
-> > 144          6.8         3.2          5.9         2.3  virginica            
-> > 145          6.7         3.3          5.7         2.5  virginica            
-> > 146          6.7         3.0          5.2         2.3  virginica            
-> > 147          6.3         2.5          5.0         1.9  virginica            
-> > 148          6.5         3.0          5.2         2.0  virginica            
-> > 149          6.2         3.4          5.4         2.3  virginica            
-> > 150          5.9         3.0          5.1         1.8  virginica            
-> > ~~~
-> > {: .output}
+> >
+> > The `read.csv(...)` function sets the column names as the default values (`V1, V2, V3, ...`) and
+> > treats the first row of the `sample.csv` file as the first row of data. Clearly this is not the
+> > desired behavior for this data set, but it will be useful if you have a dataset without headers.
+> > Note that the `V` is used to start the column names, since column names must follow
+> > the usual variable naming rules, which would be violated with just a number.
 > {: .solution}
 {: .challenge}
+
+&nbsp;
+#### The `stringsAsFactors` Argument
+
+The `stringsAsFactors` argument tells R whether to treat imported data represented by a text string as a **character** or **factor** data type. Up until R version 4.0 was released, I introduced the `stringsAsFactors` argument as one of the most important in `read.csv(...)`, particularly if you are working with categorical data. This is because the default behavior of R *used to be* to convert **characters** into **factors**. Because many relevant functions behave differently when confronted with a **character** vector than they do when confronted with a **factor**, this often resulted in unexpected behavior. In R 4.0 they updated the default behavior, and now strings of text are loaded as **character** data, rather than **factors**. This argument is still important, but the default behavior is now more intuitive and results in fewer frustrations.
+
+The major problem is that, as previously discussed, **factors** do not let you add new data to a vector unless another element with that value us already present. As an example, let's look at the `car-speeds.csv` data set. We find out that the data collector was color blind, and accidentally recorded green cars as being blue. In order to correct the data set, let's replace 'Blue' with 'Green' in the `$Color` column:
+
+
+~~~
+# First - load the data with characters treated as factors and take a look at 
+# what information is available
+carSpeeds <- read.csv(file = 'data/car-speeds.csv', stringsAsFactors = TRUE)
+head(carSpeeds)
+~~~
+{: .language-r}
+
+
+
+~~~
+  Color Speed     State
+1  Blue    32 NewMexico
+2   Red    45   Arizona
+3  Blue    35  Colorado
+4 White    34   Arizona
+5   Red    25   Arizona
+6  Blue    41   Arizona
+~~~
+{: .output}
+
+
+
+~~~
+# Next use indexing to replace all `Blue` entries in the Color column with 
+# 'Green'
+carSpeeds$Color[carSpeeds$Color == 'Blue'] <- 'Green'
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in `[<-.factor`(`*tmp*`, carSpeeds$Color == "Blue", value =
+structure(c(NA, : invalid factor level, NA generated
+~~~
+{: .error}
+
+
+
+~~~
+head(carSpeeds, 10)
+~~~
+{: .language-r}
+
+
+
+~~~
+   Color Speed     State
+1   <NA>    32 NewMexico
+2    Red    45   Arizona
+3   <NA>    35  Colorado
+4  White    34   Arizona
+5    Red    25   Arizona
+6   <NA>    41   Arizona
+7   <NA>    34 NewMexico
+8  Black    29  Colorado
+9  White    31   Arizona
+10   Red    26  Colorado
+~~~
+{: .output}
+
+&nbsp;
+
+What happened? Because we loaded the colors of the cars (represented by text strings) as factors, `Green` was not included in the original set of colors. Thus it was not included as a level in the factor. When we tried to replace `Blue` with `Green`, R changed each value to `NA` because `Green` was not included as a valid factor level.
+
+To see the internal structure, we can use another function, `str()`. In this case, the data frame's internal structure includes the format of each column, which is what we are interested in.
+
+
+~~~
+str(carSpeeds)
+~~~
+{: .language-r}
+
+
+
+~~~
+'data.frame':	100 obs. of  3 variables:
+ $ Color: Factor w/ 5 levels " Red","Black",..: NA 1 NA 5 4 NA NA 2 5 4 ...
+ $ Speed: int  32 45 35 34 25 41 34 29 31 26 ...
+ $ State: Factor w/ 4 levels "Arizona","Colorado",..: 3 1 2 1 1 1 3 2 1 2 ...
+~~~
+{: .output}
+
+&nbsp;
+
+We can see that the `$Color` and `$State` columns are factors and `$Speed` is a numeric column.
+
+One way to solve this problem would be to add the `Green` level to the `Color` factor, but there is a simpler way. Let's reload the dataset using `stringsAsFactors = FALSE`, and see what happens when we try to replace 'Blue' with `Green` in the `$Color` column:
+
+
+~~~
+# First - load the data and take a look at what information is available
+carSpeeds <- read.csv(file = 'data/car-speeds.csv', stringsAsFactors = FALSE)
+str(carSpeeds)
+~~~
+{: .language-r}
+
+
+
+~~~
+'data.frame':	100 obs. of  3 variables:
+ $ Color: chr  "Blue" " Red" "Blue" "White" ...
+ $ Speed: int  32 45 35 34 25 41 34 29 31 26 ...
+ $ State: chr  "NewMexico" "Arizona" "Colorado" "Arizona" ...
+~~~
+{: .output}
+
+
+
+~~~
+# Next use indexing to replace all `Blue` entries in the Color column with 'Green'
+carSpeeds$Color[carSpeeds$Color == 'Blue'] <- 'Green'
+carSpeeds$Color
+~~~
+{: .language-r}
+
+
+
+~~~
+  [1] "Green" " Red"  "Green" "White" "Red"   "Green" "Green" "Black" "White"
+ [10] "Red"   "Red"   "White" "Green" "Green" "Black" "Red"   "Green" "Green"
+ [19] "White" "Green" "Green" "Green" "Red"   "Green" "Red"   "Red"   "Red"  
+ [28] "Red"   "White" "Green" "Red"   "White" "Black" "Red"   "Black" "Black"
+ [37] "Green" "Red"   "Black" "Red"   "Black" "Black" "Red"   "Red"   "White"
+ [46] "Black" "Green" "Red"   "Red"   "Black" "Black" "Red"   "White" "Red"  
+ [55] "Green" "Green" "Black" "Green" "White" "Black" "Red"   "Green" "Green"
+ [64] "White" "Black" "Red"   "Red"   "Black" "Green" "White" "Green" "Red"  
+ [73] "White" "White" "Green" "Green" "Green" "Green" "Green" "White" "Black"
+ [82] "Green" "White" "Black" "Black" "Red"   "Red"   "White" "White" "White"
+ [91] "White" "Red"   "Red"   "Red"   "White" "Black" "White" "Black" "Black"
+[100] "White"
+~~~
+{: .output}
+
+&nbsp;
+
+That's better! And we can see how the data now is read as character instead of factor.
+
+Note that there are certainly times when we do want text strings represented by **factor** variable types. Recall the example in last week's *On Your Own* section dealing with ordered categorical data. Just be aware of the data types present in your data frames and how they impact the way you interact with your data.
+
+***
+### Writing tabular data to a file (.csv, .txt)
+
+After altering our cars dataset by replacing 'Blue' with 'Green' in the `$Color` column, we now want to save the output. The `read.table(...)` function family has a corresponding set of `write.table(...)` functions. These functions have a familiar set of arguments:
+
+
+~~~
+?read.table
+~~~
+{: .language-r}
+
+&nbsp;
+
+Here is the basic format for writing a table:
+
+
+~~~
+# Export the data. The write.csv() function requires a minimum of two
+# arguments, the data to be saved and the name of the output file.
+write.csv(carSpeeds, file = 'data/car-speeds-corrected.csv')
+~~~
+{: .language-r}
+
+If you open the file, you'll see that it has header names, because the data had headers within R, but that there are also numbers in the first column.
+
+<img src="../fig/01-supp-csv-with-row-nums.png" title="plot of chunk unnamed-chunk-38" alt="plot of chunk unnamed-chunk-38" width="350px" style="display: block; margin: auto auto auto 0;" />
+
+&nbsp;
+
+This extra column can cause problems when trying to open data in some other programs, and in most cases you won't want to explicitly name the rows. This can be easily disabled with a simple argument:
+
+&nbsp;
+#### The `row.names` Argument
+
+This argument allows us to set the names of the rows in the output data file. R's default for this argument is `TRUE`, and since it does not know what else to name the rows for the cars data set, it resorts to using row numbers. Unlike the recent change to the `stringsAsFactors` argument for reading data, this is an argument that defaults to something that is non-intuitive. To turn row names/numbers off, we can set `row.names` to `FALSE`:
+
+
+~~~
+write.csv(carSpeeds, file = 'data/car-speeds-cleaned.csv', row.names = FALSE)
+~~~
+{: .language-r}
+
+&nbsp;
+
+Now we see:
+
+<img src="../fig/01-supp-csv-without-row-nums.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="350px" style="display: block; margin: auto auto auto 0;" />
+
+&nbsp;
+
+> ## Setting column names
+>
+> There is also a `col.names` argument, which can be used to set the column
+> names for a data set without headers. If the data set already has headers
+> (e.g. we used the `headers = TRUE` argument when importing the data) then a
+> `col.names` argument will be ignored.
+{: .callout}
+
+&nbsp;
+#### The `na` Argument
+
+By default, R will export missing data in a dataset as `NA`. There are times when we want to specify certain values for missing data in our datasets (e.g. when we are going to pass the data to a program that only accepts `-9999` or `NaN` as a "no data available" value). In this case, we want to set the `NA` value of our output file to the desired value, using the `na` argument. Let's see how this works:
+
+
+~~~
+# First, replace the speed in the 3rd row with NA, by using an index (square
+# brackets to indicate the position of the value we want to replace)
+carSpeeds$Speed[3] <- NA
+head(carSpeeds)
+~~~
+{: .language-r}
+
+
+
+~~~
+  Color Speed     State
+1 Green    32 NewMexico
+2   Red    45   Arizona
+3 Green    NA  Colorado
+4 White    34   Arizona
+5   Red    25   Arizona
+6 Green    41   Arizona
+~~~
+{: .output}
+
+
+
+~~~
+write.csv(carSpeeds, file = 'data/car-speeds-corrected-na.csv', row.names = FALSE)
+~~~
+{: .language-r}
+
+&nbsp;
+
+Now we'll set `NA` to -9999 when we write the new *.csv* file:
+
+
+~~~
+# Note - the na argument requires a string input
+write.csv(carSpeeds,
+          file = 'data/car-speeds-corrected-9999.csv',
+          row.names = FALSE,
+          na = '-9999')
+~~~
+{: .language-r}
+
+&nbsp;
+
+And we see:
+
+<img src="../fig/01-supp-csv-with-special-NA.png" title="plot of chunk unnamed-chunk-43" alt="plot of chunk unnamed-chunk-43" width="350px" style="display: block; margin: auto auto auto 0;" />
 
 ***
 

@@ -1,4 +1,4 @@
-I"Â≈<hr />
+I"g∆<hr />
 <h2 id="on-your-own">On Your Own</h2>
 
 <h3 id="best-practices-when-writing-code-in-r-and-in-general">Best practices when writing code in R (and in general)</h3>
@@ -374,8 +374,8 @@ each stage is indicated by ‚ÄúVcells‚Äù (the V stands for ‚ÄúVector‚Äù). Removin
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>         used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 478548 25.6    1047988   56   638582 34.2
-Vcells 905731  7.0    8388608   64  1632380 12.5
+Ncells 478554 25.6    1048005   56   638582 34.2
+Vcells 905733  7.0    8388608   64  1632446 12.5
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># create a big vector (this can take some time) and recheck memory with </span><span class="w">
@@ -385,8 +385,8 @@ Vcells 905731  7.0    8388608   64  1632380 12.5
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells  478633 25.6    1047988   56   638582 34.2
-Vcells 1006086  7.7    8388608   64  8388597 64.0
+Ncells  478639 25.6    1048005   56   638582 34.2
+Vcells 1006088  7.7    8388608   64  8388604 64.0
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># remove vector and check memory a final time; Vcells used (MB) returns to</span><span class="w">
@@ -396,8 +396,8 @@ Vcells 1006086  7.7    8388608   64  8388597 64.0
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>         used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 478604 25.6    1047988   56   638582 34.2
-Vcells 905923  7.0    8388608   64  8388597 64.0
+Ncells 478610 25.6    1048005   56   638582 34.2
+Vcells 905925  7.0    8388608   64  8388604 64.0
 </code></pre></div></div>
 
 <p>¬†</p>
@@ -457,10 +457,11 @@ Vcells 905923  7.0    8388608   64  8388597 64.0
 </span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>package 'pwr' successfully unpacked and MD5 sums checked
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in install.packages("pwr"): 'lib = "C:/Program Files/R/R-4.0.2/library"'
+is not writable
+</code></pre></div></div>
 
-The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\RtmpGIJvpj\downloaded_packages
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in install.packages("pwr"): unable to install packages
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Load required packages into memory</span><span class="w">

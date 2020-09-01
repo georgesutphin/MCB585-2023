@@ -11,6 +11,7 @@ questions:
 objectives:
 - "Understand the structure and poperties of lists."
 - "Be able to apply several techniques for extracting targeted data from data frames."
+- "Combine different methods for accessing data with the assignment operator to update subsets of data."
 keypoints:
 - "Lists are a standard data structure in R in which each element can contain any other R object."
 - "Lists can contain elements of different classes, unlike vectors."
@@ -22,9 +23,1376 @@ source: Rmd
 
 
 
-***
 ##  On Your Own
 
+### Lists
+
+Lists in R act as containers. Unlike atomic vectors, the contents of a list are
+not restricted to a single mode and can encompass any mixture of data
+types. Lists are sometimes called "generic vectors"", because the elements of a
+list can by of any type of R object, even lists containing further lists. This
+property makes them fundamentally different from atomic vectors.
+
+A list is a special type of vector. Each element can be a different type, and is not restricted to a single value.
+
+Create lists using `list()` or coerce other objects using `as.list()`. An empty
+list of the required length can be created using `vector()`
+
+
+~~~
+x <- list(1, "a", TRUE, 1+4i)
+x # A list does not print to the console like a vector. Instead, each element of the list starts on a new line.
+~~~
+{: .language-r}
+
+
+
+~~~
+[[1]]
+[1] 1
+
+[[2]]
+[1] "a"
+
+[[3]]
+[1] TRUE
+
+[[4]]
+[1] 1+4i
+~~~
+{: .output}
+
+
+
+~~~
+x <- vector("list", length = 5) # empty list
+length(x)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 5
+~~~
+{: .output}
+
+
+
+~~~
+x 
+~~~
+{: .language-r}
+
+
+
+~~~
+[[1]]
+NULL
+
+[[2]]
+NULL
+
+[[3]]
+NULL
+
+[[4]]
+NULL
+
+[[5]]
+NULL
+~~~
+{: .output}
+
+&nbsp;
+
+Vectors can be coerced to lists as follows:
+
+
+~~~
+x <- 1:10
+x <- as.list(x)
+length(x)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 10
+~~~
+{: .output}
+
+&nbsp;
+#### Indexing lists
+
+Indexing works a bit differently for lists. The content of elements of a list can be retrieved by using double square brackets `[[n]]`, as opposed to the single square brackets `[n]` used for vectors and matrices.
+
+
+~~~
+x[[1]]
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 1
+~~~
+{: .output}
+
+
+> ## Examining Lists
+>
+> 1. What is the class of `x[1]`?
+> 2. What is the class of `x[[1]]`?
+>
+> > ## Solution
+> > 1. 
+> >     
+> >     ~~~
+> >     class(x[1])
+> >     ~~~
+> >     {: .language-r}
+> >     
+> >     
+> >     
+> >     ~~~
+> >     [1] "list"
+> >     ~~~
+> >     {: .output}
+> > 2. 
+> >     
+> >     ~~~
+> >     class(x[[1]])
+> >     ~~~
+> >     {: .language-r}
+> >     
+> >     
+> >     
+> >     ~~~
+> >     [1] "integer"
+> >     ~~~
+> >     {: .output}
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+Elements of a list can be named (i.e. lists can have the `names` attribute)
+
+
+~~~
+xlist <- list(a = "Karthik Ram", b = 1:10, data = head(iris))
+xlist
+~~~
+{: .language-r}
+
+
+
+~~~
+$a
+[1] "Karthik Ram"
+
+$b
+ [1]  1  2  3  4  5  6  7  8  9 10
+
+$data
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0          1.4         0.2  setosa
+3          4.7         3.2          1.3         0.2  setosa
+4          4.6         3.1          1.5         0.2  setosa
+5          5.0         3.6          1.4         0.2  setosa
+6          5.4         3.9          1.7         0.4  setosa
+~~~
+{: .output}
+
+
+
+~~~
+names(xlist)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "a"    "b"    "data"
+~~~
+{: .output}
+
+
+
+~~~
+attributes(xlist)
+~~~
+{: .language-r}
+
+
+
+~~~
+$names
+[1] "a"    "b"    "data"
+~~~
+{: .output}
+
+&nbsp;
+
+You can use the `$` operator to directly refer to named list elements by their name:
+
+
+~~~
+xlist[[1]]
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Karthik Ram"
+~~~
+{: .output}
+
+
+
+~~~
+xlist$a
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "Karthik Ram"
+~~~
+{: .output}
+
+> ## Examining Named Lists
+>
+> 1. What is the length of the `xlist` object?
+> 2. What is its structure?
+>
+> > ## Solution
+> > 1. 
+> >     
+> >     ~~~
+> >     length(xlist)
+> >     ~~~
+> >     {: .language-r}
+> >     
+> >     
+> >     
+> >     ~~~
+> >     [1] 3
+> >     ~~~
+> >     {: .output}
+> > 2. 
+> >     
+> >     ~~~
+> >     str(xlist)
+> >     ~~~
+> >     {: .language-r}
+> >     
+> >     
+> >     
+> >     ~~~
+> >     List of 3
+> >      $ a   : chr "Karthik Ram"
+> >      $ b   : int [1:10] 1 2 3 4 5 6 7 8 9 10
+> >      $ data:'data.frame':	6 obs. of  5 variables:
+> >       ..$ Sepal.Length: num [1:6] 5.1 4.9 4.7 4.6 5 5.4
+> >       ..$ Sepal.Width : num [1:6] 3.5 3 3.2 3.1 3.6 3.9
+> >       ..$ Petal.Length: num [1:6] 1.4 1.4 1.3 1.5 1.4 1.7
+> >       ..$ Petal.Width : num [1:6] 0.2 0.2 0.2 0.2 0.2 0.4
+> >       ..$ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1
+> >     ~~~
+> >     {: .output}
+> {: .solution}
+{: .challenge} 
+
+&nbsp;
+#### Lists of lists!
+
+A list can even have vectors (or other lists!) as one element of a list:
+
+
+~~~
+x <- 1:10
+y <- c(T, F, T, T) # "T" can be used in place of "TRUE"; "F" can be used in place of "FALSE"
+z <- list(1, "a", TRUE, 1+4i)
+
+my.list <- list(x, y, z)
+my.list
+~~~
+{: .language-r}
+
+
+
+~~~
+[[1]]
+ [1]  1  2  3  4  5  6  7  8  9 10
+
+[[2]]
+[1]  TRUE FALSE  TRUE  TRUE
+
+[[3]]
+[[3]][[1]]
+[1] 1
+
+[[3]][[2]]
+[1] "a"
+
+[[3]][[3]]
+[1] TRUE
+
+[[3]][[4]]
+[1] 1+4i
+~~~
+{: .output}
+
+
+
+~~~
+my.list[[1]]
+~~~
+{: .language-r}
+
+
+
+~~~
+ [1]  1  2  3  4  5  6  7  8  9 10
+~~~
+{: .output}
+
+
+
+~~~
+class(my.list[[1]])
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "integer"
+~~~
+{: .output}
+
+
+
+~~~
+class(my.list[[2]])
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "logical"
+~~~
+{: .output}
+
+
+
+~~~
+my.list <- list(x = x, y = y, z = x) # use the `=` to name your list elements
+my.list$x
+~~~
+{: .language-r}
+
+
+
+~~~
+ [1]  1  2  3  4  5  6  7  8  9 10
+~~~
+{: .output}
+
+&nbsp;
+#### Lists and functions
+
+Lists can be extremely useful inside functions. Because the functions in R are 
+able to return only a single object, you can "staple" together lots of different
+kinds of results into a single object that a function can return.
+
+Elements are indexed by double brackets. Double brackets return the object inside the indexed list element, while single brackets will just return a(nother) list containing the indicated elements. 
+
+
+~~~
+my.list[1]
+~~~
+{: .language-r}
+
+
+
+~~~
+$x
+ [1]  1  2  3  4  5  6  7  8  9 10
+~~~
+{: .output}
+
+
+
+~~~
+my.list[[1]]
+~~~
+{: .language-r}
+
+
+
+~~~
+ [1]  1  2  3  4  5  6  7  8  9 10
+~~~
+{: .output}
+
+
+&nbsp;
+
+Again, if the elements of a list are named, they can be referenced by
+the `$` notation (i.e. `xlist$data`). This can be useful if a function runs a complex analysis. It can export a lot of different types of information as different elements in a single list (raw data, processes data, analysis summary, analysis statistics, etc.)
+
+***
+### Data frames are specialized lists
+At its heart, the data frame is a *special type of list* where every element of the list has same length (i.e. data frame is a "rectangular" list).
+
+
+~~~
+dat <- data.frame(id = letters[1:10], x = 1:10, y = 11:20)
+dat
+~~~
+{: .language-r}
+
+
+
+~~~
+   id  x  y
+1   a  1 11
+2   b  2 12
+3   c  3 13
+4   d  4 14
+5   e  5 15
+6   f  6 16
+7   g  7 17
+8   h  8 18
+9   i  9 19
+10  j 10 20
+~~~
+{: .output}
+
+&nbsp;
+
+See that it is actually a special list:
+
+
+~~~
+is.list(dat)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+
+
+~~~
+is.data.frame(dat) # "data.frame" is a sub-class of "list"
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+
+
+~~~
+class(dat)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "data.frame"
+~~~
+{: .output}
+
+
+*** 
+### Advanced indexing
+
+Logical vectors can be created using `relational operators`:
+* `<` = less than
+* `>` = greater than
+* `<=` = less than or equal to
+* `>=` = greater than or equal to
+* `==` = exactly equal to
+* `!=` = not equal to
+* `%in%` = is present in (to as if the value on the left is present in the vector/matrix on the right)
+
+A few single variable examples:
+
+~~~
+1 == 1
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+
+
+~~~
+1 == 2
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] FALSE
+~~~
+{: .output}
+
+
+
+~~~
+1 != 1
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] FALSE
+~~~
+{: .output}
+
+
+
+~~~
+4 > 7
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] FALSE
+~~~
+{: .output}
+
+
+
+~~~
+18 %in% 1:10
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] FALSE
+~~~
+{: .output}
+
+
+
+~~~
+18 %in% 15:25
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+&nbsp;
+
+We can use these operators to query entire vectors and generate logical vectors:
+
+
+~~~
+# creating logical vectors from numeric data
+x <- c(1, 2, 3, 11, 12, 13)
+x < 10
+~~~
+{: .language-r}
+
+
+
+~~~
+[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE
+~~~
+{: .output}
+
+
+
+~~~
+x %in% 1:10
+~~~
+{: .language-r}
+
+
+
+~~~
+[1]  TRUE  TRUE  TRUE FALSE FALSE FALSE
+~~~
+{: .output}
+
+&nbsp;
+
+We can use logical vectors to select data from a data frame.
+
+
+~~~
+index <- iris$Species == 'setosa'
+index
+~~~
+{: .language-r}
+
+
+
+~~~
+  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [37]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+ [49]  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[121] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[145] FALSE FALSE FALSE FALSE FALSE FALSE
+~~~
+{: .output}
+
+
+
+~~~
+iris[index,]
+~~~
+{: .language-r}
+
+
+
+~~~
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1           5.1         3.5          1.4         0.2  setosa
+2           4.9         3.0          1.4         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+4           4.6         3.1          1.5         0.2  setosa
+5           5.0         3.6          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+7           4.6         3.4          1.4         0.3  setosa
+8           5.0         3.4          1.5         0.2  setosa
+9           4.4         2.9          1.4         0.2  setosa
+10          4.9         3.1          1.5         0.1  setosa
+11          5.4         3.7          1.5         0.2  setosa
+12          4.8         3.4          1.6         0.2  setosa
+13          4.8         3.0          1.4         0.1  setosa
+14          4.3         3.0          1.1         0.1  setosa
+15          5.8         4.0          1.2         0.2  setosa
+16          5.7         4.4          1.5         0.4  setosa
+17          5.4         3.9          1.3         0.4  setosa
+18          5.1         3.5          1.4         0.3  setosa
+19          5.7         3.8          1.7         0.3  setosa
+20          5.1         3.8          1.5         0.3  setosa
+21          5.4         3.4          1.7         0.2  setosa
+22          5.1         3.7          1.5         0.4  setosa
+23          4.6         3.6          1.0         0.2  setosa
+24          5.1         3.3          1.7         0.5  setosa
+25          4.8         3.4          1.9         0.2  setosa
+26          5.0         3.0          1.6         0.2  setosa
+27          5.0         3.4          1.6         0.4  setosa
+28          5.2         3.5          1.5         0.2  setosa
+29          5.2         3.4          1.4         0.2  setosa
+30          4.7         3.2          1.6         0.2  setosa
+31          4.8         3.1          1.6         0.2  setosa
+32          5.4         3.4          1.5         0.4  setosa
+33          5.2         4.1          1.5         0.1  setosa
+34          5.5         4.2          1.4         0.2  setosa
+35          4.9         3.1          1.5         0.2  setosa
+36          5.0         3.2          1.2         0.2  setosa
+37          5.5         3.5          1.3         0.2  setosa
+38          4.9         3.6          1.4         0.1  setosa
+39          4.4         3.0          1.3         0.2  setosa
+40          5.1         3.4          1.5         0.2  setosa
+41          5.0         3.5          1.3         0.3  setosa
+42          4.5         2.3          1.3         0.3  setosa
+43          4.4         3.2          1.3         0.2  setosa
+44          5.0         3.5          1.6         0.6  setosa
+45          5.1         3.8          1.9         0.4  setosa
+46          4.8         3.0          1.4         0.3  setosa
+47          5.1         3.8          1.6         0.2  setosa
+48          4.6         3.2          1.4         0.2  setosa
+49          5.3         3.7          1.5         0.2  setosa
+50          5.0         3.3          1.4         0.2  setosa
+~~~
+{: .output}
+
+&nbsp;
+
+Often this operation is written as one line of code:
+
+
+~~~
+iris[iris$Species == 'setosa', ]
+~~~
+{: .language-r}
+
+
+
+~~~
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1           5.1         3.5          1.4         0.2  setosa
+2           4.9         3.0          1.4         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+4           4.6         3.1          1.5         0.2  setosa
+5           5.0         3.6          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+7           4.6         3.4          1.4         0.3  setosa
+8           5.0         3.4          1.5         0.2  setosa
+9           4.4         2.9          1.4         0.2  setosa
+10          4.9         3.1          1.5         0.1  setosa
+11          5.4         3.7          1.5         0.2  setosa
+12          4.8         3.4          1.6         0.2  setosa
+13          4.8         3.0          1.4         0.1  setosa
+14          4.3         3.0          1.1         0.1  setosa
+15          5.8         4.0          1.2         0.2  setosa
+16          5.7         4.4          1.5         0.4  setosa
+17          5.4         3.9          1.3         0.4  setosa
+18          5.1         3.5          1.4         0.3  setosa
+19          5.7         3.8          1.7         0.3  setosa
+20          5.1         3.8          1.5         0.3  setosa
+21          5.4         3.4          1.7         0.2  setosa
+22          5.1         3.7          1.5         0.4  setosa
+23          4.6         3.6          1.0         0.2  setosa
+24          5.1         3.3          1.7         0.5  setosa
+25          4.8         3.4          1.9         0.2  setosa
+26          5.0         3.0          1.6         0.2  setosa
+27          5.0         3.4          1.6         0.4  setosa
+28          5.2         3.5          1.5         0.2  setosa
+29          5.2         3.4          1.4         0.2  setosa
+30          4.7         3.2          1.6         0.2  setosa
+31          4.8         3.1          1.6         0.2  setosa
+32          5.4         3.4          1.5         0.4  setosa
+33          5.2         4.1          1.5         0.1  setosa
+34          5.5         4.2          1.4         0.2  setosa
+35          4.9         3.1          1.5         0.2  setosa
+36          5.0         3.2          1.2         0.2  setosa
+37          5.5         3.5          1.3         0.2  setosa
+38          4.9         3.6          1.4         0.1  setosa
+39          4.4         3.0          1.3         0.2  setosa
+40          5.1         3.4          1.5         0.2  setosa
+41          5.0         3.5          1.3         0.3  setosa
+42          4.5         2.3          1.3         0.3  setosa
+43          4.4         3.2          1.3         0.2  setosa
+44          5.0         3.5          1.6         0.6  setosa
+45          5.1         3.8          1.9         0.4  setosa
+46          4.8         3.0          1.4         0.3  setosa
+47          5.1         3.8          1.6         0.2  setosa
+48          4.6         3.2          1.4         0.2  setosa
+49          5.3         3.7          1.5         0.2  setosa
+50          5.0         3.3          1.4         0.2  setosa
+~~~
+{: .output}
+
+> ## Using logical indices
+>
+> Create a new data frame that is the subset of `iris` with sepal length greater than or
+> equal to 5.0.
+> 
+> > ## Solution
+> > 
+> > ~~~
+> > iris.new = iris[iris$Sepal.Length > 5,]
+> > ~~~
+> > {: .language-r}
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+In addition to the numeric comparisons, there are a set of operators that compare logical variables and output a new logical variable:
+* `!` = NOT (changes `TRUE` to `FALSE` and vice versa)
+* `&` = element-wise AND (both are true; outputs vector for vector input comparing elements)
+* `&&` = logical AND (both are true; only considers first index of a vector)
+* `|` = element-wise OR (one or both are true; outputs vector for vector input comparing elements)
+* `||` = logical OR (both are true; only considers first index of a vector)
+
+
+~~~
+truth = c(TRUE, FALSE, TRUE, TRUE)
+lie = !truth
+truth
+~~~
+{: .language-r}
+
+
+
+~~~
+[1]  TRUE FALSE  TRUE  TRUE
+~~~
+{: .output}
+
+
+
+~~~
+lie
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] FALSE  TRUE FALSE FALSE
+~~~
+{: .output}
+
+
+
+~~~
+T & T
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+
+
+~~~
+T & F
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] FALSE
+~~~
+{: .output}
+
+
+
+~~~
+T | F
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+
+
+~~~
+F | F
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] FALSE
+~~~
+{: .output}
+
+
+&nbsp;
+#### Exercises
+
+> ## Using logical indices
+>
+> Create a new data frame that is the subset of `iris` with sepal length greater than or > equal to 5.0 for the setosa species.
+> 
+> > ## Solution
+> > 
+> > ~~~
+> > iris.new = iris[iris$Sepal.Length > 5 & iris$Species == "setosa",]
+> > ~~~
+> > {: .language-r}
+> {: .solution}
+{: .challenge}
+
+> ## Subsetting using a vector or name
+>
+> Use the colon operator to index the first five observations of just the sepal  
+> length and species from `iris`
+>
+> > ## Solution
+> > Two options:
+> > 
+> > ~~~
+> > iris[1:5, c(1,5)]
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >   Sepal.Length Species
+> > 1          5.1  setosa
+> > 2          4.9  setosa
+> > 3          4.7  setosa
+> > 4          4.6  setosa
+> > 5          5.0  setosa
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > iris[1:5,c("Sepal.Length","Species")]
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >   Sepal.Length Species
+> > 1          5.1  setosa
+> > 2          4.9  setosa
+> > 3          4.7  setosa
+> > 4          4.6  setosa
+> > 5          5.0  setosa
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
+
+> ## Subsetting with Sequences
+>
+> Use the colon operator to index just the data on sepal size from `iris`
+>
+> > ## Solution
+> > 
+> > ~~~
+> > iris[, 1:2]
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >     Sepal.Length Sepal.Width
+> > 1            5.1         3.5
+> > 2            4.9         3.0
+> > 3            4.7         3.2
+> > 4            4.6         3.1
+> > 5            5.0         3.6
+> > 6            5.4         3.9
+> > 7            4.6         3.4
+> > 8            5.0         3.4
+> > 9            4.4         2.9
+> > 10           4.9         3.1
+> > 11           5.4         3.7
+> > 12           4.8         3.4
+> > 13           4.8         3.0
+> > 14           4.3         3.0
+> > 15           5.8         4.0
+> > 16           5.7         4.4
+> > 17           5.4         3.9
+> > 18           5.1         3.5
+> > 19           5.7         3.8
+> > 20           5.1         3.8
+> > 21           5.4         3.4
+> > 22           5.1         3.7
+> > 23           4.6         3.6
+> > 24           5.1         3.3
+> > 25           4.8         3.4
+> > 26           5.0         3.0
+> > 27           5.0         3.4
+> > 28           5.2         3.5
+> > 29           5.2         3.4
+> > 30           4.7         3.2
+> > 31           4.8         3.1
+> > 32           5.4         3.4
+> > 33           5.2         4.1
+> > 34           5.5         4.2
+> > 35           4.9         3.1
+> > 36           5.0         3.2
+> > 37           5.5         3.5
+> > 38           4.9         3.6
+> > 39           4.4         3.0
+> > 40           5.1         3.4
+> > 41           5.0         3.5
+> > 42           4.5         2.3
+> > 43           4.4         3.2
+> > 44           5.0         3.5
+> > 45           5.1         3.8
+> > 46           4.8         3.0
+> > 47           5.1         3.8
+> > 48           4.6         3.2
+> > 49           5.3         3.7
+> > 50           5.0         3.3
+> > 51           7.0         3.2
+> > 52           6.4         3.2
+> > 53           6.9         3.1
+> > 54           5.5         2.3
+> > 55           6.5         2.8
+> > 56           5.7         2.8
+> > 57           6.3         3.3
+> > 58           4.9         2.4
+> > 59           6.6         2.9
+> > 60           5.2         2.7
+> > 61           5.0         2.0
+> > 62           5.9         3.0
+> > 63           6.0         2.2
+> > 64           6.1         2.9
+> > 65           5.6         2.9
+> > 66           6.7         3.1
+> > 67           5.6         3.0
+> > 68           5.8         2.7
+> > 69           6.2         2.2
+> > 70           5.6         2.5
+> > 71           5.9         3.2
+> > 72           6.1         2.8
+> > 73           6.3         2.5
+> > 74           6.1         2.8
+> > 75           6.4         2.9
+> > 76           6.6         3.0
+> > 77           6.8         2.8
+> > 78           6.7         3.0
+> > 79           6.0         2.9
+> > 80           5.7         2.6
+> > 81           5.5         2.4
+> > 82           5.5         2.4
+> > 83           5.8         2.7
+> > 84           6.0         2.7
+> > 85           5.4         3.0
+> > 86           6.0         3.4
+> > 87           6.7         3.1
+> > 88           6.3         2.3
+> > 89           5.6         3.0
+> > 90           5.5         2.5
+> > 91           5.5         2.6
+> > 92           6.1         3.0
+> > 93           5.8         2.6
+> > 94           5.0         2.3
+> > 95           5.6         2.7
+> > 96           5.7         3.0
+> > 97           5.7         2.9
+> > 98           6.2         2.9
+> > 99           5.1         2.5
+> > 100          5.7         2.8
+> > 101          6.3         3.3
+> > 102          5.8         2.7
+> > 103          7.1         3.0
+> > 104          6.3         2.9
+> > 105          6.5         3.0
+> > 106          7.6         3.0
+> > 107          4.9         2.5
+> > 108          7.3         2.9
+> > 109          6.7         2.5
+> > 110          7.2         3.6
+> > 111          6.5         3.2
+> > 112          6.4         2.7
+> > 113          6.8         3.0
+> > 114          5.7         2.5
+> > 115          5.8         2.8
+> > 116          6.4         3.2
+> > 117          6.5         3.0
+> > 118          7.7         3.8
+> > 119          7.7         2.6
+> > 120          6.0         2.2
+> > 121          6.9         3.2
+> > 122          5.6         2.8
+> > 123          7.7         2.8
+> > 124          6.3         2.7
+> > 125          6.7         3.3
+> > 126          7.2         3.2
+> > 127          6.2         2.8
+> > 128          6.1         3.0
+> > 129          6.4         2.8
+> > 130          7.2         3.0
+> > 131          7.4         2.8
+> > 132          7.9         3.8
+> > 133          6.4         2.8
+> > 134          6.3         2.8
+> > 135          6.1         2.6
+> > 136          7.7         3.0
+> > 137          6.3         3.4
+> > 138          6.4         3.1
+> > 139          6.0         3.0
+> > 140          6.9         3.1
+> > 141          6.7         3.1
+> > 142          6.9         3.1
+> > 143          5.8         2.7
+> > 144          6.8         3.2
+> > 145          6.7         3.3
+> > 146          6.7         3.0
+> > 147          6.3         2.5
+> > 148          6.5         3.0
+> > 149          6.2         3.4
+> > 150          5.9         3.0
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
+
+> ## Adding a new variable
+>
+> We want to add a variable called "Petal.Color" the `iris` data frame to record a new set of 
+> observations. Let's first define a new data frame 'iris.update' (so as not to modify our original raw data).
+> 
+> 
+> ~~~
+> iris.update = iris
+> ~~~
+> {: .language-r}
+> 
+> Now, to initialize the variable, add a new character column to your data frame populated with
+> no values to indicate that we have not recorded any observations.
+> 
+> > ## Solution
+> > 
+> > We have a couple of options:
+> > 
+> > 1) Define the vector and append it to the data frame using `cbind()`:
+> > 
+> > 
+> > ~~~
+> > Petal.Color = character(length = dim(iris.update)[1]) # use the dim function to figure out how long to make the new vector
+> > iris.update = cbind(iris.update, Petal.Color)
+> > head(iris.update)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >   Sepal.Length Sepal.Width Petal.Length Petal.Width Species Petal.Color
+> > 1          5.1         3.5          1.4         0.2  setosa            
+> > 2          4.9         3.0          1.4         0.2  setosa            
+> > 3          4.7         3.2          1.3         0.2  setosa            
+> > 4          4.6         3.1          1.5         0.2  setosa            
+> > 5          5.0         3.6          1.4         0.2  setosa            
+> > 6          5.4         3.9          1.7         0.4  setosa            
+> > ~~~
+> > {: .output}
+> > 2) Directly populate the new column while creating it:
+> > 
+> > 
+> > ~~~
+> > iris.update$Petal.Color = as.character("")
+> > head(iris.update)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >   Sepal.Length Sepal.Width Petal.Length Petal.Width Species Petal.Color
+> > 1          5.1         3.5          1.4         0.2  setosa            
+> > 2          4.9         3.0          1.4         0.2  setosa            
+> > 3          4.7         3.2          1.3         0.2  setosa            
+> > 4          4.6         3.1          1.5         0.2  setosa            
+> > 5          5.0         3.6          1.4         0.2  setosa            
+> > 6          5.4         3.9          1.7         0.4  setosa            
+> > ~~~
+> > {: .output}
+> > 
+> > There are also other ways to accomplish this task.
+> {: .solution}
+{: .challenge}
+
+> ## Updating a Subset of Values
+>
+> Update the `iris.update` data frame by indicating that the "setosa" species had purple petals (without
+> changing the values for the other species).
+> 
+> > ## Solution
+> > 
+> > ~~~
+> > iris.update[iris.update$Species == "setosa", ]$Petal.Color <- "purple"
+> > iris.update
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species Petal.Color
+> > 1            5.1         3.5          1.4         0.2     setosa      purple
+> > 2            4.9         3.0          1.4         0.2     setosa      purple
+> > 3            4.7         3.2          1.3         0.2     setosa      purple
+> > 4            4.6         3.1          1.5         0.2     setosa      purple
+> > 5            5.0         3.6          1.4         0.2     setosa      purple
+> > 6            5.4         3.9          1.7         0.4     setosa      purple
+> > 7            4.6         3.4          1.4         0.3     setosa      purple
+> > 8            5.0         3.4          1.5         0.2     setosa      purple
+> > 9            4.4         2.9          1.4         0.2     setosa      purple
+> > 10           4.9         3.1          1.5         0.1     setosa      purple
+> > 11           5.4         3.7          1.5         0.2     setosa      purple
+> > 12           4.8         3.4          1.6         0.2     setosa      purple
+> > 13           4.8         3.0          1.4         0.1     setosa      purple
+> > 14           4.3         3.0          1.1         0.1     setosa      purple
+> > 15           5.8         4.0          1.2         0.2     setosa      purple
+> > 16           5.7         4.4          1.5         0.4     setosa      purple
+> > 17           5.4         3.9          1.3         0.4     setosa      purple
+> > 18           5.1         3.5          1.4         0.3     setosa      purple
+> > 19           5.7         3.8          1.7         0.3     setosa      purple
+> > 20           5.1         3.8          1.5         0.3     setosa      purple
+> > 21           5.4         3.4          1.7         0.2     setosa      purple
+> > 22           5.1         3.7          1.5         0.4     setosa      purple
+> > 23           4.6         3.6          1.0         0.2     setosa      purple
+> > 24           5.1         3.3          1.7         0.5     setosa      purple
+> > 25           4.8         3.4          1.9         0.2     setosa      purple
+> > 26           5.0         3.0          1.6         0.2     setosa      purple
+> > 27           5.0         3.4          1.6         0.4     setosa      purple
+> > 28           5.2         3.5          1.5         0.2     setosa      purple
+> > 29           5.2         3.4          1.4         0.2     setosa      purple
+> > 30           4.7         3.2          1.6         0.2     setosa      purple
+> > 31           4.8         3.1          1.6         0.2     setosa      purple
+> > 32           5.4         3.4          1.5         0.4     setosa      purple
+> > 33           5.2         4.1          1.5         0.1     setosa      purple
+> > 34           5.5         4.2          1.4         0.2     setosa      purple
+> > 35           4.9         3.1          1.5         0.2     setosa      purple
+> > 36           5.0         3.2          1.2         0.2     setosa      purple
+> > 37           5.5         3.5          1.3         0.2     setosa      purple
+> > 38           4.9         3.6          1.4         0.1     setosa      purple
+> > 39           4.4         3.0          1.3         0.2     setosa      purple
+> > 40           5.1         3.4          1.5         0.2     setosa      purple
+> > 41           5.0         3.5          1.3         0.3     setosa      purple
+> > 42           4.5         2.3          1.3         0.3     setosa      purple
+> > 43           4.4         3.2          1.3         0.2     setosa      purple
+> > 44           5.0         3.5          1.6         0.6     setosa      purple
+> > 45           5.1         3.8          1.9         0.4     setosa      purple
+> > 46           4.8         3.0          1.4         0.3     setosa      purple
+> > 47           5.1         3.8          1.6         0.2     setosa      purple
+> > 48           4.6         3.2          1.4         0.2     setosa      purple
+> > 49           5.3         3.7          1.5         0.2     setosa      purple
+> > 50           5.0         3.3          1.4         0.2     setosa      purple
+> > 51           7.0         3.2          4.7         1.4 versicolor            
+> > 52           6.4         3.2          4.5         1.5 versicolor            
+> > 53           6.9         3.1          4.9         1.5 versicolor            
+> > 54           5.5         2.3          4.0         1.3 versicolor            
+> > 55           6.5         2.8          4.6         1.5 versicolor            
+> > 56           5.7         2.8          4.5         1.3 versicolor            
+> > 57           6.3         3.3          4.7         1.6 versicolor            
+> > 58           4.9         2.4          3.3         1.0 versicolor            
+> > 59           6.6         2.9          4.6         1.3 versicolor            
+> > 60           5.2         2.7          3.9         1.4 versicolor            
+> > 61           5.0         2.0          3.5         1.0 versicolor            
+> > 62           5.9         3.0          4.2         1.5 versicolor            
+> > 63           6.0         2.2          4.0         1.0 versicolor            
+> > 64           6.1         2.9          4.7         1.4 versicolor            
+> > 65           5.6         2.9          3.6         1.3 versicolor            
+> > 66           6.7         3.1          4.4         1.4 versicolor            
+> > 67           5.6         3.0          4.5         1.5 versicolor            
+> > 68           5.8         2.7          4.1         1.0 versicolor            
+> > 69           6.2         2.2          4.5         1.5 versicolor            
+> > 70           5.6         2.5          3.9         1.1 versicolor            
+> > 71           5.9         3.2          4.8         1.8 versicolor            
+> > 72           6.1         2.8          4.0         1.3 versicolor            
+> > 73           6.3         2.5          4.9         1.5 versicolor            
+> > 74           6.1         2.8          4.7         1.2 versicolor            
+> > 75           6.4         2.9          4.3         1.3 versicolor            
+> > 76           6.6         3.0          4.4         1.4 versicolor            
+> > 77           6.8         2.8          4.8         1.4 versicolor            
+> > 78           6.7         3.0          5.0         1.7 versicolor            
+> > 79           6.0         2.9          4.5         1.5 versicolor            
+> > 80           5.7         2.6          3.5         1.0 versicolor            
+> > 81           5.5         2.4          3.8         1.1 versicolor            
+> > 82           5.5         2.4          3.7         1.0 versicolor            
+> > 83           5.8         2.7          3.9         1.2 versicolor            
+> > 84           6.0         2.7          5.1         1.6 versicolor            
+> > 85           5.4         3.0          4.5         1.5 versicolor            
+> > 86           6.0         3.4          4.5         1.6 versicolor            
+> > 87           6.7         3.1          4.7         1.5 versicolor            
+> > 88           6.3         2.3          4.4         1.3 versicolor            
+> > 89           5.6         3.0          4.1         1.3 versicolor            
+> > 90           5.5         2.5          4.0         1.3 versicolor            
+> > 91           5.5         2.6          4.4         1.2 versicolor            
+> > 92           6.1         3.0          4.6         1.4 versicolor            
+> > 93           5.8         2.6          4.0         1.2 versicolor            
+> > 94           5.0         2.3          3.3         1.0 versicolor            
+> > 95           5.6         2.7          4.2         1.3 versicolor            
+> > 96           5.7         3.0          4.2         1.2 versicolor            
+> > 97           5.7         2.9          4.2         1.3 versicolor            
+> > 98           6.2         2.9          4.3         1.3 versicolor            
+> > 99           5.1         2.5          3.0         1.1 versicolor            
+> > 100          5.7         2.8          4.1         1.3 versicolor            
+> > 101          6.3         3.3          6.0         2.5  virginica            
+> > 102          5.8         2.7          5.1         1.9  virginica            
+> > 103          7.1         3.0          5.9         2.1  virginica            
+> > 104          6.3         2.9          5.6         1.8  virginica            
+> > 105          6.5         3.0          5.8         2.2  virginica            
+> > 106          7.6         3.0          6.6         2.1  virginica            
+> > 107          4.9         2.5          4.5         1.7  virginica            
+> > 108          7.3         2.9          6.3         1.8  virginica            
+> > 109          6.7         2.5          5.8         1.8  virginica            
+> > 110          7.2         3.6          6.1         2.5  virginica            
+> > 111          6.5         3.2          5.1         2.0  virginica            
+> > 112          6.4         2.7          5.3         1.9  virginica            
+> > 113          6.8         3.0          5.5         2.1  virginica            
+> > 114          5.7         2.5          5.0         2.0  virginica            
+> > 115          5.8         2.8          5.1         2.4  virginica            
+> > 116          6.4         3.2          5.3         2.3  virginica            
+> > 117          6.5         3.0          5.5         1.8  virginica            
+> > 118          7.7         3.8          6.7         2.2  virginica            
+> > 119          7.7         2.6          6.9         2.3  virginica            
+> > 120          6.0         2.2          5.0         1.5  virginica            
+> > 121          6.9         3.2          5.7         2.3  virginica            
+> > 122          5.6         2.8          4.9         2.0  virginica            
+> > 123          7.7         2.8          6.7         2.0  virginica            
+> > 124          6.3         2.7          4.9         1.8  virginica            
+> > 125          6.7         3.3          5.7         2.1  virginica            
+> > 126          7.2         3.2          6.0         1.8  virginica            
+> > 127          6.2         2.8          4.8         1.8  virginica            
+> > 128          6.1         3.0          4.9         1.8  virginica            
+> > 129          6.4         2.8          5.6         2.1  virginica            
+> > 130          7.2         3.0          5.8         1.6  virginica            
+> > 131          7.4         2.8          6.1         1.9  virginica            
+> > 132          7.9         3.8          6.4         2.0  virginica            
+> > 133          6.4         2.8          5.6         2.2  virginica            
+> > 134          6.3         2.8          5.1         1.5  virginica            
+> > 135          6.1         2.6          5.6         1.4  virginica            
+> > 136          7.7         3.0          6.1         2.3  virginica            
+> > 137          6.3         3.4          5.6         2.4  virginica            
+> > 138          6.4         3.1          5.5         1.8  virginica            
+> > 139          6.0         3.0          4.8         1.8  virginica            
+> > 140          6.9         3.1          5.4         2.1  virginica            
+> > 141          6.7         3.1          5.6         2.4  virginica            
+> > 142          6.9         3.1          5.1         2.3  virginica            
+> > 143          5.8         2.7          5.1         1.9  virginica            
+> > 144          6.8         3.2          5.9         2.3  virginica            
+> > 145          6.7         3.3          5.7         2.5  virginica            
+> > 146          6.7         3.0          5.2         2.3  virginica            
+> > 147          6.3         2.5          5.0         1.9  virginica            
+> > 148          6.5         3.0          5.2         2.0  virginica            
+> > 149          6.2         3.4          5.4         2.3  virginica            
+> > 150          5.9         3.0          5.1         1.8  virginica            
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
 
 ***
 

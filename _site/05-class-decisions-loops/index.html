@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-08-27 23:29:28 -0700">
+    <meta http-equiv="last-modified" content="2020-08-31 22:30:35 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -120,8 +120,6 @@
             <li><a href="../02-class-R-data-types-structures/index.html">Basic Data Types and Data Structures in R</a></li>
             
             <li><a href="../02-oyo-R-data-types-in-depth/index.html">R Data Types -- In-Depth</a></li>
-            
-            <li><a href="../02-oyo-R-data-types-structures/index.html">R Data Types and Data Structures -- Additional Detail</a></li>
             
             <li><a href="../03-class-data-frames/index.html">Data Frames, Basic Indexing, Reading/Writing Data</a></li>
             
@@ -887,17 +885,19 @@ using the <code class="language-plaintext highlighter-rouge">^</code> operator.<
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"csv"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "car-speeds-cleaned.csv"     "car-speeds.csv"            
- [3] "combined-inflammation.csv"  "inflammation-01.csv"       
- [5] "inflammation-02.csv"        "inflammation-03.csv"       
- [7] "inflammation-04.csv"        "inflammation-05.csv"       
- [9] "inflammation-06.csv"        "inflammation-07.csv"       
-[11] "inflammation-08.csv"        "inflammation-09.csv"       
-[13] "inflammation-10.csv"        "inflammation-11.csv"       
-[15] "inflammation-12.csv"        "Nadeau2_table.csv"         
-[17] "sample-gendercorrected.csv" "sample-noquotes.csv"       
-[19] "sample.csv"                 "small-01.csv"              
-[21] "small-02.csv"               "small-03.csv"              
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "car-speeds-cleaned.csv"        "car-speeds-corrected-9999.csv"
+ [3] "car-speeds-corrected-na.csv"   "car-speeds-corrected.csv"     
+ [5] "car-speeds.csv"                "combined-inflammation.csv"    
+ [7] "inflammation-01.csv"           "inflammation-02.csv"          
+ [9] "inflammation-03.csv"           "inflammation-04.csv"          
+[11] "inflammation-05.csv"           "inflammation-06.csv"          
+[13] "inflammation-07.csv"           "inflammation-08.csv"          
+[15] "inflammation-09.csv"           "inflammation-10.csv"          
+[17] "inflammation-11.csv"           "inflammation-12.csv"          
+[19] "Nadeau2_table.csv"             "sample-gendercorrected.csv"   
+[21] "sample-noquotes.csv"           "sample.csv"                   
+[23] "small-01.csv"                  "small-02.csv"                 
+[25] "small-03.csv"                 
 </code></pre></div></div>
 
 <p> </p>
@@ -1076,15 +1076,15 @@ computational biology projects</a> by William Stafford Noble.</p>
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>         used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 512694 27.4    1145560 61.2   666091 35.6
-Vcells 991929  7.6    8388608 64.0  1632380 12.5
+Ncells 512712 27.4    1145700 61.2   796868 42.6
+Vcells 991973  7.6    8388608 64.0  1632446 12.5
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system.time</span><span class="p">(</span><span class="n">avg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">analyze</span><span class="p">(</span><span class="n">inflam.files</span><span class="p">))</span><span class="w">
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   user  system elapsed 
-   0.02    0.00    0.01 
+   0.01    0.00    0.02 
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system.time</span><span class="p">(</span><span class="n">avg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">analyze2</span><span class="p">(</span><span class="n">inflam.files</span><span class="p">))</span><span class="w">

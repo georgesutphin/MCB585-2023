@@ -126,12 +126,17 @@ install.packages("pwr")
 
 
 ~~~
-package 'pwr' successfully unpacked and MD5 sums checked
-
-The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\RtmpUTFDqG\downloaded_packages
+Warning in install.packages("pwr"): 'lib = "C:/Program Files/R/R-4.0.2/library"'
+is not writable
 ~~~
-{: .output}
+{: .error}
+
+
+
+~~~
+Error in install.packages("pwr"): unable to install packages
+~~~
+{: .error}
 
 
 

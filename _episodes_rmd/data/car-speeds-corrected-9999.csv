@@ -1,7 +1,7 @@
 "Color","Speed","State"
 "Green",32,"NewMexico"
 " Red",45,"Arizona"
-"Green",35,"Colorado"
+"Green",-9999,"Colorado"
 "White",34,"Arizona"
 "Red",25,"Arizona"
 "Green",41,"Arizona"

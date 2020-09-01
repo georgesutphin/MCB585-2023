@@ -1,4 +1,4 @@
-I"k<script>
+I"ï<script>
   window.onload = function() {
     var lesson_episodes = [
     
@@ -9,8 +9,6 @@
     "/02-class-R-data-types-structures/index.html",
     
     "/02-oyo-R-data-types-in-depth/index.html",
-    
-    "/02-oyo-R-data-types-structures/index.html",
     
     "/03-class-data-frames/index.html",
     
@@ -70,8 +68,6 @@
 <article id="/02-class-R-data-types-structures/index.html"></article>
 
 <article id="/02-oyo-R-data-types-in-depth/index.html"></article>
-
-<article id="/02-oyo-R-data-types-structures/index.html"></article>
 
 <article id="/03-class-data-frames/index.html"></article>
 

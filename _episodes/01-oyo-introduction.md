@@ -486,8 +486,8 @@ gc()
 
 ~~~
          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 478548 25.6    1047988   56   638582 34.2
-Vcells 905731  7.0    8388608   64  1632380 12.5
+Ncells 478554 25.6    1048005   56   638582 34.2
+Vcells 905733  7.0    8388608   64  1632446 12.5
 ~~~
 {: .output}
 
@@ -504,8 +504,8 @@ gc()
 
 ~~~
           used (Mb) gc trigger (Mb) max used (Mb)
-Ncells  478633 25.6    1047988   56   638582 34.2
-Vcells 1006086  7.7    8388608   64  8388597 64.0
+Ncells  478639 25.6    1048005   56   638582 34.2
+Vcells 1006088  7.7    8388608   64  8388604 64.0
 ~~~
 {: .output}
 
@@ -521,8 +521,8 @@ gc()
 
 ~~~
          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 478604 25.6    1047988   56   638582 34.2
-Vcells 905923  7.0    8388608   64  8388597 64.0
+Ncells 478610 25.6    1048005   56   638582 34.2
+Vcells 905925  7.0    8388608   64  8388604 64.0
 ~~~
 {: .output}
 
@@ -606,12 +606,17 @@ install.packages("pwr")
 
 
 ~~~
-package 'pwr' successfully unpacked and MD5 sums checked
-
-The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\RtmpGIJvpj\downloaded_packages
+Warning in install.packages("pwr"): 'lib = "C:/Program Files/R/R-4.0.2/library"'
+is not writable
 ~~~
-{: .output}
+{: .error}
+
+
+
+~~~
+Error in install.packages("pwr"): unable to install packages
+~~~
+{: .error}
 
 
 ~~~
