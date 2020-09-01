@@ -1,7 +1,5 @@
-I"�c<hr />
-<h2 id="in-class">In Class</h2>
+I"��<h2 id="on-your-own">On Your Own</h2>
 
-<hr />
 <h3 id="lists">Lists</h3>
 
 <p>Lists in R act as containers. Unlike atomic vectors, the contents of a list are
@@ -290,64 +288,8 @@ kinds of results into a single object that a function can return.</p>
 the <code class="language-plaintext highlighter-rouge">$</code> notation (i.e. <code class="language-plaintext highlighter-rouge">xlist$data</code>). This can be useful if a function runs a complex analysis. It can export a lot of different types of information as different elements in a single list (raw data, processes data, analysis summary, analysis statistics, etc.)</p>
 
 <hr />
-<h3 id="data-frames">Data Frames</h3>
-
-<p>The data frame is the most important data type in R. It is the <em>de facto</em>
-data structure for most tabular data and what we use for statistics. At its heart, the data frame is a <em>special type of list</em> where every element of the list has same length (i.e. data frame is a “rectangular” list).</p>
-
-<p>Data frames can have additional attributes such as <code class="language-plaintext highlighter-rouge">rownames()</code>, which can be
-useful for annotating data, like <code class="language-plaintext highlighter-rouge">subject_id</code> or <code class="language-plaintext highlighter-rouge">sample_id</code>. But most of the
-time they are not used.</p>
-
-<p>Data frame characteristics:</p>
-<ul>
-  <li>Each column must contain a single data type</li>
-  <li>Different columns can have different data types</li>
-  <li>All columns must have the same number of elements</li>
-  <li>Like lists, column names can be directly called using the <code class="language-plaintext highlighter-rouge">$</code> operator</li>
-  <li>Like matrices, data frames can be indexed using the <code class="language-plaintext highlighter-rouge">df[row,column]</code> notation.</li>
-</ul>
-
-<p>Some additional information on data frames:</p>
-
-<ul>
-  <li>Created by the <code class="language-plaintext highlighter-rouge">read.csv()</code> and <code class="language-plaintext highlighter-rouge">read.table()</code> when importing the data into R.</li>
-  <li>Assuming all columns in a data frame are of same type, data frame can be converted to a matrix with data.matrix() (preferred) or as.matrix(). Otherwise type coercion will be enforced and the results may not always be what you expect.</li>
-  <li>Can be created <em>de novo</em> with the <code class="language-plaintext highlighter-rouge">data.frame()</code> or <code class="language-plaintext highlighter-rouge">as.data.frame()</code> functions.</li>
-  <li>Like matrices, the number of rows and columns can be queried with <code class="language-plaintext highlighter-rouge">nrow(dat)</code> and <code class="language-plaintext highlighter-rouge">ncol(dat)</code>, respectively.</li>
-  <li>Rownames are often automatically generated and look like 1, 2, …, n. Consistency in numbering of rownames may not be honored when rows are reshuffled or subset.</li>
-  <li>A common way to use data frames is with columns as “variables” (e.g. body weight, blood pressure) and rows as “patients” or “observations” (e.g. “subject 1”, “subject 2”, …).</li>
-</ul>
-
-<p>The following table summarizes the one-dimensional and two-dimensional data structures in 
-R in relation to diversity of data types they can contain.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Dimensions</th>
-      <th>Homogenous</th>
-      <th>Heterogeneous</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1-D</td>
-      <td>atomic vector</td>
-      <td>list</td>
-    </tr>
-    <tr>
-      <td>2-D</td>
-      <td>matrix</td>
-      <td>data frame</td>
-    </tr>
-  </tbody>
-</table>
-
-<p> </p>
-<h4 id="creating-data-frames-by-hand">Creating Data Frames by Hand</h4>
-
-<p>To create data frames by hand:</p>
+<h3 id="data-frames-are-specialized-lists">Data frames are specialized lists</h3>
+<p>At its heart, the data frame is a <em>special type of list</em> where every element of the list has same length (i.e. data frame is a “rectangular” list).</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">letters</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">],</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">11</span><span class="o">:</span><span class="m">20</span><span class="p">)</span><span class="w">
 </span><span class="n">dat</span><span class="w">
@@ -388,491 +330,8 @@ R in relation to diversity of data types they can contain.</p>
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "data.frame"
 </code></pre></div></div>
 
-<p> </p>
-<h4 id="sample-data-in-r">Sample data in R</h4>
-
-<p>R includes a default dataset that can be used for examples caused <code class="language-plaintext highlighter-rouge">iris</code>. The <code class="language-plaintext highlighter-rouge">iris</code> data frame is already defined and loaded in memory. We will use this data frame to learn how to interact with data frames.</p>
-
-<p>Let’s get some information on the <code class="language-plaintext highlighter-rouge">iris</code> data set:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">iris</span><span class="w">
-</span></code></pre></div></div>
-
-<p> </p>
-<h4 id="useful-function-for-examining-and-extracting-information-from-data-frames">Useful function for examining and extracting information from data frames</h4>
-
-<p>There are many ways to interact with data frames and get information about their contents.</p>
-
-<blockquote class="callout">
-  <h2 id="useful-data-frame-functions">Useful Data Frame Functions</h2>
-
-  <ul>
-    <li><code class="language-plaintext highlighter-rouge">head()</code> - shows first 6 rows</li>
-    <li><code class="language-plaintext highlighter-rouge">tail()</code> - shows last 6 rows</li>
-    <li><code class="language-plaintext highlighter-rouge">dim()</code> - returns the dimensions of data frame (i.e. number of rows and number of columns)</li>
-    <li><code class="language-plaintext highlighter-rouge">nrow()</code> - number of rows</li>
-    <li><code class="language-plaintext highlighter-rouge">ncol()</code> - number of columns</li>
-    <li><code class="language-plaintext highlighter-rouge">str()</code> - structure of data frame - name, type and preview of data in each column</li>
-    <li><code class="language-plaintext highlighter-rouge">names()</code> or <code class="language-plaintext highlighter-rouge">colnames()</code> - both show the <code class="language-plaintext highlighter-rouge">names</code> attribute for a data frame</li>
-    <li><code class="language-plaintext highlighter-rouge">sapply(dataframe, class)</code> - shows the class of each column in the data frame</li>
-  </ul>
-</blockquote>
-
-<p> </p>
-
-<p>I find <code class="language-plaintext highlighter-rouge">head()</code>, which displays the first 6 rows and all columns of the data frame, particularly useful to get a feel for the contents and organization of a new data frame. Let’s take a quick look at <code class="language-plaintext highlighter-rouge">iris</code> with <code class="language-plaintext highlighter-rouge">head()</code> and <code class="language-plaintext highlighter-rouge">dim()</code>:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-1          5.1         3.5          1.4         0.2  setosa
-2          4.9         3.0          1.4         0.2  setosa
-3          4.7         3.2          1.3         0.2  setosa
-4          4.6         3.1          1.5         0.2  setosa
-5          5.0         3.6          1.4         0.2  setosa
-6          5.4         3.9          1.7         0.4  setosa
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">head</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="c1"># you can look at more or fewer rows if 6 is not what you want</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-1          5.1         3.5          1.4         0.2  setosa
-2          4.9         3.0          1.4         0.2  setosa
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">dim</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 150   5
-</code></pre></div></div>
-
-<blockquote class="challenge">
-  <h2 id="column-types-in-data-frames">Column Types in Data Frames</h2>
-
-  <p>Knowing that data frames are lists, can columns be of different type?</p>
-
-  <p>What type of structure do you expect to see when you explore the structure of the <code class="language-plaintext highlighter-rouge">iris</code> data 
-frame? Hint: Use <code class="language-plaintext highlighter-rouge">str()</code>.</p>
-
-  <blockquote class="solution">
-    <h2 id="solution-2">Solution</h2>
-    <p>The Sepal.Length, Sepal.Width, Petal.Length and Petal.Width columns are all
-numeric types, while Species is a Factor.
-Lists can have elements of different types.
-Since a Data Frame is just a special type of list, it can have columns of
-differing type (although, remember that type must be consistent within each column!).</p>
-
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">str</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span><span class="w">
-</span></code></pre></div>    </div>
-
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	150 obs. of  5 variables:
- $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
- $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
- $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
- $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
- $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
-</code></pre></div>    </div>
-  </blockquote>
-</blockquote>
-
-<p> </p>
-<h4 id="indexing-data-frames">Indexing data frames</h4>
-
-<p>R is a powerful language for data manipulation. There are three main ways for addressing data inside R objects.</p>
-
-<ul>
-  <li>By index (subsetting)</li>
-  <li>By name (columns only)</li>
-  <li>By logical vector</li>
-</ul>
-
-<p> </p>
-
-<p><strong>By index</strong></p>
-
-<p>Because data frames are rectangular, elements of data frame can be referenced by specifying 
-the row and the column index in single square brackets (similar to matrix).</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">]</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1.4
-</code></pre></div></div>
-
-<p> </p>
-
-<p>Like matrices, we can also ask for multiple columns and rows using the <code class="language-plaintext highlighter-rouge">:</code> operator:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="o">:</span><span class="m">3</span><span class="p">]</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Width Petal.Length
-1          3.5          1.4
-2          3.0          1.4
-3          3.2          1.3
-4          3.1          1.5
-5          3.6          1.4
-6          3.9          1.7
-7          3.4          1.4
-8          3.4          1.5
-9          2.9          1.4
-10         3.1          1.5
-11         3.7          1.5
-12         3.4          1.6
-13         3.0          1.4
-14         3.0          1.1
-15         4.0          1.2
-16         4.4          1.5
-17         3.9          1.3
-18         3.5          1.4
-19         3.8          1.7
-20         3.8          1.5
-</code></pre></div></div>
-
-<p> </p>
-
-<p>Or for non-contiguous subsets using lists of indices:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="m">20</span><span class="o">:</span><span class="m">25</span><span class="p">),</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">)]</span><span class="w"> </span><span class="c1"># note the use of sequences within the `c()` list</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Length Petal.Length
-1           5.1          1.4
-2           4.9          1.4
-3           4.7          1.3
-4           4.6          1.5
-5           5.0          1.4
-6           5.4          1.7
-7           4.6          1.4
-8           5.0          1.5
-9           4.4          1.4
-10          4.9          1.5
-20          5.1          1.5
-21          5.4          1.7
-22          5.1          1.5
-23          4.6          1.0
-24          5.1          1.7
-25          4.8          1.9
-</code></pre></div></div>
-
-<p> </p>
-
-<p>What if we only ask for one dimension in data frame?</p>
-
-<blockquote class="challenge">
-  <h2 id="asking-for-a-single-index-from-a-data-frame">Asking for a single index from a data frame</h2>
-
-  <p>What do you expect if we query <code class="language-plaintext highlighter-rouge">iris</code> with just one index?</p>
-
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">3</span><span class="p">]</span><span class="w">
-</span></code></pre></div>  </div>
-  <blockquote class="solution">
-    <h2 id="solution-3">Solution</h2>
-
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">3</span><span class="p">]</span><span class="w">
-</span></code></pre></div>    </div>
-
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Petal.Length
-1            1.4
-2            1.4
-3            1.3
-4            1.5
-5            1.4
-6            1.7
-7            1.4
-8            1.5
-9            1.4
-10           1.5
-11           1.5
-12           1.6
-13           1.4
-14           1.1
-15           1.2
-16           1.5
-17           1.3
-18           1.4
-19           1.7
-20           1.5
-21           1.7
-22           1.5
-23           1.0
-24           1.7
-25           1.9
-26           1.6
-27           1.6
-28           1.5
-29           1.4
-30           1.6
-31           1.6
-32           1.5
-33           1.5
-34           1.4
-35           1.5
-36           1.2
-37           1.3
-38           1.4
-39           1.3
-40           1.5
-41           1.3
-42           1.3
-43           1.3
-44           1.6
-45           1.9
-46           1.4
-47           1.6
-48           1.4
-49           1.5
-50           1.4
-51           4.7
-52           4.5
-53           4.9
-54           4.0
-55           4.6
-56           4.5
-57           4.7
-58           3.3
-59           4.6
-60           3.9
-61           3.5
-62           4.2
-63           4.0
-64           4.7
-65           3.6
-66           4.4
-67           4.5
-68           4.1
-69           4.5
-70           3.9
-71           4.8
-72           4.0
-73           4.9
-74           4.7
-75           4.3
-76           4.4
-77           4.8
-78           5.0
-79           4.5
-80           3.5
-81           3.8
-82           3.7
-83           3.9
-84           5.1
-85           4.5
-86           4.5
-87           4.7
-88           4.4
-89           4.1
-90           4.0
-91           4.4
-92           4.6
-93           4.0
-94           3.3
-95           4.2
-96           4.2
-97           4.2
-98           4.3
-99           3.0
-100          4.1
-101          6.0
-102          5.1
-103          5.9
-104          5.6
-105          5.8
-106          6.6
-107          4.5
-108          6.3
-109          5.8
-110          6.1
-111          5.1
-112          5.3
-113          5.5
-114          5.0
-115          5.1
-116          5.3
-117          5.5
-118          6.7
-119          6.9
-120          5.0
-121          5.7
-122          4.9
-123          6.7
-124          4.9
-125          5.7
-126          6.0
-127          4.8
-128          4.9
-129          5.6
-130          5.8
-131          6.1
-132          6.4
-133          5.6
-134          5.1
-135          5.6
-136          6.1
-137          5.6
-138          5.5
-139          4.8
-140          5.4
-141          5.6
-142          5.1
-143          5.1
-144          5.9
-145          5.7
-146          5.2
-147          5.0
-148          5.2
-149          5.4
-150          5.1
-</code></pre></div>    </div>
-    <p>Because the data frame is a list at heart, just asking for a single index returns 
-the indicated column.</p>
-
-  </blockquote>
-</blockquote>
-
-<p> </p>
-
-<p>What if we include the <code class="language-plaintext highlighter-rouge">,</code>, but don’t give an actual index?</p>
-
-<blockquote class="challenge">
-  <h2 id="selecting-more-values">Selecting More Values</h2>
-
-  <p>What will be returned by <code class="language-plaintext highlighter-rouge">dat[, 2]</code>?</p>
-
-  <blockquote class="solution">
-    <h2 id="solution-4">Solution</h2>
-
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">2</span><span class="p">]</span><span class="w">
-</span></code></pre></div>    </div>
-
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
-</code></pre></div>    </div>
-
-    <p>If we leave out a dimension R will interpret this as a request for all values in 
-that dimension.</p>
-  </blockquote>
-</blockquote>
-
-<p> </p>
-
-<p><strong>By name (columns only)</strong></p>
-
-<p>As data frames are also lists, it is possible to refer to columns (which are elements of
-such list) using the list notation, i.e. either double square brackets or a <code class="language-plaintext highlighter-rouge">$</code>.</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># These all return the same vector:</span><span class="w">
-</span><span class="n">iris</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
- [19] 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0
- [37] 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0 6.4 6.9 5.5
- [55] 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2 5.6 5.9 6.1
- [73] 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4 6.0 6.7 6.3 5.6 5.5
- [91] 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7 6.3 5.8 7.1 6.3 6.5 7.6 4.9 7.3
-[109] 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7 6.0 6.9 5.6 7.7 6.3 6.7 7.2
-[127] 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7 6.3 6.4 6.0 6.9 6.7 6.9 5.8 6.8
-[145] 6.7 6.7 6.3 6.5 6.2 5.9
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[[</span><span class="s2">"Sepal.Length"</span><span class="p">]]</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
- [19] 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0
- [37] 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0 6.4 6.9 5.5
- [55] 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2 5.6 5.9 6.1
- [73] 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4 6.0 6.7 6.3 5.6 5.5
- [91] 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7 6.3 5.8 7.1 6.3 6.5 7.6 4.9 7.3
-[109] 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7 6.0 6.9 5.6 7.7 6.3 6.7 7.2
-[127] 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7 6.3 6.4 6.0 6.9 6.7 6.9 5.8 6.8
-[145] 6.7 6.7 6.3 6.5 6.2 5.9
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="o">$</span><span class="n">Sepal.Length</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] 5.1 4.9 4.7 4.6 5.0 5.4 4.6 5.0 4.4 4.9 5.4 4.8 4.8 4.3 5.8 5.7 5.4 5.1
- [19] 5.7 5.1 5.4 5.1 4.6 5.1 4.8 5.0 5.0 5.2 5.2 4.7 4.8 5.4 5.2 5.5 4.9 5.0
- [37] 5.5 4.9 4.4 5.1 5.0 4.5 4.4 5.0 5.1 4.8 5.1 4.6 5.3 5.0 7.0 6.4 6.9 5.5
- [55] 6.5 5.7 6.3 4.9 6.6 5.2 5.0 5.9 6.0 6.1 5.6 6.7 5.6 5.8 6.2 5.6 5.9 6.1
- [73] 6.3 6.1 6.4 6.6 6.8 6.7 6.0 5.7 5.5 5.5 5.8 6.0 5.4 6.0 6.7 6.3 5.6 5.5
- [91] 5.5 6.1 5.8 5.0 5.6 5.7 5.7 6.2 5.1 5.7 6.3 5.8 7.1 6.3 6.5 7.6 4.9 7.3
-[109] 6.7 7.2 6.5 6.4 6.8 5.7 5.8 6.4 6.5 7.7 7.7 6.0 6.9 5.6 7.7 6.3 6.7 7.2
-[127] 6.2 6.1 6.4 7.2 7.4 7.9 6.4 6.3 6.1 7.7 6.3 6.4 6.0 6.9 6.7 6.9 5.8 6.8
-[145] 6.7 6.7 6.3 6.5 6.2 5.9
-</code></pre></div></div>
-
-<p> </p>
-
-<p>We can ask for a set of columns using <code class="language-plaintext highlighter-rouge">c()</code>:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Sepal.Length"</span><span class="p">,</span><span class="s2">"Petal.Length"</span><span class="p">)]</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   Sepal.Length Petal.Length
-1           5.1          1.4
-2           4.9          1.4
-3           4.7          1.3
-4           4.6          1.5
-5           5.0          1.4
-6           5.4          1.7
-7           4.6          1.4
-8           5.0          1.5
-9           4.4          1.4
-10          4.9          1.5
-</code></pre></div></div>
-
-<p> </p>
-
-<p>Named vectors can also be used in vectorized mathematical operations:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="o">$</span><span class="n">Sepal.Length</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1]  6.5  6.3  6.0  6.1  6.4  7.1  6.0  6.5  5.8  6.4  6.9  6.4  6.2  5.4  7.0
- [16]  7.2  6.7  6.5  7.4  6.6  7.1  6.6  5.6  6.8  6.7  6.6  6.6  6.7  6.6  6.3
- [31]  6.4  6.9  6.7  6.9  6.4  6.2  6.8  6.3  5.7  6.6  6.3  5.8  5.7  6.6  7.0
- [46]  6.2  6.7  6.0  6.8  6.4 11.7 10.9 11.8  9.5 11.1 10.2 11.0  8.2 11.2  9.1
- [61]  8.5 10.1 10.0 10.8  9.2 11.1 10.1  9.9 10.7  9.5 10.7 10.1 11.2 10.8 10.7
- [76] 11.0 11.6 11.7 10.5  9.2  9.3  9.2  9.7 11.1  9.9 10.5 11.4 10.7  9.7  9.5
- [91]  9.9 10.7  9.8  8.3  9.8  9.9  9.9 10.5  8.1  9.8 12.3 10.9 13.0 11.9 12.3
-[106] 14.2  9.4 13.6 12.5 13.3 11.6 11.7 12.3 10.7 10.9 11.7 12.0 14.4 14.6 11.0
-[121] 12.6 10.5 14.4 11.2 12.4 13.2 11.0 11.0 12.0 13.0 13.5 14.3 12.0 11.4 11.7
-[136] 13.8 11.9 11.9 10.8 12.3 12.3 12.0 10.9 12.7 12.4 11.9 11.3 11.7 11.6 11.0
-</code></pre></div></div>
-
-<blockquote class="callout">
-  <h2 id="default-names">Default Names</h2>
-
-  <p>If column names are not specified, <code class="language-plaintext highlighter-rouge">V1, V2, ..., Vn</code> are automatically used as the defaults. For example, if we convert a matrix to a data frame:</p>
-
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
-</span><span class="n">m.data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">as.data.frame</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
-</span><span class="n">m.data</span><span class="w">
-</span></code></pre></div>  </div>
-
-  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  V1 V2 V3 V4 V5
-1  1  3  5  7  9
-2  2  4  6  8 10
-</code></pre></div>  </div>
-</blockquote>
-
-<p> </p>
-
-<p><strong>By logical vector</strong></p>
-
-<p>Recall that a logical vector contains only the special values <code class="language-plaintext highlighter-rouge">TRUE</code> and <code class="language-plaintext highlighter-rouge">FALSE</code>.</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  TRUE  TRUE FALSE FALSE  TRUE
-</code></pre></div></div>
-
-<p> </p>
+<hr />
+<h3 id="advanced-indexing">Advanced indexing</h3>
 
 <p>Logical vectors can be created using <code class="language-plaintext highlighter-rouge">relational operators</code>:</p>
 <ul>
@@ -1087,7 +546,7 @@ such list) using the list notation, i.e. either double square brackets or a <cod
 equal to 5.0.</p>
 
   <blockquote class="solution">
-    <h2 id="solution-5">Solution</h2>
+    <h2 id="solution-2">Solution</h2>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris.new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">[</span><span class="n">iris</span><span class="o">$</span><span class="n">Sepal.Length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">5</span><span class="p">,]</span><span class="w">
 </span></code></pre></div>    </div>
@@ -1102,7 +561,7 @@ equal to 5.0.</p>
   <li><code class="language-plaintext highlighter-rouge">&amp;</code> = element-wise AND (both are true; outputs vector for vector input comparing elements)</li>
   <li><code class="language-plaintext highlighter-rouge">&amp;&amp;</code> = logical AND (both are true; only considers first index of a vector)</li>
   <li><code class="language-plaintext highlighter-rouge">|</code> = element-wise OR (one or both are true; outputs vector for vector input comparing elements)</li>
-  <li><code class="language-plaintext highlighter-rouge">&amp;&amp;</code> = logical OR (both are true; only considers first index of a vector)</li>
+  <li><code class="language-plaintext highlighter-rouge">||</code> = logical OR (both are true; only considers first index of a vector)</li>
 </ul>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">truth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
@@ -1143,8 +602,8 @@ equal to 5.0.</p>
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] FALSE
 </code></pre></div></div>
 
-<hr />
-<h3 id="exercises">Exercises</h3>
+<p> </p>
+<h4 id="exercises">Exercises</h4>
 
 <blockquote class="challenge">
   <h2 id="using-logical-indices-1">Using logical indices</h2>
@@ -1152,7 +611,7 @@ equal to 5.0.</p>
   <p>Create a new data frame that is the subset of <code class="language-plaintext highlighter-rouge">iris</code> with sepal length greater than or &gt; equal to 5.0 for the setosa species.</p>
 
   <blockquote class="solution">
-    <h2 id="solution-6">Solution</h2>
+    <h2 id="solution-3">Solution</h2>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris.new</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">[</span><span class="n">iris</span><span class="o">$</span><span class="n">Sepal.Length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"setosa"</span><span class="p">,]</span><span class="w">
 </span></code></pre></div>    </div>
@@ -1166,7 +625,7 @@ equal to 5.0.</p>
 length and species from <code class="language-plaintext highlighter-rouge">iris</code></p>
 
   <blockquote class="solution">
-    <h2 id="solution-7">Solution</h2>
+    <h2 id="solution-4">Solution</h2>
     <p>Two options:</p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">5</span><span class="p">)]</span><span class="w">
@@ -1199,7 +658,7 @@ length and species from <code class="language-plaintext highlighter-rouge">iris<
   <p>Use the colon operator to index just the data on sepal size from <code class="language-plaintext highlighter-rouge">iris</code></p>
 
   <blockquote class="solution">
-    <h2 id="solution-8">Solution</h2>
+    <h2 id="solution-5">Solution</h2>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">]</span><span class="w">
 </span></code></pre></div>    </div>
@@ -1372,7 +831,7 @@ observations. Let’s first define a new data frame ‘iris.update’ (so as not
 no values to indicate that we have not recorded any observations.</p>
 
   <blockquote class="solution">
-    <h2 id="solution-9">Solution</h2>
+    <h2 id="solution-6">Solution</h2>
 
     <p>We have a couple of options:</p>
 
@@ -1417,7 +876,7 @@ no values to indicate that we have not recorded any observations.</p>
 changing the values for the other species).</p>
 
   <blockquote class="solution">
-    <h2 id="solution-10">Solution</h2>
+    <h2 id="solution-7">Solution</h2>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris.update</span><span class="p">[</span><span class="n">iris.update</span><span class="o">$</span><span class="n">Species</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"setosa"</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="o">$</span><span class="n">Petal.Color</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"purple"</span><span class="w">
 </span><span class="n">iris.update</span><span class="w">

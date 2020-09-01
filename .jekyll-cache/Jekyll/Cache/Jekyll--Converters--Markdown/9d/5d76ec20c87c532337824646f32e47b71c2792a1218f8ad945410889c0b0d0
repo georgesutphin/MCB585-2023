@@ -1,5 +1,4 @@
-I"²J<hr />
-<h2 id="in-class">In Class</h2>
+I"¬J<h2 id="in-class">In Class</h2>
 
 <h3 id="basic-data-types-in-r">Basic Data Types in R</h3>
 
@@ -249,7 +248,7 @@ The code following the if statement will only execute if the variable or stateme
   <li>factors</li>
   <li>atomic vectors (aka vectors)</li>
   <li>lists</li>
-  <li>matrixs</li>
+  <li>matrices</li>
   <li>data frames</li>
 </ul>
 

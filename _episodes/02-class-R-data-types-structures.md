@@ -25,7 +25,6 @@ source: Rmd
 
 
 
-***
 ## In Class
 
 ### Basic Data Types in R
@@ -454,7 +453,7 @@ Elements of these data types may be combined to form data structures--collection
 * factors
 * atomic vectors (aka vectors)
 * lists
-* matrixs
+* matrices
 * data frames
 
 Here we will discuss the two most basic data structures: **vectors** and **matrices**. In later lessons we will discuss two advanced data structure, **data frames** (the most common data storage structure in R) and **lists**. **Factors** are a type of data structure, but function more like an advanced data type. You will explore **factors** in detail *On Your Own*.  

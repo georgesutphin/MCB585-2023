@@ -1,4 +1,4 @@
-I"/’<hr />
+I"±’<hr />
 <h2 id="in-class">In Class</h2>
 
 <p>Increasingly, funding agencies are asking for detailed justification for experimental design decisions. An explicitly request in these requirements is presentation of a power analysis to justify your study design, particularly your selected sample size.</p>
@@ -124,10 +124,11 @@ one of two ways:</p>
 </span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>package 'pwr' successfully unpacked and MD5 sums checked
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in install.packages("pwr"): 'lib = "C:/Program Files/R/R-4.0.2/library"'
+is not writable
+</code></pre></div></div>
 
-The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\RtmpUTFDqG\downloaded_packages
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in install.packages("pwr"): unable to install packages
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
