@@ -18,6 +18,7 @@ keypoints:
 - "Data frames are a specific type of list in which all elements are vectors of the same length. Each vector can contain data of different classes."
 - "Use `object[[x]]` to select a single element from a list."
 - "Each element of a list can be assigned a name that can be addressed using the `$` operator (e.g. `mylist$element1`)."
+- "Different indexing methods can be combined to efficiently extract desired data subsets for further analysis."
 source: Rmd
 ---
 
@@ -27,21 +28,14 @@ source: Rmd
 
 ### Lists
 
-Lists in R act as containers. Unlike atomic vectors, the contents of a list are
-not restricted to a single mode and can encompass any mixture of data
-types. Lists are sometimes called "generic vectors"", because the elements of a
-list can by of any type of R object, even lists containing further lists. This
-property makes them fundamentally different from atomic vectors.
+**Lists** in R act as generalized containers. A **list** is a special type of vector, but unlike atomic vectors, the contents of a list are not restricted to a single mode and can encompass any mixture of data types. Lists are sometimes called "generic vectors"", because the elements of a list can be any type of R object, even lists containing further lists. This property makes them fundamentally different from atomic vectors.
 
-A list is a special type of vector. Each element can be a different type, and is not restricted to a single value.
-
-Create lists using `list()` or coerce other objects using `as.list()`. An empty
-list of the required length can be created using `vector()`
+Create **lists** using `list()`:
 
 
 ~~~
 x <- list(1, "a", TRUE, 1+4i)
-x # A list does not print to the console like a vector. Instead, each element of the list starts on a new line.
+x 
 ~~~
 {: .language-r}
 
@@ -62,24 +56,15 @@ x # A list does not print to the console like a vector. Instead, each element of
 ~~~
 {: .output}
 
+&nbsp;
+
+A list does not print to the console like a vector. Instead, each element of the list starts on a new line. The reason is that *any* object can be placed as an element in a **list**, including larger objects like **data frames**. Placing each element on a sparate line allows room for these larger objects to be displayed.
+
+Note that an empty **list** of the required length can also be created using `vector()`.
 
 
 ~~~
 x <- vector("list", length = 5) # empty list
-length(x)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 5
-~~~
-{: .output}
-
-
-
-~~~
 x 
 ~~~
 {: .language-r}
@@ -104,14 +89,42 @@ NULL
 ~~~
 {: .output}
 
+
+
+~~~
+length(x)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 5
+~~~
+{: .output}
+
 &nbsp;
 
-Vectors can be coerced to lists as follows:
+Coerce other objects (like **vectors**) to **lists** using `as.list()`:
 
 
 ~~~
 x <- 1:10
 x <- as.list(x)
+class(x)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "list"
+~~~
+{: .output}
+
+
+
+~~~
 length(x)
 ~~~
 {: .language-r}
@@ -141,6 +154,9 @@ x[[1]]
 ~~~
 {: .output}
 
+&nbsp;
+
+Single `[]` indexing still works, but returns a list with the indexed elements. Double `[[]]` indexing returns the object inside the requested element itself. With that in mind, consider the following exercise:
 
 > ## Examining Lists
 >
@@ -178,6 +194,58 @@ x[[1]]
 {: .challenge}
 
 &nbsp;
+
+Another consequence of the difference between `[]` and `[[]]` indexing is that you cannot request that R return more than one element from a list using `[[]]`:
+
+
+~~~
+x[[c(1,2)]]
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in x[[c(1, 2)]]: subscript out of bounds
+~~~
+{: .error}
+&nbsp; 
+
+Because the `[[]]` index returns the object *inside* the requested **list** element, entering a range of indexes actually requests that R return multiple separate objects, possibly with different classes. If you want to return a **list** that is a subset of the current **list**, use `[]`:
+
+
+~~~
+y <- x[c(1,2)]
+y
+~~~
+{: .language-r}
+
+
+
+~~~
+[[1]]
+[1] 1
+
+[[2]]
+[1] 2
+~~~
+{: .output}
+
+
+
+~~~
+class(y)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "list"
+~~~
+{: .output}
+
+&nbsp; 
 
 Elements of a list can be named (i.e. lists can have the `names` attribute)
 
@@ -239,7 +307,7 @@ $names
 
 &nbsp;
 
-You can use the `$` operator to directly refer to named list elements by their name:
+You can use the `$` operator to directly refer to  **list** elements using their name. These are equivalent requests:
 
 
 ~~~
@@ -411,49 +479,124 @@ my.list$x
 &nbsp;
 #### Lists and functions
 
-Lists can be extremely useful inside functions. Because the functions in R are 
-able to return only a single object, you can "staple" together lots of different
-kinds of results into a single object that a function can return.
+**Lists** can be extremely useful when used in *functions*. One property of functions in R is that they are able to return only a single object. To get around this restriction, you can "staple" together lots of different types of information into a single **list** object that a function can return.
 
-Elements are indexed by double brackets. Double brackets return the object inside the indexed list element, while single brackets will just return a(nother) list containing the indicated elements. 
+A basic example is the function `t.test()`, which performs a Student's t test between two data samples (more on this in coming lessons). For now, let's run a basic t-test between petal length and width in the `iris` data set in order to examine the structure of the output.
 
 
 ~~~
-my.list[1]
-~~~
-{: .language-r}
-
-
-
-~~~
-$x
- [1]  1  2  3  4  5  6  7  8  9 10
-~~~
-{: .output}
-
-
-
-~~~
-my.list[[1]]
+l.vs.w <- t.test(iris$Petal.Length, iris$Petal.Width)
+l.vs.w
 ~~~
 {: .language-r}
 
 
 
 ~~~
- [1]  1  2  3  4  5  6  7  8  9 10
+
+	Welch Two Sample t-test
+
+data:  iris$Petal.Length and iris$Petal.Width
+t = 16.297, df = 202.69, p-value < 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 2.249107 2.868227
+sample estimates:
+mean of x mean of y 
+ 3.758000  1.199333 
 ~~~
 {: .output}
-
 
 &nbsp;
 
-Again, if the elements of a list are named, they can be referenced by
-the `$` notation (i.e. `xlist$data`). This can be useful if a function runs a complex analysis. It can export a lot of different types of information as different elements in a single list (raw data, processes data, analysis summary, analysis statistics, etc.)
+The t-test output returns more than just a p-value; it returns a complex set of information about the parameters and statistics of the performed test, for instance: 
+* test alternatives: two-sided (**character**)
+* specific type of t-test: Welch Two Sample t-test (**character**)
+* the variables compared: "iris$Petal.Length and iris$Petal.Width" (**character**)
+* t statistic value (**numeric**)
+* number of degrees of freedom (df; **numeric**)
+* confidence interval (**numeric vector**)
+
+R can return all of this information in a single output because each value is contained as a separate element of a **list**:
+
+
+~~~
+typeof(l.vs.w)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "list"
+~~~
+{: .output}
+
+
+
+~~~
+str(l.vs.w)
+~~~
+{: .language-r}
+
+
+
+~~~
+List of 10
+ $ statistic  : Named num 16.3
+  ..- attr(*, "names")= chr "t"
+ $ parameter  : Named num 203
+  ..- attr(*, "names")= chr "df"
+ $ p.value    : num 1.03e-38
+ $ conf.int   : num [1:2] 2.25 2.87
+  ..- attr(*, "conf.level")= num 0.95
+ $ estimate   : Named num [1:2] 3.76 1.2
+  ..- attr(*, "names")= chr [1:2] "mean of x" "mean of y"
+ $ null.value : Named num 0
+  ..- attr(*, "names")= chr "difference in means"
+ $ stderr     : num 0.157
+ $ alternative: chr "two.sided"
+ $ method     : chr "Welch Two Sample t-test"
+ $ data.name  : chr "iris$Petal.Length and iris$Petal.Width"
+ - attr(*, "class")= chr "htest"
+~~~
+{: .output}
+
+&nbsp;
+
+Because this data is formatted as a list, we can extract specific components for further use (e.g. to print onto a chart, or use to separate signficant comparisons from a computed set of t-tests) using either `[[]]` or `$`. Let's pull the p-value for instance:
+
+
+~~~
+l.vs.w$p.value
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 1.026755e-38
+~~~
+{: .output}
+
+
+
+~~~
+l.vs.w[[3]]
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 1.026755e-38
+~~~
+{: .output}
 
 ***
 ### Data frames are specialized lists
-At its heart, the data frame is a *special type of list* where every element of the list has same length (i.e. data frame is a "rectangular" list).
+
+At its heart, the **data frame** is a special type of **list** in which every element is a **vector** with the same length as every other element. In other words, a data frame is a "rectangular" or two-dimensional list). 
 
 
 ~~~
@@ -481,7 +624,7 @@ dat
 
 &nbsp;
 
-See that it is actually a special list:
+we can see that R consideres a **data frame** a **list** using the `is.list()` function, and by examining the underlying data type:
 
 
 ~~~
@@ -525,8 +668,106 @@ class(dat)
 {: .output}
 
 
+
+~~~
+typeof(dat)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] "list"
+~~~
+{: .output}
+
+&nbsp;
+
+The formal definition of a **data frame** as a list is why we can use `[[]]` and `$` to rapidly interact with data in a data frame. 
+
+
+~~~
+dat$id
+~~~
+{: .language-r}
+
+
+
+~~~
+ [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j"
+~~~
+{: .output}
+
+
+
+~~~
+dat[[2]]
+~~~
+{: .language-r}
+
+
+
+~~~
+ [1]  1  2  3  4  5  6  7  8  9 10
+~~~
+{: .output}
+
+&nbsp;
+
+While the restriction that all elements (aka columns) must have the same length allows us to treat **data frames** as two-dimensional structures and use the `[x,y]` indexing format similar to matricies:
+
+
+~~~
+dat[3,2]
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 3
+~~~
+{: .output}
+
+
+
+~~~
+dat[2:8,2:3]
+~~~
+{: .language-r}
+
+
+
+~~~
+  x  y
+2 2 12
+3 3 13
+4 4 14
+5 5 15
+6 6 16
+7 7 17
+8 8 18
+~~~
+{: .output}
+
 *** 
 ### Advanced indexing
+
+During the *In Class* component of this lesson, we examined the three primary modes of indexing *data frames* and other R objects:
+* By index
+* By name
+* By logical vector
+
+Here we will expand on these basic concepts to demonstrate different way to extract useful information from datasets represented in *data frame objects*. 
+
+&nbsp;
+#### Logical indexing -- additional detail
+
+We noted *In Class* that logical indexing is one of the more powerful ways to index data. There are many operators that expand our logical toolbox.
+
+**Relational operators**
+
+The most common application of logical indexing is to use the information contained within one or more variables (i.e. columns) of a **data frame** to extract a subset of data that has a desired set of relational properties. To do so, we first need to generate a logical vector based on the information in the variable(s) of interest, which we will then use to index the **data frame**.
 
 Logical vectors can be created using `relational operators`:
 * `<` = less than
@@ -535,7 +776,7 @@ Logical vectors can be created using `relational operators`:
 * `>=` = greater than or equal to
 * `==` = exactly equal to
 * `!=` = not equal to
-* `%in%` = is present in (to as if the value on the left is present in the vector/matrix on the right)
+* `%in%` = is present in (used to ask if the value(s) on the left is present in the vector/matrix on the right)
 
 A few single variable examples:
 
@@ -656,7 +897,7 @@ x %in% 1:10
 
 &nbsp;
 
-We can use logical vectors to select data from a data frame.
+Each comparison generates a **logical vector** as output with the same number of elements as the vector on the left side of the relational operator, evaluating each input element relative to the right side of the operator. We can use logical vectors to select data from a **data frame**.
 
 
 ~~~
@@ -823,7 +1064,7 @@ iris[iris$Species == 'setosa', ]
 > > ## Solution
 > > 
 > > ~~~
-> > iris.new = iris[iris$Sepal.Length > 5,]
+> > iris.new <- iris[iris$Sepal.Length > 5,]
 > > ~~~
 > > {: .language-r}
 > {: .solution}
@@ -831,17 +1072,20 @@ iris[iris$Species == 'setosa', ]
 
 &nbsp;
 
-In addition to the numeric comparisons, there are a set of operators that compare logical variables and output a new logical variable:
-* `!` = NOT (changes `TRUE` to `FALSE` and vice versa)
-* `&` = element-wise AND (both are true; outputs vector for vector input comparing elements)
-* `&&` = logical AND (both are true; only considers first index of a vector)
-* `|` = element-wise OR (one or both are true; outputs vector for vector input comparing elements)
-* `||` = logical OR (both are true; only considers first index of a vector)
+**Logical operators**
+
+In addition to the numeric comparisons, there are a set of **logical operators** that compare **logical** variables and output a new **logical** variable:
+* `!` = **NOT** (changes `TRUE` to `FALSE` and vice versa)
+* `&` = element-wise **AND** (both are true; outputs vector for vector input comparing elements)
+* `&&` = logical **AND** (both are true; only considers first element of a vector)
+* `|` = element-wise **OR** (one or both are true; outputs vector for vector input comparing elements)
+* `||` = logical **OR** (both are true; only considers first index of a vector)
+* `xor(x,y)` = element-wise exclusive **OR** (either are true, but not both; outputs vector for vector input comparing elements)
 
 
 ~~~
-truth = c(TRUE, FALSE, TRUE, TRUE)
-lie = !truth
+truth <- c(TRUE, FALSE, TRUE, TRUE)
+lie <- !truth
 truth
 ~~~
 {: .language-r}
@@ -924,10 +1168,249 @@ F | F
 {: .output}
 
 
+
+~~~
+c(T,F,F) & c(T,T,F)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1]  TRUE FALSE FALSE
+~~~
+{: .output}
+
+
+
+~~~
+c(T,F,F) && c(T,T,F)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] TRUE
+~~~
+{: .output}
+
+&nbsp;
+
+**Logical operators** allow us to combine multiple **relational operators** to extract subsets of data contained within a **data frame** with multiple selection criteria, for example the `iris` entries with extreme values for sepal length:
+
+
+~~~
+extremes <- iris[(iris$Sepal.Length < 4.6) | (iris$Sepal.Length > 7.3), ]
+extremes
+~~~
+{: .language-r}
+
+
+
+~~~
+    Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+9            4.4         2.9          1.4         0.2    setosa
+14           4.3         3.0          1.1         0.1    setosa
+39           4.4         3.0          1.3         0.2    setosa
+42           4.5         2.3          1.3         0.3    setosa
+43           4.4         3.2          1.3         0.2    setosa
+106          7.6         3.0          6.6         2.1 virginica
+118          7.7         3.8          6.7         2.2 virginica
+119          7.7         2.6          6.9         2.3 virginica
+123          7.7         2.8          6.7         2.0 virginica
+131          7.4         2.8          6.1         1.9 virginica
+132          7.9         3.8          6.4         2.0 virginica
+136          7.7         3.0          6.1         2.3 virginica
+~~~
+{: .output}
+&nbsp;
+
+Note the use of parentheses `()` to break up each logical operation. These are not always absolutely necessary, but always assist the coder breakup the order of operations with complex statements.
+
+&nbsp; 
+#### Combined indexing
+
+One way to leverage indexing is to combine different indexing categories. For instance, column names can be combined with direct indexing to return a **data frame** subset only containing specific columns:
+
+
+~~~
+length.only <- iris[,c("Petal.Length", "Sepal.Length", "Species")]
+head(length.only)
+~~~
+{: .language-r}
+
+
+
+~~~
+  Petal.Length Sepal.Length Species
+1          1.4          5.1  setosa
+2          1.4          4.9  setosa
+3          1.3          4.7  setosa
+4          1.5          4.6  setosa
+5          1.4          5.0  setosa
+6          1.7          5.4  setosa
+~~~
+{: .output}
+
+&nbsp;
+
+On occasion, it is useful to convert a **logical vector** into a set of numbered indexes, which we can accomplish using the `which()` function:
+
+
+~~~
+x <- c(T, T, F, F, T, F)
+which(x)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 1 2 5
+~~~
+{: .output}
+
+&nbsp;
+
+This simple example illustrates that `which()` returns a vector containing the numbered index of each `TRUE` in the vector `x`. We can apply this to our `iris` dataset:
+
+
+~~~
+index <- which(iris$Sepal.Length > 5.0)
+index
+~~~
+{: .language-r}
+
+
+
+~~~
+  [1]   1   6  11  15  16  17  18  19  20  21  22  24  28  29  32  33  34  37
+ [19]  40  45  47  49  51  52  53  54  55  56  57  59  60  62  63  64  65  66
+ [37]  67  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84
+ [55]  85  86  87  88  89  90  91  92  93  95  96  97  98  99 100 101 102 103
+ [73] 104 105 106 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122
+ [91] 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140
+[109] 141 142 143 144 145 146 147 148 149 150
+~~~
+{: .output}
+
+&nbsp;
+
+We now have a list of the index positions of rows in the `iris` **data frame** for the flowers with the largest sepal lengths. We can now use this information to, say, extract all information about these flowers:
+
+
+~~~
+long.sepal <- iris[index,]
+head(long.sepal)
+~~~
+{: .language-r}
+
+
+
+~~~
+   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1           5.1         3.5          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+11          5.4         3.7          1.5         0.2  setosa
+15          5.8         4.0          1.2         0.2  setosa
+16          5.7         4.4          1.5         0.4  setosa
+17          5.4         3.9          1.3         0.4  setosa
+~~~
+{: .output}
+
+&nbsp;
+
+Or just information on a specific variable:
+
+
+~~~
+iris$Sepal.Width[index]
+~~~
+{: .language-r}
+
+
+
+~~~
+  [1] 3.5 3.9 3.7 4.0 4.4 3.9 3.5 3.8 3.8 3.4 3.7 3.3 3.5 3.4 3.4 4.1 4.2 3.5
+ [19] 3.4 3.8 3.8 3.7 3.2 3.2 3.1 2.3 2.8 2.8 3.3 2.9 2.7 3.0 2.2 2.9 2.9 3.1
+ [37] 3.0 2.7 2.2 2.5 3.2 2.8 2.5 2.8 2.9 3.0 2.8 3.0 2.9 2.6 2.4 2.4 2.7 2.7
+ [55] 3.0 3.4 3.1 2.3 3.0 2.5 2.6 3.0 2.6 2.7 3.0 2.9 2.9 2.5 2.8 3.3 2.7 3.0
+ [73] 2.9 3.0 3.0 2.9 2.5 3.6 3.2 2.7 3.0 2.5 2.8 3.2 3.0 3.8 2.6 2.2 3.2 2.8
+ [91] 2.8 2.7 3.3 3.2 2.8 3.0 2.8 3.0 2.8 3.8 2.8 2.8 2.6 3.0 3.4 3.1 3.0 3.1
+[109] 3.1 3.1 2.7 3.2 3.3 3.0 2.5 3.0 3.4 3.0
+~~~
+{: .output}
+
+&nbsp;
+
+Using `which()` in this way is an efficient way to store information on a relevant data subset that you will be interacting with more than once, without creating a whole separate **data frame**.
+
+&nbsp;
+#### Updating subsets
+
+We can use the assignement operator `<-` to directly update a subset of a **vector** or **data frame**. 
+
+
+~~~
+x <- 1:20
+x
+~~~
+{: .language-r}
+
+
+
+~~~
+ [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
+~~~
+{: .output}
+
+
+
+~~~
+x[x > 15] <- 100
+x
+~~~
+{: .language-r}
+
+
+
+~~~
+ [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15 100 100 100 100
+[20] 100
+~~~
+{: .output}
+
+&nbsp; 
+
+Say you discover that the values collected for the petal length of the `setosa` species of `iris` were incorrectly recorded, and you want to replace these values with `NA` to ensure that they are not used in future work.
+
+
+~~~
+# copy the data frame (never modify your raw data!)
+iris.corrected <- iris
+iris.corrected$Petal.Length[iris.corrected$Species == "setosa"] <- NA
+head(iris.corrected)
+~~~
+{: .language-r}
+
+
+
+~~~
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5           NA         0.2  setosa
+2          4.9         3.0           NA         0.2  setosa
+3          4.7         3.2           NA         0.2  setosa
+4          4.6         3.1           NA         0.2  setosa
+5          5.0         3.6           NA         0.2  setosa
+6          5.4         3.9           NA         0.4  setosa
+~~~
+{: .output}
+
 &nbsp;
 #### Exercises
 
-> ## Using logical indices
+> ## Combining logical and relational operators
 >
 > Create a new data frame that is the subset of `iris` with sepal length greater than or > equal to 5.0 for the setosa species.
 > 
@@ -942,8 +1425,8 @@ F | F
 
 > ## Subsetting using a vector or name
 >
-> Use the colon operator to index the first five observations of just the sepal  
-> length and species from `iris`
+> Use the colon operator to index the first five observations of just the 
+> sepal length and species from `iris`
 >
 > > ## Solution
 > > Two options:
@@ -986,7 +1469,7 @@ F | F
 > {: .solution}
 {: .challenge}
 
-> ## Subsetting with Sequences
+> ## Subsetting with sequences
 >
 > Use the colon operator to index just the data on sepal size from `iris`
 >
@@ -1163,7 +1646,7 @@ F | F
 > 
 > 
 > ~~~
-> iris.update = iris
+> iris.update <- iris
 > ~~~
 > {: .language-r}
 > 
@@ -1178,8 +1661,8 @@ F | F
 > > 
 > > 
 > > ~~~
-> > Petal.Color = character(length = dim(iris.update)[1]) # use the dim function to figure out how long to make the new vector
-> > iris.update = cbind(iris.update, Petal.Color)
+> > Petal.Color <- character(length = dim(iris.update)[1]) # use the dim function to figure out how long to make the new vector
+> > iris.update <- cbind(iris.update, Petal.Color)
 > > head(iris.update)
 > > ~~~
 > > {: .language-r}
@@ -1200,7 +1683,7 @@ F | F
 > > 
 > > 
 > > ~~~
-> > iris.update$Petal.Color = as.character("")
+> > iris.update$Petal.Color <- as.character("")
 > > head(iris.update)
 > > ~~~
 > > {: .language-r}

@@ -20,11 +20,11 @@ objectives:
 - "Combine different methods for accessing data with the assignment operator to update subsets of data."
 keypoints:
 - "All the indexing and subsetting that works on matrices also works on data frames."
+- "Use `object[x, y]` to select a single element from a data frame."
 - "Each column of a data frame can be directly addressed by specifying the column name using the `$` operator (e.g. `mydataframe$column1`)."
 - "Data in data structures can by accessed by specifying the appropriate index, by logical vector, or by column/row name (if defined)."
 - "Import data from a .csv or .txt file using the `read.table(...)`, `read.csv(...)`, and `read.delim(...)` functions."
 - "Write data to a new .csv or .txt file using the `write.table(...)` and `write.csv(...)` functions."
-- "Use `object[x, y]` to select a single element from a data frame."
 source: Rmd
 ---
 
