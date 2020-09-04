@@ -9,7 +9,8 @@ questions:
 - "What tools are available for generating publication quality graphics in R?"
 objectives:
 - "Use pre-build functions like `rowSums()` to perform specific operations on data frame elements."
-- "Use the apply family of functions to rapidly apply general functions across rows or columns of a data frame."
+- "Use the `apply()` function to rapidly apply general functions across rows or columns of a data frame."
+- "Use the `aggregate()` function to rapidly segregate dependent variables of interest by one or mor indpendent variables and calculate useful descriptive statistics."
 - "Locate and employ tools in R base graphics to generate custom graphics."
 keypoints:
 - "Use `apply()`, `lapply()`, and `sapply()` to calculate statistics across the rows or columns of a data frame."
@@ -26,9 +27,664 @@ knitr_fig_path("04-oyo-advanced-data-manipulation-")
 ***
 ## On Your Own
 
+### Advanced Data Manipulation
+
+*In Class* we covered a few of the basic functions for calculating descriptive statistics. Here we will examine a few techniques for using these functions more efficiently across data sets.
+
+&nbsp;
+#### The `apply()` function
+
+To start, let's reload the aneurisms dataset that we were using *In Class*, and specifically the version with the gender capitalization corrected:
+
+```{r}
+dat <- read.csv(file="data/sample-gendercorrected.csv", header=TRUE, stringsAsFactors=FALSE)
+```
+
+&nbsp;
+
+In this dataset, we have aneurism counts in patient eyes at four time points. What if our phenotype of interest is the maximum number of aneurisms across quarters for each patient, or perhaps the average across quarters? How do we calculate these values efficiently for each patient. We want to perform the repeat the same operation across a `margin` of the data frame (in this case a each row, but it can similarly apply to columns):
+
+<img src="../fig/r-operations-across-margins.svg" alt="Operations Across Margins" />
+
+&nbsp;
+
+In particular, we want to perform the functions `max()` or `mean()` on the last 4 columns of every row. To support this, we can use the `apply()` function.
+
+```{r, eval=FALSE}
+?apply
+```
+
+&nbsp;
+
+`apply()` allows us to repeat a function on each of the rows (`MARGIN = 1`) or columns (`MARGIN = 2`) of a data frame. To obtain the maximum or average inflammation of each patient we will need to calculate the `max` or `mean` of all of the rows (`MARGIN = 1`) of the relevant subset of the `dat` data frame. Let's start with mean:
+
+```{r}
+avg_aneurisms_subject <- apply(dat[,6:9], 1, mean)
+avg_aneurisms_subject
+```
+
+&nbsp;
+
+Each element in the `avg_aneurisms_subject` vector is the mean of the four values in the `Aneurisms_q1`, `Aneurisms_q2`, `Aneurisms_q3`, and `Aneurisms_q4` columns for the corresponding row in the `dat` data frame. Note that the length of this vector is the same as the number of rows in the `dat` data frame:
+
+```{r}
+length(avg_aneurisms_subject)
+dim(dat)[1]
+```
+
+&nbsp;
+ 
+A convenient way to associated this data with the corresponding patient is to directly add the calculated data to the data frame in a new column instead of assigning it to a separate vector:
+
+```{r}
+dat$Aneurisms_avg <- apply(dat[,6:9], 1, mean)
+```
+
+&nbsp;
+
+By changing to `MARGIN = 2` (calculate across columns), we ask a different question, namely what is the average number of aneurisms across patients for each quarter:
+
+```{r}
+avg_aneurisms_quarter <- apply(dat[,6:9], 2, mean)
+avg_aneurisms_quarter
+```
+
+&nbsp;
+
+> ## Maximum aneurisms
+> 
+> Determine the maximum and total number of aneurisms for each patient and add these values to the data frame. Save the results to a new file called "sample-processed.csv".
+> 
+> > ## Solution
+> > 
+> > First calculate the relevant descriptive statistics and add them directly to the `dat` data frame using the `apply` function.
+> > 
+> > ```{r}
+> > dat$Aneurisms_max <- apply(dat[,6:9], 1, max)
+> > dat$Aneurisms_total <- apply(dat[,6:9], 1, sum)
+> > ```
+> > 
+> > Check the output:
+> > 
+> > ```{r}
+> > head(dat)
+> > ```
+> > 
+> > And save the final file using `write.csv()`:
+> > 
+> > ```{r}
+> > write.csv(dat, file = "data/sample-processed.csv", row.names = F)
+> > ```
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+> ## Argument Order in Functions
+>
+> Notice that we did not specify the argument names in `apply()`. Looking at the help file, the argument
+> order is `X` (indicating the input data), then `MARGIN`, then `FUN` (for function to apply). So long as you
+> enter arguments in the requested order, you do not need to be explicitly about which argument you are
+> referring too. `apply()` just assumes that the first argument entered is the value for `X`, the second is the > value for `MARGIN`, and the third is the value for `FUN`. You can mix up the order, but then you have to be
+> explicit about which argument you are defining.
+>
+> For example, this will return an error:
+> ```{r eval=F}
+> avg_aneurisms_subject <- apply(mean, 1, dat[,6:9])
+> ```
+>
+> while this will be interpreted identically to the earlier function call:
+> ```{r eval=F}
+> avg_aneurisms_subject <- apply(FUN = mean, MARGIN = 1, X = dat[,6:9])
+> ```
+{: .callout}
+
+&nbsp;
+
+&nbsp;
+
+> ## Efficient Alternatives
+>
+> Some common operations have more efficient alternatives. For example, you
+> can calculate the row-wise or column-wise means with `rowMeans()` and
+> `colMeans()`, respectively. Similarly for `rowSums()` and `colSums()`.
+{: .callout}
+
+&nbsp;
+#### Aggregating data
+
+Looking at summary statistics of the entire data set is great, but usually we are more interested in comparing these statistics across groups. R has a function called `aggregate()` that lets you apply a function (or more than one function) to a dependent variable (or more than one dependent variable) with the data separated by one or more independent variables.
+
+```{r eval=F}
+?aggregate
+```
+
+&nbsp;
+
+As with the `boxplot()` function, `aggregate()` uses formula notation. To get a feel for how the function operates, let's calculate the `mean()` of our newly calculated average aneurisms variable, broken down by treatment group. `aggregate()` requires three arguments: (1) the formula that defines how the data should be broken down, (2) the data to be used, and (3) the function that you would like to perform:
+
+```{r}
+mean_by_group <- aggregate(Aneurisms_avg ~ Group, data = dat, FUN = mean)
+mean_by_group
+```
+
+&nbsp;
+
+Great! `aggregate()` selected the subset of `Aneurisms_avg` values for each treatment group and returned the mean. What if we also want to see the breakdown by Gender?
+
+```{r}
+mean_by_group_gender <- aggregate(Aneurisms_avg ~ Group + Gender, data = dat, FUN = mean)
+mean_by_group_gender
+```
+
+&nbsp;
+
+So far so good. Now, what if we wean to calculate more than just the mean? Maybe standard deviation to examin variability as well? This makes things a bit more complicated, but `aggregate()` is up to the task. First, `aggregate()` can technically only take one "input" function. However, we can get around this by defining our own input `function()` on the fly that includes multiple sub-functions combined using the `c()` function:
+
+```{r}
+avg_aneurisms_summary <- aggregate(Aneurisms_avg ~ Group + Gender, data = dat, 
+    FUN = function(x) c(mean(x), sd(x))) 
+avg_aneurisms_summary
+```
+
+&nbsp;
+
+Now, this new object `avg_aneurisms_summary` looks like a standard **data frame** on the surface, and even claims to be one:
+
+```{r}
+class(avg_aneurisms_summary)
+```
+
+&nbsp;
+
+However, if you actually look at the structure there is something odd going on:
+
+```{r}
+str(avg_aneurisms_summary)
+```
+
+&nbsp;
+
+Instead of creating separate columns for the calculated `mean()` and `sd()` values, `aggregate()` made those values columns of a **numeric matrix** and assigned that **matrix** to a single "column" of the data frame:
+
+```{r}
+# This doesn't actually contain any information:
+avg_aneurisms_summary$Aneurisms_avg.1
+
+# While this contaims a matrix (rather than a vector)
+avg_aneurisms_summary$Aneurisms_avg
+```
+
+&nbsp;
+
+To fix this odd formating, we can use the function `do.call()` to convert the "matrix-within-a-data-frame" into a normal data frame, and then fix the column names to make them meaningful. We can actually just do this all in one step from the beginning:
+
+```{r}
+# first run the aggregate function with do.call
+avg_aneurisms_summary <- do.call(data.frame, 
+                                 aggregate(Aneurisms_avg ~ Group + Gender, data = dat, 
+                                           FUN = function(x) c(mean(x), sd(x)))) 
+
+# check the baseline names of the output (not helpful!)
+names(avg_aneurisms_summary)
+
+# correct the names of the newly created variables to reflect the functions that 
+# were used to generate them
+names(avg_aneurisms_summary)[c(3,4)] <- c("Aneurisms_avg_mean", "Aneurisms_avg_sd")
+
+# Now check out the structure. This looks more like what we might have first expected
+avg_aneurisms_summary
+str(avg_aneurisms_summary)
+```
+
+&nbsp;
+
+Finally, we will often want to apply the same set of functions to multiple dependent variables. To tie this all together, let's calculate the same `mean()` and `sd()` for both `Aneurisms_avg` and `Aneurisms_total`. Do do this, we need to add an additional dependent variable to our `formula` notation, and bind them together using the `cbind()` function:
+
+```{r}
+# First calculate the statistics using aggregate() and convert the output to a
+# standard data frame using do.call()
+aneurisms_summary <- do.call(data.frame, 
+                             aggregate(cbind(Aneurisms_avg, Aneurisms_total) ~ Group + Gender, 
+                                       data = dat, 
+                                       FUN = function(x) c(mean(x), sd(x)))) 
+
+# don't forget to correct the column names to something more meaningfule 
+names(aneurisms_summary)[3:6] <- c("Aneurisms_avg_mean", "Aneurisms_avg_sd",
+                                          "Aneurisms_total_mean", "Aneurisms_total_sd")
+
+# ... and take a look at the results
+aneurisms_summary
+```
+
+&nbsp;
+
+Using the `aggregate()` function to it's full potential is, admittedly, a bit convoluted. If you don't quite get all of the detail, especially how to format and deal with the output of a multiple-dependent-variable, multiple-independent-variable, multiple-function `aggregate()` call, that's okay. The goal here is to demonstrate that what is possible with the basic functions available in R. Even the basic single-function `aggregate()` can be really useful in speeding up data processing. Start there and work you way up.
+
+&nbsp;
+#### Additional Data Manipulation Exercises
+
+> ## Subsetting More Data
+>
+> Suppose you want to determine the maximum number of aneurisms for subject 5 across quarters two to four.
+> To do this you would extract the relevant subset from the data frame and calculate the maximum value.
+> Which of the following lines of R code gives the correct answer?
+>
+> 1. `max(dat[5, ])`
+> 2. `max(dat[7:9, 5])`
+> 3. `max(dat[5, 7:9])`
+> 4. `max(dat[5, 7, 9])`
+>
+> > ## Solution
+> >
+> > Answer: 3
+> >
+> > Explanation: You want to extract the part of the data frame representing data for patient 5 from quarter two (column 7) to quarter 4 (column 9). In this data frame, patient data is organised in rows and the days are represented by the columns. Subscripting in R follows the `[i, j]` principle, where `i = rows` and `j = columns`. Thus, answer 3 is correct since the patient is represented by the value for i (5) and the days are represented by the values in j, which is a subset spanning day 9 to 7.
+> >
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+> ## Subsetting and Re-Assignment
+>
+> Using the data frame `dat` from above:
+> Let's pretend there was something wrong with the instrument on the first two quarters for every second patient (subjects 2, 4, 6, etc.), which resulted in the measurements being twice as large as they should be.
+>
+> 1. Write a vector containing each affected patient (hint: `?seq`).
+> 2. Create a new data frame in which you halve the first two quarters' values in only those patients.
+> 3. Print out the corrected data frame to check that your code has fixed the problem.
+>
+> > ## Solution
+> > ```{r, eval=TRUE}
+> > whichPatients <- seq(2, dim(dat)[1], 2) # i.e., which rows
+> > whichQuarters <- seq(6,7)         # i.e., which columns indicates quarters 1 and 2; you could also use c(6,7) or 6:7
+> > dat2 <- dat # make a copy of the original data
+> > # check the size of your subset: returns `30 5`, that is 30 [rows=patients] by 5 [columns=quarters]
+> > dim(dat2[whichPatients, whichQuarters])
+> > dat2[whichPatients, whichQuarters] <- dat[whichPatients, whichQuarters] / 2
+> > dat2
+> > ```
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+> ## Using the apply function on patient data
+>
+> The apply function can be used to summarize datasets and subsets
+> of data across rows and columns using the MARGIN argument.
+> Suppose you want to calculate the mean number of aneurisms for
+> specific quarters and patients in the patient dataset.
+>
+> Use a combination of the apply function and indexing to:
+>
+> 1. Calculate the mean number of aneurisms for patients 1 to 5 over all four quarters.
+> 2. Calculate the mean number of aneurisms for quarters 1 to 3 (across all patients).
+> 3. Calculate the mean number of aneurisms for each patient in treatment group 2 day (across all quarters).
+>
+> Think about the number of rows and columns you would expect as the result before each apply call and check your intuition by applying the mean function.
+>
+> > ## Solution
+> >
+> > ```{r, eval=FALSE}
+> >  # 1.
+> > apply(dat[1:5, 6:9], 1, mean)
+> >
+> > # 2.
+> > apply(dat[, 6:8], 2, mean)
+> >
+> > # 3.
+> > apply(dat[dat$Group == "Treatment2", 6:9], 1, mean)
+> > ```
+> {: .solution}
+{: .challenge}
 
 
+*** 
+### Plotting -- Additional Detail
 
+R is a robust platform for creating publication quality graphics, regardless of the complexity of you data and presentation. We really just scratched the surface *In Class* and there is no way we will be able to adequately cover the available tools in one session of one class. The goal is to give you a taste of what you can do (i.e. virtually anything you can image) and where to look for the tools to begin to do so.
+
+&nbsp;
+#### Multipanel plots
+
+Most figures contain multiple panels containing different information. One option is to generate each panel as a separate figure and stitch them together after the fact using a PDF editor or some other graphics program. However, R has the tools to build multipanel plots. Let's look at how we can put multiple related panels in the same plot. This requires going beyond the `plot()` and `boxplot()` functions.
+
+Take a look at the `?plot` documentation. Notice that there really aren't that many input options, but that there is a "..." listed, which references the `par()` function. This will also introduce you to the `par()` function. Under the surface, there are  hundreds of tweaks that you can make to plots through arguments. R has a set of predefined graphical parameters that are all stored in the background. The `par()` function queries and sets these parameters. If you don't give it any arguments, `par()` will return the current settings for all of these variables. We can see what settings are available and what the defaults are using `?par`.
+
+```{r, eval=FALSE}
+?par
+```
+
+&nbsp;
+
+Before you start to fiddle with `par()`, it is a good idea to store all of the current settings to a variable, which can be used to restore the default if we need to later on.
+
+```{r}
+plot.options <- par()
+```
+
+&nbsp;
+
+Now to take a look at what we have:
+
+```{r}
+head(plot.options) # this is a list with a bunch of graphical related variables
+length(plot.options) # there are 72 variables that we can tweak in par() alone, and some have multiple parameters
+```
+
+&nbsp;
+
+Consider the `iris` data set. If we want to make a multipanel plot, say with box plots of Petal Length and Petal Width, and then the correlation between them, we can use `par()` before running plot to tell R how many rows and columns of figure panels  we want to create. We use this by passing the argument `mfrow = c(<# of rows>, <# of columns>)` to `par()`. This changes the value of the background graphical parameters. Note that we later have to change this back if we want to make a single-panel plot.
+
+Once we set `mfrow` we can then run our previous plot commands in the order we want them displayed. Let's give it a try:
+
+```{r}
+# get the current graphical parameters
+old.plot.options <- par() # it never hurts to save a copy of the old parameters, so we can reset them if we break something
+
+# setup a plot with 3 figure panels in a row using the mfrow argument
+par(mfrow = c(1,3)) # 1 row, 3 columns
+
+# Panel 1: Box plot with jittered stripchart points for Petal Length
+boxplot(Petal.Length ~ Species, data = iris,
+        outline = FALSE, ylab = "Petal Length (cm)")
+stripchart(Petal.Length ~ Species, data = iris,
+           pch = 16, method = "jitter",
+           add=TRUE, vert=TRUE)
+
+# Panel 2: Box plot with jittered stripchart points for Petal Width
+boxplot(Petal.Width ~ Species, data = iris,
+        outline = FALSE, ylab = "Petal Width (cm)")
+stripchart(Petal.Width ~ Species, data = iris,
+           pch = 16, method = "jitter",
+           add=TRUE, vert=TRUE)
+
+# Panel 3: Scatter plot comparing Petal Length to Petal Width
+col.list <- c("red", "blue", "green")
+col.vector <- col.list[iris$Species]
+plot(iris$Petal.Length, iris$Petal.Width,
+     xlab = "Petal Length (cm)", ylab = "Petal Width (cm)",
+     col = col.vector)
+legend("bottomright", legend = levels(iris$Species), col=col.list, pch=1)
+
+# and finally, reset the mfrow argument to a single panel
+par(mfrow = c(1,1))
+```
+
+&nbsp;
+#### Box plots with multiple independent variables -- getting to publication quality
+
+Box plots begin to tax the default behavior of R when it comes to things like axis labeling. Let's use the gender-corrected and processed version of our aneurism data ("sample-processed.csv") to take a look at plotting when multiple independent variables are in play. First, load the data:
+
+```{r}
+dat <- read.csv("data/sample-processed.csv", stringsAsFactors = T)
+head(dat)
+```
+
+&nbsp;
+
+What if we want to plot total aneurisms broken down by both gender and treatment group. The `formula` notation used in `boxplot()` makes this pretty straightforward:
+
+```{r}
+# use the '+' to indicate multiple grouping variables
+boxplot(Aneurisms_total ~ Group + Gender, data = dat)
+```
+
+&nbsp;
+
+We have the data in the right place, but the group labels are all horizontal, so they can't be displayed. There is also no clear visual way to distinguish how the treatment groups and gender groups are separated.
+
+We can take several steps to improve the look in chart:
+* Use the `at` argument to change the box spacing. By default, boxes are drawn centered over the integers 1, 2, 3, ..., n, where n is the number of boxes. By redefining these locations and skipping numbers, you can add spaces between groups.
+* Use box colors to indicate treatment groups (`col` argument plus the `legend()` function) and x-axis labels to indicate gender. There are other ways to do this, but this is one of the more visually appealing.
+* Tick marks are often not useful in box plots. To turn them off, we will use the `xaxt` to run off all x-axis feature, and then use the separate function `axis()` to add the ones we want back (sans tick marks).
+* Make the y-axis label look better with `ylab`.
+* Add all points with `stripchart()`.
+
+```{r}
+# draw the box plot first
+boxplot(Aneurisms_total ~ Group + Gender, data = dat,
+        xaxt = "n", xlab = "", # turn off all x-axis labeling (so we can redraw it below)
+        ylab = "# Aneurisms", # y axis label
+        at = c(1,2,3, 5,6,7), # leave a space between gender groups
+        col = c("grey","blue","red")) # color boxes by treatment for legend
+
+# now add the points with stripchart with the same parameters as box
+stripchart(Aneurisms_total ~ Group + Gender, data = dat,
+        add = TRUE, vert = TRUE, # add the points to the current boxplot vertically
+        at = c(1,2,3, 5,6,7), # leave a space between gender groups
+        col = c("black"), pch = 16, # color and symbol for points
+        method = "jitter") # jitter the points
+
+# next add gender labels to the x-axis
+axis(side = 1, # add axis labels to the x-axis
+     at = c(2,6), # place the labels under the middle boxes of each group
+     labels = c("female","male"), # gender labels
+     tick = FALSE) # do not add tick marks
+
+# now add a legend to indicate
+legend(x = "top", inset = -0.13, # place the legend on top, but nudge it up a bit
+       xpd = T, # allow the legend to be drawn outside the plot area
+       bty = "n", # don't draw a box around the legend
+       ncol = 3, # use 3 columns (one row, since we have 3 groups)
+       fill = c("grey", "blue", "red"), # fill boxes with the same colors as boxplot
+       legend = levels(dat$Group)) # labels by treatment group
+```
+
+&nbsp;
+
+This ends up with a fairly complex script for a single chart, but when you start to directly generate publication quality graphics in R, this is what it tends to look like. Once you go through the process of setting up a plot that you like once, you can always copy that whole chunk of code into the next project (or write a custom plot function with your own defaults!). Over time, you build up a sort of personal "library" of code chunks and can make really nice graphics in relatively little time.
+
+&nbsp;
+#### Other resources for plotting
+
+This lesson gives you access to the two most common chart types used in biology: scatterplots and box plots (which can usually be used in place of bar charts). This is just the tip of a very large iceberg. R has the capability of producing any visualization you can imagine, and there are full workshops and courses dedicated just to generating graphics in R. The potential applications are as varied as your projects, and the best thing you can do is to sit down and start using the functions with Google search close at hand.
+
+We don't have the time to do everything, but we will be using both of these chart types throughout the course, and introducing several others (histograms, density charts, line graphs, Kaplan-Meier charts, etc).  For now, a few resources that will help you along the way:
+* A cheat sheet for the graphics tools that come with R (aka "R base graphics") can be downloaded [here]({{ page.root }}/fig/BaseGraphicsCheatsheet.pdf).
+* The `lattice` package makes some improvements to R base graphics and functions. The defaults are better for example.
+* The other commonly graphics package is called `ggplot2`. I have tended toward base graphics, because you can literally do anything with them, but `ggplot2` is easier in some ways, once you get the syntax down (which is very different). Cheat sheet is [here]({{ page.root }}/fig/ggplot2-cheatsheet.pdf).
+* Google is your friend. There are probably thousands of tutorials, forum Q&As, cheat sheets, etc. to answer your project specific questions. For a taste, go to Google and search "publication quality graphics in R"
+
+***
+### Exercises
+
+> ## On the road -- does what you drive or where you drive it matter?
+>
+> Read in our sample data on car speeds (car-speeds.csv) and visualize differences in car
+> speed by both state and color.
+>
+> > ## Solution
+> >
+> > ```{r}
+> > # set data and results directories
+> > data.dir <- "data"
+> > results.dir <- "results"
+> >
+> > # load data
+> > carSpeeds <- read.csv(paste0(data.dir,"/car-speeds.csv"))
+> >
+> > # setup two panel figure
+> > par(mfrow = c(1,2))
+> >
+> > # use a box plot with jittered strip chart overlay to plot car speed as a function
+> > # of state
+> > boxplot(Speed ~ State, data = carSpeeds,
+> >         outline = FALSE, ylab = "Car Speed (mph)")
+> > stripchart(Speed ~ State, data = carSpeeds,
+> >         pch = 16, method = "jitter",
+> >         add=TRUE, vert=TRUE)
+> >
+> > # use a box plot with jittered strip chart overlay to plot car speed as a function
+> > # of car color
+> > boxplot(Speed ~ Color, data = carSpeeds,
+> >         outline = FALSE, ylab = "Car Speed (mph)")
+> > stripchart(Speed ~ Color, data = carSpeeds,
+> >         pch = 16, method = "jitter",
+> >             add=TRUE, vert=TRUE)
+> > ```
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+> ## Blood pressure as a risk factor for aneurism
+>
+> Does blood pressure appear to have an impact on aneurism risk?
+>
+> Examine these questions using the file that we created in the "Correcting Case in Gender"
+> exercise earlier (sample-gendercorrected.csv). What, other than blood pressure, may explain
+> any apparent correlation (or lack there of?).
+>
+> Save your results to a PDF file.
+>
+> > ## Solution
+> >
+> > I left this intentionally a bit vague, which means that there are several solutions. But
+> > that is often the nature of real data in real research.
+> >
+> > Since we are trying to gt a general idea here, I am first going to calculate the average
+> > quarterly aneurisms and the total yearly aneurisms (you could also look at each quarter
+> > independently).
+> >
+> > ```{r}
+> > # set data and results directories
+> > data.dir <- "data"
+> > results.dir <- "results"
+> >
+> > # load data
+> > data.an <- read.csv(paste0(data.dir,"/sample-gendercorrected.csv"))
+> >
+> > # define new columns for average quarterly and total annual aneurisms and calculate
+> > data.an$Aneurisms_qmean <- rowMeans(data.an[,6:9])
+> > data.an$Aneurisms_total <- rowSums(data.an[,6:9])
+> > head(data.an)
+> >
+> > # initiate a PDF file and setup two panel figure
+> > pdf(file=paste0(results.dir, "/aneurisms-bloodpressure-chart.pdf"), width = 8, height = 4)
+> > par(mfrow = c(1,2))
+> >
+> > # use a scatter plot to look for apparent correlation between blood pressure and
+> > # both summary measures of aneurism (in separate panels)
+> > plot(data.an$BloodPressure, data.an$Aneurisms_qmean,
+> >      xlab = "Blood Pressure (mmHg)", ylab = "Mean Aneurisms per Quarter")
+> >
+> > plot(data.an$BloodPressure, data.an$Aneurisms_total,
+> >      xlab = "Blood Pressure (mmHg)", ylab = "Aneurisms per Year")
+> >
+> > # turn off PDF device
+> > dev.off()
+> > ```
+> >
+> > There is no apparent correlation, but there are a lot of potential confounders within the
+> > data set that we are not examining in this exercise so far (treatment, gender, age)
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+> ## Correlations between petal and sepal in iris data
+>
+> We looked a correlation between petal length and width. What about correlations between petal
+> and sepal? Generate scatter plots to look at length and width correlations, broken down by species.
+>
+> Save your results to a PDF.
+>
+> > ## Solution
+> >
+> >
+> > ```{r}
+> > # set data and results directories
+> > data.dir <- "data"
+> > results.dir <- "results"
+> >
+> > # initiate a PDF file and setup two panel figure
+> > pdf(file=paste0(results.dir, "/iris-petal-sepal-correlations.pdf"), width = 8, height = 4)
+> > par(mfrow = c(1,2))
+> >
+> > # Define colors
+> > col.list <- c("red", "blue", "green")
+> >
+> > # And we use the species.index in place of iris$Species to do the indexing and generate
+> > # our color list for each point on the plot
+> > col.vector <- col.list[iris$Species]
+> >
+> > # Plot petal length x sepal length, then petal width x sepal width in subsequent panels
+> > # we only need one legend, which after an initial look at the data, fits best in the top
+> > # left of the first panel
+> > plot(iris$Petal.Length, iris$Sepal.Length,xlab = "Petal Length (cm)",
+> >       ylab = "Sepal Length (cm)", col = col.vector)
+> > legend("topleft", legend = levels(iris$Species), col=col.list, pch=1)
+> > plot(iris$Petal.Width, iris$Sepal.Width,xlab = "Petal Width (cm)",
+> >       ylab = "Sepal Width (cm)", col = col.vector)
+> >
+> > # turn off the PDF device
+> > dev.off()
+> > ```
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+> ## Exploring plot options
+>
+> R has hundreds of ways to change the way plots are displayed. The only way to
+> really learn how to manipulate charts is to start playing with the options to
+> see what they do. Below are a range of options that I have used at one point
+> or another.
+>
+> Try starting with one of the plots with today's lesson, change one
+> or more of the following parameters, then rerun the plot script to see what
+> changed. A good way to do this is to plot two charts with a single argument change
+> to the RStudio plot panel. The arrows at the top left of the panel let you look
+> through previous charts and see what changed. Alternatively, write the two charts
+> to subsequent pages of a PDF file for comparison.
+>
+> **Arguments to the `plot()` function**
+> *Remember that default values can be found in `?plot` or by running `par()` with no arguments, and argument descriptions can be accessed in `?par`.*
+> * *bty*
+> * *border*
+> * *col*
+> * *lty*
+> * *lwd*
+> * *main*
+> * *sub*
+> * *type*
+> * *xlab*, *ylab*
+> * *xlim*, *ylim*
+> * *xaxs*, *yaxs*
+> * *xaxt*, *yaxt*
+> * *xlog*, *ylog*
+> * *xpd*
+>
+> **Arguments to the `par()` function**
+> *Note that these are typically passed to `par()` prior to running running a plot
+> function. Run `par()` for defaults and `?par` for argument descriptions.
+> * *cex*
+> * *mar*
+> * *mfrow*
+> * *oma*
+> * *tcl*
+>
+> *You can set most of the arguments listed above in `plot()` using the `par()`
+> function as well, and it will set the default for future charts.*
+>
+> **Functions that add elements to existing plots**
+> *For this set, first generate a plot (e.g. with `plot()` or `boxplot()`)
+> and then call the following functions. Use `?` to see what arguments are
+> required for each*
+> * `abline()`
+> * `axis()`
+> * `box()`
+> * `legend()`
+> * `lines()`
+> * `mtext()`
+> * `points()`
+> * `text()`
+> * `title()`
+{: .challenge}
 
 ***
 
