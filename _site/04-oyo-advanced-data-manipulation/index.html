@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-09-04 00:07:23 -0700">
+    <meta http-equiv="last-modified" content="2020-09-08 16:24:45 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -567,8 +567,7 @@ can calculate the row-wise or column-wise means with <code class="language-plain
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first run the aggregate function with do.call</span><span class="w">
 </span><span class="n">avg_aneurisms_summary</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">do.call</span><span class="p">(</span><span class="n">data.frame</span><span class="p">,</span><span class="w"> 
-                                 </span><span class="n">aggregate</span><span class="p">(</span><span class="n">Aneurisms_avg</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Group</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Gender</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dat</span><span class="p">,</span><span class="w"> 
-                                           </span><span class="n">FUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">x</span><span class="p">))))</span><span class="w"> 
+                     </span><span class="n">aggregate</span><span class="p">(</span><span class="n">Aneurisms_avg</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Group</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Gender</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dat</span><span class="p">,</span><span class="w">                      </span><span class="n">FUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">mean</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="n">sd</span><span class="p">(</span><span class="n">x</span><span class="p">))))</span><span class="w"> 
 
 </span><span class="c1"># check the baseline names of the output (not helpful!)</span><span class="w">
 </span><span class="nf">names</span><span class="p">(</span><span class="n">avg_aneurisms_summary</span><span class="p">)</span><span class="w">

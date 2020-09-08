@@ -400,8 +400,7 @@ To fix this odd formating, we can use the function `do.call()` to convert the "m
 ~~~
 # first run the aggregate function with do.call
 avg_aneurisms_summary <- do.call(data.frame, 
-                                 aggregate(Aneurisms_avg ~ Group + Gender, data = dat, 
-                                           FUN = function(x) c(mean(x), sd(x)))) 
+                     aggregate(Aneurisms_avg ~ Group + Gender, data = dat,                      FUN = function(x) c(mean(x), sd(x)))) 
 
 # check the baseline names of the output (not helpful!)
 names(avg_aneurisms_summary)

@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-09-04 00:07:23 -0700">
+    <meta http-equiv="last-modified" content="2020-09-08 16:24:45 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -278,13 +278,19 @@
       <strong>Objectives</strong>
       <ul>
 	
-	<li><p>Write conditional statements with <code class="language-plaintext highlighter-rouge">if</code> and <code class="language-plaintext highlighter-rouge">else</code>.</p>
+	<li><p>Write conditional statements with <code class="language-plaintext highlighter-rouge">if()</code>, <code class="language-plaintext highlighter-rouge">else</code>, <code class="language-plaintext highlighter-rouge">and elseif()</code>.</p>
 </li>
 	
-	<li><p>Correctly evaluate expressions containing <code class="language-plaintext highlighter-rouge">&amp;&amp;</code> (‘and’) and <code class="language-plaintext highlighter-rouge">||</code> (‘or’).</p>
+	<li><p>Correctly evaluate expressions containing <code class="language-plaintext highlighter-rouge">&amp;&amp;</code> (“and”) and <code class="language-plaintext highlighter-rouge">||</code> (“or”).</p>
 </li>
 	
-	<li><p>Use a <code class="language-plaintext highlighter-rouge">for</code> loop to process multiple files.</p>
+	<li><p>Use a <code class="language-plaintext highlighter-rouge">for</code> loop to repeat an analysis across different data subsets or to process multiple files.</p>
+</li>
+	
+	<li><p>Use <code class="language-plaintext highlighter-rouge">list.files()</code> to get a list of filenames that match a simple pattern.</p>
+</li>
+	
+	<li><p>Understand the basic purpose of regular expressions and where to go to learn more.</p>
 </li>
 	
 	<li><p>Explain the basic process underlying what a <code class="language-plaintext highlighter-rouge">for</code> loop does.</p>
@@ -299,17 +305,14 @@
 
 </blockquote>
 
-<hr />
 <h2 id="in-class">In Class</h2>
 
 <p>Our previous lessons have shown us how to read and manipulate data, define our own functions, calculate basic statistics, and generate basic charts. However, the programs we have written so far always do the same things, regardless of what data they’re given. We want programs to make choices based on the values they are manipulating.</p>
 
-<h3 id="making-decisions-with-if-and-else">Making decisions with if and else</h3>
+<hr />
+<h3 id="conditionals">Conditionals</h3>
 
-<p> </p>
-<h4 id="conditionals">Conditionals</h4>
-
-<p>In order to update our function to decide between saving or not, we need to write code that automatically decides between multiple options. The tool R gives us for doing this is called a <a href="../reference.html#conditional-statement">conditional statement</a>, and looks like this:</p>
+<p>In order to have the output of a script depend on specific attributes of the input data, we need to write code that automatically decides between multiple options. The tool R gives us for doing this is called a <a href="../reference.html#conditional-statement">conditional statement</a>, and looks like this:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">num</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">37</span><span class="w">
 </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -326,12 +329,11 @@
 
 <p> </p>
 
-<p>The second line of this code uses an <code class="language-plaintext highlighter-rouge">if</code> statement to tell R that we want to make a choice.
-If the following test is true, the body of the <code class="language-plaintext highlighter-rouge">if</code> (i.e. the lines in the curly braces underneath it) are executed. If the test is false, the body of the <code class="language-plaintext highlighter-rouge">else</code> is executed instead. Only one or the other is ever executed:</p>
+<p>The second line uses an <code class="language-plaintext highlighter-rouge">if</code> statement to tell R that we want to make a choice. If the test following <code class="language-plaintext highlighter-rouge">if</code> in parentheses <code class="language-plaintext highlighter-rouge">()</code> is <code class="language-plaintext highlighter-rouge">TRUE</code>, the body of the <code class="language-plaintext highlighter-rouge">if</code>–the line(s) of code contained in the curly braces <code class="language-plaintext highlighter-rouge">{}</code>–are executed. If the test is <code class="language-plaintext highlighter-rouge">FALSE</code>, the body of the <code class="language-plaintext highlighter-rouge">else</code> is executed instead. Only one or the other is ever executed (never both):</p>
 
 <p><img src="../fig/python-flowchart-conditional.svg" alt="Executing a Conditional" /></p>
 
-<p>In the example above, the test <code class="language-plaintext highlighter-rouge">num &gt; 100</code> returns the value <code class="language-plaintext highlighter-rouge">FALSE</code>, which is why the code inside the <code class="language-plaintext highlighter-rouge">if</code> block was skipped and the code inside the <code class="language-plaintext highlighter-rouge">else</code> statement was run instead.</p>
+<p>In the example above, the test <code class="language-plaintext highlighter-rouge">num &gt; 100</code> returns the value <code class="language-plaintext highlighter-rouge">FALSE</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">num</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">100</span><span class="w">
 </span></code></pre></div></div>
@@ -341,20 +343,20 @@ If the following test is true, the body of the <code class="language-plaintext h
 
 <p> </p>
 
-<p>Conditional statements don’t have to include an <code class="language-plaintext highlighter-rouge">else</code>. If there isn’t one, R simply does nothing if the test is false:</p>
+<p>which is why the code inside the <code class="language-plaintext highlighter-rouge">if</code> block was skipped and the code inside the <code class="language-plaintext highlighter-rouge">else</code> statement was executed instead.</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">num</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">53</span><span class="w">
-</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+<p>Conditional statements don’t have to include an <code class="language-plaintext highlighter-rouge">else</code>. If there isn’t one, R simply does nothing if the test is <code class="language-plaintext highlighter-rouge">FALSE</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">print</span><span class="p">(</span><span class="s2">"num is greater than 100"</span><span class="p">)</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
 <p> </p>
 
-<p>We can also chain several tests together when there are more than two options.
-This makes it simple to write a function that returns the sign of a number:</p>
+<p>We can chain several tests together when there are more than two options. Let’s use this to write a function to return returns the sign of a number:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sign</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">what.sign</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nf">return</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w">
   </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -382,24 +384,12 @@ This makes it simple to write a function that returns the sign of a number:</p>
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1
 </code></pre></div></div>
 
-<p> </p>
+<p>Note that when combining <code class="language-plaintext highlighter-rouge">else</code> and <code class="language-plaintext highlighter-rouge">if</code> in an <code class="language-plaintext highlighter-rouge">else if</code> statement, the <code class="language-plaintext highlighter-rouge">if</code> portion still requires a direct input condition to specify the conditional test.  This is never the case for the lone <code class="language-plaintext highlighter-rouge">else</code> statement, which is only executed if all other conditions go unsatisfied.</p>
 
-<p>Note that when combining <code class="language-plaintext highlighter-rouge">else</code> and <code class="language-plaintext highlighter-rouge">if</code> in an <code class="language-plaintext highlighter-rouge">else if</code> statement, the <code class="language-plaintext highlighter-rouge">if</code> portion still requires a direct input condition.  This is never the case for the <code class="language-plaintext highlighter-rouge">else</code> statement alone, which is only executed if all other conditions go unsatisfied. As a reminder, the test for equality uses two equal signs, <code class="language-plaintext highlighter-rouge">==</code>.</p>
-
-<blockquote class="callout">
-  <h2 id="other-comparisons">Other Comparisons</h2>
-
-  <p>Other tests include greater than or equal to (<code class="language-plaintext highlighter-rouge">&gt;=</code>), less than or equal to
-(<code class="language-plaintext highlighter-rouge">&lt;=</code>), and not equal to (<code class="language-plaintext highlighter-rouge">!=</code>).</p>
-</blockquote>
-
-<p> </p>
-
-<p>We can also combine tests. Two ampersands, <code class="language-plaintext highlighter-rouge">&amp;&amp;</code>, symbolize “and”. Two vertical bars, <code class="language-plaintext highlighter-rouge">||</code>, symbolize “or”.
-<code class="language-plaintext highlighter-rouge">&amp;&amp;</code> is only true if both parts are true:</p>
+<p>We can combine logical tests using relational operators. Two ampersands, <code class="language-plaintext highlighter-rouge">&amp;&amp;</code>, symbolizing “and”, or two vertical bars, <code class="language-plaintext highlighter-rouge">||</code>, symbolizing “or”, can be used to test whether two separate tests are both true (<code class="language-plaintext highlighter-rouge">&amp;&amp;</code>):</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="m">-1</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">print</span><span class="p">(</span><span class="s2">"both parts are true"</span><span class="p">)</span><span class="w">
+  </span><span class="n">print</span><span class="p">(</span><span class="s2">"both parts are true"</span><span class="p">)</span><span class="w">
 </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">print</span><span class="p">(</span><span class="s2">"at least one part is not true"</span><span class="p">)</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -410,10 +400,10 @@ This makes it simple to write a function that returns the sign of a number:</p>
 
 <p> </p>
 
-<p>while <code class="language-plaintext highlighter-rouge">||</code> is true if either part is true:</p>
+<p>or if either test is true (<code class="language-plaintext highlighter-rouge">||</code>):</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="m">-1</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">print</span><span class="p">(</span><span class="s2">"at least one part is true"</span><span class="p">)</span><span class="w">
+  </span><span class="n">print</span><span class="p">(</span><span class="s2">"at least one part is true"</span><span class="p">)</span><span class="w">
 </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">print</span><span class="p">(</span><span class="s2">"neither part is true"</span><span class="p">)</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -424,55 +414,69 @@ This makes it simple to write a function that returns the sign of a number:</p>
 
 <p> </p>
 
-<p>In this case, “either” means “either or both”, not “either one or the other but not both”.</p>
+<p>In this case, “either” means “either or both”, not “either one or the other but not both”. If you want the latter, use the exclusive or (<code class="language-plaintext highlighter-rouge">xor()</code>) function.</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Here we will use R's `ifelse` function, in which we provide the test phrase,</span><span class="w">
-</span><span class="c1"># the outcome if the result of the test is 'TRUE', and the outcome if the</span><span class="w">
-</span><span class="c1"># result is 'FALSE'. We will also assign the results to the Color column,</span><span class="w">
-</span><span class="c1"># using '&lt;-'</span><span class="w">
+<p> </p>
 
-</span><span class="c1"># First - reload the data with a header</span><span class="w">
-</span><span class="n">carSpeeds</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'data/car-speeds.csv'</span><span class="p">)</span><span class="w">
+<p>R includes the function <code class="language-plaintext highlighter-rouge">ifelse()</code> to make if/else statements more efficient in certain circumstances.</p>
 
-</span><span class="n">carSpeeds</span><span class="o">$</span><span class="n">Color</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ifelse</span><span class="p">(</span><span class="n">carSpeeds</span><span class="o">$</span><span class="n">Color</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'Blue'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Green'</span><span class="p">,</span><span class="w"> </span><span class="n">carSpeeds</span><span class="o">$</span><span class="n">Color</span><span class="p">)</span><span class="w">
-</span><span class="n">carSpeeds</span><span class="o">$</span><span class="n">Color</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">ifelse</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  [1] "Green" " Red"  "Green" "White" "Red"   "Green" "Green" "Black" "White"
- [10] "Red"   "Red"   "White" "Green" "Green" "Black" "Red"   "Green" "Green"
- [19] "White" "Green" "Green" "Green" "Red"   "Green" "Red"   "Red"   "Red"  
- [28] "Red"   "White" "Green" "Red"   "White" "Black" "Red"   "Black" "Black"
- [37] "Green" "Red"   "Black" "Red"   "Black" "Black" "Red"   "Red"   "White"
- [46] "Black" "Green" "Red"   "Red"   "Black" "Black" "Red"   "White" "Red"  
- [55] "Green" "Green" "Black" "Green" "White" "Black" "Red"   "Green" "Green"
- [64] "White" "Black" "Red"   "Red"   "Black" "Green" "White" "Green" "Red"  
- [73] "White" "White" "Green" "Green" "Green" "Green" "Green" "White" "Black"
- [82] "Green" "White" "Black" "Black" "Red"   "Red"   "White" "White" "White"
- [91] "White" "Red"   "Red"   "Red"   "White" "Black" "White" "Black" "Black"
-[100] "White"
+<p> </p>
+
+<p>The first argument is the <code class="language-plaintext highlighter-rouge">if</code> test, the second is the code to execute if the test is <code class="language-plaintext highlighter-rouge">TRUE</code>, the third argument is the code to execute if the test is <code class="language-plaintext highlighter-rouge">FALSE</code>. This format is also vectorized, which provides us a useful way to run the same if/else statement on each element of an input vector. Let’s use our <code class="language-plaintext highlighter-rouge">carSpeeds</code> data set to repeat the replacement of <code class="language-plaintext highlighter-rouge">"Blue"</code> with <code class="language-plaintext highlighter-rouge">"Green"</code> in the car color variable, as we did in an earlier lesson, but this time using <code class="language-plaintext highlighter-rouge">ifelse()</code>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># First - reload the data with headers</span><span class="w">
+</span><span class="n">carSpeeds</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'data/car-speeds.csv'</span><span class="p">)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">carSpeeds</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Color Speed     State
+1  Blue    32 NewMexico
+2   Red    45   Arizona
+3  Blue    35  Colorado
+4 White    34   Arizona
+5   Red    25   Arizona
+6  Blue    41   Arizona
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># replace all "Green" entries in the Color column with "Blue</span><span class="w">
+</span><span class="n">carSpeeds</span><span class="o">$</span><span class="n">Color</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ifelse</span><span class="p">(</span><span class="n">carSpeeds</span><span class="o">$</span><span class="n">Color</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'Blue'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Green'</span><span class="p">,</span><span class="w"> </span><span class="n">carSpeeds</span><span class="o">$</span><span class="n">Color</span><span class="p">)</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">carSpeeds</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Color Speed     State
+1 Green    32 NewMexico
+2   Red    45   Arizona
+3 Green    35  Colorado
+4 White    34   Arizona
+5   Red    25   Arizona
+6 Green    41   Arizona
 </code></pre></div></div>
 
 <p> </p>
-<h4 id="exercises">Exercises</h4>
 
 <blockquote class="challenge">
   <h2 id="choosing-plots-based-on-data">Choosing Plots Based on Data</h2>
 
-  <p>Write a function <code class="language-plaintext highlighter-rouge">plot_dist</code> that plots a boxplot if the length of the vector is
-greater than a specified threshold and a stripchart otherwise.</p>
+  <p>Write a function <code class="language-plaintext highlighter-rouge">plot_dist()</code> that plots a boxplot if the length of 
+the vector is greater than a specified threshold (e.g. the vector contains more than 10 data points) and a stripchart otherwise.</p>
 
-  <p>To do this you’ll use the R functions <code class="language-plaintext highlighter-rouge">boxplot</code> and <code class="language-plaintext highlighter-rouge">stripchart</code>.</p>
+  <p>To do this you’ll use the R functions <code class="language-plaintext highlighter-rouge">boxplot()</code> and <code class="language-plaintext highlighter-rouge">stripchart()</code>.</p>
+
+  <p>For instance, your function should have the following behavior when presented with subsets of the data from the <code class="language-plaintext highlighter-rouge">inflammation-01.csv</code> data set:</p>
 
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"data/inflammation-01.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
 </span><span class="n">plot_dist</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">10</span><span class="p">],</span><span class="w"> </span><span class="n">threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w">     </span><span class="c1"># day (column) 10</span><span class="w">
 </span></code></pre></div>  </div>
 
-  <p><img src="../fig/rmd-05-class-decisions-loops-unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" /></p>
+  <p><img src="../fig/rmd-05-class-decisions-loops-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" /></p>
 
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot_dist</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">],</span><span class="w"> </span><span class="n">threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w">  </span><span class="c1"># samples (rows) 1-5 on day (column) 10</span><span class="w">
 </span></code></pre></div>  </div>
 
-  <p><img src="../fig/rmd-05-class-decisions-loops-unnamed-chunk-9-2.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" width="612" style="display: block; margin: auto;" /></p>
+  <p><img src="../fig/rmd-05-class-decisions-loops-unnamed-chunk-10-2.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" /></p>
 
   <blockquote class="solution">
     <h2 id="solution">Solution</h2>
@@ -487,54 +491,8 @@ greater than a specified threshold and a stripchart otherwise.</p>
   </blockquote>
 </blockquote>
 
-<blockquote class="challenge">
-  <h2 id="histograms-instead">Histograms Instead</h2>
-
-  <p>One of your collaborators prefers to see the distributions of the larger vectors
-as a histogram instead of as a boxplot. In order to choose between a histogram 
-and a boxplot we will edit the function <code class="language-plaintext highlighter-rouge">plot_dist</code> and add an additional argument 
-<code class="language-plaintext highlighter-rouge">use_boxplot</code>.  By default we will set <code class="language-plaintext highlighter-rouge">use_boxplot</code> to <code class="language-plaintext highlighter-rouge">TRUE</code> which will create a 
-boxplot when the vector is longer than <code class="language-plaintext highlighter-rouge">threshold</code>.</p>
-
-  <p>When <code class="language-plaintext highlighter-rouge">use_boxplot</code> is set to <code class="language-plaintext highlighter-rouge">FALSE</code>, <code class="language-plaintext highlighter-rouge">plot_dist</code> will instead plot a histogram for 
-the larger vectors. As before, if the length of the vector is shorter than 
-<code class="language-plaintext highlighter-rouge">threshold</code>, <code class="language-plaintext highlighter-rouge">plot_dist</code> will create a stripchart.</p>
-
-  <p>A histogram is made with the <code class="language-plaintext highlighter-rouge">hist</code> command in R.</p>
-
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"data/inflammation-01.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
-</span><span class="n">plot_dist</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">10</span><span class="p">],</span><span class="w"> </span><span class="n">threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">use_boxplot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">   </span><span class="c1"># day (column) 10 - create boxplot</span><span class="w">
-</span></code></pre></div>  </div>
-
-  <p><img src="../fig/rmd-05-class-decisions-loops-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" /></p>
-
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot_dist</span><span class="p">(</span><span class="n">dat</span><span class="p">[,</span><span class="w"> </span><span class="m">10</span><span class="p">],</span><span class="w"> </span><span class="n">threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="n">use_boxplot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">  </span><span class="c1"># day (column) 10 - create histogram</span><span class="w">
-</span></code></pre></div>  </div>
-
-  <p><img src="../fig/rmd-05-class-decisions-loops-unnamed-chunk-10-2.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" /></p>
-
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot_dist</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">],</span><span class="w"> </span><span class="n">threshold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w">                    </span><span class="c1"># samples (rows) 1-5 on day (column) 10</span><span class="w">
-</span></code></pre></div>  </div>
-
-  <p><img src="../fig/rmd-05-class-decisions-loops-unnamed-chunk-10-3.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" /></p>
-
-  <blockquote class="solution">
-    <h2 id="solution-1">Solution</h2>
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot_dist</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">threshold</span><span class="p">,</span><span class="w"> </span><span class="n">use_boxplot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">threshold</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">use_boxplot</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-       </span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
-   </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">threshold</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">use_boxplot</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-       </span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
-   </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-       </span><span class="n">stripchart</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">vert</span><span class="o">=</span><span class="nb">T</span><span class="p">)</span><span class="w">
-   </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>    </div>
-  </blockquote>
-</blockquote>
-
 <hr />
-<h3 id="using-for-loops-to-repeat-simple-tasks">Using <strong>for</strong> Loops to repeat simple tasks</h3>
+<h3 id="repeating-tasks-with-for-loops">Repeating tasks with <strong>for</strong> loops</h3>
 
 <p>Suppose we want to print each word in a sentence. One way is to use six <code class="language-plaintext highlighter-rouge">print</code> statements:</p>
 
@@ -562,21 +520,26 @@ the larger vectors. As before, if the length of the vector is shorter than
 
 <p> </p>
 
-<p>but that’s a bad approach for two reasons:</p>
+<p>… but that’s a bad approach for two reasons:</p>
 
 <ol>
   <li>
     <p>It doesn’t scale: if we want to print the elements in a vector that’s hundreds long, we’d be better off just typing them in.</p>
   </li>
   <li>
-    <p>It’s fragile: if we give it a longer vector, it only prints part of the data, and if we give it a shorter input, it returns <code class="language-plaintext highlighter-rouge">NA</code> values because we’re asking for elements that don’t exist!</p>
+    <p>It is not robust: if we give it a longer vector, it only prints part of the data, and if we give it a shorter vector, it returns <code class="language-plaintext highlighter-rouge">NA</code> values because we’re asking for elements that don’t exist.</p>
   </li>
 </ol>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">best_practice</span><span class="p">[</span><span class="m">-6</span><span class="p">]</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">print_words</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="n">best_practice</span><span class="p">,</span><span class="s2">"please"</span><span class="p">))</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Let"      "the"      "computer" "do"       "the"     
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "Let"
+[1] "the"
+[1] "computer"
+[1] "do"
+[1] "the"
+[1] "work"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">print_words</span><span class="p">(</span><span class="n">best_practice</span><span class="p">[</span><span class="m">-6</span><span class="p">])</span><span class="w">
@@ -592,10 +555,10 @@ the larger vectors. As before, if the length of the vector is shorter than
 
 <p> </p>
 
-<p>Here’s a better approach:</p>
+<p>A better approach is to use a <code class="language-plaintext highlighter-rouge">for</code> loop:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">print_words</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">word</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">sentence</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="k">for</span><span class="p">(</span><span class="n">word</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">sentence</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="n">print</span><span class="p">(</span><span class="n">word</span><span class="p">)</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -613,7 +576,7 @@ the larger vectors. As before, if the length of the vector is shorter than
 
 <p> </p>
 
-<p>This is shorter - certainly shorter than something that prints every character in a hundred-letter string - and more robust as well:</p>
+<p>This takes few lines of code to produce–especially if we were to create a version of <code class="language-plaintext highlighter-rouge">print_words</code> that prints every character in a hundred-word vector–and more robust as well:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">print_words</span><span class="p">(</span><span class="n">best_practice</span><span class="p">[</span><span class="m">-6</span><span class="p">])</span><span class="w">
 </span></code></pre></div></div>
@@ -627,31 +590,55 @@ the larger vectors. As before, if the length of the vector is shorter than
 
 <p> </p>
 
-<p>The improved version of <code class="language-plaintext highlighter-rouge">print_words</code> uses a <a href="../reference.html#for-loop">for loop</a> to repeat an operation—in this case, printing—once for each thing in a collection.</p>
+<p>The improved version of <code class="language-plaintext highlighter-rouge">print_words</code> uses a <a href="../reference.html#for-loop">for loop</a> to repeat an operation—in this case, the <code class="language-plaintext highlighter-rouge">print()</code> function—once for each thing in a collection (i.e. each element in the <code class="language-plaintext highlighter-rouge">best_practices</code> character vector.</p>
 
-<p>The general form of a loop is:</p>
+<p>The general form of a <code class="language-plaintext highlighter-rouge">for</code> loop is:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">variable</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">collection</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="p">(</span><span class="n">variable</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">collection</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">do</span><span class="w"> </span><span class="n">things</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">variable</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
 
 <p> </p>
 
-<p>We can name the <a href="../reference.html#loop-variable">loop variable</a> anything we like (with a few <a href="https://cran.r-project.org/doc/manuals/R-intro.html#R-commands_003b-case-sensitivity-etc">restrictions</a>, e.g. the name of the variable cannot start with a digit).
-<code class="language-plaintext highlighter-rouge">in</code> is part of the <code class="language-plaintext highlighter-rouge">for</code> syntax.</p>
+<p>We can name the <a href="../reference.html#loop-variable">loop variable</a> anything we like (with the usual restrictions on variable names). The <code class="language-plaintext highlighter-rouge">in</code> is a formal part of the <code class="language-plaintext highlighter-rouge">for</code> syntax and required.</p>
 
-<p>Note that the condition (<code class="language-plaintext highlighter-rouge">variable in collection</code>) is enclosed in parentheses,
-and the body of the loop is enclosed in curly braces <code class="language-plaintext highlighter-rouge">{ }</code>. For a single-line loop body, as here, the braces aren’t needed, but it is good practice to include them as we did.</p>
+<p>Note that the condition (<code class="language-plaintext highlighter-rouge">variable in collection</code>) is enclosed in parentheses, and the body of the loop is enclosed in curly braces <code class="language-plaintext highlighter-rouge">{ }</code>, similar to <code class="language-plaintext highlighter-rouge">if</code> statements. For a single-line loop body, as here, the braces aren’t actually needed,</p>
 
-<p>Here’s another loop that repeatedly updates a variable and completes the same task as the <code class="language-plaintext highlighter-rouge">length()</code> function:</p>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">len</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span><span class="w">
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10
+</code></pre></div></div>
+
+<p> </p>
+
+<p>… but it is a best practice to include them as we did.</p>
+
+<p>Here’s another loop that repeatedly updates a variable in order to count the number of entries in a vector, carrying out the the same task as the <code class="language-plaintext highlighter-rouge">length()</code> function:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define the vector of interest</span><span class="w">
 </span><span class="n">vowels</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="s2">"e"</span><span class="p">,</span><span class="w"> </span><span class="s2">"i"</span><span class="p">,</span><span class="w"> </span><span class="s2">"o"</span><span class="p">,</span><span class="w"> </span><span class="s2">"u"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># initialize a variable to store the current value for length during</span><span class="w">
+</span><span class="c1"># each iteration of the loop</span><span class="w">
+</span><span class="n">len</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span><span class="w">
+
+</span><span class="c1"># execute the for loop</span><span class="w">
 </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">v</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">vowels</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">len</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">len</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span><span class="c1"># Number of vowels</span><span class="w">
+
+</span><span class="c1"># Display the calculated vector length</span><span class="w">
 </span><span class="n">len</span><span class="w">
 </span></code></pre></div></div>
 
@@ -666,13 +653,15 @@ and the body of the loop is enclosed in curly braces <code class="language-plain
   <li>The first time around, <code class="language-plaintext highlighter-rouge">len</code> is zero (the value assigned to it on line 1) and <code class="language-plaintext highlighter-rouge">v</code> is <code class="language-plaintext highlighter-rouge">"a"</code>.</li>
   <li>The statement adds 1 to the old value of <code class="language-plaintext highlighter-rouge">len</code>, producing 1, and updates <code class="language-plaintext highlighter-rouge">len</code> to refer to that new value.</li>
   <li>The next time around, <code class="language-plaintext highlighter-rouge">v</code> is <code class="language-plaintext highlighter-rouge">"e"</code> and <code class="language-plaintext highlighter-rouge">len</code> is 1, so <code class="language-plaintext highlighter-rouge">len</code> is updated to be 2.</li>
-  <li>After three more updates, <code class="language-plaintext highlighter-rouge">len</code> is 5; since there is nothing left in the vector <code class="language-plaintext highlighter-rouge">vowels</code> for R to process, the loop finishes.</li>
+  <li>After three more updates, <code class="language-plaintext highlighter-rouge">len</code> is 5; since there no remaining elements in the vector <code class="language-plaintext highlighter-rouge">vowels</code>, the loop finishes.</li>
 </ol>
 
-<p>Note that a loop variable is just a variable that’s being used to record progress in a loop.
-It still exists after the loop is over, and we can re-use variables previously defined as loop variables as well:</p>
+<p>Note that a <strong>loop variable</strong> is just a <strong>variable</strong> that’s being used to record progress in a loop. It still exists after the loop is over, and we can re-use variables previously defined as <strong>loop variables</strong> as well:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">letter</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"z"</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># start with "letter" defined</span><span class="w">
+</span><span class="n">letter</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"z"</span><span class="w">
+
+</span><span class="c1"># execute a for loop that uses "letter" as the loop variable</span><span class="w">
 </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">letter</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="w"> </span><span class="s2">"b"</span><span class="p">,</span><span class="w"> </span><span class="s2">"c"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">print</span><span class="p">(</span><span class="n">letter</span><span class="p">)</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -692,23 +681,15 @@ It still exists after the loop is over, and we can re-use variables previously d
 
 <p> </p>
 
-<p>Note that <code class="language-plaintext highlighter-rouge">length()</code> is much faster than any R function we could write ourselves, and much easier to read than a two-line loop; it will also give us the length of many other things that we haven’t met yet, so we should always use it when we can.</p>
+<p>Note that <code class="language-plaintext highlighter-rouge">length()</code> is much faster than any R function we could write ourselves, and much easier to read than a two-line loop; it will also give us the length of many other things that we haven’t met yet, so we should always use it when we can. Whenever possible, use available functions before creating your own.</p>
 
 <p> </p>
-<h4 id="exercises-1">Exercises</h4>
+<h4 id="exercises">Exercises</h4>
 
 <blockquote class="challenge">
   <h2 id="printing-numbers">Printing Numbers</h2>
 
-  <p>R has a built-in function called <code class="language-plaintext highlighter-rouge">seq()</code> that creates a list of numbers:</p>
-
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">seq</span><span class="p">(</span><span class="m">3</span><span class="p">)</span><span class="w">
-</span></code></pre></div>  </div>
-
-  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1 2 3
-</code></pre></div>  </div>
-
-  <p>Using <code class="language-plaintext highlighter-rouge">seq()</code>, write a function that prints the first <strong>N</strong> natural numbers, one per line:</p>
+  <p>Write a function that prints the first <strong>N</strong> natural numbers, one per line:</p>
 
   <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">print_N</span><span class="p">(</span><span class="m">3</span><span class="p">)</span><span class="w">
 </span></code></pre></div>  </div>
@@ -719,7 +700,7 @@ It still exists after the loop is over, and we can re-use variables previously d
 </code></pre></div>  </div>
 
   <blockquote class="solution">
-    <h2 id="solution-2">Solution</h2>
+    <h2 id="solution-1">Solution</h2>
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">print_N</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="n">nseq</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="w">
   </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">nseq</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -730,72 +711,10 @@ It still exists after the loop is over, and we can re-use variables previously d
   </blockquote>
 </blockquote>
 
-<blockquote class="challenge">
-  <h2 id="summing-values">Summing Values</h2>
+<p> </p>
+<h4 id="using-for-loops-to-process-multiple-files">Using <code class="language-plaintext highlighter-rouge">for</code> loops to process multiple files</h4>
 
-  <p>Write a function called <code class="language-plaintext highlighter-rouge">total()</code> that calculates the sum of the values in a vector.</p>
-
-  <p>Yes, R has a built-in function called <code class="language-plaintext highlighter-rouge">sum()</code> that does this for you. Please don’t
-use it for this exercise. The goal is to understand how this type of function might 
-work under the surface.</p>
-
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ex_vec</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="m">15</span><span class="p">,</span><span class="w"> </span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="m">23</span><span class="p">,</span><span class="w"> </span><span class="m">42</span><span class="p">)</span><span class="w">
-</span><span class="n">total</span><span class="p">(</span><span class="n">ex_vec</span><span class="p">)</span><span class="w">
-</span></code></pre></div>  </div>
-
-  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 108
-</code></pre></div>  </div>
-
-  <blockquote class="solution">
-    <h2 id="solution-3">Solution</h2>
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">total</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="c1"># calculates the sum of the values in a vector</span><span class="w">
-  </span><span class="n">vec_sum</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span><span class="w">
-  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">num</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">vec</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">vec_sum</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vec_sum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">num</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-  </span><span class="nf">return</span><span class="p">(</span><span class="n">vec_sum</span><span class="p">)</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>    </div>
-  </blockquote>
-</blockquote>
-
-<blockquote class="challenge">
-  <h2 id="exponentiation">Exponentiation</h2>
-
-  <p>Exponentiation is built into R:</p>
-
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="m">2</span><span class="o">^</span><span class="m">4</span><span class="w">
-</span></code></pre></div>  </div>
-
-  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 16
-</code></pre></div>  </div>
-  <p>Write a function called <code class="language-plaintext highlighter-rouge">expo()</code> that uses a loop to calculate the same result without
-using the <code class="language-plaintext highlighter-rouge">^</code> operator.</p>
-
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">expo</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
-</span></code></pre></div>  </div>
-
-  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 16
-</code></pre></div>  </div>
-
-  <blockquote class="solution">
-    <h2 id="solution-4">Solution</h2>
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">expo</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">base</span><span class="p">,</span><span class="w"> </span><span class="n">power</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">result</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
-  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="n">power</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">result</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">base</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-  </span><span class="nf">return</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>    </div>
-  </blockquote>
-</blockquote>
-
-<hr />
-<h3 id="using-for-loops-to-process-multiple-files">Using <code class="language-plaintext highlighter-rouge">for</code> loops to process multiple files</h3>
-
-<p>In many real world data sets, you will want to process a series of files that contain data in the same format using the same set of analysis steps. <code class="language-plaintext highlighter-rouge">for</code> loops are a useful tool for this purpose.</p>
+<p>In many real world datasets, you will want to process a series of files that contain data in the same format using the same set of analysis steps. <code class="language-plaintext highlighter-rouge">for</code> loops are a useful tool for this purpose.</p>
 
 <p>In the <em>data</em> folder we have a series of files containing information about inflammation. These files give data on patients treated with a new drug for arthritis. Each file contains a series of patients (in rows) with a series of inflammation measurements on subsequent days (in columns). Each file contains information from the same set of patients on different rounds of treatment. We looked at the first file in this series previously. Let’s read in the file to recall the data format:</p>
 
@@ -821,46 +740,47 @@ using the <code class="language-plaintext highlighter-rouge">^</code> operator.<
 
 <p> </p>
 
-<p>To begin, let’s calculate and plot the minimum, maximum, and mean inflamation across patients for each day:</p>
+<p>To begin, let’s calculate and plot the minimum, maximum, and mean inflammation across patients for each day:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># use apply to calculate min, max, and mean inflammation for each day</span><span class="w">
-</span><span class="c1"># and save them to variables</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># use apply to calculate min, max, and mean inflammation for each day and save them to variables</span><span class="w">
 </span><span class="n">avg_day_inflam</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">inflam1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
 </span><span class="n">max_day_inflam</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">inflam1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">max</span><span class="p">)</span><span class="w">
 </span><span class="n">min_day_inflam</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">inflam1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">min</span><span class="p">)</span><span class="w">
 
-</span><span class="c1"># ------------------------------------------------------------------------</span><span class="w">
-</span><span class="c1"># Plot min, max, and mean on the same chart (using different line colors)</span><span class="w">
+</span><span class="c1"># ------------------------------------------</span><span class="w">
+</span><span class="c1"># Plot min, max, and mean on the same chart </span><span class="w">
+</span><span class="c1"># (using different line colors)</span><span class="w">
 
-</span><span class="c1"># First we need to grab the overall maximum and minimum values in our data</span><span class="w">
-</span><span class="c1"># set to be sure we make the plot window big enough</span><span class="w">
+</span><span class="c1"># First we need to grab the overall maximum </span><span class="w">
+</span><span class="c1"># and minimum values in our data set to be </span><span class="w">
+</span><span class="c1"># sure we make the plot window big enough</span><span class="w">
 </span><span class="n">y_min</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">min</span><span class="p">(</span><span class="n">inflam1</span><span class="p">)</span><span class="w">
 </span><span class="n">y_max</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">inflam1</span><span class="p">)</span><span class="w">
 
-</span><span class="c1"># first initiat the plot with "min" data</span><span class="w">
+</span><span class="c1"># first initiate the plot with "min" data</span><span class="w">
 </span><span class="n">plot</span><span class="p">(</span><span class="n">min_day_inflam</span><span class="p">,</span><span class="w"> </span><span class="c1"># plot minimum first</span><span class="w">
-     </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"l"</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="c1"># plot the minimum in blue</span><span class="w">
+     </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"l"</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"blue"</span><span class="p">,</span><span class="w"> </span><span class="c1"># plot the minimum as blue lines</span><span class="w">
      </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Day"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Inflammation"</span><span class="p">,</span><span class="w"> </span><span class="c1"># axis labels</span><span class="w">
      </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span><span class="w"> </span><span class="n">y_max</span><span class="p">))</span><span class="w"> </span><span class="c1"># define plot limits</span><span class="w">
 
-</span><span class="c1"># use the lines() funciton to add max and mean to the current plot</span><span class="w">
-</span><span class="n">lines</span><span class="p">(</span><span class="n">avg_day_inflam</span><span class="p">,</span><span class="w"> </span><span class="c1"># plot mean second</span><span class="w">
-      </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="w"> </span><span class="c1"># draw mean in black</span><span class="w">
-</span><span class="n">lines</span><span class="p">(</span><span class="n">max_day_inflam</span><span class="p">,</span><span class="w"> </span><span class="c1"># plot maximum second</span><span class="w">
-      </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">)</span><span class="w"> </span><span class="c1"># draw maximum in red</span><span class="w">
+</span><span class="c1"># use the lines() function to add max and mean to the current plot</span><span class="w">
+</span><span class="n">lines</span><span class="p">(</span><span class="n">avg_day_inflam</span><span class="p">,</span><span class="w"> 
+      </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"black"</span><span class="p">)</span><span class="w"> 
+</span><span class="n">lines</span><span class="p">(</span><span class="n">max_day_inflam</span><span class="p">,</span><span class="w">
+      </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">)</span><span class="w"> 
 
 </span><span class="c1"># add a legend</span><span class="w">
-</span><span class="n">legend</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"topright"</span><span class="p">,</span><span class="w"> </span><span class="c1"># place the legend in the empty space in the upper right corner</span><span class="w">
-       </span><span class="n">lty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="c1"># this tells R to make lines, rather than symbols</span><span class="w">
-       </span><span class="n">legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Maximum"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Mean"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Minimum"</span><span class="p">),</span><span class="w"> </span><span class="c1"># order the labels</span><span class="w">
-       </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"red"</span><span class="p">,</span><span class="s2">"black"</span><span class="p">,</span><span class="s2">"blue"</span><span class="p">))</span><span class="w"> </span><span class="c1"># define the colors in the label order</span><span class="w">
+</span><span class="n">legend</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"topright"</span><span class="p">,</span><span class="w"> </span><span class="c1"># location on chart</span><span class="w">
+       </span><span class="n">lty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="c1"># this tells R to make lines</span><span class="w">
+       </span><span class="n">legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Maximum"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Mean"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Minimum"</span><span class="p">),</span><span class="w"> </span><span class="c1"># define/order the labels</span><span class="w">
+       </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"red"</span><span class="p">,</span><span class="s2">"black"</span><span class="p">,</span><span class="s2">"blue"</span><span class="p">))</span><span class="w"> </span><span class="c1"># define/order the colors</span><span class="w">
 </span></code></pre></div></div>
 
 <p><img src="../fig/rmd-05-class-decisions-loops-inflammation-01-1.png" title="plot of chunk inflammation-01" alt="plot of chunk inflammation-01" width="612" style="display: block; margin: auto;" /></p>
 
 <p> </p>
 
-<p>Okay, so the chart looks good, but something appears to be strange with the data. The maximum measurement across patients appears to increase exactly linearly up to day 20, then decline exactly linearly thereafter. The minimum value looks to stair-step up to day 20, then stair-step down thereafter.</p>
+<p>The chart looks good, but something is strange with the data. The maximum measurement across patients appears to increase exactly linearly up to day 20, then decline exactly linearly thereafter. The minimum value looks to stair-step up to day 20, then stair-step down thereafter.</p>
 
 <p>Does this happen with all the files? Let’s write a script to run the above analysis on all files and save the resulting report to a PDF file. For this, we can use our <code class="language-plaintext highlighter-rouge">for</code> loop capability to carry out the following steps:</p>
 <ol>
@@ -880,9 +800,9 @@ using the <code class="language-plaintext highlighter-rouge">^</code> operator.<
 
 <p> </p>
 
-<p>We can use the <code class="language-plaintext highlighter-rouge">pattern</code> argument to specify a search pattern using <a href="https://www.aivosto.com/articles/regex.html">regular expressions</a>, which is a systematic language for searching strings of text. For, example, we can use the <code class="language-plaintext highlighter-rouge">pattern</code> argument to look for all files containing “csv”:</p>
+<p>We can use the <code class="language-plaintext highlighter-rouge">pattern</code> argument to specify a search pattern using <a href="https://www.aivosto.com/articles/regex.html">regular expressions</a> (aka <em>regex</em>), which is a systematic language for searching strings of text. For, example, we can use the <code class="language-plaintext highlighter-rouge">pattern</code> argument to look for all <em>.csv</em> files:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"csv"</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">".csv"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "car-speeds-cleaned.csv"        "car-speeds-corrected-9999.csv"
@@ -895,14 +815,14 @@ using the <code class="language-plaintext highlighter-rouge">^</code> operator.<
 [15] "inflammation-09.csv"           "inflammation-10.csv"          
 [17] "inflammation-11.csv"           "inflammation-12.csv"          
 [19] "Nadeau2_table.csv"             "sample-gendercorrected.csv"   
-[21] "sample-noquotes.csv"           "sample.csv"                   
-[23] "small-01.csv"                  "small-02.csv"                 
-[25] "small-03.csv"                 
+[21] "sample-noquotes.csv"           "sample-processed.csv"         
+[23] "sample.csv"                    "small-01.csv"                 
+[25] "small-02.csv"                  "small-03.csv"                 
 </code></pre></div></div>
 
 <p> </p>
 
-<p>or “inflammation”:</p>
+<p>Since we have bunch of <em>.csv</em> files in this folder, this is not specific enough. How about files names containing the word “inflammation”?</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"inflammation"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -918,18 +838,57 @@ using the <code class="language-plaintext highlighter-rouge">^</code> operator.<
 
 <p> </p>
 
-<p>If we want to be more specific, the search string gets a bit more complicated. If we want to extract all examples from a list that start with “inflammation-“ and end in “.csv”, (but contain anything else in between), we can use the following:</p>
+<p>Almost, but not quite there. If we want to be more specific, the search string gets a bit more complicated. If we want to extract all examples from a list that start with “inflammation-“ and end in “.csv”, (but contain anything else in between), we can use the following <em>regex</em> terms:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">^</code> indicates the beginning of a string.</li>
+  <li><code class="language-plaintext highlighter-rouge">.*</code> is a wild card, specifying that any type or length of character can occur in this place.</li>
+  <li><code class="language-plaintext highlighter-rouge">$</code> indicates the end of a string.</li>
+</ul>
+
+<blockquote class="callout">
+  <h2 id="regular-expresssions-regex">Regular Expresssions (regex)</h2>
+
+  <p>The use of regex can be very powerful in allowing scripts to identify
+specific characteristics in textual data.</p>
+
+  <figure>
+  <!-- <img src="../fig/xkcd-regex.png" alt="XKCD #208: Regular Expressions" /> -->
+  <img src="https://imgs.xkcd.com/comics/regular_expressions.png" alt="XXKCD #208: Regular Expressions" />
+  <figcaption>Image credit <a href="https://xkcd.com/208/">xkcd.com</a></figcaption>
+</figure>
+
+  <p>Regular expression are a whole separate language in to themselves
+and there are many resources online for learning to use and test 
+regex. Here are a couple that I have used:</p>
+  <ul>
+    <li><a href="https://regexone.com/">RegexOne</a> – regular expression tutorials</li>
+    <li><a href="https://regexr.com/">regexr</a> – an online tool that let’s you test out a regular expression against a text string.</li>
+    <li><a href="https://www.rexegg.com/regex-quickstart.html">RexEgg regex cheat sheet</a> – a regex cheat sheet that I have found useful (and some other resources as well).</li>
+  </ul>
+
+</blockquote>
+
+<p> </p>
+
+<p>We will also add the <code class="language-plaintext highlighter-rouge">full.names</code> argument to tell <code class="language-plaintext highlighter-rouge">list.files()</code> that we want it to return the full path to each file name, not just the file name itself:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">inflam.files</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w"> 
                         </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"^inflammation-.*.csv$"</span><span class="p">,</span><span class="w">
                         </span><span class="n">full.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+</span><span class="n">inflam.files</span><span class="w">
 </span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "data/inflammation-01.csv" "data/inflammation-02.csv"
+ [3] "data/inflammation-03.csv" "data/inflammation-04.csv"
+ [5] "data/inflammation-05.csv" "data/inflammation-06.csv"
+ [7] "data/inflammation-07.csv" "data/inflammation-08.csv"
+ [9] "data/inflammation-09.csv" "data/inflammation-10.csv"
+[11] "data/inflammation-11.csv" "data/inflammation-12.csv"
+</code></pre></div></div>
 
 <p> </p>
 
-<p>For the <code class="language-plaintext highlighter-rouge">pattern</code> argument, we use several regular expression operators that tell R what to look for. The <code class="language-plaintext highlighter-rouge">^</code> indicates that this is where the file name begins. We are essentially saying “begins with <em>‘inflammation’</em>”. The <code class="language-plaintext highlighter-rouge">.*</code> is a wildcard (i.e. “anything can go here”). The <code class="language-plaintext highlighter-rouge">$</code> indicates the end of the file name. Now we have a way to pull just the “inflammation” file names out automatically and assign them to a variable, which we can use later.</p>
-
-<p>Now that we have the last piece of the puzzle, we can build our loop.</p>
+<p>Now we have a way to pull just the “inflammation” file names out automatically and assign them to a variable, which we can use later. Now that we have the last piece of the puzzle, we can build our loop.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># First, grab our file list using pattern matching</span><span class="w">
 </span><span class="n">inflam.files</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w"> 
@@ -983,295 +942,6 @@ using the <code class="language-plaintext highlighter-rouge">^</code> operator.<
   2 
 </code></pre></div></div>
 
-<blockquote class="callout">
-  <h2 id="organizing-larger-projects">Organizing Larger Projects</h2>
-
-  <p>For larger projects, it is recommended to organize separate parts of the
-analysis into multiple subdirectories, e.g. one subdirectory for the raw data,
-one for the code, and one for the results like figures. We have done that here
-to some extent, putting all of our data files into the subdirectory “data”.
-For more advice on this topic, you can read <a href="http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000424">A quick guide to organizing
-computational biology projects</a> by William Stafford Noble.</p>
-</blockquote>
-
-<p> </p>
-<h4 id="for-or-apply"><code class="language-plaintext highlighter-rouge">for</code> or <code class="language-plaintext highlighter-rouge">apply</code>?</h4>
-
-<p>A <code class="language-plaintext highlighter-rouge">for</code> loop is used to apply the same function calls to a collection of objects. R has a family of functions, the <code class="language-plaintext highlighter-rouge">apply</code> family, which can be used in much the same way.</p>
-
-<p>You’ve already used one of the family, <code class="language-plaintext highlighter-rouge">apply</code>. The <code class="language-plaintext highlighter-rouge">apply</code> family members include:</p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">apply</code>  - apply over the margins of an array (e.g. the rows or columns of a matrix)</li>
-  <li><code class="language-plaintext highlighter-rouge">lapply</code> - apply over an object and return list</li>
-  <li><code class="language-plaintext highlighter-rouge">sapply</code> - apply over an object and return a simplified object (an array) if possible</li>
-  <li><code class="language-plaintext highlighter-rouge">vapply</code> - similar to <code class="language-plaintext highlighter-rouge">sapply</code> but you specify the type of object returned by the iterations</li>
-</ul>
-
-<p>Each of these has an argument <code class="language-plaintext highlighter-rouge">FUN</code> which takes a function to apply to each element of the object. Instead of looping over <code class="language-plaintext highlighter-rouge">filenames</code> and calling <code class="language-plaintext highlighter-rouge">analyze</code>, as you did earlier, you could <code class="language-plaintext highlighter-rouge">sapply</code> over <code class="language-plaintext highlighter-rouge">filenames</code> with <code class="language-plaintext highlighter-rouge">FUN = analyze</code>:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sapply</span><span class="p">(</span><span class="n">filenames</span><span class="p">,</span><span class="w"> </span><span class="n">FUN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">analyze</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
-<p>Deciding whether to use <code class="language-plaintext highlighter-rouge">for</code> or one of the <code class="language-plaintext highlighter-rouge">apply</code> family is really personal preference. Using an <code class="language-plaintext highlighter-rouge">apply</code> family function forces to you encapsulate your operations as a function rather than separate calls with <code class="language-plaintext highlighter-rouge">for</code>. <code class="language-plaintext highlighter-rouge">for</code> loops are often more natural in some circumstances; for several related operations, a <code class="language-plaintext highlighter-rouge">for</code> loop will avoid you having to pass in a lot of extra arguments to your function.</p>
-
-<p> </p>
-<h4 id="loops-in-r-are-slow">Loops in R Are Slow</h4>
-
-<p>You will probably hear this at some point if you keep using R, or see it in a forum. In point of fact, loops are not slow <em>if</em> you follow some golden rules:</p>
-<ol>
-  <li>Don’t use a loop when a vectorized alternative exists</li>
-  <li>Don’t grow objects (via <code class="language-plaintext highlighter-rouge">c</code>, <code class="language-plaintext highlighter-rouge">cbind</code>, etc) during the loop - R has to create a new object and copy across the information just to add a new element or row/column</li>
-  <li>Instead, pre-allocate an object to hold the results and fill it in during the loop</li>
-</ol>
-
-<p>As an example, we could ‘ll create a new function called <code class="language-plaintext highlighter-rouge">analyze</code> that will return the mean inflammation per day (column) of each file. We will start by breaking rule 2, and grow our output by adding new data to a growing dataframe using <code class="language-plaintext highlighter-rouge">cbind()</code></p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nf">seq_along</span><span class="p">(</span><span class="n">filenames</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">fdata</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">filenames</span><span class="p">[</span><span class="n">f</span><span class="p">],</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
-    </span><span class="n">res</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">fdata</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
-    
-    </span><span class="c1"># check if this is the first iteration</span><span class="w">
-    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="c1"># if so, the current result is the only line of output</span><span class="w">
-      </span><span class="n">out</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">res</span><span class="w">
-    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="c1"># If this is not the first iteration, add the result to the</span><span class="w">
-      </span><span class="c1"># established result as a new column</span><span class="w">
-      </span><span class="n">out</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cbind</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">)</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-  </span><span class="nf">return</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<p> </p>
-
-<p>Note how we add a new column to <code class="language-plaintext highlighter-rouge">out</code> at each iteration? This is a cardinal sin of writing a <code class="language-plaintext highlighter-rouge">for</code> loop in R.</p>
-
-<p>Instead, we can create an empty matrix with the right dimensions (rows/columns) to hold the results. Then we loop over the files but this time we fill in the <code class="language-plaintext highlighter-rouge">f</code>th column of our results matrix <code class="language-plaintext highlighter-rouge">out</code>. This time there is no copying/growing for R to deal with.</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">analyze2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="c1"># pre-allocate the right number of rows and columns for the data</span><span class="w">
-  </span><span class="n">out</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">filenames</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">40</span><span class="p">)</span><span class="w"> 
-  
-  </span><span class="c1"># run the for loop to cycle through the files</span><span class="w">
-  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nf">seq_along</span><span class="p">(</span><span class="n">filenames</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="c1"># read the current file </span><span class="w">
-    </span><span class="n">fdata</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">filenames</span><span class="p">[</span><span class="n">f</span><span class="p">],</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
-    
-    </span><span class="c1"># instead of using cbind, now we just overwrite the row of </span><span class="w">
-    </span><span class="c1"># the pre-allocated matrix</span><span class="w">
-    </span><span class="n">out</span><span class="p">[,</span><span class="w"> </span><span class="n">f</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">fdata</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-  </span><span class="nf">return</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<p> </p>
-
-<p>Now we can use the function <code class="language-plaintext highlighter-rouge">system.time()</code> to find out how long it takes to run each of these functions:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gc</span><span class="p">()</span><span class="w"> </span><span class="c1"># clean things up first</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>         used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 512712 27.4    1145700 61.2   796868 42.6
-Vcells 991973  7.6    8388608 64.0  1632446 12.5
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system.time</span><span class="p">(</span><span class="n">avg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">analyze</span><span class="p">(</span><span class="n">inflam.files</span><span class="p">))</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   user  system elapsed 
-   0.01    0.00    0.02 
-</code></pre></div></div>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system.time</span><span class="p">(</span><span class="n">avg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">analyze2</span><span class="p">(</span><span class="n">inflam.files</span><span class="p">))</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   user  system elapsed 
-   0.02    0.00    0.02 
-</code></pre></div></div>
-
-<p> </p>
-
-<p>In this simple example there is little difference in the compute time of <code class="language-plaintext highlighter-rouge">analyze</code> and <code class="language-plaintext highlighter-rouge">analyze2</code>. This is because we are only iterating over 12 files and hence we only incur 12 copy/grow operations. If we were doing this over more files or the data objects we were growing were larger, the penalty for copying/growing would be much larger. This demonstrates how to evaluate efficiency when it starts to matter.</p>
-
-<p>Note that <code class="language-plaintext highlighter-rouge">apply</code> handles these memory allocation issues for you, but then you have to write the loop part as a function to pass to <code class="language-plaintext highlighter-rouge">apply</code>.
-At its heart, <code class="language-plaintext highlighter-rouge">apply</code> is just a <code class="language-plaintext highlighter-rouge">for</code> loop with extra convenience.</p>
-
-<hr />
-<h3 id="exercises-2">Exercises</h3>
-
-<blockquote class="challenge">
-  <h2 id="find-the-maximum-inflammation-score">Find the Maximum Inflammation Score</h2>
-
-  <p>Find the file containing the patient with the highest average inflammation score. Print the file name, the patient number (row number) and the value of the maximum average inflammation score.</p>
-
-  <p>Tips:</p>
-
-  <ol>
-    <li>Use variables to store the maximum average and update it as you go through files and patients.</li>
-    <li>You can use nested loops (one loop is inside the other) to go through the files as well as through the patients in each file (every row).</li>
-  </ol>
-
-  <p>Complete the code below:</p>
-
-  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">filenames</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"^inflammation-.*.csv$"</span><span class="p">,</span><span class="w"> </span><span class="n">full.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
-</span><span class="n">filename_max</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">""</span><span class="w"> </span><span class="c1"># filename where the maximum average inflammation patient is found</span><span class="w">
-</span><span class="n">patient_max</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="c1"># index (row number) for this patient in this file</span><span class="w">
-</span><span class="n">average_inf_max</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="c1"># value of the average inflammation score for this patient</span><span class="w">
-</span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">filenames</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">dat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
-  </span><span class="n">dat.means</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">)</span><span class="w">
-  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">patient_index</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">dat.means</span><span class="p">)){</span><span class="w">
-    </span><span class="n">patient_average_inf</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dat.means</span><span class="p">[</span><span class="n">patient_index</span><span class="p">]</span><span class="w">
-    </span><span class="c1"># Add your code here ...</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span><span class="n">print</span><span class="p">(</span><span class="n">filename_max</span><span class="p">)</span><span class="w">
-</span><span class="n">print</span><span class="p">(</span><span class="n">patient_max</span><span class="p">)</span><span class="w">
-</span><span class="n">print</span><span class="p">(</span><span class="n">average_inf_max</span><span class="p">)</span><span class="w">
-</span></code></pre></div>  </div>
-
-  <blockquote class="solution">
-    <h2 id="solution-5">Solution</h2>
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Add your code here ...</span><span class="w">
-</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">patient_average_inf</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">average_inf_max</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-  </span><span class="n">average_inf_max</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">patient_average_inf</span><span class="w">
-  </span><span class="n">filename_max</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">f</span><span class="w">
-  </span><span class="n">patient_max</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">patient_index</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div>    </div>
-  </blockquote>
-</blockquote>
-
-<blockquote class="challenge">
-  <h2 id="comparing-inflammation-across-trials">Comparing inflammation across trials</h2>
-
-  <p>We want to compare how inflammation for an individual patient changes across
-trials. Write a script that plots inflammation for the first patient from each trial
-(i.e. from each file) in the same line graph.</p>
-
-  <blockquote class="solution">
-    <h2 id="solution-6">Solution</h2>
-
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Indicate the patient (aka row) number that we want to extract</span><span class="w">
-</span><span class="n">patient.id</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
-
-</span><span class="c1"># First, grab our file list using pattern matching</span><span class="w">
-</span><span class="n">inflam.files</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w"> 
-                        </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"^inflammation-.*.csv$"</span><span class="p">,</span><span class="w">
-                        </span><span class="n">full.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># We can't just plot away, because we don't know the minimum and maximum values.</span><span class="w">
-</span><span class="c1"># First, we should cycle through the files and collect the data we need into</span><span class="w">
-</span><span class="c1"># a data frame</span><span class="w">
-
-</span><span class="c1"># Initialize matrix for data collection (numeric matrix with a row for each file</span><span class="w">
-</span><span class="c1"># and 40 columns for number of days)</span><span class="w">
-</span><span class="n">trial.data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">inflam.files</span><span class="p">),</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">40</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># Start the for loop to cycle through the files</span><span class="w">
-</span><span class="k">for</span><span class="p">(</span><span class="n">i.file</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">inflam.files</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1"># this time we use a numeric index</span><span class="w">
-  </span><span class="c1"># grab file name</span><span class="w">
-  </span><span class="n">file.c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">inflam.files</span><span class="p">[</span><span class="n">i.file</span><span class="p">]</span><span class="w">
-  
-  </span><span class="c1"># read in the current file</span><span class="w">
-  </span><span class="n">inflam.c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file.c</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
-  
-  </span><span class="c1"># assign selected patient to collection file row</span><span class="w">
-  </span><span class="n">trial.data</span><span class="p">[</span><span class="n">i.file</span><span class="p">,]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">inflam.c</span><span class="p">[</span><span class="n">patient.id</span><span class="p">,])</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span><span class="c1"># Initiate the PDF file to store the graphs</span><span class="w">
-</span><span class="n">pdf</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="s2">"results/inflammation-patient"</span><span class="p">,</span><span class="n">patient.id</span><span class="p">,</span><span class="s2">"-by-trial.pdf"</span><span class="p">),</span><span class="w">
-    </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># look up max and min values for complete day to set plot size</span><span class="w">
-</span><span class="n">y_min</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">min</span><span class="p">(</span><span class="n">trial.data</span><span class="p">)</span><span class="w">
-</span><span class="n">y_max</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">trial.data</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># first initiat the plot with no data, but define the size and labels</span><span class="w">
-</span><span class="n">plot</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="c1"># plot minimum first</span><span class="w">
-     </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Day"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Inflammation"</span><span class="p">,</span><span class="w"> </span><span class="c1"># axis labels</span><span class="w">
-     </span><span class="n">xlim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">40</span><span class="p">),</span><span class="w"> </span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">y_min</span><span class="p">,</span><span class="w"> </span><span class="n">y_max</span><span class="p">))</span><span class="w"> </span><span class="c1"># define plot limits</span><span class="w">
-
-</span><span class="c1"># select colors with the rainbow() function</span><span class="w">
-</span><span class="n">col.list</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rainbow</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">inflam.files</span><span class="p">))</span><span class="w">
-
-</span><span class="c1"># now that we have the plot limits set, use another for loop to cycle through &gt; &gt; # and plot each trials inflammation</span><span class="w">
-</span><span class="k">for</span><span class="p">(</span><span class="n">i.plot</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">dim</span><span class="p">(</span><span class="n">trial.data</span><span class="p">)[</span><span class="m">1</span><span class="p">])</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1"># index down the number of rows</span><span class="w">
-  </span><span class="n">lines</span><span class="p">(</span><span class="n">trial.data</span><span class="p">[</span><span class="n">i.plot</span><span class="p">,],</span><span class="w"> </span><span class="c1"># plot current trial</span><span class="w">
-      </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col.list</span><span class="p">[</span><span class="n">i.plot</span><span class="p">])</span><span class="w"> </span><span class="c1"># choose current color in list</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span><span class="c1"># finalize the PDF file by turning off the graphics device</span><span class="w">
-</span><span class="n">dev.off</span><span class="p">()</span><span class="w">
-</span></code></pre></div>    </div>
-
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>png 
-  2 
-</code></pre></div>    </div>
-
-    <p>As code becomes more complex, the ways to achieve a given solution multiply. This
-is just one solution of many possibilities.</p>
-  </blockquote>
-</blockquote>
-
-<blockquote class="challenge">
-  <h2 id="gathering-data">Gathering data</h2>
-
-  <p>There is interest in examining the inflammation data in a more complete analysis.
-To examine effects of treatments across trials, we first need to collect our data
-into a single file.</p>
-
-  <p>Gather all of the data from the various inflammation files into a single data frame
-with the appropriate labels indicating where each data point originated. Make sure
-that your script is robust enough to run on any number of inflammation data files.</p>
-
-  <blockquote class="solution">
-    <h2 id="solution-7">Solution</h2>
-
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># First, grab our file list using pattern matching</span><span class="w">
-</span><span class="n">inflam.files</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list.files</span><span class="p">(</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data"</span><span class="p">,</span><span class="w"> 
-                       </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"^inflammation-.*.csv$"</span><span class="p">,</span><span class="w">
-                       </span><span class="n">full.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
-
-</span><span class="c1"># Start the for loop to cycle through the files</span><span class="w">
-</span><span class="k">for</span><span class="p">(</span><span class="n">i.file</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">inflam.files</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1"># this time we use a numeric index</span><span class="w">
-  </span><span class="c1"># grab file name</span><span class="w">
-  </span><span class="n">file.c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">inflam.files</span><span class="p">[</span><span class="n">i.file</span><span class="p">]</span><span class="w">
-  
-  </span><span class="c1"># read in the current file</span><span class="w">
-  </span><span class="n">inflam.c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file.c</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
-  
-  </span><span class="c1"># name the columns</span><span class="w">
-  </span><span class="nf">names</span><span class="p">(</span><span class="n">inflam.c</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="s2">"Inflammation.D"</span><span class="p">,</span><span class="m">1</span><span class="o">:</span><span class="m">40</span><span class="p">)</span><span class="w">
-  
-  </span><span class="c1"># add columns for Patient ID and Trial ID</span><span class="w">
-  </span><span class="n">inflam.c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cbind</span><span class="p">(</span><span class="n">Patient.ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">60</span><span class="p">,</span><span class="w"> </span><span class="n">Trial.ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i.file</span><span class="p">,</span><span class="w"> </span><span class="n">inflam.c</span><span class="p">)</span><span class="w">
-  
-  </span><span class="c1"># if this is the first iteration, the combined file is the same as the current file</span><span class="w">
-  </span><span class="k">if</span><span class="p">(</span><span class="n">i.file</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">inflam.combined</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">inflam.c</span><span class="w">
-  
-  </span><span class="c1"># otherwise, add the rows of inflam.c to the growing combined data frame</span><span class="w">
-  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="n">inflam.combined</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rbind</span><span class="p">(</span><span class="n">inflam.combined</span><span class="p">,</span><span class="w"> </span><span class="n">inflam.c</span><span class="p">)</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span><span class="c1"># save file</span><span class="w">
-</span><span class="n">write.csv</span><span class="p">(</span><span class="n">inflam.combined</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"data/combined-inflammation.csv"</span><span class="p">,</span><span class="w">
-          </span><span class="n">quote</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
-</span></code></pre></div>    </div>
-
-    <p>Is there a more efficient way to do this?</p>
-  </blockquote>
-</blockquote>
-
 <hr />
 
 
@@ -1280,10 +950,7 @@ that your script is robust enough to run on any number of inflammation data file
   <h2>Key Points</h2>
   <ul>
     
-    <li><p>Use <code class="language-plaintext highlighter-rouge">if (condition)</code> to start a conditional statement, <code class="language-plaintext highlighter-rouge">else if (condition)</code> to provide additional tests, and <code class="language-plaintext highlighter-rouge">else</code> to provide a default alternative.</p>
-</li>
-    
-    <li><p>The bodies of conditional statements must be surrounded by curly braces <code class="language-plaintext highlighter-rouge">{ }</code>.</p>
+    <li><p>Use <code class="language-plaintext highlighter-rouge">if (condition) {take action}</code> to start a conditional statement, <code class="language-plaintext highlighter-rouge">else if (condition) {take alternative action}</code> to provide additional tests, and <code class="language-plaintext highlighter-rouge">else {take alternative action}</code> to provide a default alternative.</p>
 </li>
     
     <li><p>Use <code class="language-plaintext highlighter-rouge">==</code> to test for equality.</p>
@@ -1295,10 +962,10 @@ that your script is robust enough to run on any number of inflammation data file
     <li><p><code class="language-plaintext highlighter-rouge">X || Y</code> is true if either X, Y, or both, are true.</p>
 </li>
     
-    <li><p>Use <code class="language-plaintext highlighter-rouge">for (variable in collection)</code> to process the elements of a collection one at a time.</p>
+    <li><p>Use <code class="language-plaintext highlighter-rouge">for (variable in collection) {take repeated action}</code> to process the elements of a collection one at a time.</p>
 </li>
     
-    <li><p>The body of a <code class="language-plaintext highlighter-rouge">for</code> loop is surrounded by curly braces (<code class="language-plaintext highlighter-rouge">{}</code>).</p>
+    <li><p>Use regular expressions (regex) to perform pattern searches in textual data.</p>
 </li>
     
   </ul>
