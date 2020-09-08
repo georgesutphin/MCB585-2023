@@ -1,4 +1,4 @@
-I"ž4<h2 id="in-class">In Class</h2>
+I"±4<h2 id="in-class">In Class</h2>
 
 <h3 id="calculating-basic-statistics">Calculating basic statistics</h3>
 
@@ -17,7 +17,7 @@
   <p>Range:</p>
   <ul>
     <li><code class="language-plaintext highlighter-rouge">min()</code> - minimum value in range</li>
-    <li><code class="language-plaintext highlighter-rouge">max()</code> - maximum value in ragne</li>
+    <li><code class="language-plaintext highlighter-rouge">max()</code> - maximum value in range</li>
     <li><code class="language-plaintext highlighter-rouge">range()</code> - minimum and maximum value in range</li>
     <li><code class="language-plaintext highlighter-rouge">quantile()</code> - quantiles corresponding to the given probabilities (<code class="language-plaintext highlighter-rouge">probs</code> argument; defaults to quartiles `c(0, 0.25, 0.5, 0.75, 1.0))</li>
     <li><code class="language-plaintext highlighter-rouge">IQR()</code> - interquartile range (Q3 - Q1)</li>
@@ -28,7 +28,7 @@
     <li><code class="language-plaintext highlighter-rouge">var()</code> - variance</li>
     <li><code class="language-plaintext highlighter-rouge">sd()</code> - standard deviation</li>
     <li><code class="language-plaintext highlighter-rouge">mad()</code> - median absolute deviation
-<em>Note: there is no built-in function for calculating standard error of mean (SEM), but this can be easily calculated using <code class="language-plaintext highlighter-rouge">sd(x)/sqrt(x)</code>. There are also packages that have functions available (e.g. <code class="language-plaintext highlighter-rouge">pastecs</code>).</em></li>
+<em>Note: there is no built-in function for calculating standard error of mean (SEM), but this can be easily calculated using <code class="language-plaintext highlighter-rouge">sd(x)/sqrt(length(x))</code>. There are also packages that have functions available (e.g. <code class="language-plaintext highlighter-rouge">pastecs</code>).</em></li>
   </ul>
 
   <p>Miscellaneous:</p>
@@ -137,7 +137,7 @@
 
 <p>We donâ€™t actually need to store the row in a variable of its own. Instead, we can combine the selection and the function call:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># max inflammation for subject 2</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># maximum number of aneurisms for subject 2</span><span class="w">
 </span><span class="nf">max</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="o">:</span><span class="m">9</span><span class="p">])</span><span class="w">
 </span></code></pre></div></div>
 

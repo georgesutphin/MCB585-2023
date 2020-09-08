@@ -1028,7 +1028,7 @@ z
 
 &nbsp;
 
-R creates a new vector in which each element the sum of the elements with the same index from x and y. In essence, R is performing 3 separate "addition" operations and combining the results into a new vector. We can mimick this behavior manually:
+R creates a new vector in which each element the sum of the elements with the same index from x and y. In essence, R is performing 3 separate "addition" operations and combining the results into a new vector. We can mimic this behavior manually:
 
 
 ~~~
