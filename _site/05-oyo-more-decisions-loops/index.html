@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-09-08 16:24:45 -0700">
+    <meta http-equiv="last-modified" content="2020-09-09 08:35:47 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -547,311 +547,16 @@ assign “large” if the flower is larger or “small” if not.</p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris2</span><span class="o">$</span><span class="n">Species.Petal.Group</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ifelse</span><span class="p">(</span><span class="n">iris2</span><span class="o">$</span><span class="n">Petal.Length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">mean.comparison</span><span class="p">,</span><span class="w"> 
 </span><span class="s2">"large"</span><span class="p">,</span><span class="w"> </span><span class="s2">"small"</span><span class="p">)</span><span class="w">
-</span><span class="n">iris2</span><span class="w">
+</span><span class="n">head</span><span class="p">(</span><span class="n">iris2</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-1            5.1         3.5          1.4         0.2     setosa
-2            4.9         3.0          1.4         0.2     setosa
-3            4.7         3.2          1.3         0.2     setosa
-4            4.6         3.1          1.5         0.2     setosa
-5            5.0         3.6          1.4         0.2     setosa
-6            5.4         3.9          1.7         0.4     setosa
-7            4.6         3.4          1.4         0.3     setosa
-8            5.0         3.4          1.5         0.2     setosa
-9            4.4         2.9          1.4         0.2     setosa
-10           4.9         3.1          1.5         0.1     setosa
-11           5.4         3.7          1.5         0.2     setosa
-12           4.8         3.4          1.6         0.2     setosa
-13           4.8         3.0          1.4         0.1     setosa
-14           4.3         3.0          1.1         0.1     setosa
-15           5.8         4.0          1.2         0.2     setosa
-16           5.7         4.4          1.5         0.4     setosa
-17           5.4         3.9          1.3         0.4     setosa
-18           5.1         3.5          1.4         0.3     setosa
-19           5.7         3.8          1.7         0.3     setosa
-20           5.1         3.8          1.5         0.3     setosa
-21           5.4         3.4          1.7         0.2     setosa
-22           5.1         3.7          1.5         0.4     setosa
-23           4.6         3.6          1.0         0.2     setosa
-24           5.1         3.3          1.7         0.5     setosa
-25           4.8         3.4          1.9         0.2     setosa
-26           5.0         3.0          1.6         0.2     setosa
-27           5.0         3.4          1.6         0.4     setosa
-28           5.2         3.5          1.5         0.2     setosa
-29           5.2         3.4          1.4         0.2     setosa
-30           4.7         3.2          1.6         0.2     setosa
-31           4.8         3.1          1.6         0.2     setosa
-32           5.4         3.4          1.5         0.4     setosa
-33           5.2         4.1          1.5         0.1     setosa
-34           5.5         4.2          1.4         0.2     setosa
-35           4.9         3.1          1.5         0.2     setosa
-36           5.0         3.2          1.2         0.2     setosa
-37           5.5         3.5          1.3         0.2     setosa
-38           4.9         3.6          1.4         0.1     setosa
-39           4.4         3.0          1.3         0.2     setosa
-40           5.1         3.4          1.5         0.2     setosa
-41           5.0         3.5          1.3         0.3     setosa
-42           4.5         2.3          1.3         0.3     setosa
-43           4.4         3.2          1.3         0.2     setosa
-44           5.0         3.5          1.6         0.6     setosa
-45           5.1         3.8          1.9         0.4     setosa
-46           4.8         3.0          1.4         0.3     setosa
-47           5.1         3.8          1.6         0.2     setosa
-48           4.6         3.2          1.4         0.2     setosa
-49           5.3         3.7          1.5         0.2     setosa
-50           5.0         3.3          1.4         0.2     setosa
-51           7.0         3.2          4.7         1.4 versicolor
-52           6.4         3.2          4.5         1.5 versicolor
-53           6.9         3.1          4.9         1.5 versicolor
-54           5.5         2.3          4.0         1.3 versicolor
-55           6.5         2.8          4.6         1.5 versicolor
-56           5.7         2.8          4.5         1.3 versicolor
-57           6.3         3.3          4.7         1.6 versicolor
-58           4.9         2.4          3.3         1.0 versicolor
-59           6.6         2.9          4.6         1.3 versicolor
-60           5.2         2.7          3.9         1.4 versicolor
-61           5.0         2.0          3.5         1.0 versicolor
-62           5.9         3.0          4.2         1.5 versicolor
-63           6.0         2.2          4.0         1.0 versicolor
-64           6.1         2.9          4.7         1.4 versicolor
-65           5.6         2.9          3.6         1.3 versicolor
-66           6.7         3.1          4.4         1.4 versicolor
-67           5.6         3.0          4.5         1.5 versicolor
-68           5.8         2.7          4.1         1.0 versicolor
-69           6.2         2.2          4.5         1.5 versicolor
-70           5.6         2.5          3.9         1.1 versicolor
-71           5.9         3.2          4.8         1.8 versicolor
-72           6.1         2.8          4.0         1.3 versicolor
-73           6.3         2.5          4.9         1.5 versicolor
-74           6.1         2.8          4.7         1.2 versicolor
-75           6.4         2.9          4.3         1.3 versicolor
-76           6.6         3.0          4.4         1.4 versicolor
-77           6.8         2.8          4.8         1.4 versicolor
-78           6.7         3.0          5.0         1.7 versicolor
-79           6.0         2.9          4.5         1.5 versicolor
-80           5.7         2.6          3.5         1.0 versicolor
-81           5.5         2.4          3.8         1.1 versicolor
-82           5.5         2.4          3.7         1.0 versicolor
-83           5.8         2.7          3.9         1.2 versicolor
-84           6.0         2.7          5.1         1.6 versicolor
-85           5.4         3.0          4.5         1.5 versicolor
-86           6.0         3.4          4.5         1.6 versicolor
-87           6.7         3.1          4.7         1.5 versicolor
-88           6.3         2.3          4.4         1.3 versicolor
-89           5.6         3.0          4.1         1.3 versicolor
-90           5.5         2.5          4.0         1.3 versicolor
-91           5.5         2.6          4.4         1.2 versicolor
-92           6.1         3.0          4.6         1.4 versicolor
-93           5.8         2.6          4.0         1.2 versicolor
-94           5.0         2.3          3.3         1.0 versicolor
-95           5.6         2.7          4.2         1.3 versicolor
-96           5.7         3.0          4.2         1.2 versicolor
-97           5.7         2.9          4.2         1.3 versicolor
-98           6.2         2.9          4.3         1.3 versicolor
-99           5.1         2.5          3.0         1.1 versicolor
-100          5.7         2.8          4.1         1.3 versicolor
-101          6.3         3.3          6.0         2.5  virginica
-102          5.8         2.7          5.1         1.9  virginica
-103          7.1         3.0          5.9         2.1  virginica
-104          6.3         2.9          5.6         1.8  virginica
-105          6.5         3.0          5.8         2.2  virginica
-106          7.6         3.0          6.6         2.1  virginica
-107          4.9         2.5          4.5         1.7  virginica
-108          7.3         2.9          6.3         1.8  virginica
-109          6.7         2.5          5.8         1.8  virginica
-110          7.2         3.6          6.1         2.5  virginica
-111          6.5         3.2          5.1         2.0  virginica
-112          6.4         2.7          5.3         1.9  virginica
-113          6.8         3.0          5.5         2.1  virginica
-114          5.7         2.5          5.0         2.0  virginica
-115          5.8         2.8          5.1         2.4  virginica
-116          6.4         3.2          5.3         2.3  virginica
-117          6.5         3.0          5.5         1.8  virginica
-118          7.7         3.8          6.7         2.2  virginica
-119          7.7         2.6          6.9         2.3  virginica
-120          6.0         2.2          5.0         1.5  virginica
-121          6.9         3.2          5.7         2.3  virginica
-122          5.6         2.8          4.9         2.0  virginica
-123          7.7         2.8          6.7         2.0  virginica
-124          6.3         2.7          4.9         1.8  virginica
-125          6.7         3.3          5.7         2.1  virginica
-126          7.2         3.2          6.0         1.8  virginica
-127          6.2         2.8          4.8         1.8  virginica
-128          6.1         3.0          4.9         1.8  virginica
-129          6.4         2.8          5.6         2.1  virginica
-130          7.2         3.0          5.8         1.6  virginica
-131          7.4         2.8          6.1         1.9  virginica
-132          7.9         3.8          6.4         2.0  virginica
-133          6.4         2.8          5.6         2.2  virginica
-134          6.3         2.8          5.1         1.5  virginica
-135          6.1         2.6          5.6         1.4  virginica
-136          7.7         3.0          6.1         2.3  virginica
-137          6.3         3.4          5.6         2.4  virginica
-138          6.4         3.1          5.5         1.8  virginica
-139          6.0         3.0          4.8         1.8  virginica
-140          6.9         3.1          5.4         2.1  virginica
-141          6.7         3.1          5.6         2.4  virginica
-142          6.9         3.1          5.1         2.3  virginica
-143          5.8         2.7          5.1         1.9  virginica
-144          6.8         3.2          5.9         2.3  virginica
-145          6.7         3.3          5.7         2.5  virginica
-146          6.7         3.0          5.2         2.3  virginica
-147          6.3         2.5          5.0         1.9  virginica
-148          6.5         3.0          5.2         2.0  virginica
-149          6.2         3.4          5.4         2.3  virginica
-150          5.9         3.0          5.1         1.8  virginica
-    Species.Petal.Group
-1                 small
-2                 small
-3                 small
-4                 large
-5                 small
-6                 large
-7                 small
-8                 large
-9                 small
-10                large
-11                large
-12                large
-13                small
-14                small
-15                small
-16                large
-17                small
-18                small
-19                large
-20                large
-21                large
-22                large
-23                small
-24                large
-25                large
-26                large
-27                large
-28                large
-29                small
-30                large
-31                large
-32                large
-33                large
-34                small
-35                large
-36                small
-37                small
-38                small
-39                small
-40                large
-41                small
-42                small
-43                small
-44                large
-45                large
-46                small
-47                large
-48                small
-49                large
-50                small
-51                large
-52                large
-53                large
-54                small
-55                large
-56                large
-57                large
-58                small
-59                large
-60                small
-61                small
-62                small
-63                small
-64                large
-65                small
-66                large
-67                large
-68                small
-69                large
-70                small
-71                large
-72                small
-73                large
-74                large
-75                large
-76                large
-77                large
-78                large
-79                large
-80                small
-81                small
-82                small
-83                small
-84                large
-85                large
-86                large
-87                large
-88                large
-89                small
-90                small
-91                large
-92                large
-93                small
-94                small
-95                small
-96                small
-97                small
-98                large
-99                small
-100               small
-101               large
-102               small
-103               large
-104               large
-105               large
-106               large
-107               small
-108               large
-109               large
-110               large
-111               small
-112               small
-113               small
-114               small
-115               small
-116               small
-117               small
-118               large
-119               large
-120               small
-121               large
-122               small
-123               large
-124               small
-125               large
-126               large
-127               small
-128               small
-129               large
-130               large
-131               large
-132               large
-133               large
-134               small
-135               large
-136               large
-137               large
-138               small
-139               small
-140               small
-141               large
-142               small
-143               small
-144               large
-145               large
-146               small
-147               small
-148               small
-149               small
-150               small
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width Species Species.Petal.Group
+1          5.1         3.5          1.4         0.2  setosa               small
+2          4.9         3.0          1.4         0.2  setosa               small
+3          4.7         3.2          1.3         0.2  setosa               small
+4          4.6         3.1          1.5         0.2  setosa               large
+5          5.0         3.6          1.4         0.2  setosa               small
+6          5.4         3.9          1.7         0.4  setosa               large
 </code></pre></div>    </div>
 
   </blockquote>
@@ -870,6 +575,8 @@ assign “large” if the flower is larger or “small” if not.</p>
 </ul>
 
 <p>Each is perfectly acceptable, and useful in different situations.</p>
+
+<p> </p>
 
 <p><strong>Iterating by element</strong></p>
 
@@ -1089,7 +796,7 @@ assign “large” if the flower is larger or “small” if not.</p>
 <p>You will sometimes see claims that <code class="language-plaintext highlighter-rouge">apply</code> functions run faster than a <code class="language-plaintext highlighter-rouge">for</code> loop designed to run the same operations. However, this is not generally true, and under the surface the <code class="language-plaintext highlighter-rouge">apply</code> functions are just convenient wrappers for a hidden <code class="language-plaintext highlighter-rouge">for</code> loops.</p>
 
 <p> </p>
-<h4 id="loops-in-r-are-alow">Loops in R are alow</h4>
+<h4 id="loops-in-r-are-slow-">Loops in R are slow (??)</h4>
 
 <p>On this topic, you will probably also hear at some point if you keep using R that loops are slow. This is a common refrain in coding forums. In point of fact, loops are not slow <em>if</em> you follow a few guidelines:</p>
 <ol>
@@ -1157,8 +864,8 @@ assign “large” if the flower is larger or “small” if not.</p>
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>         used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 508294 27.2    1132977 60.6   638582 34.2
-Vcells 980239  7.5    8388608 64.0  1632684 12.5
+Ncells 508192 27.2    1132685 60.5   638582 34.2
+Vcells 978430  7.5    8388608 64.0  1632684 12.5
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># one call to each function does not always show the difference. To </span><span class="w">
@@ -1168,19 +875,19 @@ Vcells 980239  7.5    8388608 64.0  1632684 12.5
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   user  system elapsed 
-   2.09    0.19    2.29 
+   2.10    0.25    2.36 
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system.time</span><span class="p">(</span><span class="n">avg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="n">analyze2</span><span class="p">(</span><span class="n">inflam.files</span><span class="p">)})</span><span class="w">
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   user  system elapsed 
-   1.93    0.17    2.09 
+   2.03    0.24    2.27 
 </code></pre></div></div>
 
 <p> </p>
 
-<p>The <code class="language-plaintext highlighter-rouge">system</code> time output indicates the total CPU time used to execute the function. Your results may vary from run to run, but the amount of time used by <code class="language-plaintext highlighter-rouge">analyze</code> is greater than the time used by <code class="language-plaintext highlighter-rouge">analyze2</code>. A few 10ths of a second may not seem much now, but keep in mind that we are running a few simple operations on a few hundred files in total. As the complexity of your analysis and the number of files or data point in your dataset increases, the time difference will increase dramatically. A given analysis taking 6 hours to process vs. 30 hours can be critical to the success of some big-data projects, even before you start to calculate the monetary expense of running large analyses on super computer. This demonstrates one way to evaluate efficiency when it starts to matter.</p>
+<p>The <code class="language-plaintext highlighter-rouge">system</code> time output indicates the total CPU time used to execute the function with <code class="language-plaintext highlighter-rouge">elapsed</code> reflects the total real-world time consumed between when the function was called and when the output was generated. Your results may vary from run to run, but the amount of time used by <code class="language-plaintext highlighter-rouge">analyze</code> should always be greater than the time used by <code class="language-plaintext highlighter-rouge">analyze2</code>, all else being equal. A few 10ths of a second may not seem much now, but keep in mind that we are running a few simple operations on a few hundred files in total. As the complexity of your analysis and the number of files or data point in your dataset increases, the time difference will increase dramatically. A given analysis taking 6 hours to process vs. 30 hours can be critical to the success of some big-data projects, even before you start to calculate the monetary expense of running large analyses on a super computer. This demonstrates one way to evaluate efficiency when it starts to matter.</p>
 
 <p>Note that <code class="language-plaintext highlighter-rouge">apply</code> handles these memory allocation issues for you, but then you have to write the loop part as a function to pass to <code class="language-plaintext highlighter-rouge">apply</code>. At its heart, <code class="language-plaintext highlighter-rouge">apply</code> is just a <code class="language-plaintext highlighter-rouge">for</code> loop with extra convenience.</p>
 
@@ -1194,7 +901,7 @@ figures. We have done that here to some extent, putting all of our data files
 into the subdirectory “data”. For more advice on this topic, you can read <a href="http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000424">A quick guide to organizing computational biology projects</a> by William Stafford Noble.</p>
 </blockquote>
 
-<p>&amp;nbps;</p>
+<p> </p>
 <h4 id="exercises--for-loops">Exercises – <code class="language-plaintext highlighter-rouge">for</code> loops</h4>
 
 <blockquote class="challenge">
