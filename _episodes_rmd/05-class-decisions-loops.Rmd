@@ -8,7 +8,7 @@ questions:
 - "How do I use the same code to treat different data sets in different ways?"
 - "How can I perform the same operations on multiple data sets or across multiple subsets of a single dataset?"
 objectives:
-- "Write conditional statements with `if()`, `else`, and `elseif()`."
+- "Write conditional statements with `if()`, `else`, and `ifelse()`."
 - "Correctly evaluate expressions containing `&&` (\"and\") and `||` (\"or\")."
 - "Use a `for` loop to repeat an analysis across different data subsets or to process multiple files."
 - "Use `list.files()` to get a list of filenames that match a simple pattern."
