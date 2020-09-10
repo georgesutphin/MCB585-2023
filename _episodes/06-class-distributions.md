@@ -30,9 +30,9 @@ source: Rmd
 
 &nbsp;
 
-The goal of this course is to give you some practical tools to use when confronted with real problems in biological science. This lesson will demonstrate how to use R to conduct basic hypothesis testing (e.g. run a t-test in order to determine the probability that two samples came from the same underlying population). However, equally important is understanding how to properly state a hypothesis, determine which statistical test is appropriate for your hypothesis and variables, and what the output of a statistical test means. 
+The goal of this course is to give you some practical tools to use when confronted with real problems in biological science. In coming lessons we will demonstrate how to use R to conduct basic hypothesis testing (e.g. run a t-test in order to determine the probability that two samples came from the same underlying population). However, equally important is understanding how to properly state a hypothesis, determine which statistical test is appropriate for your hypothesis and variables, and what the output of a statistical test means. 
 
-To this end, the next few section will build a practical framework for thinking about statistics and biological variables. We will not cover these statistical concepts in depth--for that you should consult a good introductory statistics text book, take a complete statistics course, or consult the variety of online resources (e.g. [StatTrek](https://stattrek.com/))--but introduce a few basic concepts to help guide your data analysis decisions.
+To this end, this lesson will begin to build a practical framework for thinking about statistics and biological variables. We will not cover these statistical concepts in depth--for that you should consult a good introductory statistics text book, take a complete statistics course, or consult the variety of online resources (e.g. [StatTrek](https://stattrek.com/))--but we will introduce a few basic concepts to help guide your data analysis decisions.
 
 ***
 ### Populations and samples
@@ -41,28 +41,27 @@ Statistics is concerned with the study of data. The basic process for an experim
 1. Identify your population of interest.
 2. Formulate a hypothesis.
 3. Select a sample (i.e. a subset of your population).
-4. Make an observation.
+4. Observe some trait within that sample.
 5. Test your hypothesis using your observation.
 6. Interpret the outcome. 
 
-This process revolves around the data set resulting from your observation. To understand what you are formally doing when making an observation, we need to look at the structure of the phenotype that we are observing. 
+This process revolves around the dataset resulting from your observation. To understand what you are formally doing when making an observation, we need to look at the structure of the trait (or phenotype) that we are observing. 
 
-Consider the entire population that you are studying (e.g. all human beings, C57BL/6 mice, HeLa cells). There exists an abstract data set that includes all values phenotype present in your population of interest (e.g. the body weights of all human beings). When you make an observation, you do so on a set of individuals from that population. This difference is important:
+Consider the entire population that you are studying (e.g. all human beings, all C57BL/6 mice, all HeLa cells). There exists an abstract dataset that includes all values for the phenotype present in your population of interest (e.g. the body weights of all human beings). When you make an observation, you do so on a set of individuals from that population. This difference is important:
 
-* A **population** includes all elements present in a data set (all values of a phenotype).
+* A **population** includes all elements present in a dataset (all values of a phenotype).
 * A **sample** is made up of one or more observations drawn from a population.
 
 &nbsp;
-
 #### The population distribution
 
-The population is described by **parameters**, which are quantities that can be measured. The two most commonly examined parameters are the population *mean* ($$\mu$$) testing and *standard deviation* ($$\sigma$$). Many parameters in biological systems are normally distributed, meaning the follow a well-known bell curve with variability centered symmetrically around a population mean. Distributions are commonly presented as probability distributions, with the phenotype value on the x-axis and the relative likelihood of observing a given phenotype value on the y-axis:
+The population is described by **parameters**, which are quantities that can be measured. The two most commonly examined parameters are the population *mean* ($$\mu$$) and *standard deviation* ($$\sigma$$). Many parameters in biological systems are normally distributed, meaning the follow a well-known bell curve with variability centered symmetrically around a population mean. Distributions are commonly presented as probability distributions, with the phenotype value on the x-axis and the relative likelihood of observing a given phenotype value on the y-axis:
 
 <img src="../fig/population-distribution.png" alt="Normal Population Distribution" />
 
 &nbsp;
 
-Note that in this case the distribution for the phenotype of interest is normally distributed. This is not always the case, but many phenotypes do follow this distribution. We will see in the next section that the distribution of the sampling distribution is more important, and something we can control.
+Note that in this case the distribution for the phenotype of interest is normally distributed. This is not always the case, but many phenotypes do follow this distribution. In either case, we have no way of altering the population distribution; by taking a measurement we are, in fact, trying to gather information about that distribution. We will see in the next section that the distribution of the sampling means is more important for statistical analysis, and something we have some control over.
 
 &nbsp;
 #### The sampling distribution
@@ -73,13 +72,13 @@ When conducting an experiment, we take a sample (x) of the population of interes
 * $$\bar{x}$$ = sample mean
 * $$\sigma_x$$ = sample standard deviation
 
-Here we come to a critical point: what we are actually measuring are characteristics fo the sample, not of the entire population. Therefore, what we want to know when running statistics is:
+Here we come to a critical point: what we are actually measuring are characteristics of the sample, not of the entire population. Therefore, what we want to know when running statistics is:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*How do we expect samples of size **n** to behave?*
 
-It is the behavior of the *sample*, not the behavior of the underlying *population* that is critical when running statistical tests. 
+It is the behavior of the *sample*, not the behavior of the underlying *population* that is critical when running statistical tests. The reason for this will become clear when we look at how t-tests work.
 
-So how do we predict how a sample will be have? It depends on how we take our sample. The most common sampling method is **simple random sampling**, which has the following characteristics:
+So how do we predict how a sample will behave? It depends on how we take our sample. The most common sampling method is **simple random sampling**, which has the following characteristics:
 
 * A population contains *N* objects.
 * A sample of *n* is taken.
@@ -92,11 +91,13 @@ The last point is critical, as the sampling statistics will form a distribution 
 &nbsp;
 
 The sampling distribution has the following characteristics:
+
 * $$\mu_x$$ = mean of the individual sample means.
 * $$SE_x$$ = standard error of the mean, and also the standard deviation of the individual sample means.
 * n = sample size
 
 The sampling distribution has several key features in relation to the population distribution. In most cases, the number of observations in your sample will be much smaller than the size of your population (though depending on the sampling method, sample size can in some cases be the same or larger than your population size). If we make this an assumption (N >> n), then:
+
 * $$\mu_x = \mu \rightarrow$$ Population and sampling distributions have the same mean.
 * $$SE_x = \frac{\sigma}{\sqrt{n}}*\sqrt{\frac{N-n}{N-1}} \approx \frac{\sigma}{\sqrt{n}}$$ $$\rightarrow$$ $$N-n \approx N-1$$ when $$N >> n$$, therefore $$\sqrt{\frac{N-n}{N-1}} \rightarrow 1$$. Note that the standard error of the mean is the same thing as the standard deviation of the sampling distribution for a given n. This means that the sampling distribution will generally be narrower than the population distribution, as shown above. 
 * For large n, the sampling distribution is approximately normal, regardless of the distribution of the observation in the population (according to the [Central Limit Theorem](https://en.wikipedia.org/wiki/Central_limit_theorem), see below).
@@ -111,6 +112,8 @@ The sampling distribution has several key features in relation to the population
 > your sampling distribution will be approximately normal for n > 30, so long as your 
 > population  distribution is not too far from normal.
 {: .callout}
+
+&nbsp;
 
 > ## Standard deviation vs. standard error
 > 
@@ -129,37 +132,24 @@ The sampling distribution has several key features in relation to the population
 > > the standard deviation of the population from which the sample was taken.
 > >
 > > In contrast, if your goal is to convey the accuracy of your measurement strategy,
-> > then standard error is more appropriate. While the standard deviation reflects the > > background variation in the population for your phenotype of interest, standard 
+> > then standard error is more appropriate. While the standard deviation reflects the 
+> > background variation in the population for your phenotype of interest, standard 
 > > error reflects the accuracy with which your sample mean estimates the population 
 > > mean. In most cases, this is the information that scientists are trying to convey 
 > > in figures printed in molecular biology journals.
 > {: .solution}
 {: .challenge}
 
-> # Publication quality graphics practice
+&nbsp;
+
+> ## An aside on producing publication-quality graphics
 > 
 > The "Normal Population Distribution" and "Sampling Distribution" charts
-> above were both drawn in directly in R. Try to recreate as many aspects as
-> you can.
->
-> Functions used:
-> * arrows()
-> * axis()
-> * dev.off()
-> * dnorm()
-> * expression()
-> * mtext()
-> * par()
-> * paste()
-> * plot()
-> * png()
-> * polygon()
-> * rgb()
-> * seq()
-> * text()
-> * title()
+> above were both drawn in directly in R. For some perspective on what 
+> it takes to generate something with that level of complexity, here
+> is the original code:
 > 
-> > ## Solution
+> > ## Code for distribution graphics
 > > 
 > > 
 > > ~~~
@@ -325,7 +315,7 @@ The sampling distribution has several key features in relation to the population
 ***
 ### Assessing normality
 
-An assumption made my many statistical test is whether or not your data is normal. How can you tell? 
+Many statistical tests only work by assuming that your data is normal. How can you tell? 
 
 There are essentially two common strategies. The first is to examine the distribution visually and look for obvious skew or deviation from an expected normal curve. The second is to use a statistical test to assess normality.
 
@@ -370,8 +360,9 @@ str(data.diet)
 
 To save some typing, let's separate out the data for the C57BL/6 strain.
 
+
 ~~~
-b6 = data.diet[data.diet$strain == "C57BL/6J",]
+b6 <- data.diet[data.diet$strain == "C57BL/6J",]
 ~~~
 {: .language-r}
 
@@ -381,6 +372,7 @@ b6 = data.diet[data.diet$strain == "C57BL/6J",]
 The most common first step to look for normality (or lack thereof) in a sample is to plot the histogram/density function and quantile-quantile (Q-Q) plot in order to examine the visual similarity to a theoretical normal distribution. 
 
 Let's start by looking at the distribution of starting body weights for C57BL/6 mice. Histograms can be generated using the `hist()` function:
+
 
 ~~~
 hist(b6$bw_start)
@@ -530,6 +522,7 @@ norm.x <- seq(min(b6$bw_start), max(b6$bw_start), length = 100)
 norm.y <- dnorm(x = norm.x, mean = mean(b6$bw_start), sd = sd(b6$bw_start))
 ~~~
 {: .language-r}
+
 &nbsp;
 
 Putting it all together, we can now plot our histogram, observed density function, and theoretical normal density function on the same chart. First we should use our stored values to determine the appropriate plot size.
@@ -537,10 +530,9 @@ Putting it all together, we can now plot our histogram, observed density functio
 
 ~~~
 # First calculate the range for the plot window size
-x.lim <- c(min(hist.bw.b6$mids, dens.bw.b6$x, norm.x), # find the lowest x value
-           max(hist.bw.b6$mids, dens.bw.b6$x, norm.x)) # find the largest x value
-y.lim <- c(0, # we want to plot y from 0 in this case
-           max(hist.bw.b6$density, dens.bw.b6$y, norm.y)) # find the largest x value
+x.lim <- range(hist.bw.b6$mids, dens.bw.b6$x, norm.x)
+y.lim <- c(0, # we want to plot y from 0 in any case
+           max(hist.bw.b6$density, dens.bw.b6$y, norm.y)) 
 
 # now plot all three on the same chart
 plot(hist.bw.b6, xlim = x.lim, ylim = y.lim, freq=F) # we could also re-call hist()
@@ -596,452 +588,10 @@ mtext("1/x", side = 3, line = -2, adj = 0.1, font = 2, cex = 1.5)
 <img src="../fig/rmd-06-class-distributions-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" />
 
 &nbsp;
-#### The Shapiro-Wilk test for normality
 
-While it is always good to look at your data first, there is a statistical test for normality called the [Shapiro-Wilk test](https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test), originally published in 1965. The Shapiro-Wilk test sets up the following hypothesis test:
+Generally, as long as most of the points fall near the line, you can assume normality. Points near the end of the distribution will tend to be more likely to stray from the line even in normally distributed data, because these points come from the tails of the distribution where the density of observed samples is lower. Since points in the tails are less likely to be sampled, the density of points in these regions are lower and tend to be more variable. What you want to watch out for are signs of systematic drift away from the theoretical normality line (e.g. outcomes like those presented in all but the upper-left panel in the above plot). These indicate that the dataset as a whole deviates from normality, and that the assumptions underlying statistical tests like the t-test may not be valid. As we will see, deviations from normality becomes less critical for larger sample sizes. 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$H_0$$: *The sample belongs to a normally distribution.*
-
-&nbsp;
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$H_1$$: *The sample does not belong to a normally distribution.*
-
-Essentially the test looks for statistical deviation from the corresponding theoretical normal distribution. We can run the test in R using the `shapiro.test()` function:
-
-
-~~~
-shapiro.test(b6$bw_start)
-~~~
-{: .language-r}
-
-
-
-~~~
-
-	Shapiro-Wilk normality test
-
-data:  b6$bw_start
-W = 0.98847, p-value = 0.5732
-~~~
-{: .output}
-
-&nbsp; 
-
-As we may have suspected from looking at the Q-Q plot and distributions, the P-value is comfortably far from significance, and we accept the null hypothesis that the sample is drawn from a normal distribution. As a demonstration, the exponential of this data is clearly not normal:
-
-
-~~~
-shapiro.test(exp(b6$bw_start))
-~~~
-{: .language-r}
-
-
-
-~~~
-
-	Shapiro-Wilk normality test
-
-data:  exp(b6$bw_start)
-W = 0.56719, p-value = 2.251e-15
-~~~
-{: .output}
-
-&nbsp;
-
-Now that we have the tools, a question to consider: is it worth running a statistical test for normality?
-
-> ## To test or not to test
-> When you start to read about testing normality, you get a lot of hand-wavy answers
-> that amount to "just look at the Q-Q plot". Is there value in running something like > the Shapiro-Wilk test? 
-> 
-> The answer is probably something like "not really, but it doesn't hurt". The problem
-> with normality tests is that, if you have a large sample size, t-tests tend to be 
-> quite robust even if your data is not that close to normal. On the other hand, the 
-> Shapiro-Wilk test, while one of the better-powered normality tests, is still under 
-> powered for small sample sizes, which are the only cases where t-tests tend to under > perform. See a detailed discussion in 
-> [this paper](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/1471-2288-12-81). 
-> 
-> The bottom line is that it is **always** good to look at your data before running 
-> your analyses. A quick Q-Q plot will tell you whether your data is dramatically 
-> different from normality (in which case you may want to run a transformation; see the > next section). That said, a statistical test is not likely to tell you whether your 
-> data is meaningfully non-normal beyond what the Q-Q plot can divulge. A highly 
-> statistical answer will be obvious in the Q-Q plot, and a close answer should, at 
-> most, make you a bit more skeptical of your 0.049 t-test p-value (which you should 
-> be anyway). 
-{: .callout}
-
-&nbsp;
-#### Transforming highly non-normal data
-
-So what happens if your data is clearly non-normal? Let's look at plasma triglycerides for our C57BL/6 mice:
-
-
-~~~
-qqnorm(b6$TG)
-qqline(b6$TG)
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-06-class-distributions-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
-
-~~~
-shapiro.test(b6$TG)
-~~~
-{: .language-r}
-
-
-
-~~~
-
-	Shapiro-Wilk normality test
-
-data:  b6$TG
-W = 0.83851, p-value = 7.657e-09
-~~~
-{: .output}
-
-&nbsp;
-
-This sample looks to be clearly non-normal. In this case the data has a somewhat characteristic shape, with both low and values higher than expected from a normal distribution. What happens if we examine normality of the log of triglycerides?
-
-
-~~~
-qqnorm(log(b6$TG))
-qqline(log(b6$TG))
-~~~
-{: .language-r}
-
-<img src="../fig/rmd-06-class-distributions-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" />
-
-~~~
-shapiro.test(log(b6$TG))
-~~~
-{: .language-r}
-
-
-
-~~~
-
-	Shapiro-Wilk normality test
-
-data:  log(b6$TG)
-W = 0.97882, p-value = 0.1227
-~~~
-{: .output}
-
-&nbsp;
-
-That's much better! Now we can continue with our analysis using log(TG) as our random variable, rather than the raw value of TG. This is an ideal case, because taking the logarithm of a value is a *reversible* data transformation. We can easily reverse the process by raising e to log(TG) power (note that by default, `log()` in R takes the natural logarithm of the input). Therefore, not information if lost when performing the transformation. Other reversible transformations include:
-* square root: $$\sqrt{x}$$
-* polynomial powers ($$x^2$$)
-* inverse ($$\frac{1}{x}$$)
-* exponential ($$e^x$$)
-
-The best reversible transformation is not always immediately obvious. You can just try a few until you find the one that gives the most normal outcome. However, in some cases you won't be able to find a nice transformation that brings you closer to a normal distribution. You may also have outliers that are having an out-weighted effect. In these cases, you may need a more extreme measure. While we do not cover these options in detail, two common approaches are to use a [Z-Score Normalization](https://en.wikipedia.org/wiki/Feature_scaling#Standardization_(Z-score_Normalization)) [Rank Z Transformation](https://rdrr.io/bioc/DOQTL/man/rankZ.html), or a [Min-Max Scaling](https://en.wikipedia.org/wiki/Feature_scaling#Rescaling_(min-max_normalization)). These methods have different strengths and weaknesses, and tend to change some aspect of the data. For example, Min-Max Scaling suppresses the impact of outliers, while the Rank Z Transformation maintains data order, but forces a normal distribution and thus removes information about relative value.
-
-***
-### Exercises
-
-> ## Assessing normality in the other strain
->
-> We looked above at the starting body weight sample for C57BL/6 mice. Repeat our 
-> analysis using the A/J strain. In particular,
-> * Plot the histogram with density for the sample and normal distributions
-> * Generate a Q-Q plot to compare the sample to the normal distribution.
-> * Conduct a Shapiro-Wilk test on the sample.
-> 
-> > ## Solution
-> > 
-> > 
-> > ~~~
-> > # First separate out the A/J data
-> > aj = data.diet[data.diet$strain == "A/J",]
-> > 
-> > # calculate histogram, density and normal ranges to prepare for plotting
-> > hist.bw.aj <- hist(aj$bw_start, breaks=15, freq = F, plot = F, warn.unused = F)
-> > dens.bw.aj <- density(aj$bw_start)
-> > norm.x <- seq(min(aj$bw_start), max(aj$bw_start), length = 100)
-> > norm.y <- dnorm(x = norm.x, mean = mean(aj$bw_start), sd = sd(aj$bw_start))
-> > 
-> > # First calculate the range for the plot window size
-> > x.lim <- c(min(hist.bw.aj$mids, dens.bw.aj$x, norm.x), # find the lowest x value
-> >            max(hist.bw.aj$mids, dens.bw.aj$x, norm.x)) # find the largest x value
-> > y.lim <- c(0, # we want to plot y from 0 in this case
-> >            max(hist.bw.aj$density, dens.bw.aj$y, norm.y)) # find the largest x value
-> > 
-> > # now plot all three on the same chart
-> > plot(hist.bw.aj, xlim = x.lim, ylim = y.lim, freq=F) 
-> > lines(dens.bw.aj, col="black")
-> > lines(norm.x,norm.y, col = "blue")
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-class-distributions-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="612" style="display: block; margin: auto;" />
-> > 
-> > ~~~
-> > # generate the Q-Q plot
-> > qqnorm(aj$bw_start)
-> > qqline(aj$bw_start)
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-class-distributions-unnamed-chunk-16-2.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="612" style="display: block; margin: auto;" />
-> > 
-> > ~~~
-> > # conduct the Shapiro-Wilk test
-> > shapiro.test(aj$bw_start)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > 
-> > 	Shapiro-Wilk normality test
-> > 
-> > data:  aj$bw_start
-> > W = 0.98581, p-value = 0.3992
-> > ~~~
-> > {: .output}
-> {: .solution}
-{: .challenge}
-
-> ## The weightier matter
-> 
-> While the starting body weight is important, what we really care about is 
-> the change in body weight following the diet. Examine the `bw_gain` variable. 
-> Can we use this directly? Is there a better metric to assess change in body weight?
->
-> > ## Solution
-> > 
-> > 
-> > ~~~
-> > # examine Q-Q plots for B6 and AJ mice separately
-> > qqnorm(b6$bw_gain)
-> > qqline(b6$bw_gain)
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-class-distributions-unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
-> > 
-> > ~~~
-> > shapiro.test(b6$bw_gain)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > 
-> > 	Shapiro-Wilk normality test
-> > 
-> > data:  b6$bw_gain
-> > W = 0.93757, p-value = 0.0001893
-> > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > qqnorm(aj$bw_gain)
-> > qqline(aj$bw_gain)
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-class-distributions-unnamed-chunk-17-2.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
-> > 
-> > ~~~
-> > shapiro.test(aj$bw_gain)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > 
-> > 	Shapiro-Wilk normality test
-> > 
-> > data:  aj$bw_gain
-> > W = 0.94935, p-value = 0.001068
-> > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > # both are skewed. Try a log transformation:
-> > qqnorm(log(b6$bw_gain))
-> > qqline(log(b6$bw_gain))
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-class-distributions-unnamed-chunk-17-3.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
-> > 
-> > ~~~
-> > shapiro.test(log(b6$bw_gain))
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > 
-> > 	Shapiro-Wilk normality test
-> > 
-> > data:  log(b6$bw_gain)
-> > W = 0.88267, p-value = 3.692e-07
-> > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > qqnorm(log(b6$bw_gain))
-> > qqline(log(b6$bw_gain))
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-class-distributions-unnamed-chunk-17-4.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
-> > 
-> > ~~~
-> > shapiro.test(log(b6$bw_gain))
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > 
-> > 	Shapiro-Wilk normality test
-> > 
-> > data:  log(b6$bw_gain)
-> > W = 0.88267, p-value = 3.692e-07
-> > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > # That didn't work. What if we normalize to the starting body weight?
-> > qqnorm(b6$bw_gain/b6$bw_start)
-> > qqline(b6$bw_gain/b6$bw_start)
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-class-distributions-unnamed-chunk-17-5.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
-> > 
-> > ~~~
-> > shapiro.test(b6$bw_gain/b6$bw_start)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > 
-> > 	Shapiro-Wilk normality test
-> > 
-> > data:  b6$bw_gain/b6$bw_start
-> > W = 0.98215, p-value = 0.2167
-> > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > qqnorm(aj$bw_gain/aj$bw_start)
-> > qqline(aj$bw_gain/aj$bw_start)
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-class-distributions-unnamed-chunk-17-6.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
-> > 
-> > ~~~
-> > shapiro.test(aj$bw_gain/aj$bw_start)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > 
-> > 	Shapiro-Wilk normality test
-> > 
-> > data:  aj$bw_gain/aj$bw_start
-> > W = 0.95953, p-value = 0.005023
-> > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > # still not perfect. Let's try to transform the new data with a square root
-> > qqnorm(sqrt(b6$bw_gain/b6$bw_start))
-> > qqline(sqrt(b6$bw_gain/b6$bw_start))
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-class-distributions-unnamed-chunk-17-7.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
-> > 
-> > ~~~
-> > shapiro.test(sqrt(b6$bw_gain/b6$bw_start))
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > 
-> > 	Shapiro-Wilk normality test
-> > 
-> > data:  sqrt(b6$bw_gain/b6$bw_start)
-> > W = 0.97056, p-value = 0.02933
-> > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > qqnorm(sqrt(aj$bw_gain/aj$bw_start))
-> > qqline(sqrt(aj$bw_gain/aj$bw_start))
-> > ~~~
-> > {: .language-r}
-> > 
-> > <img src="../fig/rmd-06-class-distributions-unnamed-chunk-17-8.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" width="612" style="display: block; margin: auto;" />
-> > 
-> > ~~~
-> >  shapiro.test(sqrt(aj$bw_gain/aj$bw_start))
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > 
-> > 	Shapiro-Wilk normality test
-> > 
-> > data:  sqrt(aj$bw_gain/aj$bw_start)
-> > W = 0.98504, p-value = 0.3549
-> > ~~~
-> > {: .output}
-> >
-> > &nbsp;
-> >
-> > Still not perfect, but this may be one of those cases where there isn't a clean 
-> > reversible transform. I would probably be comfortable going forward with the 
-> > slightly skewed data and being congnizant of the problem when running my t-test, 
-> > particularly given that we have nearly 100 observations in each sample, making 
-> > the t-test more robust.
-> {: .solution}
-{: .challenge}
-
-
-***
-## Additional Information and Exercises
-
-
-
-
+We will discuss the assessment and importance of normally distributed data in more detail in the *On Your Own* component of this less, and continue to do so as we move into statistical testing methods in coming lessons.
 
 ***
 
