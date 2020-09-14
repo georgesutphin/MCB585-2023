@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-09-10 11:44:24 -0700">
+    <meta http-equiv="last-modified" content="2020-09-14 16:21:19 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -308,10 +308,9 @@
 
 </blockquote>
 
-<hr />
 <h2 id="in-class">In Class</h2>
 
-<p>In the last class we looked at what we are actually doing statistically when take a sample from a population to run an experiment. In this lesson, we will look specifically at hypothesis testing, defining the formal process of formulating and testing a set of hypotheses, and what the critical factors are for selecting the appropriate statistical tool for a given set of data.</p>
+<p>In the last class we examined what we are actually doing statistically when take a sample from a population to run an experiment. In this lesson, we will take a similar look at hypothesis testing, define the formal process of formulating and testing a set of hypotheses, and examining the critical factors when selecting an appropriate statistical tool for a given set of data.</p>
 
 <hr />
 <h3 id="formulating-a-hypothesis">Formulating a hypothesis</h3>
@@ -327,10 +326,12 @@
   <li>Accept the null hypothesis or reject it in favor of the alternative.</li>
 </ol>
 
-<p>Let’s use the mouse study looking the role of a high-fat, high-sucrose diet on metabolism to look at each step. First, let’s load the data:</p>
+<p>Let’s use the mouse study looking the role of a high-fat, high-sucrose diet on metabolism to examine each step. First, let’s load the data:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">data.diet</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/b6.aj.hfhs.diet.txt"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
+
+<p> </p>
 
 <p>For a simple starting example, let’s say we are interested in the impact of genetic background on body weight. A first-order model can be simply stated:</p>
 
@@ -338,19 +339,21 @@
 
 <p>This model predicts that different genetic backgrounds should have different body weights at the same age. We can thus generate a hypothesis (\(H_1\)) and a corresponding null hypothesis (\(H_0\)). Note that a properly formed hypothesis should be a specific, falsifiable prediction about a change in an experimentally testable dependent variable following a change in an independent variable:</p>
 
-<p>       \(H_1\): <em>Age-matched mice from genetically distinct strain backgrounds will have different body weights on average.</em></p>
-
 <p> </p>
+
+<p>       \(H_1\): <em>Age-matched mice from genetically distinct strain backgrounds will have different body weights on average.</em></p>
 
 <p>       \(H_0\): <em>Age-matched mice from genetically distinct strain backgrounds will not have different body weights on average.</em></p>
 
-<p>Our high-fat, high-sucrose diet data set includes body weight measurements for two different strains, C57BL/6 and A/J, so we have a set of observations that can be used to test the hypothesis. The idealized version of these hypotheses can be visualized as follows:</p>
+<p> </p>
+
+<p>Our high-fat, high-sucrose diet data set includes body weight measurements for two different strains, C57BL/6 and A/J, so we have a set of observations that can be used to test the hypothesis. From our class on distributions, we can translate the idealized version of these hypotheses as distributions:</p>
 
 <p><img src="../fig/hypotheses.png" alt="Hypotheses" /></p>
 
-<p>We are actually taking two samples, one from the C57BL/6J strain and one from the A/J strain. In essence, the null hypothesis is that the observations from each sample are drawn from the same effective population with respect to the measured phenotype (or at least populations with the same phenotype mean), while the alternative hypothesis is that the samples are drawn for populations with a distinct distribution for the measured phenotype.</p>
+<p>We are actually taking two samples, one from the C57BL/6J strain and one from the A/J strain. In essence, the null hypothesis is that the observations from each sample are drawn from the same effective population with respect to the measured phenotype (or at least populations with the same phenotype mean; bottom panel), while the alternative hypothesis is that the samples are drawn from separate populations with distinct distributions for the measured phenotype (top panel. We will talk more about the important features of these distributions when we get to <strong>Power Analysis</strong>.</p>
 
-<p>First, we will examine the two distributions to see if there is a visual difference. There are a few ways to do this. Let’s start by plotting the density functions for the starting body weights for the two strains;</p>
+<p>First, we will examine the two distributions to see if there is a visual difference. There are a few ways to do this. Let’s start by plotting the density functions for the starting body weights for the two strains:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># define the density functions</span><span class="w">
 </span><span class="n">dens.bw.b6</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">density</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">])</span><span class="w">
@@ -388,13 +391,13 @@
 
 <p> </p>
 
-<p>Well, the certainly look like distributions with different mean values. But to determine whether the difference is enough to reject the null hypothesis, we need to run a statistical test.</p>
+<p>Well, they certainly look like distributions with different mean values. To determine whether the difference is large enough to reject the null hypothesis, we need to run a statistical test.</p>
 
-<p>What are we actually doing when we run a statistical test? In the simplest form, we have a sample with a set of samples and an observed mean for our phenotype of interest. The goal of the test is to determine how likely it is that our sample came from the population that we are comparing too (in this case the population from the comparison sample). In our example, we are asking:</p>
+<p>What are we actually doing when we run a statistical test? In the simplest form, we have a sample with a set of observations for our phenotype of interest. The goal of the test is to determine how likely it is that our sample came from the same population (again, with respect to the specific phenotype) that we are comparing to. In this case the population from a different genetic background. In our example, we are asking:</p>
 
 <p>      <em>How likely is it that the sample of C57BL/6 body weight observations came from the same population as the A/J body weight observations?</em></p>
 
-<p>Because of this framing, we are actually testing the <em>null hypothesis</em>, and choosing to accept it or reject it in favor of the alternative hypothesis. In running the statistical test, we make an assumption about the shape of the sampling distribution of the phenotype in the comparison population  for the sample size and simply ask how likely it would be to observe the mean from the measured sample given that assumption. Because of the Central Limit Theorem, the assumption that the sampling distribution is normally distributed is usually valid for large sample size (n).</p>
+<p>Because of this framing, we are actually testing the <em>null hypothesis</em>, and will choose to accept it, or to reject it in favor of the alternative hypothesis. In running the statistical test, we make an assumption about the shape of the sampling distribution of the phenotype in the comparison population  for the sample size and simply ask how likely it would be to observe the mean from the measured sample given that assumption. Because of the Central Limit Theorem, the assumption that the sampling distribution is normally distributed is usually valid for large sample size (n), regardless of the actual shape of the population distribution.</p>
 
 <p>Because we know the distribution of all possible samples for a normally distributed sample population, we can calculate the probability that our sample is drawn from the assumed sampling distribution (this is the P-value). The general rule of thumb is that if the probability is greater than 0.05 we accept the null hypothesis, while if the probability is less than 0.05, we reject the null hypothesis in favor of the alternative hypothesis.</p>
 
@@ -405,11 +408,12 @@
 <p> </p>
 
 <p>Each statistical test has an underlying set of assumptions. The t-test is the most common test used in biological sciences (though not always in the correct situations!). These assumptions must be met for the output of the test to be valid. The t-test makes the following assumptions:</p>
+
 <ul>
   <li>The independent variable is bivariate (i.e. categorical with two categories)</li>
   <li>The dependent variable is continuous</li>
-  <li>The mean of the sampling distributions for the two populations sampled follow a normal distribution (approximately true for large sample sizes under the Central Limit Theorem)</li>
-  <li>Each observation of the dependent variable is independent of all other observations of the dependent variable (this is broken by, for example, cluster sampling or time-to-event variables)</li>
+  <li>The sampling mean for the sample size is normally distributed for the two populations sampled (approximately true for large sample sizes under the Central Limit Theorem)</li>
+  <li>Each observation of the dependent variable is independent of all other observations of the dependent variable (this is broken by, for example, cluster sampling or time-to-event/survival data)</li>
   <li>For the classical Student’s t-test, the two populations must have equal variance (i.e. the same standard deviation). However, Welch’s t-test generalizes the operation to populations with unequal variance. Unless you <em>know</em> that your populations have equal variance, assume unequal variance.</li>
 </ul>
 
@@ -455,7 +459,7 @@ W = 0.98581, p-value = 0.3992
 
 </span><span class="c1"># We can either use formula notation...</span><span class="w">
 </span><span class="n">t.test</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="p">,</span><span class="w">     
-       </span><span class="n">alternative</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"two.sided"</span><span class="p">)</span><span class="w">               </span><span class="c1"># specify that we want a two-sided test</span><span class="w">
+       </span><span class="n">alternative</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"two.sided"</span><span class="p">)</span><span class="w"> </span><span class="c1"># specify that we want a two-sided test</span><span class="w">
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
@@ -473,7 +477,7 @@ sample estimates:
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ... or by explicitly entering the two data sets</span><span class="w">
 </span><span class="n">t.test</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">],</span><span class="w"> 
-       </span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"A/J"</span><span class="p">],</span><span class="w">                </span><span class="c1"># explicitly specifying the data sets gives the same answer  </span><span class="w">
+       </span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"A/J"</span><span class="p">],</span><span class="w">                  
        </span><span class="n">alternative</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"two.sided"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
@@ -497,7 +501,7 @@ mean of x mean of y
 <hr />
 <h3 id="choosing-the-right-statistical-test">Choosing the right statistical test</h3>
 
-<p>One of the more common errors you see in hypothesis testing is application of the wrong statisitcal test to a given data set. By “wrong”, I just mean that the assumptions of the test are violated by some aspect of the underlying data.</p>
+<p>One of the more common errors you see in hypothesis testing is application of the wrong statistical test to a given data set. By “wrong”, I just mean that the assumptions of the test are violated by some aspect of the underlying data.</p>
 
 <p>What are the critical factors when selecting your test?</p>
 <ul>
@@ -517,74 +521,91 @@ mean of x mean of y
 
 <p>Variable type:</p>
 <ul>
-  <li><strong>Categorical</strong> variables are those with discrete or qualitative. They are divided into three types:
+  <li><strong><u>Categorical</u></strong> variables are those that take on discrete or qualitative values. They are divided into three types:
     <ul>
-      <li><em>Nominal</em> variables have two or more categories, but no intrinsic order. For example, flower color (“red”, “green”, “blue”) or state of residence (“Washington”, “Arizona”, “Maine”) are considered nominal variables.</li>
-      <li><em>Dichotomous</em> variables are a subcategory of nominal variables with exactly two categories. For most studies, biological sex or gender (“female” or “male”) is considered dichotomous, as are questions with binary answers, e.g. “do you own a smart phone?” (“Yes” or “No”), censoring variables (0 = not censored, 1 = censored), or variables about current status (“Alive” or “Dead”).</li>
-      <li><em>Ordinal</em> are similar to nominal, except with a clear order to the values (e.g. inflammation may be characterized as “none”, “low”, “moderate”, or “high”).</li>
+      <li><strong>Nominal</strong> variables have two or more categories, but no intrinsic order. For example, flower color (“red”, “green”, “blue”) or state of residence (“Washington”, “Arizona”, “Maine”) are considered nominal variables.</li>
+      <li><strong>Dichotomous</strong> variables are a subcategory of nominal variables with exactly two categories. For most studies, biological sex or gender (“female” or “male”) is considered dichotomous, as are questions with binary answers, e.g. “do you own a smart phone?” (“Yes” or “No”), censoring variables (0 = not censored, 1 = censored), or variables about current status (“Alive” or “Dead”).</li>
+      <li><strong>Ordinal</strong> are similar to nominal, except with a clear order to the values (e.g. inflammation may be characterized as “none”, “low”, “moderate”, or “high”). Numeric variables are converted to ordinal values in certain circumstances using a threshold value (e.g. height observations can be converted to “tall” and “short” by taking values above or below a specified threshold value).</li>
     </ul>
   </li>
-  <li><strong>Numeric</strong> variables are quantifiable and meaningfully representable by numbers. To be considered “numerical”, the relative value must be numerically meaningful. Note that categories can be coded as numbers (see the censoring example under dichotomous variables above), but are not considered “numerical” because the relative value is not meaningful.
+</ul>
+
+<p> </p>
+
+<ul>
+  <li><strong><u>Numeric</u></strong> variables are quantifiable and meaningfully representable by numbers. To be considered “numerical”, the relative value must be numerically meaningful. Note that categories can be coded as numbers (see the censoring example under dichotomous variables above), but are not considered “numerical” because the relative value is not meaningful.
     <ul>
-      <li><em>Discrete</em> variables denote quantities that are represented by whole numbers or counts. The number of items purchased at a store or the number of children in a family (i.e. “1” and “5” are meaningful, but “2.3”” is not) are discrete variables.</li>
-      <li><em>Continuous</em> variables are quantities that can be represented on a continuous number line and are not limited to discrete values. These can be further subdivided based on what type of comparison between two values is meaningful.</li>
-      <li><em>Interval</em> variables have a consistent distance between numbered values. For example, the difference between 40 and 50 degrees Fahrenheit is the same as the difference between 90 and 100 degrees Fahrenheit.</li>
-      <li><em>Ratio</em> variables have the same properties as interval variables, except that the point 0.0 is clearly defined, such that the ratio between two values is meaningful. For example, 50 degrees Fahrenheit is not twice as hot as 25 degrees Fahrenheit, while a person who is 6 feet tall can be considered “twice as tall” as a person who is 3 feet tall. Degrees Fahrenheit is thus an interval variable, but not a ratio variable, while height is both.</li>
+      <li><strong>Discrete</strong> variables denote quantities that are represented by whole numbers or counts. The number of items purchased at a store or the number of children in a family (i.e. “1” and “5” are meaningful, but “2.3” is not) are discrete variables.</li>
+      <li><strong>Continuous</strong> variables are quantities that can be represented on a continuous number line and are not limited to discrete values. These can be further subdivided based on what type of comparison between two values is meaningful.</li>
+      <li><strong>Interval</strong> variables have a consistent distance between numbered values. For example, the difference between 40 and 50 degrees Fahrenheit is the same as the difference between 90 and 100 degrees Fahrenheit.</li>
+      <li><strong>Ratio</strong> variables have the same properties as interval variables, except that the point 0.0 is clearly defined, such that the ratio between two values is meaningful. For example, 50 degrees Fahrenheit is not twice as hot as 25 degrees Fahrenheit, while a person who is 6 feet tall can be considered “twice as tall” as a person who is 3 feet tall. Degrees Fahrenheit is thus an interval variable, but not a ratio variable, while height is both.</li>
     </ul>
   </li>
 </ul>
 
 <blockquote class="callout">
-  <h2 id="time-to-event-data">Time-to-event data.</h2>
+  <h2 id="more-complex-variables--eg-time-to-event-data">More complex variables – e.g. time-to-event data</h2>
 
   <p>There are special cases that require different considerations. 
 Time-to-event (aka survival) data does not fit cleanly into the above 
 categories. While the variable it putatively numeric 
-(<em>how long did it take the event to occur?</em>) there is an oft-hidden 
-underlying aspect to the data that is categorical (<em>did the event occur?</em>). 
-Analysis of time-to-event data also generally requires a means to censor 
-data, for example if a death was observed, but not from the cause of 
-interest, or if a patient dropped out of a study. We will examine analysis 
-of time-to-event data in a later lesson.</p>
+(<em>how long did it take the event to occur?</em>), the way we observe the 
+event actually makes the variable a repeated categorical observation on 
+the same individual. We can’t just look at the whole timespan at once 
+and say “the event happened at time t”. Instead, we observe the same 
+sample of individuals at descrete intervals and ask 
+(<em>has the event occurred yet?</em>). This structure means that observations 
+are not independent and requires a test that does not make that 
+assumption. Analysis of time-to-event data also generally requires a 
+means to censor data, for example if a death was observed, but not from 
+the cause of interest, or if a patient dropped out of a study. We will 
+examine analysis of time-to-event data in a later lesson.</p>
 </blockquote>
 
 <p> </p>
 <h4 id="sample-size-and-the-distribution-of-the-dependent-variable">Sample size and the distribution of the dependent variable</h4>
 
-<p>We have spent a fair amount of time talking about distributions and what they say about our data. The primary place that this can matter is in fulfilling the assumptions of our selected statistical tests. Types of tests can be categorized as <em>parametric</em> or <em>nonparametric</em>. While there is not a hard-and-fast definition for these terms <em>per se</em>, generally these terms are used as follows:</p>
+<p>We have spent a fair amount of time talking about distributions and what they say about our data. The primary place that this can matter is in fulfilling the assumptions of our selected statistical test. Types of tests can be categorized as <em>parametric</em> or <em>nonparametric</em>. While there is not a hard-and-fast definition for these terms <em>per se</em>, they are generally used as follows:</p>
 
 <ul>
   <li>
-    <p><strong>Parametric tests</strong> make an assumption about the underlying <em>parameter</em>, or <em>statistic</em>, in a data set to calculate probabilities. In most cases, the assumption is that the statistic is drawn from a particular distribution (e.g. the normal distribution). The t-test is the most common example of this sort of test.</p>
+    <p><strong>Parametric tests</strong> make an assumption about an underlying <em>parameter</em>, or <em>statistic</em>, in a dataset to calculate probabilities. In most cases, the assumption is that the statistic is drawn from a particular distribution (e.g. the normal distribution). The t-test is the most common example of this sort of test.</p>
   </li>
   <li>
     <p><strong>Nonparametric tests</strong> do not make assumptions about the underlying parameters or parameter distributions and use other means to calculate probabilities. Often they will rely on the rank-order of the data (e.g. the Log-Rank test).</p>
   </li>
 </ul>
 
-<p>Nonparametric tests are more robust than parametric tests in that they make fewer assumptions. However, they also have less statistical power to detect real differences (i.e. they are more conservative). Thus you have a trade-off if you have relatively low sample size (say &lt;30) and data that is not clearly normally distributed.</p>
+<p>Nonparametric tests are more robust than parametric tests in that they make fewer assumptions. However, they also have less statistical power to detect real differences (i.e. they are more conservative). You have a trade-off to consider if you have relatively low sample size (say &lt;30) and observations that are not clearly normally distributed.</p>
 
-<p>For the most part, if you have a large sample size the distribution becomes less important. Parametric tests tend to be robust to non-normal data distributions with large sample sizes, while the reduction of power for nonparametric tests becomes less severe.</p>
+<p>As discussed previously, if you have a large sample size the distribution becomes less important. Parametric tests tend to be robust to non-normal data distributions with large sample sizes, while the reduction of power for nonparametric tests becomes less severe.</p>
 
 <blockquote class="callout">
   <h2 id="how-many-is-enough">How many is enough?</h2>
 
-  <p>While there are is no hard and fast rule for sample size, the Central Limit Theorem tends
-to hold for n &gt; 30 (so long as the population is much larger), allowing the assumption of
-normality to be safely adopted in most cases. If your data is dramatically skewed, try a 
-transformation, use a nonparametric test, or adopt a more conservative interpretation.</p>
+  <p>While there are is no hard and fast rule for sample size, the Central 
+Limit Theorem tends to hold for n &gt; 30 so long as the population size 
+is much larger than the sample size. The assumption of
+normality to be safely adopted in many cases. If your data is
+dramatically skewed, try a transformation, use a nonparametric test, 
+and/or adopt a more conservative interpretation.</p>
 </blockquote>
 
 <p> </p>
 <h1 id="paired-vs-unpaired-data">Paired vs. unpaired data</h1>
 
-<p>In some cases, data is paired between the two test groups. That is, there is a specific observation in one group that corresponds to a specific observation in another groups. This can most easily be illustrated by an couple of examples:</p>
+<p>In some cases, data is paired between the two test groups. That is, there is a specific observation in one group that corresponds to a specific observation in another groups. This can be illustrated by an couple of examples:</p>
+
 <ul>
-  <li><strong>Unpaired:</strong> Comparing body weight between two different strains of mouse. There is no specific relationship between one individual in <em>Strain A</em> and a particular individual in <em>Strain B</em>.</li>
-  <li><strong>Paired:</strong> Comparing body weight of mice before and after being provided a particular diet for some time frame. In this case, you have body weight data from the same set of mice before and after the diet. The body weight for <em>Mouse A</em> before the diet is paired to the body weight for <em>Mouse A</em> after the diet.</li>
+  <li>
+    <p><strong>Unpaired:</strong> Comparing body weight between two different strains of mouse. There is no specific relationship between one individual in <em>Strain A</em> and another individual in <em>Strain B</em>.</p>
+  </li>
+  <li>
+    <p><strong>Paired:</strong> Comparing body weight of mice before and after being provided a particular diet for some time frame. In this case, you have body weight data from the same set of mice before and after the diet. The body weight for <em>Mouse A</em> before the diet is paired to the body weight for <em>Mouse A</em> after the diet.</p>
+  </li>
 </ul>
 
-<p>If you have a data structure that allows for paired testing, it provides quite a bit more power to detect difference between groups. Most data is not paired.</p>
+<p>If you have a data structure that allows for paired testing, it provides quite a bit more power to detect difference between groups. In the body weight example, pairing observations by measuring the same phenotype <em>before</em> vs. <em>after</em> a diet change controls for individual-to-individual variation in body weight within the population, which can be high. Unfortunately, most data is not paired.</p>
 
 <p> </p>
 <h4 id="available-statistical-tests">Available statistical tests</h4>
@@ -596,7 +617,7 @@ transformation, use a nonparametric test, or adopt a more conservative interpret
   <li><a href="http://www.biostathandbook.com/testchoice.html">Handbook of Biological Statistics</a> provides a table with a different organization and links to more detailed descriptions of each test.</li>
 </ul>
 
-<p>Here is an example of a flow chart for choosing a test. Many different versions of this type of charg are available online (original <a href="http://www.pnrjournal.com/article.asp?issn=0976-9234;year=2010;volume=1;issue=2;spage=61;epage=63;aulast=Jaykaran">here</a>):</p>
+<p>Here is an example of a flow chart for choosing a test. Many different versions of this type of chart are available online (original <a href="http://www.pnrjournal.com/article.asp?issn=0976-9234;year=2010;volume=1;issue=2;spage=61;epage=63;aulast=Jaykaran">here</a>):</p>
 
 <p><img src="../fig/Statistical_Test_Flow_Chart.jpg" alt="Which test?" /></p>
 
@@ -606,16 +627,15 @@ transformation, use a nonparametric test, or adopt a more conservative interpret
 <blockquote class="challenge">
   <h2 id="petal-length-by-species">Petal length by species?</h2>
 
-  <p>Is there a significant difference (\(\alpha &lt; 0.05\)) in petal length among species in 
-the <code class="language-plaintext highlighter-rouge">iris</code> dataset?</p>
+  <p>Is there a significant difference (\(\alpha &lt; 0.05\)) in petal length 
+among species in the <code class="language-plaintext highlighter-rouge">iris</code> dataset?</p>
 
   <blockquote class="solution">
     <h2 id="solution">Solution</h2>
 
-    <p>Petal length is a continuous variable while species is categorical with 3 groups. First 
-we can look at whether our data is normally distributed:
-Using the
-above chart, we shoud use an</p>
+    <p>Petal length is a continuous variable while species is categorical 
+with 3 groups. First we can look at whether our data is normally 
+distributed:</p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">)</span><span class="w">
 </span><span class="n">qqline</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">)</span><span class="w">
@@ -623,7 +643,8 @@ above chart, we shoud use an</p>
 
     <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="612" style="display: block; margin: auto;" /></p>
 
-    <p>Not really close to normal… We can first try transforming the data to see if we can get the &gt; &gt; distribution to a more normal state.</p>
+    <p>Not really close to normal… We can first try transforming the data 
+to see if we can get the distribution to a more normal state.</p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">))</span><span class="w">
 </span><span class="n">qqline</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">))</span><span class="w">
@@ -657,9 +678,8 @@ above chart, we shoud use an</p>
 
     <p>Nothing really helps, so that means nonparametric testing!</p>
 
-    <p>Referencing the above chart, the best fir is the non-parametric ANOVA, also called the 
-Kruskal-Wallis rank sum test. From the UCLA site above, we can find the appropriate R 
-function:</p>
+    <p>Referencing the above chart, the best fir is the non-parametric ANOVA, &gt; &gt; also called the Kruskal-Wallis rank sum test. From the UCLA site 
+above, we can find the appropriate R function:</p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">kruskal.test</span><span class="p">(</span><span class="n">Petal.Length</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Species</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
@@ -671,15 +691,50 @@ data:  Petal.Length by Species
 Kruskal-Wallis chi-squared = 130.41, df = 2, p-value &lt; 2.2e-16
 </code></pre></div>    </div>
 
-    <p>We conclude that species does affect petal length in irises.</p>
+    <p>We conclude that species does affect petal length in irises. We can 
+also visualize the differnece using a boxplot:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">boxplot</span><span class="p">(</span><span class="n">Petal.Length</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Species</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">,</span><span class="w"> </span><span class="n">outline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span><span class="w">
+</span><span class="n">stripchart</span><span class="p">(</span><span class="n">Petal.Length</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">Species</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iris</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w">
+           </span><span class="n">vert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w"> </span><span class="n">pch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jitter"</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" width="612" style="display: block; margin: auto;" /></p>
+
+    <p> </p>
+
+    <p>As a point of discussion, petal length does follow a reasonably 
+normal distribution, if you look within each species:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">par</span><span class="p">(</span><span class="n">mfrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">))</span><span class="w">
+</span><span class="n">qqnorm</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">[</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"setosa"</span><span class="p">])</span><span class="w">
+</span><span class="n">qqline</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">[</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"setosa"</span><span class="p">])</span><span class="w">
+</span><span class="n">qqnorm</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">[</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"versicolor"</span><span class="p">])</span><span class="w">
+</span><span class="n">qqline</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">[</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"versicolor"</span><span class="p">])</span><span class="w">
+</span><span class="n">qqnorm</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">[</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"virginica"</span><span class="p">])</span><span class="w">
+</span><span class="n">qqline</span><span class="p">(</span><span class="n">iris</span><span class="o">$</span><span class="n">Petal.Length</span><span class="p">[</span><span class="n">iris</span><span class="o">$</span><span class="n">Species</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"virginica"</span><span class="p">])</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" /></p>
+
+    <p> </p>
+
+    <p>Assuming a normal distribution is warranted in this case because each 
+of the independent samples appears to come from a normally distributed &gt; &gt; population. However, even if this sort of situation is present in your &gt; &gt; dataset, the source of the deviation from normality may not be your 
+independent variable of interest. It may be that there is an unknown 
+(and unmeasured) independent variable. If you can’t identify what is 
+driving the non-normality, you have to continue your analysis without 
+assuming that the data is normally distributed.</p>
   </blockquote>
 </blockquote>
+
+<p> </p>
 
 <blockquote class="challenge">
   <h2 id="does-diet-affect-body-weight">Does diet affect body weight?</h2>
 
-  <p>In our mouse diet data set (<em>b6.aj.hfhs.diet.txt</em>), is the impact of diet on body weight 
-statistically significant (\(\alpha &lt; 0.05\))?</p>
+  <p>In our mouse diet data set (<em>b6.aj.hfhs.diet.txt</em>), is the impact of 
+diet on body weight statistically significant (\(\alpha &lt; 0.05\))?</p>
 
   <blockquote class="solution">
     <h2 id="solution-1">Solution</h2>
@@ -710,53 +765,52 @@ statistically significant (\(\alpha &lt; 0.05\))?</p>
  $ liver_TG_tot   : num  108.3 91.4 98.5 63.1 89.3 ...
 </code></pre></div>    </div>
 
-    <p>Next examine the distribution of the before and after diet body weights.</p>
+    <p>Next examine the distribution of the before and after diet body 
+weights.</p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
 </span><span class="n">qqline</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" /></p>
+    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" /></p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_end</span><span class="p">)</span><span class="w">
 </span><span class="n">qqline</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_end</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-11-2.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" width="612" style="display: block; margin: auto;" /></p>
+    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-13-2.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" /></p>
 
-    <p>Staring body weight looks okay, but ending body weight looks very skewed. Perhaps this 
-is a strain effect? Let’s break it down further and recheck.</p>
+    <p>Staring body weight looks okay, but ending body weight looks very 
+skewed. Learning from the above exercise using the <code class="language-plaintext highlighter-rouge">iris</code> data set, 
+perhaps this is a strain effect? Let’s break it down further 
+and recheck.</p>
 
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">])</span><span class="w">
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">par</span><span class="p">(</span><span class="n">mfrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span><span class="w">
+
+</span><span class="n">qqnorm</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">])</span><span class="w">
 </span><span class="n">qqline</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">])</span><span class="w">
-</span></code></pre></div>    </div>
-
-    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" /></p>
-
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_end</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">])</span><span class="w">
+</span><span class="n">qqnorm</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_end</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">])</span><span class="w">
 </span><span class="n">qqline</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_end</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">])</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-12-2.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" /></p>
+    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" /></p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"A/J"</span><span class="p">])</span><span class="w">
 </span><span class="n">qqline</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"A/J"</span><span class="p">])</span><span class="w">
-</span></code></pre></div>    </div>
-
-    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-12-3.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" /></p>
-
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_end</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"A/J"</span><span class="p">])</span><span class="w">
+</span><span class="n">qqnorm</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_end</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"A/J"</span><span class="p">])</span><span class="w">
 </span><span class="n">qqline</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_end</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"A/J"</span><span class="p">])</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-12-4.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" width="612" style="display: block; margin: auto;" /></p>
+    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-14-2.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" /></p>
 
-    <p>That looks a lot closer (still a bit skewed on the high body weight side for C57BL/6J, 
-but we have almost 100 mice, so we will go ahead with the normal assumption).</p>
+    <p>That looks a lot closer (still a bit skewed on the high body weight 
+side for C57BL/6J, but we have almost 100 mice, so we will go ahead 
+with the normal assumption).</p>
 
-    <p>Our data is paired, our independent variable is categorical (before vs. after HF-HS diet) 
-and our dependent variable is continuous numeric. Since we are assuming normality, we can 
-use a paired t-test (again broken down by strain, because that’s where are data are 
+    <p>Our data is paired, our independent variable is categorical (before 
+vs. after HF-HS diet) and our dependent variable is continuous 
+numeric. Since we are assuming normality, we can use a paired t-test 
+(again broken down by strain, because that’s where are data are 
 normal):</p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t.test</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">],</span><span class="w">
@@ -795,16 +849,44 @@ mean of the differences
               -9.925158 
 </code></pre></div>    </div>
 
-    <p>Diet does significantly effect body weight in both strain backgrounds.</p>
+    <p>Diet does significantly effect body weight in both strain backgrounds.
+Let’s check out the box plot:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first we have to build a data frame that has the data in the right </span><span class="w">
+</span><span class="c1"># format</span><span class="w">
+</span><span class="n">bw.data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">bw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">,</span><span class="w"> </span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_end</span><span class="p">),</span><span class="w"> 
+                      </span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">rep</span><span class="p">(</span><span class="s2">"start"</span><span class="p">,</span><span class="nf">length</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)),</span><span class="w">
+                               </span><span class="nf">rep</span><span class="p">(</span><span class="s2">"end"</span><span class="p">,</span><span class="nf">length</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">bw_end</span><span class="p">))),</span><span class="w">
+                      </span><span class="n">strain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="p">,</span><span class="w"> </span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># order the time variable so that it plots in the right order</span><span class="w">
+</span><span class="n">bw.data</span><span class="o">$</span><span class="n">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">bw.data</span><span class="o">$</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"start"</span><span class="p">,</span><span class="s2">"end"</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># plot the boxplot and stripchart</span><span class="w">
+</span><span class="n">bob</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">boxplot</span><span class="p">(</span><span class="n">bw</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strain</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bw.data</span><span class="p">,</span><span class="w"> </span><span class="n">outline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span><span class="w">
+</span><span class="n">stripchart</span><span class="p">(</span><span class="n">bw</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">strain</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bw.data</span><span class="p">,</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">,</span><span class="w">
+        </span><span class="n">pch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"jitter"</span><span class="p">,</span><span class="w"> </span><span class="n">vert</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="612" style="display: block; margin: auto;" /></p>
+
+    <p> </p>
+
+    <p>From this we can clearly see the differences between starting and ending 
+body weight for both strains, but the difference seems to be more severe for 
+C57BL/6 mice. This likely explains the non-normal structure of the <code class="language-plaintext highlighter-rouge">bw_end</code> 
+data when we looked at both strains combined.</p>
   </blockquote>
 </blockquote>
+
+<p> </p>
 
 <blockquote class="challenge">
   <h2 id="does-strain-affect-body-weight-in-mice">Does strain affect body weight in mice?</h2>
 
-  <p>A large study of different inbred strains was conducted in mice across lifespan. This data
-is stored in a file called <em>inbred.body.composition.txt</em>. Does strain background affect 
-body weight in mice?</p>
+  <p>A large study of different inbred strains was conducted in mice across 
+lifespan. This data is stored in a file called <em>inbred.body.composition.txt</em>. 
+Does strain background affect body weight in mice?</p>
 
   <blockquote class="solution">
     <h2 id="solution-2">Solution</h2>
@@ -834,24 +916,42 @@ body weight in mice?</p>
 </span><span class="n">qqline</span><span class="p">(</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">body_weight_g</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" /></p>
+    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" width="612" style="display: block; margin: auto;" /></p>
 
-    <p>Looks like a deviation toward the higher body weight. Let’s try a log transformation.</p>
+    <p>Looks like a deviation from normality toward the higher end of the body 
+weight spectrum. Let’s try a log transformation.</p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">body_weight_g</span><span class="p">))</span><span class="w">
 </span><span class="n">qqline</span><span class="p">(</span><span class="nf">log</span><span class="p">(</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">body_weight_g</span><span class="p">))</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" width="612" style="display: block; margin: auto;" /></p>
+    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" width="612" style="display: block; margin: auto;" /></p>
 
-    <p>That looks better. Not perfect, but given the large sample size (n = 1187), we are 
-going to assume that the sampling distribution is normal).</p>
+    <p>That looks better. Not perfect, but given the large sample size (n = 1187), 
+we are going to assume that the sampling distribution is normal). Given our 
+previous body weight examples, body weight within each strain group is also 
+likey normally distributed. It would be tedious to check all of the strains, 
+but we can take a quick peak at a selection:</p>
 
-    <p>Our dependent variable is continous, numeric (ratio) with an (assumed) normal 
-distribution and our independent variable is catagroical with many levels. We can 
-use an ANOVA test (<code class="language-plaintext highlighter-rouge">aov()</code> in R, rom the UCLA site). Note from the UCLA notes that 
-you have to request the <code class="language-plaintext highlighter-rouge">summary()</code> of the object created by <code class="language-plaintext highlighter-rouge">aov()</code> to see the 
-P-values.</p>
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">par</span><span class="p">(</span><span class="n">mfrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">))</span><span class="w">
+
+</span><span class="n">qqnorm</span><span class="p">(</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">body_weight_g</span><span class="p">[</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">])</span><span class="w">
+</span><span class="n">qqline</span><span class="p">(</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">body_weight_g</span><span class="p">[</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">])</span><span class="w">
+</span><span class="n">qqnorm</span><span class="p">(</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">body_weight_g</span><span class="p">[</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"DBA/2J"</span><span class="p">])</span><span class="w">
+</span><span class="n">qqline</span><span class="p">(</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">body_weight_g</span><span class="p">[</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"DBA/2J"</span><span class="p">])</span><span class="w">
+</span><span class="n">qqnorm</span><span class="p">(</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">body_weight_g</span><span class="p">[</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"WSB/EiJ"</span><span class="p">])</span><span class="w">
+</span><span class="n">qqline</span><span class="p">(</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">body_weight_g</span><span class="p">[</span><span class="n">data.bodycomp</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"WSB/EiJ"</span><span class="p">])</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" width="612" style="display: block; margin: auto;" /></p>
+
+    <p> </p>
+
+    <p>Our dependent variable is continous, numeric (ratio) with an (assumed) 
+normal distribution and our independent variable is catagroical with many 
+levels. We can use an ANOVA test (<code class="language-plaintext highlighter-rouge">aov()</code> in R, rom the UCLA site). The 
+UCLA notes that you have to request the <code class="language-plaintext highlighter-rouge">summary()</code> of the object created 
+by <code class="language-plaintext highlighter-rouge">aov()</code> to see the P-values.</p>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">anova.bodycomp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">aov</span><span class="p">(</span><span class="n">body_weight_g</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">strain</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.bodycomp</span><span class="p">)</span><span class="w">
 </span><span class="n">summary</span><span class="p">(</span><span class="n">anova.bodycomp</span><span class="p">)</span><span class="w">
@@ -865,7 +965,18 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 4 observations deleted due to missingness
 </code></pre></div>    </div>
 
-    <p>The impact of strain on body weight is highly significant.</p>
+    <p>The impact of strain on body weight is highly significant. Check out the 
+visualization:</p>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first shrink the labels (cex) and add some more space the the bottom margin</span><span class="w">
+</span><span class="n">par</span><span class="p">(</span><span class="n">cex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.7</span><span class="p">,</span><span class="w"> </span><span class="n">mar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">12</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">))</span><span class="w"> 
+</span><span class="n">boxplot</span><span class="p">(</span><span class="n">body_weight_g</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">strain</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.bodycomp</span><span class="p">,</span><span class="w"> 
+        </span><span class="n">outline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">,</span><span class="w"> </span><span class="c1"># not outliers</span><span class="w">
+        </span><span class="n">las</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="c1"># rotate the strain names so that they fit under each box</span><span class="w">
+        </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">)</span><span class="w"> </span><span class="c1"># turn of the "strain" x-axis label</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" width="612" style="display: block; margin: auto;" /></p>
   </blockquote>
 </blockquote>
 
