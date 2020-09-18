@@ -1,4 +1,4 @@
-I"±’<hr />
+I"E’<hr />
 <h2 id="in-class">In Class</h2>
 
 <p>Increasingly, funding agencies are asking for detailed justification for experimental design decisions. An explicitly request in these requirements is presentation of a power analysis to justify your study design, particularly your selected sample size.</p>
@@ -124,11 +124,10 @@ one of two ways:</p>
 </span><span class="n">install.packages</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning in install.packages("pwr"): 'lib = "C:/Program Files/R/R-4.0.2/library"'
-is not writable
-</code></pre></div></div>
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>package 'pwr' successfully unpacked and MD5 sums checked
 
-<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error in install.packages("pwr"): unable to install packages
+The downloaded binary packages are in
+	C:\Users\sutph\AppData\Local\Temp\Rtmp4CiUvf\downloaded_packages
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
@@ -642,6 +641,8 @@ values that we used above (50%, 80%, 90%, 95%).</p>
   </blockquote>
 </blockquote>
 
+<p>Â </p>
+
 <blockquote class="challenge">
   <h2 id="is-power-to-detect-lifespan-different-for-males-and-females">Is power to detect lifespan different for males and females?</h2>
 
@@ -780,6 +781,8 @@ a look at the population parameter estimate:</p>
 substantially larger sample size to detect a change in a naturally variable population.</p>
   </blockquote>
 </blockquote>
+
+<p>Â </p>
 
 <blockquote class="challenge">
   <h2 id="power-to-detect-dietary-effects-on-body-weight">Power to detect dietary effects on body weight</h2>

@@ -522,7 +522,7 @@ for (i.pwr in 1:length(power.vec)) {
 > {: .solution}
 {: .challenge}
 
-
+&nbsp;
 
 > ## Is power to detect lifespan different for males and females?
 > 
@@ -620,7 +620,7 @@ for (i.pwr in 1:length(power.vec)) {
 > {: .solution}
 {: .challenge}
 
-
+&nbsp;
 
 > ## Power to detect dietary effects on body weight
 > 

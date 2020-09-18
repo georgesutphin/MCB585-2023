@@ -4,16 +4,15 @@ classdate: "9/18/2020 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:
-- "What statistical models are used to describe survival data?"
-- "What is the proportional hazards assumption?"
-- "How can Cox Proportional Hazard regession be employed for advanced survival analysis?"
+- "How do you extract life table information from `survfit()` objects in R?"
+- "How do you plot age-specific mortality (aka the hazard function) when a life table is not provided?"
 objectives:
-- "Describe the basic assumptions underlying common models for survival data."
-- "Use Cox Proportional Hazard regression to analyze more complex survival datasets, such as the relationship between more than one independent variable."
+- "Understand the process for extracting life table information from the object created by the `survfit()` function."
+- "Use this information to plot age-specific mortality."
+- "Practice using `Surv()`, `survfit()`, and `survdiff()` on available data."
 keypoints:
-- "There are multiple commonly used modesl for describing time-to-event data, including exponential decay, accelerated failure time, and propotional hazards."
-- "Each model makes specific assumptions and tend to be employed for specific types of time-to-event data."
-- "The most common form of advanced analysis is Cox Proportional Hazards, which assumes that the ratio between the hazard functions for two populations remains constant over time."
+- "The `survfit()` function creates a complex object in R containing life table information. This data can be extracted using the `strata` variable."
+- "Once extracted, the life table data can be used to calculate and plot age-specific mortality (don't forget to use log scale on your y-axis!)."
 source: Rmd
 ---
 
@@ -22,9 +21,382 @@ source("../bin/chunk-options.R")
 knitr_fig_path("08-oyo-advanced-survival-analysis-")
 ```
 
-***
 ##  On Your Own
 
+Working with survival data in R is not straightforward and practice is useful for getting the hang of using the `Surv()` object and the functions for generating survival curves and running log-rank tests. For the most part, today's *On Your Own* material consists of additional exercise, with one practical note for dealing with an odd data structure.
+
+***
+### Extracting life table data from `survfit()`
+
+*In Class* we looked at a life table for human mortality in the US. We were able to examine the age-specific $$\mu_x$$  (aka the hazard function $$\lambda(t)$$, which is one useful way to evaluate differences between groups in survival data. Because the log of age-specific mortality increases linearly with age, the intercept of this line can be interpreted as "initial mortality" in a population, and the slope as "rate of aging" (aka the rate at which the chance of dying at a given time increases with age). 
+
+If we want to examine age-specific mortality for a survival dataset where the life table is not pre-built for us, R does not provide a straightforward solution. There is no function in R to directly plot $$\mu_x$$, so we have 
+to extract the life tables and calculate it manually. Let's revisity the lifespan data for the BUB/BnJ mouse strain that we looked at *In Class*.
+
+```{r}
+# load the survival package
+library("survival")
+
+# read in inbred strain lifespan data and subset ou thet BUB/BnJ strain
+data.surv <- read.delim("data/inbred.lifespan.txt")
+surv.bub <- data.surv[data.surv$strain == "BUB/BnJ",]
+
+# calculate life table for BUB/BnJ mice with sex as an independent variable
+survfit.bub.sex <- survfit(Surv(lifespan_days, censor == 0) ~ sex, data=surv.bub)
+
+# use summary() to capture the life table in a new variable
+summary.bub <- summary(survfit.bub.sex)
+summary.bub
+```
+
+&nbsp;
+
+Let's take a closer look at the structure of the life tables stored in the `summary.bub` object:
+
+```{r}
+str(summary.bub)
+```
+
+&nbsp; 
+
+This object has a variable called `strata` that defines the groups by which the comparison is broken down, and thus the defining feature for the two separate life tables stored within the object. You can use this to extract the separate life table columns for each sex from `summary.bub`. Here we will just extract the specific columns that we need to calculate $$\mu_x$$:
+
+```{r}
+# extract age, number of deaths, and number at risk at each age from the
+# life tables stored in `summary.bub`. Note that the names assigned to the 
+# "strata" are in the form "<variable>=<value>", so we use "sex=f" to extract
+# the information for female mice
+age.f <- summary.bub$time[summary.bub$strata == "sex=f"]
+n.event.f <- summary.bub$n.event[summary.bub$strata == "sex=f"]
+n.risk.f <- summary.bub$n.risk[summary.bub$strata == "sex=f"]
+
+# calculate qt; note that this is an alternative way to get qx from using the 
+# lx and lx+1 values. If you rearrange the life table equations you can derive 
+# this form.
+qx.f <- n.event.f/n.risk.f
+
+# now calculate px and mux (mu is age-specific mortality)
+px.f <- 1 - qx.f
+mux.f <- -log(px.f)
+
+# for the male mice ("sex=m"), I am just going to combine the above few steps
+# into a single step.
+age.m <- summary.bub$time[summary.bub$strata == "sex=m"]
+mux.m <- -log(1 - summary.bub$n.event[summary.bub$strata == "sex=m"]/summary.bub$n.risk[summary.bub$strata == "sex=m"])
+
+# Now we can finally plot. Someone should write a function to do this...
+# Remember to put the y-axis on a log scale.
+plot(age.f,mux.f, col = "red", log = "y", type="o", pch = 16, lwd = 1.7,  
+     xlab = "Age", ylab = "Age-Specific Mortality",
+     xlim = c(min(summary.bub$time),max(summary.bub$time)))
+lines(age.m,mux.m, col = "blue", type="o", pch = 16, lwd = 1.7)
+legend("bottomright",legend = c("female","male"), fill = c("red","blue"))
+```
+
+&nbsp;
+
+Note that these plots can be somewhat sensitive to time periods during the lifespan where few mice died (particularly the early portion), creating odd jumps and jogs like the one present near the early male lifespan. Pay attention to the general trends (slope, intercept) to get a feel for how the groups differ. In this case, It looks like the male and female BUB/BnJ mice are pretty similar, showing a similar intercept and slope for the log-mortality curves.
+
+*** 
+### Exercises
+
+> ## Differences in male vs. female survival and mortality in modern US humans
+> 
+> Earlier we looked at survival and mortality in the US population. Now let's
+> see how these differ by sex. Plot male and female survival and age-specific 
+> mortality  on the same plot for comparison. The life tables are stored in 
+> `US2011.life.table.male.txt` and `US2011.life.table.female.txt`, respectively.
+> 
+> > ## Solution
+> > 
+> > ```{r}
+> > # load data
+> > lt.male <- read.delim("./data/US2011.life.table.male.txt")
+> > lt.female <- read.delim("./data/US2011.life.table.female.txt")
+> > 
+> > # change names to our convention
+> > names(lt.male) = c("t","qt","nt","dt","Lt","Tt","et")
+> > 
+> > # calculate lt, pt, and lambdat
+> > lt.male$lt = lt.male$nt/max(lt.male$nt)
+> > lt.male$pt = 1 - lt.male$qt
+> > lt.male$lambdat = -log(lt.male$pt)
+> > 
+> > # change names to our convention (lx -> nx)
+> > names(lt.female) = c("t","qt","nt","dt","Lt","Tt","et")
+> > 
+> > # calculate lt, pt, and lambdat
+> > lt.female$lt = lt.female$nt/max(lt.female$nt)
+> > lt.female$pt = 1 - lt.female$qt
+> > lt.female$lambdat = -log(lt.female$pt)
+> > 
+> > # plot survival curves
+> > plot(lt.female$t, lt.female$lt, type = "l", col = "red",
+> >      main="US Survival 2011",
+> >      xlab="Age (years)",ylab="Fraction Surviving")
+> > lines(lt.male$t, lt.male$lt,col="blue")
+> > 
+> > # plot age-specific mortality
+> > plot(lt.female$t, lt.female$lambdat, type = "l",
+> >      col="red",log="y",
+> >      main="US Age-Specific Mortality 2011",
+> >      xlab="Age (years)", ylab="Age-Specific mortality")
+> > lines(lt.male$t, lt.male$lambdat, col="blue")
+> > ```
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+> ## Leukemia -- log-rank test (survdiff function)
+> 
+> The survival package includes the Acute Myelogenous Leukemia (AML) survival dataset.
+> Open the help for `aml` for a description of the data. the "x" column indicates whether
+> a particular chemotherapy treatment was continued/maintained or discontinued.
+> 
+> 1. Open and examine the data, and plot a Kaplan-Meier curve for all data.
+> 2. Plot the Kaplan-Meier curves broken down by treatment, and calculate the
+> Log-Rank P-value to determine whether the differences are signifcant.
+> 3. Extra challenge: extract the life tables for treated and untreated individuals
+> and plot age-specific morality
+> 
+> The data is stored in the `aml` dataframe, which is loaded with the `survival package.
+> 
+> *Note: unlike our mouse data, the `status` variable indicates whether a patient has died,
+> not patients that were censored. Be sure to indicate this appropriately in the `Surv()` 
+> object: `Surv(time, status == 1).
+> 
+> > ## Solution
+> > 
+> > 
+> > ```{r}
+> > # load the survival package
+> > library("survival")
+> > 
+> > # Examine the data
+> > head(aml)
+> > 
+> > # Create the life table for the aml data (all combined)
+> > survfit.aml <- survfit(Surv(time, status == 1) ~ 1, data=aml)
+> > 
+> > summary(survfit.aml)
+> > 
+> > # Plot the basic Kaplan-Meier curve for aml. Don't print the confidence interval.
+> > # We'll leave the 95% confidence intervals in place for fun.
+> > plot(survfit.aml, xlab = "Time (weeks)", 
+> >      ylab="Fraction surviving", 
+> >      mark.time = TRUE, 
+> >      main="Survival in AML")
+> > 
+> > # Create aml life tables and KM plots broken out by treatment (x,  "Maintained" vs. "Not maintained")
+> > survfit.aml.by.rx <- survfit(Surv(time, status == 1) ~ x, data = aml)
+> > summary(survfit.aml.by.rx)
+> > 
+> > # Plot KM broken out by treatment 
+> > plot(survfit.aml.by.rx, xlab = "Time", ylab="Survival",
+> >      col = c("black", "red"), lty = 1:2, 
+> >      main = "Kaplan-Meier Survival vs. Maintenance in AML")
+> > 
+> > # Add a legend so we know which is which
+> > legend("topright", c("Maintained", "Not maintained"), 
+> >        lty = 1:2, col=c("black", "red"))
+> > 
+> > # Perform the log rank test using the R function survdiff().
+> > aml.survdiff <- survdiff(Surv(time, status == 1) ~ x, 
+> >                         data=aml)
+> > aml.survdiff
+> > ```
+> > 
+> > Extra challenge: calculate and plot age-specific mortality ($$\mu_x$$) for 
+> > the above groups.
+> > 
+> > ```{r}
+> > # first we need to assign the life table summary to an object
+> > aml.lt <- summary(survfit.aml.by.rx)
+> > 
+> > # extract age, and number of deaths and number at risk at each age from the
+> > # survfit object. We'll do the "Maintained" group first. For some reason the summary
+> > # is formatted in rows with a weird notation. It creates a new variable that combines
+> > # the header from our original input data with the value in the column; in this case
+> > # "x=Maintained" and "x=Nonmaintained". We have to use this to separate out the data
+> > age.main <- aml.lt$time[aml.lt$strata == "x=Maintained"]
+> > n.event.main <- aml.lt$n.event[aml.lt$strata == "x=Maintained"]
+> > n.risk.main <- aml.lt$n.risk[aml.lt$strata == "x=Maintained"]
+> > 
+> > # calculate qt; note that this is an alternative way to get qx from using the lx and
+> > # lx+1 values. If you rearrange the life table equations you can derive this form.
+> > qx.main <- n.event.main/n.risk.main
+> > 
+> > # now calculate px and mux (mu is age-specific mortality)
+> > px.main <- 1 - qx.main
+> > mux.main <- -log(px.main)
+> > 
+> > # for the non-maintenance group, I am just going to combine the above few steps
+> > # into a single step.
+> > age.nomain <- aml.lt$time[aml.lt$strata == "x=Nonmaintained"]
+> > mux.nomain <- -log(1 - aml.lt$n.event[aml.lt$strata == "x=Nonmaintained"]/aml.lt$n.risk[aml.lt$strata 
+> > == "x=Nonmaintained"])
+> > 
+> > # Now we can finally plot. Someone should write a function to do this...
+> > # Remember to put the y-axis on a log scale.
+> > plot(age.main,mux.main, col = "blue", log = "y", type="o", pch = 16, lwd = 1.7,  
+> >      xlab = "Age", ylab = "Age-Specific Mortality",
+> >      xlim = c(min(aml.lt$time),max(aml.lt$time)))
+> > lines(age.nomain,mux.nomain, col = "red", type="o", pch = 16, lwd = 1.7)
+> > legend("bottomright",legend = c("Maintained","Nonmaintained"), fill = c("blue","red"))
+> > ```
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+> ## Revisiting levamisole treatment in colon cancer
+> 
+> *In Class* we looked at the colon cancer dataset (`colon`) that is included 
+> with the `survival` package in R, and concluded that this dataset supports 
+> the idea that levamisole treatment improves survival in colon cancer 
+> patients when combined with 5-FU. Let's take a closer look at the data and 
+> see what more we can learn.
+> 
+> ```{r}
+> library("survival") # make sure you have the library loaded
+> str(colon)
+> ```
+> 
+> &nbsp;
+> 
+> Based on the `?colon` description, in addition to the information on 
+> recurrence and survival, we have data on the differention status of the 
+> tumor cells, an indicator of tumor grade (poorly differentiated tumors are 
+> higher grade and more aggressive) stored in the `differ` variable. 
+> 
+> How does the effectiveness of levamisole at prolonging survival differ 
+> across patients with different tumor grades?
+> 
+> > ## Hint
+> > 
+> > If you examine the `differ` variable, we don't have data on tumor grade for
+> > all patients. In this case, we will want to remove all `NA` values from the > > data set up front.
+> {: .solution}
+>
+> > ## Solution
+> > 
+> > Again, we will start by taking a look at the survival curves for each tumor grade. We can do this using a `for` loop and building a 3-panel figure:.
+> > 
+> > ```{r}
+> > # like before, we will grab just the subset of data for the "death" events, 
+> > # since we are not looking at recurrence in this exercise
+> > colon.death <- colon[colon$etype == 2,]
+> > 
+> > # note that some patients do not have information on tumor grade. There are 
+> > # various ways to look at this, but let's use the table function with useNA
+> > # set to "ifany". You could also just display the `differ` variable, or 
+> > # use `any(isNA(colon.death$differ))`
+> > table(colon.death[,c("rx","differ")], useNA = "ifany")
+> > 
+> > # The data from these patients will not be useful in our analysis, so we 
+> > # should remove them up front. We can do this using either != NA, or `is.na()`
+> > colon.differ <- colon.death[!is.na(colon.death$differ),]
+> > 
+> > # first setup a 3 panel figure
+> > par(mfrow = c(1,3))
+> > 
+> > # start a for loop to cycle through each unique value of the differ variable
+> > # I am also including `sort()` to place the values in numeric order (grade 1 
+> > # first)
+> > for(i in unique(sort(colon.death$differ))) {
+> >   # grab data subset for just the current tumor grade
+> >   colon.c <- colon.differ[colon.death$differ == i,]
+> >   
+> >   # build a survfit object subsetting the data from colon by treatment
+> >   survfit.c <- survfit(Surv(time, status) ~ rx, data = colon.c)
+> >   
+> >   # plot the Kaplan-Meier curves for the two data sets, showing censored
+> >   # individuals as markers
+> >   plot(survfit.c, col = c("black", "blue", "red"), mark.time = T,
+> >      xlab = "Time since treatment",
+> >      ylab = "Fraction surviving",
+> >      main = paste0("Tumor Grade ",i)) # add a label for the current grade
+> >   legend(x = "bottomleft", 
+> >      legend = c("observation","levamisole","levamisole + 5-FU"), # order labels in the order of levels(colon.death)
+> >      lty = 1, col = c("black", "blue", "red")) # generate lines of the right colors
+> > 
+> > }
+> > ```
+> > 
+> > 
+> > &nbsp;
+> > 
+> > The treatment pattern for grades 1 and 2 look similar to the whole popoulation. In patients with grade 3 tumors, it appears that levamisole may have efficacy on it's own. Let's check that out.
+> > 
+> > ```{r}
+> > # grab the subset for grade 3 tumors
+> > colon.3 <- colon.differ[colon.differ$differ == 3,]
+> > 
+> > # use survdiff() to run log-rank test between groups after subsetting
+> > # for each comparison
+> > logrank.lev.vs.ctrl <- survdiff(Surv(time, status) ~ rx, 
+> >                                 data = colon.3[colon.death$rx %in% c("Obs", "Lev"),])
+> > logrank.comb.vs.ctrl <- survdiff(Surv(time, status) ~ rx, 
+> >                                 data = colon.3[colon.death$rx %in% c("Obs", "Lev+5FU"),])
+> > logrank.comb.vs.lev <- survdiff(Surv(time, status) ~ rx, 
+> >                                 data = colon.3[colon.death$rx %in% c("Lev", "Lev+5FU"),])
+> > 
+> > logrank.lev.vs.ctrl
+> > logrank.comb.vs.ctrl
+> > logrank.comb.vs.lev
+> > 
+> > # now we can extract each P-value using the chisq statistic and distribtion
+> > P.lev.vs.ctrl <- pchisq(logrank.lev.vs.ctrl$chisq, 
+> >                         length(logrank.lev.vs.ctrl$n) - 1, 
+> >                         lower.tail = F)
+> > P.comb.vs.ctrl <- pchisq(logrank.comb.vs.ctrl$chisq, 
+> >                         length(logrank.comb.vs.ctrl$n) - 1, 
+> >                         lower.tail = F)
+> > P.comb.vs.lev <- pchisq(logrank.comb.vs.lev$chisq, 
+> >                         length(logrank.comb.vs.lev$n) - 1, 
+> >                         lower.tail = F)
+> > 
+> > # and correct for the multiple comparison
+> > P.colon <- c(P.lev.vs.ctrl, P.comb.vs.ctrl, P.comb.vs.lev)
+> > P.colon.corrected <- p.adjust(P.colon, method = "holm")
+> > P.colon.corrected
+> > ```
+> > 
+> > &nbsp;
+> > 
+> > Well, the P-values do not allow us to reject the null hypotheses 
+> > associated with each test (no differen between groups). The survival 
+> > curves still look promising, and given the relatively low patient 
+> > numbers with grade 3 cancer, this dataset may simply be underpowered. 
+> > Levamisole as a monotherapy for aggressive colon cancer may be worth 
+> > another look. 
+> {: .solution}
+{: .challenge}
+
+&nbsp;
+
+> ## Challenge: comparison of female vs. male lifespan across strains
+>
+> We saw that lifespan was not significanlty different between female and male BUB/BnJ mice.
+> Is this universally true for different mouse strains?
+>
+> Write a script that does the following using the `inbred.lifespan.txt` data:
+> 1. Generate a PDF.
+> 2. On each page, plot female vs. male lifespan and mortality curves for one strain. Include
+> the following on each plot (hint: use the `text()` function):
+>  + strain name
+>  + Log-Rank P-value
+>  + Tick marks to indicate time of censoring
+>  + Legend to show female vs. male colors
+>
+>  I am leaving this one without a specified solution. You have the tools from 
+> our *In Class* work and previous classes. You will know from the finished 
+> PDF document when you have all of the elements in place. The goal is to 
+> combine concepts from across the early section of the class to generate a 
+> novel analysis pipeline and apply it repeatedly to similar data sets (i.e. 
+> different mouse strains) using R to do the heavy lifting.
+{: .challenge}
 
 ***
 
