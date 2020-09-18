@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-09-14 16:21:19 -0700">
+    <meta http-equiv="last-modified" content="2020-09-17 23:10:42 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -659,13 +659,10 @@
       <td class="col-md-9">
         <ul>
         
-        <li><p>There are multiple commonly used modesl for describing time-to-event data, including exponential decay, accelerated failure time, and propotional hazards.</p>
+        <li><p>The <code class="language-plaintext highlighter-rouge">survfit()</code> function creates a complex object in R containing life table information. This data can be extracted using the <code class="language-plaintext highlighter-rouge">strata</code> variable.</p>
 </li>
         
-        <li><p>Each model makes specific assumptions and tend to be employed for specific types of time-to-event data.</p>
-</li>
-        
-        <li><p>The most common form of advanced analysis is Cox Proportional Hazards, which assumes that the ratio between the hazard functions for two populations remains constant over time.</p>
+        <li><p>Once extracted, the life table data can be used to calculate and plot age-specific mortality (don’t forget to use log scale on your y-axis!).</p>
 </li>
         
         </ul>

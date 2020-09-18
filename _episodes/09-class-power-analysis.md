@@ -126,17 +126,12 @@ install.packages("pwr")
 
 
 ~~~
-Warning in install.packages("pwr"): 'lib = "C:/Program Files/R/R-4.0.2/library"'
-is not writable
-~~~
-{: .error}
+package 'pwr' successfully unpacked and MD5 sums checked
 
-
-
+The downloaded binary packages are in
+	C:\Users\sutph\AppData\Local\Temp\Rtmp4CiUvf\downloaded_packages
 ~~~
-Error in install.packages("pwr"): unable to install packages
-~~~
-{: .error}
+{: .output}
 
 
 
@@ -737,7 +732,7 @@ for (i.pwr in 1:length(power.vec)) {
 > {: .solution}
 {: .challenge}
 
-
+&nbsp;
 
 > ## Is power to detect lifespan different for males and females?
 > 
@@ -918,7 +913,7 @@ for (i.pwr in 1:length(power.vec)) {
 > {: .solution}
 {: .challenge}
 
-
+&nbsp;
 
 > ## Power to detect dietary effects on body weight
 > 

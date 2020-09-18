@@ -1,0 +1,2 @@
+I"	<p>The <code class="language-plaintext highlighter-rouge">survfit()</code> function creates a complex object in R containing life table information. This data can be extracted using the <code class="language-plaintext highlighter-rouge">strata</code> variable.</p>
+:ET
