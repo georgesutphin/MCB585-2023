@@ -8,7 +8,7 @@ exercises: 30
 questions:
 - "What is power analysis and what is its primary goal?"
 - "What aspects of an experimental design can be tweaked to prepare for statistical testing?"
-- "What is our primary too for increasing power to detect?"
+- "What is our primary tool for increasing power to detect?"
 objectives:
 - "Identify the key aspects of distributions that contribute to statistical power."
 - "Apply R power analysis tools to calculate appropriate sample size for a study."
@@ -44,13 +44,13 @@ Accept $$H_0$$ | Correct | Type II Error ($$\beta$$)
 Reject $$H_0$$ | Type I Error ($$\alpha$$) | Correct
 
 Each quadrant has specific meaning to our experiment: 
-1. **Correct acceptance of $$H_0$$ (1 - &&\alpha).** The upper-left quadrant is the boring case where there is no difference present, and we correctly conclude that this is the case.
+1. **Correct acceptance of $$H_0$$ ($$1 - \alpha$$).** The upper-left quadrant is the boring case where there is no difference present, and we correctly conclude that this is the case.
 
 2. **Type I Error ($$\alpha$$).** In the lower-left is the probability that we make an error and reject the null hypothesis when it is, in fact, true. 
 
 3. **Type II Error ($$\beta$$).** In the upper-right is the probability that we make an error and accept the null hypothesis when the alternative hypothesis is true. 
 
-4. **Correct rejection of $$H_0$$ (power; 1 - $$\beta$$).** Finally, in the lower-right we have the situation where we correctly reject the null hypothesis in favor of the alternative when the alternative is, in fact, true. The probability associated with this outcome is called **power**. Because the top and bottom possibility in each column are direct negations, the probabilities in each column sum to 1. Therefore:
+4. **Correct rejection of $$H_0$$ ($$power$$; $$1 - \beta$$).** Finally, in the lower-right we have the situation where we correctly reject the null hypothesis in favor of the alternative when the alternative is, in fact, true. The probability associated with this outcome is called **power**. Because the top and bottom possibility in each column are direct negations, the probabilities in each column sum to 1. Therefore:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$power = 1 - \beta$$
 
@@ -155,7 +155,7 @@ install.packages("pwr")
 package 'pwr' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\RtmpmG9YdP\downloaded_packages
+	C:\Users\sutph\AppData\Local\Temp\RtmpyqdDhr\downloaded_packages
 ~~~
 {: .output}
 

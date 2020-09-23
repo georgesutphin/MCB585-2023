@@ -1,4 +1,4 @@
-I"ٻ<h2 id="in-class">In Class</h2>
+I"׻<h2 id="in-class">In Class</h2>
 
 <p>Increasingly, funding agencies are asking for detailed justification for experimental design decisions. An explicit request in these requirements is presentation of a power analysis to justify your study design, and particularly your selected sample size. While this has long been true for human studies, these requirements are not becoming standard for most studies that use mammalian species, including mice.</p>
 
@@ -44,7 +44,7 @@
 <p>Each quadrant has specific meaning to our experiment:</p>
 <ol>
   <li>
-    <p><strong>Correct acceptance of \(H_0\) (1 - &amp;&amp;\alpha).</strong> The upper-left quadrant is the boring case where there is no difference present, and we correctly conclude that this is the case.</p>
+    <p><strong>Correct acceptance of \(H_0\) (\(1 - \alpha\)).</strong> The upper-left quadrant is the boring case where there is no difference present, and we correctly conclude that this is the case.</p>
   </li>
   <li>
     <p><strong>Type I Error (\(\alpha\)).</strong> In the lower-left is the probability that we make an error and reject the null hypothesis when it is, in fact, true.</p>
@@ -53,7 +53,7 @@
     <p><strong>Type II Error (\(\beta\)).</strong> In the upper-right is the probability that we make an error and accept the null hypothesis when the alternative hypothesis is true.</p>
   </li>
   <li>
-    <p><strong>Correct rejection of \(H_0\) (power; 1 - \(\beta\)).</strong> Finally, in the lower-right we have the situation where we correctly reject the null hypothesis in favor of the alternative when the alternative is, in fact, true. The probability associated with this outcome is called <strong>power</strong>. Because the top and bottom possibility in each column are direct negations, the probabilities in each column sum to 1. Therefore:</p>
+    <p><strong>Correct rejection of \(H_0\) (\(power\); \(1 - \beta\)).</strong> Finally, in the lower-right we have the situation where we correctly reject the null hypothesis in favor of the alternative when the alternative is, in fact, true. The probability associated with this outcome is called <strong>power</strong>. Because the top and bottom possibility in each column are direct negations, the probabilities in each column sum to 1. Therefore:</p>
   </li>
 </ol>
 
@@ -176,7 +176,7 @@ population mean without affecting standard deviation.</li>
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>package 'pwr' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\RtmpmG9YdP\downloaded_packages
+	C:\Users\sutph\AppData\Local\Temp\RtmpyqdDhr\downloaded_packages
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
