@@ -160,11 +160,11 @@ Note that these plots can be somewhat sensitive to time periods during the lifes
 > 3. Extra challenge: extract the life tables for treated and untreated individuals
 > and plot age-specific morality
 > 
-> The data is stored in the `aml` dataframe, which is loaded with the `survival package.
+> The data is stored in the `aml` dataframe, which is loaded with the `survival` package.
 > 
 > *Note: unlike our mouse data, the `status` variable indicates whether a patient has died,
 > not patients that were censored. Be sure to indicate this appropriately in the `Surv()` 
-> object: `Surv(time, status == 1).
+> object: `Surv(time, status == 1)`.
 > 
 > > ## Solution
 > > 

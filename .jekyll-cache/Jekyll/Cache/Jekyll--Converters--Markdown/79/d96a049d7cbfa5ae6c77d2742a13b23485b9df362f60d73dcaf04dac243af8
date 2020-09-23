@@ -1,4 +1,4 @@
-I"kä<h2 id="on-your-own">On Your Own</h2>
+I"qä<h2 id="on-your-own">On Your Own</h2>
 
 <h3 id="multiple-test-correction">Multiple test correction</h3>
 
@@ -484,25 +484,25 @@ distribution. Now we just need to set up our analysis loop:</p>
 </span><span class="n">bw.fat.corr</span><span class="o">$</span><span class="n">P.BH</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">p.adjust</span><span class="p">(</span><span class="n">bw.fat.corr</span><span class="o">$</span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"BH"</span><span class="p">)</span><span class="w">
 
 </span><span class="c1"># display strains with significant P-values (alpha &lt; 0.05)</span><span class="w">
-</span><span class="n">strains.bw.fat.corr</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">bw.fat.corr</span><span class="o">$</span><span class="n">strain</span><span class="p">[</span><span class="n">bw.by.sex</span><span class="o">$</span><span class="n">P</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0.05</span><span class="p">]</span><span class="w">
-</span><span class="n">strains.bw.fat.corr.holm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">bw.fat.corr</span><span class="o">$</span><span class="n">strain</span><span class="p">[</span><span class="n">bw.by.sex</span><span class="o">$</span><span class="n">P.holm</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0.05</span><span class="p">]</span><span class="w">
-</span><span class="n">strains.bw.fat.corr.BH</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">bw.fat.corr</span><span class="o">$</span><span class="n">strain</span><span class="p">[</span><span class="n">bw.by.sex</span><span class="o">$</span><span class="n">P.BH</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0.05</span><span class="p">]</span><span class="w">
+</span><span class="n">strains.bw.fat.corr</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">bw.fat.corr</span><span class="o">$</span><span class="n">strain</span><span class="p">[</span><span class="n">bw.fat.corr</span><span class="o">$</span><span class="n">P</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0.05</span><span class="p">]</span><span class="w">
+</span><span class="n">strains.bw.fat.corr.holm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">bw.fat.corr</span><span class="o">$</span><span class="n">strain</span><span class="p">[</span><span class="n">bw.fat.corr</span><span class="o">$</span><span class="n">P.holm</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0.05</span><span class="p">]</span><span class="w">
+</span><span class="n">strains.bw.fat.corr.BH</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">bw.fat.corr</span><span class="o">$</span><span class="n">strain</span><span class="p">[</span><span class="n">bw.fat.corr</span><span class="o">$</span><span class="n">P.BH</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0.05</span><span class="p">]</span><span class="w">
 </span><span class="nf">length</span><span class="p">(</span><span class="n">strains.bw.fat.corr</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 21
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 20
 </code></pre></div>    </div>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">length</span><span class="p">(</span><span class="n">strains.bw.fat.corr.holm</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 14
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 17
 </code></pre></div>    </div>
 
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">length</span><span class="p">(</span><span class="n">strains.bw.fat.corr.BH</span><span class="p">)</span><span class="w">
 </span></code></pre></div>    </div>
 
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 19
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 20
 </code></pre></div>    </div>
 
     <p>Â </p>

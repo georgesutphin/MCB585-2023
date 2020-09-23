@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-09-17 23:10:42 -0700">
+    <meta http-equiv="last-modified" content="2020-09-22 21:39:26 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -517,11 +517,11 @@ Log-Rank P-value to determine whether the differences are signifcant.</li>
 and plot age-specific morality</li>
   </ol>
 
-  <p>The data is stored in the <code class="language-plaintext highlighter-rouge">aml</code> dataframe, which is loaded with the `survival package.</p>
+  <p>The data is stored in the <code class="language-plaintext highlighter-rouge">aml</code> dataframe, which is loaded with the <code class="language-plaintext highlighter-rouge">survival</code> package.</p>
 
   <p>*Note: unlike our mouse data, the <code class="language-plaintext highlighter-rouge">status</code> variable indicates whether a patient has died,
 not patients that were censored. Be sure to indicate this appropriately in the <code class="language-plaintext highlighter-rouge">Surv()</code> 
-object: `Surv(time, status == 1).</p>
+object: <code class="language-plaintext highlighter-rouge">Surv(time, status == 1)</code>.</p>
 
   <blockquote class="solution">
     <h2 id="solution-1">Solution</h2>

@@ -618,9 +618,9 @@ There are other tests that make different assumptions about your data, sampling,
 > > bw.fat.corr$P.BH <- p.adjust(bw.fat.corr$P, method = "BH")
 > > 
 > > # display strains with significant P-values (alpha < 0.05)
-> > strains.bw.fat.corr <- bw.fat.corr$strain[bw.by.sex$P < 0.05]
-> > strains.bw.fat.corr.holm <- bw.fat.corr$strain[bw.by.sex$P.holm < 0.05]
-> > strains.bw.fat.corr.BH <- bw.fat.corr$strain[bw.by.sex$P.BH < 0.05]
+> > strains.bw.fat.corr <- bw.fat.corr$strain[bw.fat.corr$P < 0.05]
+> > strains.bw.fat.corr.holm <- bw.fat.corr$strain[bw.fat.corr$P.holm < 0.05]
+> > strains.bw.fat.corr.BH <- bw.fat.corr$strain[bw.fat.corr$P.BH < 0.05]
 > > length(strains.bw.fat.corr)
 > > ~~~
 > > {: .language-r}
@@ -628,7 +628,7 @@ There are other tests that make different assumptions about your data, sampling,
 > > 
 > > 
 > > ~~~
-> > [1] 21
+> > [1] 20
 > > ~~~
 > > {: .output}
 > > 
@@ -642,7 +642,7 @@ There are other tests that make different assumptions about your data, sampling,
 > > 
 > > 
 > > ~~~
-> > [1] 14
+> > [1] 17
 > > ~~~
 > > {: .output}
 > > 
@@ -656,7 +656,7 @@ There are other tests that make different assumptions about your data, sampling,
 > > 
 > > 
 > > ~~~
-> > [1] 19
+> > [1] 20
 > > ~~~
 > > {: .output}
 > > 

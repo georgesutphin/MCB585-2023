@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2020-09-17 23:10:42 -0700">
+    <meta http-equiv="last-modified" content="2020-09-22 21:39:26 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -396,7 +396,7 @@ increase your statistical power to detect changes.</li>
   <li>\(S(t) \approx l_t =\) survival function, the fraction of the population at risk (aka “surviving to”) time t</li>
 </ul>
 
-<p>We estimate the survival function by plotting \(l_t\) vs. age \(t\). Let’s examine the survival of the US population as an example. The life table is stored in <code class="language-plaintext highlighter-rouge">S2011.life.table.txt</code>.</p>
+<p>We estimate the survival function by plotting \(l_t\) vs. age \(t\). Let’s examine the survival of the US population as an example. The life table is stored in <code class="language-plaintext highlighter-rouge">US2011.life.table.txt</code>.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/US2011.life.table.txt"</span><span class="p">)</span><span class="w">
 </span><span class="n">str</span><span class="p">(</span><span class="n">lt</span><span class="p">)</span><span class="w">
