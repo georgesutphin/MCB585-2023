@@ -1,23 +1,31 @@
-I"<p>MCB585 will culminate in the completion of individual final projects for each student. The goal of these projects will be to apply the skills learned in this course to a novel large dataset to evaluate a hypothesis, design an experiment, or explore the behavior of a system.</p>
+I""<h2 id="final-project-details">Final project details</h2>
+
+<p>MCB585 will culminate in the completion of individual final projects for each student. The goal of these projects will be to apply the skills learned in this course to a novel large dataset to evaluate a hypothesis, design an experiment, or explore the behavior of a system.</p>
 
 <p>Each project will consist of three parts:</p>
 
 <ol>
-  <li><strong>Proposal (due 11/6/2020).</strong> Each student should submit a written proposal (&lt;1 page) that outlines the following:
+  <li><strong>Proposal (due 11/6/2020).</strong> Each student should submit a written proposal (~1/2 page) that outlines the following:
     <ul>
       <li>The question being addressed.</li>
       <li>The dataset(s) to be used, with a descriptive details (e.g. number of samples, variables of interest, potential confounding variables). If a novel dataset is being used, the data should be included with the proposal.</li>
       <li>The proposed analysis plan, including which tools/skills from the MCB585 coursework will be employed.</li>
-      <li>A description of potential pitfalls and alternative approaches may be encountered.</li>
+      <li>A description of potential pitfalls that may be encountered and alternative approaches.</li>
     </ul>
   </li>
 </ol>
 
-<p>         <em>Note: The main purpose of the proposal is to allow the intructors to judge the scope of the project and provide feedback prior to the students beginning analysis.</em></p>
+<table>
+  <tbody>
+    <tr>
+      <td><em>Note: The main purpose of the proposal is to allow the instructors to judge the scope of the project and provide feedback prior to the students beginning analysis.</em></td>
+    </tr>
+  </tbody>
+</table>
 
 <ol>
   <li>
-    <p><strong>Report and Code (due 12/2/2020).</strong> A brief (~1 page) report describing the findings of the project should be turned in once analysis is complete. The report should include (as a separate attachment in addition to the report) well-documented R or Matlab script or scripts that can be run to reproduce the analysis presented.</p>
+    <p><strong>Report and code (due 12/2/2020).</strong> A brief (~1 page) report describing the findings of the project should be turned in once analysis is complete. The report should include–as a separate attachment in addition to the report–well-documented R or Matlab script or scripts that can be run to reproduce the analysis presented.</p>
   </li>
   <li>
     <p><strong>Presentations (12/2/2020, 12/4/2020, 12/9/2020).</strong> During the last 3 days of class, each student will give a 10-15 minute presentation describing:</p>
@@ -30,7 +38,7 @@
   </li>
 </ol>
 
-<blockquote>
+<blockquote class="callout">
   <h2 id="project-notes">Project notes</h2>
 
   <ol>
@@ -73,13 +81,13 @@ example:</p>
 
 <ol>
   <li>
-    <p><strong>Inbred mouse power charts.</strong> Using the inbred mouse lifespan data, construct a series of power charts to use as a reference for mouse aging studies. Consider potential confounding factors, and compare the t-test method to the simulation method for determining sample size.</p>
+    <p><strong>Inbred mouse power charts.</strong> Using the inbred mouse lifespan data, construct a series of power charts to use as a reference for mouse aging studies. Consider potential confounding factors, and compare the t-test method to the simulation method for determining sample size. Be sure to account for differences in variability between male and female mice.</p>
   </li>
   <li>
     <p><strong>Re-examination of observation frequency in lifespan analysis.</strong> In 2017, the Dana Miller (University of Washington) and Michael Petrascheck (Scripps Research Institute) published a joint paper examining how several technical aspects of experimental design affect reproducibility (<a href="https://www.ncbi.nlm.nih.gov/pubmed/28713422">Petrascheck &amp; Miller, 2017</a>). They used a large set of wild-type <em>C. elegans</em> lifespan observations modeled using a Gompertz distribution. Reproduce this analysis using a novel dataset (“CHARGE.screen.lifespan.data.txt” in <a href="../data/MCB585-sample-data.zip">MCB585-sample-data.zip</a>, updated 10/21/2019) modeled using a Weibull distribution.</p>
   </li>
   <li>
-    <p><strong>Demonstrate the predictions of the Central Limit Theorem.</strong> We have repeatedly discussed the prediction of the Central Limit Theorem that, regardless of the shape of the population distribution, the sampling distribution for a phenotype will be approximately normal for large samples. Using a variety of shapes and extremes (e.g. highly skewed) simulated population distributions, explore the relationship between sample size and normality of the sampling distribution. For the set of distributions provided by default in R, see <code class="language-plaintext highlighter-rouge">?distributions</code>.</p>
+    <p><strong>Demonstrate the predictions of the Central Limit Theorem.</strong> We have repeatedly discussed the prediction of the Central Limit Theorem that, regardless of the shape of the population distribution, the sampling distribution for a phenotype will be approximately normal for large samples. Using a variety of simulated population distributions with different shapes (e.g. highly skewed, multi-modal), explore the relationship between sample size and normality of the sampling distribution. For the set of distributions provided by default in R, see <code class="language-plaintext highlighter-rouge">?distributions</code>. Others are available through add-on packages.</p>
   </li>
 </ol>
 

@@ -1,4 +1,4 @@
-I"X<h2 id="in-class">In Class</h2>
+I"Y<h2 id="in-class">In Class</h2>
 
 <p>So far we have mostly been dealing with data that meets that basic assumptions of a t-test or other common statistical tests. In this class, we are going to look at a category of data that requires special consideration. Time-to-event data (e.g. survival or lifespan data) violates several assumptions made by many of our standard tests:</p>
 
@@ -95,7 +95,7 @@ increase your statistical power to detect changes.</li>
   <li>\(S(t) \approx l_t =\) survival function, the fraction of the population at risk (aka “surviving to”) time t</li>
 </ul>
 
-<p>We estimate the survival function by plotting \(l_t\) vs. age \(t\). Let’s examine the survival of the US population as an example. The life table is stored in <code class="language-plaintext highlighter-rouge">S2011.life.table.txt</code>.</p>
+<p>We estimate the survival function by plotting \(l_t\) vs. age \(t\). Let’s examine the survival of the US population as an example. The life table is stored in <code class="language-plaintext highlighter-rouge">US2011.life.table.txt</code>.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.delim</span><span class="p">(</span><span class="s2">"./data/US2011.life.table.txt"</span><span class="p">)</span><span class="w">
 </span><span class="n">str</span><span class="p">(</span><span class="n">lt</span><span class="p">)</span><span class="w">

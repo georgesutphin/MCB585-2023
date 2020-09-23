@@ -104,7 +104,7 @@ The *Life Table* is a systematic way to tabulate observations and estimate survi
 * $$l_t = \frac{n_t}{n_0} =$$ fraction of the sample remaining at risk by time t
 * $$S(t) \approx l_t =$$ survival function, the fraction of the population at risk (aka "surviving to") time t 
 
-We estimate the survival function by plotting $$l_t$$ vs. age $$t$$. Let's examine the survival of the US population as an example. The life table is stored in `S2011.life.table.txt`.
+We estimate the survival function by plotting $$l_t$$ vs. age $$t$$. Let's examine the survival of the US population as an example. The life table is stored in `US2011.life.table.txt`.
 
 
 ~~~

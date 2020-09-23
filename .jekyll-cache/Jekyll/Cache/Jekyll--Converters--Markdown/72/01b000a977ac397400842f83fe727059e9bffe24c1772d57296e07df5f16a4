@@ -1,4 +1,4 @@
-I"ç<h2 id="on-your-own">On Your Own</h2>
+I"Y<h2 id="on-your-own">On Your Own</h2>
 
 <p>Working with survival data in R is not straightforward and practice is useful for getting the hang of using the <code class="language-plaintext highlighter-rouge">Surv()</code> object and the functions for generating survival curves and running log-rank tests. For the most part, todayâ€™s <em>On Your Own</em> material consists of additional exercise, with one practical note for dealing with an odd data structure.</p>
 
@@ -225,11 +225,11 @@ Log-Rank P-value to determine whether the differences are signifcant.</li>
 and plot age-specific morality</li>
   </ol>
 
-  <p>The data is stored in the <code class="language-plaintext highlighter-rouge">aml</code> dataframe, which is loaded with the `survival package.</p>
+  <p>The data is stored in the <code class="language-plaintext highlighter-rouge">aml</code> dataframe, which is loaded with the <code class="language-plaintext highlighter-rouge">survival</code> package.</p>
 
   <p>*Note: unlike our mouse data, the <code class="language-plaintext highlighter-rouge">status</code> variable indicates whether a patient has died,
 not patients that were censored. Be sure to indicate this appropriately in the <code class="language-plaintext highlighter-rouge">Surv()</code> 
-object: `Surv(time, status == 1).</p>
+object: <code class="language-plaintext highlighter-rouge">Surv(time, status == 1)</code>.</p>
 
   <blockquote class="solution">
     <h2 id="solution-1">Solution</h2>
