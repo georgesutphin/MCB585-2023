@@ -1,6 +1,6 @@
 ---
 title: "R Data Types -- In-Depth"
-classdate: "8/28/2020 -- On Your Own"
+classdate: "8/26/2021 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:
