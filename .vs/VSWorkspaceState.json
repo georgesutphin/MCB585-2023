@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\bin"
   ],
-  "SelectedNode": "\\_episodes_rmd",
+  "SelectedNode": "\\bin\\knit_lessons.sh",
   "PreviewInSolutionExplorer": false
 }

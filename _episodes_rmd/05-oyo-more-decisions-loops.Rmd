@@ -1,6 +1,6 @@
 ---
 title: "Decision Making and Loops -- Additional Detail"
-classdate: "9/9/2020 -- On Your Own"
+classdate: "9/7/2021 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:

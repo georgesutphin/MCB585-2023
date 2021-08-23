@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2021-08-21 21:41:16 -0700">
+    <meta http-equiv="last-modified" content="2021-08-22 21:43:52 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -690,8 +690,8 @@ each stage is indicated by “Vcells” (the V stands for “Vector”). Removin
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>         used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 478622 25.6    1048200   56   638582 34.2
-Vcells 905780  7.0    8388608   64  1632875 12.5
+Ncells 481657 25.8    1054280 56.4   643765 34.4
+Vcells 912400  7.0    8388608 64.0  1650174 12.6
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># create a big vector (this can take some time) and recheck memory with </span><span class="w">
@@ -701,8 +701,8 @@ Vcells 905780  7.0    8388608   64  1632875 12.5
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells  478710 25.6    1048200   56   638582 34.2
-Vcells 1006140  7.7    8388608   64  8388567 64.0
+Ncells  481748 25.8    1054280 56.4   643765 34.4
+Vcells 1012765  7.8    8388608 64.0  8388607 64.0
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># remove vector and check memory a final time; Vcells used (MB) returns to</span><span class="w">
@@ -712,8 +712,8 @@ Vcells 1006140  7.7    8388608   64  8388567 64.0
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>         used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 478681 25.6    1048200   56   638582 34.2
-Vcells 905977  7.0    8388608   64  8388567 64.0
+Ncells 481719 25.8    1054280 56.4   643765 34.4
+Vcells 912602  7.0    8388608 64.0  8388607 64.0
 </code></pre></div></div>
 
 <p> </p>
@@ -776,15 +776,12 @@ Vcells 905977  7.0    8388608   64  8388567 64.0
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>package 'pwr' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\RtmpS2RcFT\downloaded_packages
+	C:\Users\sutph\AppData\Local\Temp\Rtmp2VF0GJ\downloaded_packages
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Load required packages into memory</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="s2">"pwr"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
-
-<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Warning: package 'pwr' was built under R version 4.0.5
-</code></pre></div></div>
 
 <p> </p>
 

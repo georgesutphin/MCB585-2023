@@ -486,8 +486,8 @@ gc()
 
 ~~~
          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 478622 25.6    1048200   56   638582 34.2
-Vcells 905780  7.0    8388608   64  1632875 12.5
+Ncells 481657 25.8    1054280 56.4   643765 34.4
+Vcells 912400  7.0    8388608 64.0  1650174 12.6
 ~~~
 {: .output}
 
@@ -504,8 +504,8 @@ gc()
 
 ~~~
           used (Mb) gc trigger (Mb) max used (Mb)
-Ncells  478710 25.6    1048200   56   638582 34.2
-Vcells 1006140  7.7    8388608   64  8388567 64.0
+Ncells  481748 25.8    1054280 56.4   643765 34.4
+Vcells 1012765  7.8    8388608 64.0  8388607 64.0
 ~~~
 {: .output}
 
@@ -521,8 +521,8 @@ gc()
 
 ~~~
          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 478681 25.6    1048200   56   638582 34.2
-Vcells 905977  7.0    8388608   64  8388567 64.0
+Ncells 481719 25.8    1054280 56.4   643765 34.4
+Vcells 912602  7.0    8388608 64.0  8388607 64.0
 ~~~
 {: .output}
 
@@ -609,7 +609,7 @@ install.packages("pwr")
 package 'pwr' successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in
-	C:\Users\sutph\AppData\Local\Temp\RtmpS2RcFT\downloaded_packages
+	C:\Users\sutph\AppData\Local\Temp\Rtmp2VF0GJ\downloaded_packages
 ~~~
 {: .output}
 
@@ -619,13 +619,6 @@ The downloaded binary packages are in
 library("pwr")
 ~~~
 {: .language-r}
-
-
-
-~~~
-Warning: package 'pwr' was built under R version 4.0.5
-~~~
-{: .error}
 
 &nbsp;
 
