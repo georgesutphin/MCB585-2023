@@ -120,7 +120,23 @@ Note that the error message is complaining about the `\d`, not just the `\`. Man
 
 
 ~~~
+one.line <- "Line 1 Line 2"
 two.lines <- "Line 1\nLine 2"
+
+writeLines(one.line)
+~~~
+{: .language-r}
+
+
+
+~~~
+Line 1 Line 2
+~~~
+{: .output}
+
+
+
+~~~
 writeLines(two.lines)
 ~~~
 {: .language-r}
@@ -167,7 +183,7 @@ Error in 2 * two.lines: non-numeric argument to binary operator
 {: .error}
 &nbsp;
 
-You can also successfully print a backslash (`\`) by typing a double backslash (`\\`), which is effectively using the first `\` to "escape" the second `\`:
+So what if you actually want your string to include a backslash (`\`)? You can do this by typing a double backslash (`\\`), which is effectively using the first `\` to "escape" the second `\`:
 
 
 ~~~
@@ -444,6 +460,7 @@ if(test2) "Test 2 is TRUE!"
 {: .language-r}
 
 &nbsp;
+
 The code following the if statement will only execute if the variable or statement entered in the `()` is `TRUE`. We will talk more about how to use `if` statements later in the course.
 
 ***
@@ -687,7 +704,7 @@ seq(10)
 ~~~
 {: .output}
 
-&nbps;
+&nbsp;
 
 Check out the help documentation for the `seq()` function (`?seq`) to see what arguments we are providing and what arguments are being set to defaults. By specifying `from`, `to`, and `by` we can customize our output vector:
 
@@ -947,6 +964,19 @@ x[range] # returns the range of values specified by "range", in this case elemen
 > > 
 > > 1. `animal[4:1]`
 > > 
+> >     
+> >     ~~~
+> >     animal[4:1]
+> >     ~~~
+> >     {: .language-r}
+> >     
+> >     
+> >     
+> >     ~~~
+> >     [1] "k" "n" "o" "m"
+> >     ~~~
+> >     {: .output}
+> >  
 > > 2. `"o" "n" "k" "e" "y"`
 > > 
 > > 3. `"m" "o" "n" "e" "y"`, which means that a single `-` removes the element 
@@ -955,48 +985,48 @@ x[range] # returns the range of values specified by "range", in this case elemen
 > > 4. `animal[-1:-4]` remove the subset at indexes 1 to 4, returning `"e" "y"`,
 > > which is equivalent to `animal[5:6]`.
 > > 
-> > 
-> > ~~~
-> > animal[-1:-4]
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > [1] "e" "y"
-> > ~~~
-> > {: .output}
-> > 
-> > 
-> > 
-> > ~~~
-> > animal[5:6]
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > [1] "e" "y"
-> > ~~~
-> > {: .output}
+> >     
+> >     ~~~
+> >     animal[-1:-4]
+> >     ~~~
+> >     {: .language-r}
+> >     
+> >     
+> >     
+> >     ~~~
+> >     [1] "e" "y"
+> >     ~~~
+> >     {: .output}
+> >     
+> >     
+> >     
+> >     ~~~
+> >     animal[5:6]
+> >     ~~~
+> >     {: .language-r}
+> >     
+> >     
+> >     
+> >     ~~~
+> >     [1] "e" "y"
+> >     ~~~
+> >     {: .output}
 > > 
 > > 5. `animal[c(5,2,3)]` combines indexing with the `c`ombine function to 
 > > spell the word "eon" in a new vector:
 > > 
-> > 
-> > ~~~
-> > animal[c(5,2,3)]
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > [1] "e" "o" "n"
-> > ~~~
-> > {: .output}
+> >     
+> >     ~~~
+> >     animal[c(5,2,3)]
+> >     ~~~
+> >     {: .language-r}
+> >     
+> >     
+> >     
+> >     ~~~
+> >     [1] "e" "o" "n"
+> >     ~~~
+> >     {: .output}
 > {: .solution}
 {: .challenge}
 
@@ -1151,8 +1181,42 @@ paste(attitude,animal)
 > powerful, and it is employed by a wide range of 
 > functions. However, it is not universal. Depending on 
 > how a specific function is written, it may act on the 
-> vector, or on the list of values in the vector. The 
-> best way to find out is to just give it a try and see 
+> vector, or on the list of values in the vector. 
+> 
+> Compare the function `sum()` to the operator `+`: 
+> 
+> 
+> ~~~
+> x <- 1:3
+> y <- 4:6
+> sum(x,y) # sums the individual elements to produce a single number
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] 21
+> ~~~
+> {: .output}
+> 
+> 
+> 
+> ~~~
+> x + y # sums the values in each index to produce a new vector
+> ~~~
+> {: .language-r}
+> 
+> 
+> 
+> ~~~
+> [1] 5 7 9
+> ~~~
+> {: .output}
+> 
+> &nbsp;
+> 
+> The best way to find out is to just give it a try and see 
 > what output it produces.
 {: .callout}
 
@@ -1203,7 +1267,7 @@ We will periodically use object attributes to manipulate objects throughout the 
 ***
 ### Matrices
 
-In R matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with an attribute called "dimensions", i.e. a specified number of rows and columns. As with vectors, the elements of a matrix must be of the same data type. We can use the generic `matrix()` function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. `character()`). However, because matrices are really just vectors, we can use a predefined vector to build a matrix:
+In R, matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with an attribute called "dimensions", i.e. a specified number of rows and columns. As with vectors, the elements of a matrix must be of the same data type. We can use the generic `matrix()` function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. `character()`). However, because matrices are really just vectors, we can use a predefined vector to build a matrix:
 
 
 ~~~
@@ -1601,6 +1665,7 @@ m[2,]
 ~~~
 {: .output}
 
+&nbsp;
 
 > ## Subsetting data
 >
@@ -1648,20 +1713,21 @@ m[2,]
 > 
 > > ## Solutions
 > > 
-> > 1. The numbers `5` and `8` appear in the second row, and the second and third > > columns, respectively. To extract this matrix subset, we use the index:
+> > 1. The numbers `5` and `8` appear in the second row, and the second and third 
+> > columns, respectively. To extract this matrix subset, we use the index:
 > >
-> > 
-> > ~~~
-> > m[2,2:3]
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > [1] 5 8
-> > ~~~
-> > {: .output}
+> >     
+> >     ~~~
+> >     m[2,2:3]
+> >     ~~~
+> >     {: .language-r}
+> >     
+> >     
+> >     
+> >     ~~~
+> >     [1] 5 8
+> >     ~~~
+> >     {: .output}
 > > 
 > > &nbsp;
 > >
@@ -1671,13 +1737,13 @@ m[2,]
 > > returned. Thus we end up with a smaller matrix with only rows 1 and 3, and 
 > > all elements in row 2 removed:
 > >
-> > 
-> > ~~~
-> >      [,1] [,2] [,3] [,4]
-> > [1,]    1    4    7   10
-> > [2,]    3    6    9   12
-> > ~~~
-> > {: .output}
+> >     
+> >     ~~~
+> >          [,1] [,2] [,3] [,4]
+> >     [1,]    1    4    7   10
+> >     [2,]    3    6    9   12
+> >     ~~~
+> >     {: .output}
 > > 
 > > &nbsp;
 > >
@@ -1687,14 +1753,14 @@ m[2,]
 > > (so include all rows), and columns 2-3 are requested, so we will get the 
 > > following 2x2 matrix:
 > >
-> > 
-> > ~~~
-> >      [,1] [,2]
-> > [1,]    4    7
-> > [2,]    5    8
-> > [3,]    6    9
-> > ~~~
-> > {: .output}
+> >     
+> >     ~~~
+> >          [,1] [,2]
+> >     [1,]    4    7
+> >     [2,]    5    8
+> >     [3,]    6    9
+> >     ~~~
+> >     {: .output}
 > >  
 > > &nbsp;
 > >
@@ -1704,14 +1770,14 @@ m[2,]
 > > dimensions as m, but with each element equal to twice the corresponding 
 > > element in m:
 > > 
-> > 
-> > ~~~
-> >      [,1] [,2] [,3] [,4]
-> > [1,]    2    8   14   20
-> > [2,]    4   10   16   22
-> > [3,]    6   12   18   24
-> > ~~~
-> > {: .output}
+> >     
+> >     ~~~
+> >          [,1] [,2] [,3] [,4]
+> >     [1,]    2    8   14   20
+> >     [2,]    4   10   16   22
+> >     [3,]    6   12   18   24
+> >     ~~~
+> >     {: .output}
 > > 
 > > &nbsp;
 > >
@@ -1722,36 +1788,36 @@ m[2,]
 > > not necessarily sequential) set of rows or columns. Thus we expect 
 > > the list `c(1,3)` entered into the column index to return columns 1 and 3:
 > > 
-> > 
-> > ~~~
-> >      [,1] [,2]
-> > [1,]    1    7
-> > [2,]    2    8
-> > [3,]    3    9
-> > ~~~
-> > {: .output}
+> >     
+> >     ~~~
+> >          [,1] [,2]
+> >     [1,]    1    7
+> >     [2,]    2    8
+> >     [3,]    3    9
+> >     ~~~
+> >     {: .output}
 > > 
 > > &nbsp;
 > >
 > > {:start="6"}
 > > 6. Let's see what happens if we use the `t()` function on `m`:
 > > 
-> > 
-> > ~~~
-> > t(m)
-> > ~~~
-> > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> >      [,1] [,2] [,3]
-> > [1,]    1    2    3
-> > [2,]    4    5    6
-> > [3,]    7    8    9
-> > [4,]   10   11   12
-> > ~~~
-> > {: .output}
+> >     
+> >     ~~~
+> >     t(m)
+> >     ~~~
+> >     {: .language-r}
+> >     
+> >     
+> >     
+> >     ~~~
+> >          [,1] [,2] [,3]
+> >     [1,]    1    2    3
+> >     [2,]    4    5    6
+> >     [3,]    7    8    9
+> >     [4,]   10   11   12
+> >     ~~~
+> >     {: .output}
 > > 
 > > &nbsp;
 > > 
@@ -1765,11 +1831,11 @@ m[2,]
 > > 7. Since a matrix is just a fancy vector, requesting R to return the 4th
 > > index (`m[4]`) will simply return the 4th value in the underlying vector:
 > > 
-> > 
-> > ~~~
-> > [1] 4
-> > ~~~
-> > {: .output}
+> >     
+> >     ~~~
+> >     [1] 4
+> >     ~~~
+> >     {: .output}
 > {: .solution}
 {: .challenge}
 

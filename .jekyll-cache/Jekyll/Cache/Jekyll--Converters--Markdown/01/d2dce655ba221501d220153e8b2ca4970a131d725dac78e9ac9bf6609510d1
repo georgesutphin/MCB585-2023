@@ -1,4 +1,4 @@
-I"�J<h2 id="in-class">In Class</h2>
+I"5W<h2 id="in-class">In Class</h2>
 
 <h3 id="basic-data-types-in-r">Basic Data Types in R</h3>
 
@@ -55,8 +55,16 @@
 
 <p>Note that the error message is complaining about the <code class="language-plaintext highlighter-rouge">\d</code>, not just the <code class="language-plaintext highlighter-rouge">\</code>. Many characters invoke specific behavior when preceded by the <code class="language-plaintext highlighter-rouge">\</code> which can be useful depending on your goals. For example, <code class="language-plaintext highlighter-rouge">\n</code> is interpreted as a <em>line break</em>:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">two.lines</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"Line 1\nLine 2"</span><span class="w">
-</span><span class="n">writeLines</span><span class="p">(</span><span class="n">two.lines</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">one.line</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"Line 1 Line 2"</span><span class="w">
+</span><span class="n">two.lines</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"Line 1\nLine 2"</span><span class="w">
+
+</span><span class="n">writeLines</span><span class="p">(</span><span class="n">one.line</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Line 1 Line 2
+</code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">writeLines</span><span class="p">(</span><span class="n">two.lines</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Line 1
@@ -83,7 +91,7 @@ Line 2
 </code></pre></div></div>
 <p> </p>
 
-<p>You can also successfully print a backslash (<code class="language-plaintext highlighter-rouge">\</code>) by typing a double backslash (<code class="language-plaintext highlighter-rouge">\\</code>), which is effectively using the first <code class="language-plaintext highlighter-rouge">\</code> to “escape” the second <code class="language-plaintext highlighter-rouge">\</code>:</p>
+<p>So what if you actually want your string to include a backslash (<code class="language-plaintext highlighter-rouge">\</code>)? You can do this by typing a double backslash (<code class="language-plaintext highlighter-rouge">\\</code>), which is effectively using the first <code class="language-plaintext highlighter-rouge">\</code> to “escape” the second <code class="language-plaintext highlighter-rouge">\</code>:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">writeLines</span><span class="p">(</span><span class="s2">"Single\\backslash."</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -237,8 +245,9 @@ Line 2
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="n">test2</span><span class="p">)</span><span class="w"> </span><span class="s2">"Test 2 is TRUE!"</span><span class="w">
 </span></code></pre></div></div>
 
-<p> 
-The code following the if statement will only execute if the variable or statement entered in the <code class="language-plaintext highlighter-rouge">()</code> is <code class="language-plaintext highlighter-rouge">TRUE</code>. We will talk more about how to use <code class="language-plaintext highlighter-rouge">if</code> statements later in the course.</p>
+<p> </p>
+
+<p>The code following the if statement will only execute if the variable or statement entered in the <code class="language-plaintext highlighter-rouge">()</code> is <code class="language-plaintext highlighter-rouge">TRUE</code>. We will talk more about how to use <code class="language-plaintext highlighter-rouge">if</code> statements later in the course.</p>
 
 <hr />
 <h3 id="data-structures">Data Structures</h3>
@@ -387,7 +396,7 @@ The code following the if statement will only execute if the variable or stateme
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1]  1  2  3  4  5  6  7  8  9 10
 </code></pre></div></div>
 
-<p>&amp;nbps;</p>
+<p> </p>
 
 <p>Check out the help documentation for the <code class="language-plaintext highlighter-rouge">seq()</code> function (<code class="language-plaintext highlighter-rouge">?seq</code>) to see what arguments we are providing and what arguments are being set to defaults. By specifying <code class="language-plaintext highlighter-rouge">from</code>, <code class="language-plaintext highlighter-rouge">to</code>, and <code class="language-plaintext highlighter-rouge">by</code> we can customize our output vector:</p>
 
@@ -573,6 +582,12 @@ how can we obtain the first four characters in reverse order?</p>
     <ol>
       <li>
         <p><code class="language-plaintext highlighter-rouge">animal[4:1]</code></p>
+
+        <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="n">animal</span><span class="p">[</span><span class="m">4</span><span class="o">:</span><span class="m">1</span><span class="p">]</span><span class="w">
+</span></code></pre></div>        </div>
+
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "k" "n" "o" "m"
+</code></pre></div>        </div>
       </li>
       <li>
         <p><code class="language-plaintext highlighter-rouge">"o" "n" "k" "e" "y"</code></p>
@@ -584,31 +599,30 @@ at the given index position.</p>
       <li>
         <p><code class="language-plaintext highlighter-rouge">animal[-1:-4]</code> remove the subset at indexes 1 to 4, returning <code class="language-plaintext highlighter-rouge">"e" "y"</code>,
 which is equivalent to <code class="language-plaintext highlighter-rouge">animal[5:6]</code>.</p>
+
+        <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="n">animal</span><span class="p">[</span><span class="m">-1</span><span class="o">:</span><span class="m">-4</span><span class="p">]</span><span class="w">
+</span></code></pre></div>        </div>
+
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "e" "y"
+</code></pre></div>        </div>
+
+        <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="n">animal</span><span class="p">[</span><span class="m">5</span><span class="o">:</span><span class="m">6</span><span class="p">]</span><span class="w">
+</span></code></pre></div>        </div>
+
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "e" "y"
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">animal[c(5,2,3)]</code> combines indexing with the <code class="language-plaintext highlighter-rouge">c</code>ombine function to 
+spell the word “eon” in a new vector:</p>
+
+        <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="n">animal</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">)]</span><span class="w">
+</span></code></pre></div>        </div>
+
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "e" "o" "n"
+</code></pre></div>        </div>
       </li>
     </ol>
-
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">animal</span><span class="p">[</span><span class="m">-1</span><span class="o">:</span><span class="m">-4</span><span class="p">]</span><span class="w">
-</span></code></pre></div>    </div>
-
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "e" "y"
-</code></pre></div>    </div>
-
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">animal</span><span class="p">[</span><span class="m">5</span><span class="o">:</span><span class="m">6</span><span class="p">]</span><span class="w">
-</span></code></pre></div>    </div>
-
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "e" "y"
-</code></pre></div>    </div>
-
-    <ol>
-      <li><code class="language-plaintext highlighter-rouge">animal[c(5,2,3)]</code> combines indexing with the <code class="language-plaintext highlighter-rouge">c</code>ombine function to 
-spell the word “eon” in a new vector:</li>
-    </ol>
-
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">animal</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">)]</span><span class="w">
-</span></code></pre></div>    </div>
-
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "e" "o" "n"
-</code></pre></div>    </div>
   </blockquote>
 </blockquote>
 
@@ -705,8 +719,27 @@ spell the word “eon” in a new vector:</li>
 powerful, and it is employed by a wide range of 
 functions. However, it is not universal. Depending on 
 how a specific function is written, it may act on the 
-vector, or on the list of values in the vector. The 
-best way to find out is to just give it a try and see 
+vector, or on the list of values in the vector.</p>
+
+  <p>Compare the function <code class="language-plaintext highlighter-rouge">sum()</code> to the operator <code class="language-plaintext highlighter-rouge">+</code>:</p>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="w">
+</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">4</span><span class="o">:</span><span class="m">6</span><span class="w">
+</span><span class="nf">sum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="c1"># sums the individual elements to produce a single number</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 21
+</code></pre></div>  </div>
+
+  <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="c1"># sums the values in each index to produce a new vector</span><span class="w">
+</span></code></pre></div>  </div>
+
+  <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 5 7 9
+</code></pre></div>  </div>
+
+  <p> </p>
+
+  <p>The best way to find out is to just give it a try and see 
 what output it produces.</p>
 </blockquote>
 
@@ -743,7 +776,7 @@ what output it produces.</p>
 <hr />
 <h3 id="matrices">Matrices</h3>
 
-<p>In R matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with an attribute called “dimensions”, i.e. a specified number of rows and columns. As with vectors, the elements of a matrix must be of the same data type. We can use the generic <code class="language-plaintext highlighter-rouge">matrix()</code> function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. <code class="language-plaintext highlighter-rouge">character()</code>). However, because matrices are really just vectors, we can use a predefined vector to build a matrix:</p>
+<p>In R, matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with an attribute called “dimensions”, i.e. a specified number of rows and columns. As with vectors, the elements of a matrix must be of the same data type. We can use the generic <code class="language-plaintext highlighter-rouge">matrix()</code> function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. <code class="language-plaintext highlighter-rouge">character()</code>). However, because matrices are really just vectors, we can use a predefined vector to build a matrix:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first create a vector, then coerce that vector into a matrix:</span><span class="w">
 </span><span class="n">v</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="w">
@@ -980,6 +1013,8 @@ z    1    2    3    4    5    6    7    8    9    10
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1]  2  4  6  8 10
 </code></pre></div></div>
 
+<p> </p>
+
 <blockquote class="challenge">
   <h2 id="subsetting-data-1">Subsetting data</h2>
 
@@ -1032,90 +1067,103 @@ what does <code class="language-plaintext highlighter-rouge">t()</code> do? What
     <h2 id="solutions-1">Solutions</h2>
 
     <ol>
-      <li>The numbers <code class="language-plaintext highlighter-rouge">5</code> and <code class="language-plaintext highlighter-rouge">8</code> appear in the second row, and the second and third &gt; &gt; columns, respectively. To extract this matrix subset, we use the index:</li>
+      <li>
+        <p>The numbers <code class="language-plaintext highlighter-rouge">5</code> and <code class="language-plaintext highlighter-rouge">8</code> appear in the second row, and the second and third 
+columns, respectively. To extract this matrix subset, we use the index:</p>
+
+        <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="n">m</span><span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="o">:</span><span class="m">3</span><span class="p">]</span><span class="w">
+</span></code></pre></div>        </div>
+
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] 5 8
+</code></pre></div>        </div>
+      </li>
     </ol>
-
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span><span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="o">:</span><span class="m">3</span><span class="p">]</span><span class="w">
-</span></code></pre></div>    </div>
-
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 5 8
-</code></pre></div>    </div>
 
     <p> </p>
 
     <ol start="2">
-      <li>Like in vectors, the <code class="language-plaintext highlighter-rouge">-</code> tells R to exclude the index that follows. In 
+      <li>
+        <p>Like in vectors, the <code class="language-plaintext highlighter-rouge">-</code> tells R to exclude the index that follows. In 
 this case, exclude row 2. The column index is blank, so all columns are 
 returned. Thus we end up with a smaller matrix with only rows 1 and 3, and 
-all elements in row 2 removed:</li>
-    </ol>
+all elements in row 2 removed:</p>
 
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3] [,4]
-[1,]    1    4    7   10
-[2,]    3    6    9   12
-</code></pre></div>    </div>
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      [,1] [,2] [,3] [,4]
+ [1,]    1    4    7   10
+ [2,]    3    6    9   12
+</code></pre></div>        </div>
+      </li>
+    </ol>
 
     <p> </p>
 
     <ol start="3">
-      <li>As with vectors, including a set of sequential values in either index
+      <li>
+        <p>As with vectors, including a set of sequential values in either index
 will return all of the indexes in that range. In this case rows are blank
 (so include all rows), and columns 2-3 are requested, so we will get the 
-following 2x2 matrix:</li>
-    </ol>
+following 2x2 matrix:</p>
 
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2]
-[1,]    4    7
-[2,]    5    8
-[3,]    6    9
-</code></pre></div>    </div>
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      [,1] [,2]
+ [1,]    4    7
+ [2,]    5    8
+ [3,]    6    9
+</code></pre></div>        </div>
+      </li>
+    </ol>
 
     <p> </p>
 
     <ol start="4">
-      <li>Because matrices are essentially vectors with attributes, all standard
+      <li>
+        <p>Because matrices are essentially vectors with attributes, all standard
 operations are “vectorized”. We thus expect a new matrix with the same 
 dimensions as m, but with each element equal to twice the corresponding 
-element in m:</li>
-    </ol>
+element in m:</p>
 
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3] [,4]
-[1,]    2    8   14   20
-[2,]    4   10   16   22
-[3,]    6   12   18   24
-</code></pre></div>    </div>
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      [,1] [,2] [,3] [,4]
+ [1,]    2    8   14   20
+ [2,]    4   10   16   22
+ [3,]    6   12   18   24
+</code></pre></div>        </div>
+      </li>
+    </ol>
 
     <p> </p>
 
     <ol start="5">
-      <li>While we haven’t covered it explicity, entering <code class="language-plaintext highlighter-rouge">2:3</code> into an index
+      <li>
+        <p>While we haven’t covered it explicity, entering <code class="language-plaintext highlighter-rouge">2:3</code> into an index
 (like in question 3) is equivalent to entering an list of values (e.g. 
 <code class="language-plaintext highlighter-rouge">c(2,3)</code>). Any list of this sort can be used to index a specific (and 
 not necessarily sequential) set of rows or columns. Thus we expect 
-the list <code class="language-plaintext highlighter-rouge">c(1,3)</code> entered into the column index to return columns 1 and 3:</li>
-    </ol>
+the list <code class="language-plaintext highlighter-rouge">c(1,3)</code> entered into the column index to return columns 1 and 3:</p>
 
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2]
-[1,]    1    7
-[2,]    2    8
-[3,]    3    9
-</code></pre></div>    </div>
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      [,1] [,2]
+ [1,]    1    7
+ [2,]    2    8
+ [3,]    3    9
+</code></pre></div>        </div>
+      </li>
+    </ol>
 
     <p> </p>
 
     <ol start="6">
-      <li>Let’s see what happens if we use the <code class="language-plaintext highlighter-rouge">t()</code> function on <code class="language-plaintext highlighter-rouge">m</code>:</li>
+      <li>
+        <p>Let’s see what happens if we use the <code class="language-plaintext highlighter-rouge">t()</code> function on <code class="language-plaintext highlighter-rouge">m</code>:</p>
+
+        <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
+</span></code></pre></div>        </div>
+
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>      [,1] [,2] [,3]
+ [1,]    1    2    3
+ [2,]    4    5    6
+ [3,]    7    8    9
+ [4,]   10   11   12
+</code></pre></div>        </div>
+      </li>
     </ol>
-
-    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
-</span></code></pre></div>    </div>
-
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     [,1] [,2] [,3]
-[1,]    1    2    3
-[2,]    4    5    6
-[3,]    7    8    9
-[4,]   10   11   12
-</code></pre></div>    </div>
 
     <p> </p>
 
@@ -1126,12 +1174,14 @@ rows.</p>
     <p> </p>
 
     <ol start="7">
-      <li>Since a matrix is just a fancy vector, requesting R to return the 4th
-index (<code class="language-plaintext highlighter-rouge">m[4]</code>) will simply return the 4th value in the underlying vector:</li>
-    </ol>
+      <li>
+        <p>Since a matrix is just a fancy vector, requesting R to return the 4th
+index (<code class="language-plaintext highlighter-rouge">m[4]</code>) will simply return the 4th value in the underlying vector:</p>
 
-    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 4
-</code></pre></div>    </div>
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] 4
+</code></pre></div>        </div>
+      </li>
+    </ol>
   </blockquote>
 </blockquote>
 
