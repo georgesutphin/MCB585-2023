@@ -1,4 +1,4 @@
-I"V}<hr />
+I"�}<hr />
 <h2 id="on-your-own">On Your Own</h2>
 
 <h3 id="a-more-in-depth-look-at-data-types-in-r">A more in-depth look at Data Types in R</h3>
@@ -500,7 +500,7 @@ Levels: low &lt; medium &lt; high
 
 <p> </p>
 
-<p>Now <code class="language-plaintext highlighter-rouge">class()</code> and <code class="language-plaintext highlighter-rouge">str()</code> both reflects the order and relative values of the levels, respectively:</p>
+<p>Now <code class="language-plaintext highlighter-rouge">class()</code> and <code class="language-plaintext highlighter-rouge">str()</code> both reflect the order and relative values of the levels, respectively:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">sex</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -924,7 +924,9 @@ Levels: low &lt; medium &lt; high &lt; very high
 
   <p>You have a vector representing levels of exercise undertaken by 5 subjects</p>
 
-  <p><strong>“l”, “n”, “n”, “i”, “l”</strong> ; n=none, l=light, i=intense</p>
+  <p>        <strong>“l”, “n”, “n”, “i”, “l”</strong></p>
+
+  <p>        where n = none, l = light, i = intense</p>
 
   <p>What is the best way to represent this in R?</p>
 
@@ -1050,7 +1052,7 @@ Levels: a c d e
 
 <p> </p>
 
-<p>Many functions will not accept by default. Take <code class="language-plaintext highlighter-rouge">sum()</code> for example:</p>
+<p>Many functions will not accept objects that contain <code class="language-plaintext highlighter-rouge">NA</code>s by default. Take <code class="language-plaintext highlighter-rouge">sum()</code> for example:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">z</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="kc">NA</span><span class="p">,</span><span class="m">13</span><span class="p">)</span><span class="w">
 </span><span class="nf">sum</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="w">
@@ -1058,6 +1060,7 @@ Levels: a c d e
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] NA
 </code></pre></div></div>
+
 <p> </p>
 
 <p>The presence of any <code class="language-plaintext highlighter-rouge">NA</code> values in the input result in the function returning <code class="language-plaintext highlighter-rouge">NA</code>. If you get this result from a function, it is worth checking the help file (e.g. <code class="language-plaintext highlighter-rouge">?sum</code>). Often the functions will include an argument <code class="language-plaintext highlighter-rouge">na.rm</code> that can be used to exclude <code class="language-plaintext highlighter-rouge">NA</code> values from analysis. <code class="language-plaintext highlighter-rouge">sum()</code> has this argument, but it is set to <code class="language-plaintext highlighter-rouge">FALSE</code> by default:</p>

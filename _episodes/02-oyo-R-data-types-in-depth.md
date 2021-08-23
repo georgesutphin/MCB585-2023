@@ -952,7 +952,7 @@ Levels: low < medium < high
 
 &nbsp;
 
-Now `class()` and `str()` both reflects the order and relative values of the levels, respectively:
+Now `class()` and `str()` both reflect the order and relative values of the levels, respectively:
 
 
 ~~~
@@ -1716,7 +1716,9 @@ head(z) # returns the first 6 elements of an object
 >
 > You have a vector representing levels of exercise undertaken by 5 subjects
 >
-> **"l", "n", "n", "i", "l"** ; n=none, l=light, i=intense
+> &nbsp; &nbsp; &nbsp; &nbsp; **"l", "n", "n", "i", "l"**
+> 
+> &nbsp; &nbsp; &nbsp; &nbsp; where n = none, l = light, i = intense
 >
 > What is the best way to represent this in R? 
 >
@@ -1929,7 +1931,7 @@ anyNA(y)
 
 &nbsp;
 
-Many functions will not accept by default. Take `sum()` for example:
+Many functions will not accept objects that contain `NA`s by default. Take `sum()` for example:
 
 
 ~~~
@@ -1944,6 +1946,7 @@ sum(z)
 [1] NA
 ~~~
 {: .output}
+
 &nbsp;
 
 The presence of any `NA` values in the input result in the function returning `NA`. If you get this result from a function, it is worth checking the help file (e.g. `?sum`). Often the functions will include an argument `na.rm` that can be used to exclude `NA` values from analysis. `sum()` has this argument, but it is set to `FALSE` by default:

@@ -72,7 +72,10 @@ escape <- "This string \does not compute."
 Note that the error message is complaining about the `\d`, not just the `\`. Many characters invoke specific behavior when preceded by the `\` which can be useful depending on your goals. For example, `\n` is interpreted as a *line break*:
 
 ```{r}
+one.line <- "Line 1 Line 2"
 two.lines <- "Line 1\nLine 2"
+
+writeLines(one.line)
 writeLines(two.lines)
 ```
 
@@ -92,7 +95,7 @@ As you might expect, you can't perform numeric operations on characters:
 ```
 &nbsp;
 
-You can also successfully print a backslash (`\`) by typing a double backslash (`\\`), which is effectively using the first `\` to "escape" the second `\`:
+So what if you actually want your string to include a backslash (`\`)? You can do this by typing a double backslash (`\\`), which is effectively using the first `\` to "escape" the second `\`:
 
 ```{r}
 writeLines("Single\\backslash.")
@@ -195,6 +198,7 @@ if(test2) "Test 2 is TRUE!"
 ```
 
 &nbsp;
+
 The code following the if statement will only execute if the variable or statement entered in the `()` is `TRUE`. We will talk more about how to use `if` statements later in the course.
 
 ***
@@ -294,7 +298,7 @@ seq(10)
 1:10
 ```
 
-&nbps;
+&nbsp;
 
 Check out the help documentation for the `seq()` function (`?seq`) to see what arguments we are providing and what arguments are being set to defaults. By specifying `from`, `to`, and `by` we can customize our output vector:
 
@@ -421,6 +425,10 @@ x[range] # returns the range of values specified by "range", in this case elemen
 > > 
 > > 1. `animal[4:1]`
 > > 
+> >     ```{r}
+> >     animal[4:1]
+> >     ```
+> >  
 > > 2. `"o" "n" "k" "e" "y"`
 > > 
 > > 3. `"m" "o" "n" "e" "y"`, which means that a single `-` removes the element 
@@ -429,17 +437,17 @@ x[range] # returns the range of values specified by "range", in this case elemen
 > > 4. `animal[-1:-4]` remove the subset at indexes 1 to 4, returning `"e" "y"`,
 > > which is equivalent to `animal[5:6]`.
 > > 
-> > ```{r}
-> > animal[-1:-4]
-> > animal[5:6]
-> > ```
+> >     ```{r}
+> >     animal[-1:-4]
+> >     animal[5:6]
+> >     ```
 > > 
 > > 5. `animal[c(5,2,3)]` combines indexing with the `c`ombine function to 
 > > spell the word "eon" in a new vector:
 > > 
-> > ```{r}
-> > animal[c(5,2,3)]
-> > ```
+> >     ```{r}
+> >     animal[c(5,2,3)]
+> >     ```
 > {: .solution}
 {: .challenge}
 
@@ -506,8 +514,20 @@ paste(attitude,animal)
 > powerful, and it is employed by a wide range of 
 > functions. However, it is not universal. Depending on 
 > how a specific function is written, it may act on the 
-> vector, or on the list of values in the vector. The 
-> best way to find out is to just give it a try and see 
+> vector, or on the list of values in the vector. 
+> 
+> Compare the function `sum()` to the operator `+`: 
+> 
+> ```{r}
+> x <- 1:3
+> y <- 4:6
+> sum(x,y) # sums the individual elements to produce a single number
+> x + y # sums the values in each index to produce a new vector
+> ```
+> 
+> &nbsp;
+> 
+> The best way to find out is to just give it a try and see 
 > what output it produces.
 {: .callout}
 
@@ -536,7 +556,7 @@ We will periodically use object attributes to manipulate objects throughout the 
 ***
 ### Matrices
 
-In R matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with an attribute called "dimensions", i.e. a specified number of rows and columns. As with vectors, the elements of a matrix must be of the same data type. We can use the generic `matrix()` function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. `character()`). However, because matrices are really just vectors, we can use a predefined vector to build a matrix:
+In R, matrices are an extension of vectors. They are not a separate type of object but simply an atomic vector with an attribute called "dimensions", i.e. a specified number of rows and columns. As with vectors, the elements of a matrix must be of the same data type. We can use the generic `matrix()` function to build a matrix. Unlike vectors, there is no direct equivalent for each data type (e.g. `character()`). However, because matrices are really just vectors, we can use a predefined vector to build a matrix:
 
 ```{r}
 # first create a vector, then coerce that vector into a matrix:
@@ -682,6 +702,7 @@ If you are only interested in indexing a specific row, but do not want to change
 m[2,]
 ```
 
+&nbsp;
 
 > ## Subsetting data
 >
@@ -717,11 +738,12 @@ m[2,]
 > 
 > > ## Solutions
 > > 
-> > 1. The numbers `5` and `8` appear in the second row, and the second and third > > columns, respectively. To extract this matrix subset, we use the index:
+> > 1. The numbers `5` and `8` appear in the second row, and the second and third 
+> > columns, respectively. To extract this matrix subset, we use the index:
 > >
-> > ```{r}
-> > m[2,2:3]
-> > ```
+> >     ```{r}
+> >     m[2,2:3]
+> >     ```
 > > 
 > > &nbsp;
 > >
@@ -731,9 +753,9 @@ m[2,]
 > > returned. Thus we end up with a smaller matrix with only rows 1 and 3, and 
 > > all elements in row 2 removed:
 > >
-> > ```{r, echo=FALSE}
-> > m[-2,]
-> > ```
+> >     ```{r, echo=FALSE}
+> >     m[-2,]
+> >     ```
 > > 
 > > &nbsp;
 > >
@@ -743,9 +765,9 @@ m[2,]
 > > (so include all rows), and columns 2-3 are requested, so we will get the 
 > > following 2x2 matrix:
 > >
-> > ```{r, echo=FALSE}
-> > m[,2:3]
-> > ```
+> >     ```{r, echo=FALSE}
+> >     m[,2:3]
+> >     ```
 > >  
 > > &nbsp;
 > >
@@ -755,9 +777,9 @@ m[2,]
 > > dimensions as m, but with each element equal to twice the corresponding 
 > > element in m:
 > > 
-> > ```{r, echo = FALSE}
-> > 2*m
-> > ```
+> >     ```{r, echo = FALSE}
+> >     2*m
+> >     ```
 > > 
 > > &nbsp;
 > >
@@ -768,18 +790,18 @@ m[2,]
 > > not necessarily sequential) set of rows or columns. Thus we expect 
 > > the list `c(1,3)` entered into the column index to return columns 1 and 3:
 > > 
-> > ```{r, echo=FALSE}
-> > m[,c(1,3)]
-> > ```
+> >     ```{r, echo=FALSE}
+> >     m[,c(1,3)]
+> >     ```
 > > 
 > > &nbsp;
 > >
 > > {:start="6"}
 > > 6. Let's see what happens if we use the `t()` function on `m`:
 > > 
-> > ```{r}
-> > t(m)
-> > ```
+> >     ```{r}
+> >     t(m)
+> >     ```
 > > 
 > > &nbsp;
 > > 
@@ -793,9 +815,9 @@ m[2,]
 > > 7. Since a matrix is just a fancy vector, requesting R to return the 4th
 > > index (`m[4]`) will simply return the 4th value in the underlying vector:
 > > 
-> > ```{r, echo=FALSE}
-> > m[4]
-> > ``` 
+> >     ```{r, echo=FALSE}
+> >     m[4]
+> >     ``` 
 > {: .solution}
 {: .challenge}
 
