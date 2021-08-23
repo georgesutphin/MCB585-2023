@@ -1,6 +1,6 @@
 ---
 title: "Manipulating and Plotting Data"
-classdate: "9/4/2020 -- In Class"
+classdate: "9/2/2021 -- In Class"
 teaching: 90
 exercises: 30
 questions:

@@ -1,6 +1,6 @@
 ---
 title: "Distributions and Normality -- Additional Detail"
-classdate: "9/11/2020 -- On Your Own"
+classdate: "9/9/2021 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:

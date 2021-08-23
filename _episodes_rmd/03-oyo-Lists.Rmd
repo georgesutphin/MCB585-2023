@@ -1,6 +1,6 @@
 ---
 title: "Lists and Advanced Indexing"
-classdate: "9/2/2020 -- On Your Own"
+classdate: "8/31/2020 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:
