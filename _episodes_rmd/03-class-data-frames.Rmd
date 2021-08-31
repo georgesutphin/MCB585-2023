@@ -120,6 +120,10 @@ Let's start by looking at the documentation for the `iris` data set:
 
 &nbsp;
 
+For reference, here are images of the flowers from the three iris species from the `iris` dataset:
+
+<img src="../fig/iris-images.png" alt="The three iris species references in the `iris` dataset" />
+
 There are many ways to interact with **data frames** and get information about their contents. We have seen some of these previously:
 
 > ## Useful Data Frame Functions
@@ -228,7 +232,7 @@ Note that the column version actually returns a vector of the data type in the r
 class(iris[,2])
 ```
 
-&nbps;
+&nbsp;
 
 What if we only ask for one dimension in data frame?
 
@@ -308,7 +312,7 @@ index <- c(F,T,T,F,F,F,T,F,F,F)
 dat[index,]
 ```
 
-&nbsp,
+&nbsp;
 
 Logical indexing is one of the most powerful subsetting techniques in R. Generally, we won't be manually defining the index vector, but using R to generate the appropriate logical vector. We will go into more depth in the *On Your Own*, but let's look at an example and a few simple exercises to look at how logical indexing may be used in practice.
 

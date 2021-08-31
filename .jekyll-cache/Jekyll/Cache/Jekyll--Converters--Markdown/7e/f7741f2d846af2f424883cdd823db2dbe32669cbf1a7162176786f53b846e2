@@ -1,4 +1,4 @@
-I"yp<h2 id="in-class">In Class</h2>
+I"‡q<h2 id="in-class">In Class</h2>
 
 <h3 id="data-frames">Data Frames</h3>
 
@@ -181,6 +181,10 @@ R in relation to diversity of data types they can contain.</p>
 </span></code></pre></div></div>
 
 <p>Â </p>
+
+<p>For reference, here are images of the flowers from the three iris species from the <code class="language-plaintext highlighter-rouge">iris</code> dataset:</p>
+
+<p><img src="../fig/iris-images.png" alt="The three iris species references in the `iris` dataset" /></p>
 
 <p>There are many ways to interact with <strong>data frames</strong> and get information about their contents. We have seen some of these previously:</p>
 
