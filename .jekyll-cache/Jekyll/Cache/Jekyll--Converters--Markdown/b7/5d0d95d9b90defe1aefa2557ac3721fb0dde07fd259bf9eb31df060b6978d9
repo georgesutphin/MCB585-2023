@@ -1,4 +1,4 @@
-I"5W<h2 id="in-class">In Class</h2>
+I"lW<h2 id="in-class">In Class</h2>
 
 <h3 id="basic-data-types-in-r">Basic Data Types in R</h3>
 
@@ -572,7 +572,7 @@ how can we obtain the first four characters in reverse order?</p>
       <p>Given 1-3, what do you expect <code class="language-plaintext highlighter-rouge">animal[-1:-4]</code> to produce?</p>
     </li>
     <li>
-      <p>Use a subset of the <code class="language-plaintext highlighter-rouge">animal</code> vector to create a new character vector that spells the word “main”, i.e. <code class="language-plaintext highlighter-rouge">c("m", "a", "i", "n")</code>.</p>
+      <p>Use a subset of the <code class="language-plaintext highlighter-rouge">animal</code> vector to create a new character vector that spells the word “yoke”, i.e. <code class="language-plaintext highlighter-rouge">c("y", "o", "k", "e")</code>.</p>
     </li>
   </ol>
 
@@ -613,13 +613,13 @@ which is equivalent to <code class="language-plaintext highlighter-rouge">animal
 </code></pre></div>        </div>
       </li>
       <li>
-        <p><code class="language-plaintext highlighter-rouge">animal[c(5,2,3)]</code> combines indexing with the <code class="language-plaintext highlighter-rouge">c</code>ombine function to 
-spell the word “eon” in a new vector:</p>
+        <p><code class="language-plaintext highlighter-rouge">animal[c(6,2,4,5)]</code> combines indexing with the <code class="language-plaintext highlighter-rouge">c</code>ombine function to 
+spell the word “yoke” in a new vector:</p>
 
-        <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="n">animal</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">5</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">3</span><span class="p">)]</span><span class="w">
+        <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="n">animal</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">6</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">5</span><span class="p">)]</span><span class="w">
 </span></code></pre></div>        </div>
 
-        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "e" "o" "n"
+        <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code> [1] "y" "o" "k" "e"
 </code></pre></div>        </div>
       </li>
     </ol>

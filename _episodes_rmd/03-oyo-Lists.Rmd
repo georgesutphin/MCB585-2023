@@ -207,7 +207,7 @@ l.vs.w[[3]]
 ***
 ### Data frames are specialized lists
 
-At its heart, the **data frame** is a special type of **list** in which every element is a **vector** with the same length as every other element. In other words, a data frame is a "rectangular" or two-dimensional list). 
+At its heart, the **data frame** is a special type of **list** in which every element is a **vector** with the same length as every other element. In other words, a data frame is a "rectangular" or "two-dimensional" list. 
 
 ```{r}
 dat <- data.frame(id = letters[1:10], x = 1:10, y = 11:20)
@@ -216,7 +216,7 @@ dat
 
 &nbsp;
 
-we can see that R consideres a **data frame** a **list** using the `is.list()` function, and by examining the underlying data type:
+we can see that R considers a **data frame** a **list** using the `is.list()` function, and by examining the underlying data type:
 
 ```{r}
 is.list(dat)
@@ -317,7 +317,7 @@ iris[iris$Species == 'setosa', ]
 > 
 > > ## Solution
 > > ```{r}
-> > iris.new <- iris[iris$Sepal.Length > 5,]
+> > iris.new <- iris[iris$Sepal.Length >= 5,]
 > > ```
 > {: .solution}
 {: .challenge}
@@ -359,7 +359,7 @@ extremes
 ```
 &nbsp;
 
-Note the use of parentheses `()` to break up each logical operation. These are not always absolutely necessary, but always assist the coder breakup the order of operations with complex statements.
+Note the use of parentheses `()` to break up each logical operation. These are not always absolutely necessary for the code to run properly, but are generally a good idea to use because they always assist you (the coder) to explicitly breakup the order of operations with complex statements.
 
 &nbsp; 
 #### Combined indexing
@@ -430,7 +430,7 @@ Say you discover that the values collected for the petal length of the `setosa` 
 # copy the data frame (never modify your raw data!)
 iris.corrected <- iris
 iris.corrected$Petal.Length[iris.corrected$Species == "setosa"] <- NA
-head(iris.corrected)
+iris.corrected
 ```
 
 &nbsp;

@@ -267,6 +267,10 @@ Let's start by looking at the documentation for the `iris` data set:
 
 &nbsp;
 
+For reference, here are images of the flowers from the three iris species from the `iris` dataset:
+
+<img src="../fig/iris-images.png" alt="The three iris species references in the `iris` dataset" />
+
 There are many ways to interact with **data frames** and get information about their contents. We have seen some of these previously:
 
 > ## Useful Data Frame Functions
