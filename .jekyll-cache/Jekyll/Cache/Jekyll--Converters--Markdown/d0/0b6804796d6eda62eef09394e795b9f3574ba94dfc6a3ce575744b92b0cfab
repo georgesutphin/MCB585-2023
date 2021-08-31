@@ -1,4 +1,4 @@
-I"�q<h2 id="in-class">In Class</h2>
+I"wq<h2 id="in-class">In Class</h2>
 
 <h3 id="data-frames">Data Frames</h3>
 
@@ -400,7 +400,7 @@ R in relation to diversity of data types they can contain.</p>
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "numeric"
 </code></pre></div></div>
 
-<p>&amp;nbps;</p>
+<p> </p>
 
 <p>What if we only ask for one dimension in data frame?</p>
 
@@ -683,7 +683,7 @@ the indicated column.</p>
 7  g 7 17
 </code></pre></div></div>
 
-<p>&amp;nbsp,</p>
+<p> </p>
 
 <p>Logical indexing is one of the most powerful subsetting techniques in R. Generally, we won’t be manually defining the index vector, but using R to generate the appropriate logical vector. We will go into more depth in the <em>On Your Own</em>, but let’s look at an example and a few simple exercises to look at how logical indexing may be used in practice.</p>
 
