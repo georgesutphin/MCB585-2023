@@ -574,7 +574,7 @@ class(iris[,2])
 ~~~
 {: .output}
 
-&nbps;
+&nbsp;
 
 What if we only ask for one dimension in data frame?
 
@@ -915,7 +915,7 @@ dat[index,]
 ~~~
 {: .output}
 
-&nbsp,
+&nbsp;
 
 Logical indexing is one of the most powerful subsetting techniques in R. Generally, we won't be manually defining the index vector, but using R to generate the appropriate logical vector. We will go into more depth in the *On Your Own*, but let's look at an example and a few simple exercises to look at how logical indexing may be used in practice.
 
