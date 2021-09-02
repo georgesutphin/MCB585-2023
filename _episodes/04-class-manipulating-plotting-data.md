@@ -1009,19 +1009,76 @@ Now we can see that the *Iris setosa* species has the small petals.
 > > # Now, since we don't have the underlying numeric structure of the 
 > > # factor, we need a  way to generate the same index list with a 
 > > # character vector. We can do this using the match() function.
-> > species.list <- unique(iris2$Species) # first grab the species list 
-> > using unique()
+> > species.list <- unique(iris2$Species) # first grab the species list using unique()
 > > species.list
+> > ~~~
+> > {: .language-r}
 > > 
-> > # For each element in the first list, match() essentially asks R "where > > # is this element in the second list?" It returns the numeric position, > > # or index.
+> > 
+> > 
+> > ~~~
+> > [1] "setosa"     "versicolor" "virginica" 
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > # For each element in the first list, match() essentially asks R "where 
+> > # is this element in the second list?" It returns the numeric position, 
+> > # or index.
 > > species.index <- match(iris$Species, species.list)
 > > species.index
+> > ~~~
+> > {: .language-r}
 > > 
+> > 
+> > 
+> > ~~~
+> >   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+> >  [38] 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+> >  [75] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3
+> > [112] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+> > [149] 3 3
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
 > > # And we use the species.index in place of iris$Species to do the 
 > > # indexing and generate our color list for each point on the plot
 > > col.vector <- col.list[species.index]
 > > col.vector
+> > ~~~
+> > {: .language-r}
 > > 
+> > 
+> > 
+> > ~~~
+> >   [1] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+> >  [10] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+> >  [19] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+> >  [28] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+> >  [37] "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"   "red"  
+> >  [46] "red"   "red"   "red"   "red"   "red"   "blue"  "blue"  "blue"  "blue" 
+> >  [55] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+> >  [64] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+> >  [73] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+> >  [82] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+> >  [91] "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue"  "blue" 
+> > [100] "blue"  "green" "green" "green" "green" "green" "green" "green" "green"
+> > [109] "green" "green" "green" "green" "green" "green" "green" "green" "green"
+> > [118] "green" "green" "green" "green" "green" "green" "green" "green" "green"
+> > [127] "green" "green" "green" "green" "green" "green" "green" "green" "green"
+> > [136] "green" "green" "green" "green" "green" "green" "green" "green" "green"
+> > [145] "green" "green" "green" "green" "green" "green"
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
 > > # Finally, we can generate our plot. Note that we now use 
 > > # "species.list" in place of "levels(iris$Species)" for the legend
 > > plot(iris2$Petal.Length, iris2$Petal.Width,
@@ -1031,15 +1088,7 @@ Now we can see that the *Iris setosa* species has the small petals.
 > > ~~~
 > > {: .language-r}
 > > 
-> > 
-> > 
-> > ~~~
-> > Error: <text>:5:7: unexpected symbol
-> > 4: species.list <- unique(iris2$Species) # first grab the species list 
-> > 5: using unique
-> >          ^
-> > ~~~
-> > {: .error}
+> > <img src="../fig/rmd-04-class-manipulating-plotting-data-unnamed-chunk-38-1.png" title="plot of chunk unnamed-chunk-38" alt="plot of chunk unnamed-chunk-38" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
