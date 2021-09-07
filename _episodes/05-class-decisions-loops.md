@@ -210,7 +210,6 @@ The first argument is the `if` test, the second is the code to execute if the te
 
 
 ~~~
-# First - reload the data with headers
 carSpeeds <- read.csv(file = 'data/car-speeds.csv')
 head(carSpeeds)
 ~~~
@@ -746,11 +745,11 @@ Almost, but not quite there. If we want to be more specific, the search string g
 > 
 > <figure>
 >   <!-- <img src="../fig/xkcd-regex.png" alt="XKCD #208: Regular Expressions" /> -->
->   <img src="https://imgs.xkcd.com/comics/regular_expressions.png" alt="XXKCD #208: Regular Expressions" />
+>   <img src="https://imgs.xkcd.com/comics/regular_expressions.png" alt="XKCD #208: Regular Expressions" />
 >   <figcaption>Image credit <a href="https://xkcd.com/208/">xkcd.com</a></figcaption>
 > </figure>
 >
-> Regular expression are a whole separate language in to themselves
+> Regular expression are a whole separate language into themselves
 > and there are many resources online for learning to use and test 
 > regex. Here are a couple that I have used:
 > * [RegexOne](https://regexone.com/) -- regular expression tutorials

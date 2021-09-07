@@ -182,7 +182,8 @@ Beyond that, the best way to learn how to use `if` statements effectively is to 
 > > ## Hint 4
 > >
 > > The `ifelse()` function is a vectorized version of an `if` and `else` 
-> > statement that allows you to return one of two values based on a relational > > comparison that returns a logical statement.
+> > statement that allows you to return one of two values based on a relational 
+> > comparison that returns a logical statement.
 > {: .solution}
 >
 > > ## Solution

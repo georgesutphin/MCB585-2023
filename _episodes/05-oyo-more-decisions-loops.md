@@ -190,7 +190,8 @@ Beyond that, the best way to learn how to use `if` statements effectively is to 
 > > ## Hint 4
 > >
 > > The `ifelse()` function is a vectorized version of an `if` and `else` 
-> > statement that allows you to return one of two values based on a relational > > comparison that returns a logical statement.
+> > statement that allows you to return one of two values based on a relational 
+> > comparison that returns a logical statement.
 > {: .solution}
 >
 > > ## Solution
@@ -697,8 +698,8 @@ gc() # clean things up first
 
 ~~~
          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 508246 27.2    1132840 60.6   638582 34.2
-Vcells 978473  7.5    8388608 64.0  1632875 12.5
+Ncells 511625 27.4    1139902 60.9   643765 34.4
+Vcells 986046  7.6    8388608 64.0  1732710 13.3
 ~~~
 {: .output}
 
@@ -716,7 +717,7 @@ system.time(avg <- for(i in 1:100) {analyze(inflam.files)})
 
 ~~~
    user  system elapsed 
-   2.06    0.17    2.23 
+   1.75    0.22    1.97 
 ~~~
 {: .output}
 
@@ -731,7 +732,7 @@ system.time(avg <- for(i in 1:100) {analyze2(inflam.files)})
 
 ~~~
    user  system elapsed 
-   1.91    0.24    2.14 
+   1.92    0.08    2.00 
 ~~~
 {: .output}
 
