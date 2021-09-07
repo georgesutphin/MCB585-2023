@@ -134,7 +134,6 @@ R includes the function `ifelse()` to make if/else statements more efficient in 
 The first argument is the `if` test, the second is the code to execute if the test is `TRUE`, the third argument is the code to execute if the test is `FALSE`. This format is also vectorized, which provides us a useful way to run the same if/else statement on each element of an input vector. Let's use our `carSpeeds` data set to repeat the replacement of `"Blue"` with `"Green"` in the car color variable, as we did in an earlier lesson, but this time using `ifelse()`:
 
 ```{r}
-# First - reload the data with headers
 carSpeeds <- read.csv(file = 'data/car-speeds.csv')
 head(carSpeeds)
 
@@ -441,11 +440,11 @@ Almost, but not quite there. If we want to be more specific, the search string g
 > 
 > <figure>
 >   <!-- <img src="../fig/xkcd-regex.png" alt="XKCD #208: Regular Expressions" /> -->
->   <img src="https://imgs.xkcd.com/comics/regular_expressions.png" alt="XXKCD #208: Regular Expressions" />
+>   <img src="https://imgs.xkcd.com/comics/regular_expressions.png" alt="XKCD #208: Regular Expressions" />
 >   <figcaption>Image credit <a href="https://xkcd.com/208/">xkcd.com</a></figcaption>
 > </figure>
 >
-> Regular expression are a whole separate language in to themselves
+> Regular expression are a whole separate language into themselves
 > and there are many resources online for learning to use and test 
 > regex. Here are a couple that I have used:
 > * [RegexOne](https://regexone.com/) -- regular expression tutorials

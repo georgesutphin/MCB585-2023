@@ -1,4 +1,4 @@
-I"†ù<h2 id="in-class">In Class</h2>
+I".ù<h2 id="in-class">In Class</h2>
 
 <p>Our previous lessons have shown us how to read and manipulate data, define our own functions, calculate basic statistics, and generate basic charts. However, the programs we have written so far always do the same things, regardless of what data theyâ€™re given. We want programs to make choices based on the values they are manipulating.</p>
 
@@ -120,8 +120,7 @@
 
 <p>The first argument is the <code class="language-plaintext highlighter-rouge">if</code> test, the second is the code to execute if the test is <code class="language-plaintext highlighter-rouge">TRUE</code>, the third argument is the code to execute if the test is <code class="language-plaintext highlighter-rouge">FALSE</code>. This format is also vectorized, which provides us a useful way to run the same if/else statement on each element of an input vector. Letâ€™s use our <code class="language-plaintext highlighter-rouge">carSpeeds</code> data set to repeat the replacement of <code class="language-plaintext highlighter-rouge">"Blue"</code> with <code class="language-plaintext highlighter-rouge">"Green"</code> in the car color variable, as we did in an earlier lesson, but this time using <code class="language-plaintext highlighter-rouge">ifelse()</code>:</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># First - reload the data with headers</span><span class="w">
-</span><span class="n">carSpeeds</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'data/car-speeds.csv'</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">carSpeeds</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'data/car-speeds.csv'</span><span class="p">)</span><span class="w">
 </span><span class="n">head</span><span class="p">(</span><span class="n">carSpeeds</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
@@ -546,11 +545,11 @@ specific characteristics in textual data.</p>
 
   <figure>
   <!-- <img src="../fig/xkcd-regex.png" alt="XKCD #208: Regular Expressions" /> -->
-  <img src="https://imgs.xkcd.com/comics/regular_expressions.png" alt="XXKCD #208: Regular Expressions" />
+  <img src="https://imgs.xkcd.com/comics/regular_expressions.png" alt="XKCD #208: Regular Expressions" />
   <figcaption>Image credit <a href="https://xkcd.com/208/">xkcd.com</a></figcaption>
 </figure>
 
-  <p>Regular expression are a whole separate language in to themselves
+  <p>Regular expression are a whole separate language into themselves
 and there are many resources online for learning to use and test 
 regex. Here are a couple that I have used:</p>
   <ul>

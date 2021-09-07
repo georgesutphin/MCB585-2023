@@ -1,4 +1,4 @@
-I"�h<h3 id="on-your-own">On Your Own</h3>
+I"�h<h3 id="on-your-own">On Your Own</h3>
 
 <h4 id="conditional-statements--additional-detail">Conditional statements – additional detail</h4>
 
@@ -164,7 +164,8 @@ length) to return corresponding values.</p>
     <h2 id="hint-4">Hint 4</h2>
 
     <p>The <code class="language-plaintext highlighter-rouge">ifelse()</code> function is a vectorized version of an <code class="language-plaintext highlighter-rouge">if</code> and <code class="language-plaintext highlighter-rouge">else</code> 
-statement that allows you to return one of two values based on a relational &gt; &gt; comparison that returns a logical statement.</p>
+statement that allows you to return one of two values based on a relational 
+comparison that returns a logical statement.</p>
   </blockquote>
 
   <blockquote class="solution">
@@ -554,8 +555,8 @@ assign “large” if the flower is larger or “small” if not.</p>
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>         used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 508246 27.2    1132840 60.6   638582 34.2
-Vcells 978473  7.5    8388608 64.0  1632875 12.5
+Ncells 511625 27.4    1139902 60.9   643765 34.4
+Vcells 986046  7.6    8388608 64.0  1732710 13.3
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># one call to each function does not always show the difference. To </span><span class="w">
@@ -565,14 +566,14 @@ Vcells 978473  7.5    8388608 64.0  1632875 12.5
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   user  system elapsed 
-   2.06    0.17    2.23 
+   1.75    0.22    1.97 
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">system.time</span><span class="p">(</span><span class="n">avg</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="n">analyze2</span><span class="p">(</span><span class="n">inflam.files</span><span class="p">)})</span><span class="w">
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   user  system elapsed 
-   1.91    0.24    2.14 
+   1.92    0.08    2.00 
 </code></pre></div></div>
 
 <p> </p>
