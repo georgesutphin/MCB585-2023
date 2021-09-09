@@ -38,7 +38,7 @@ To this end, this lesson will begin to build a practical framework for thinking 
 ***
 ### Populations and samples
 
-Statistics is concerned with the study of data. The basic process for an experiment is to:
+Statistics is concerned with the study of data. The basic process for conducting an experiment is to:
 1. Identify your population of interest.
 2. Formulate a hypothesis.
 3. Select a sample (i.e. a subset of your population).
@@ -109,9 +109,12 @@ The sampling distribution has several key features in relation to the population
 > states that the sampling distribution of the sample means of a random variable 
 > approaches the normal distribution as the sample size increases. 
 > 
-> While the question of "how large is large enough", a good rule of thumb is that 
-> your sampling distribution will be approximately normal for n > 30, so long as your 
-> population  distribution is not too far from normal.
+> While the question of "how large is large enough" is 
+> difficult to answer precisely, as it depends on the shape of 
+> your population distribution, a good rule of thumb is that 
+> your sampling distribution will be approximately normal for 
+> n > 30, so long as your population  distribution is not too 
+> far from normal.
 {: .callout}
 
 &nbsp;
