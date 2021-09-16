@@ -76,7 +76,7 @@ Right-censoring is the most common. This is particularly true when using a model
 > sample, and (2) make repeated observations until the event occurs, we 
 > already have observations collected up until the time point when an 
 > individual is censored. Removing the individual from the analysis 
-> removes potentially valuable data (e.g. the mouse live at least 18 
+> removes potentially valuable data (e.g. we know that the mouse lived at least 18 
 > months). Including these individuals with proper censoring will 
 > increase your statistical power to detect changes.
 {: .callout}
@@ -305,7 +305,7 @@ legend("topright", lty = 1,
 ***
 ### The log-rank test 
 
-Now that we can visualize our lifespan data, how do we conduct a hypothesis test to compare different groups? The most common test for lifespan data is the [log-rank Test](https://en.wikipedia.org/wiki/Logrank_test) (aka logrank or Mantel-Cox Test). The log-rank test makes the assumption that the survival functions ($$S(t)$$) are the same for the two groups under the null hypothesis (essentially, this means that any censoring is correlated with survival). What the test does it:
+Now that we can visualize our lifespan data, how do we conduct a hypothesis test to compare different groups? The most common test for lifespan data is the [log-rank test](https://en.wikipedia.org/wiki/Logrank_test) (aka logrank or Mantel-Cox test). The log-rank test makes the assumption that the survival functions ($$S(t)$$) are the same for the two groups under the null hypothesis (essentially, this means that any censoring is correlated with survival). What the test does it:
 
 1. Assume that the survival is equal and that any censoring does not impact the survival function.
 
