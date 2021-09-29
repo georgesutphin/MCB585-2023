@@ -1,4 +1,4 @@
-I"Y<h2 id="on-your-own">On Your Own</h2>
+I"�N<h2 id="on-your-own">On Your Own</h2>
 
 <p>Working with survival data in R is not straightforward and practice is useful for getting the hang of using the <code class="language-plaintext highlighter-rouge">Surv()</code> object and the functions for generating survival curves and running log-rank tests. For the most part, today’s <em>On Your Own</em> material consists of additional exercise, with one practical note for dealing with an odd data structure.</p>
 
@@ -108,7 +108,7 @@ to extract the life tables and calculate it manually. Let’s revisity the lifes
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr [1:2] "sex=f" "sex=m"
   .. ..$ : chr [1:9] "records" "n.max" "n.start" "events" ...
- $ rmean.endtime: num [1:2] 1027 1027
+ $ rmean.endtime: num [1:2] 1034 1034
  - attr(*, "class")= chr "summary.survfit"
 </code></pre></div></div>
 
@@ -602,7 +602,7 @@ Is this universally true for different mouse strains?</p>
   <ol>
     <li>Generate a PDF.</li>
     <li>On each page, plot female vs. male lifespan and mortality curves for one strain. Include
-the following on each plot (hint: use the <code class="language-plaintext highlighter-rouge">text()</code> function):
+the following on each plot (hint: use the <code class="language-plaintext highlighter-rouge">text()</code> or <code class="language-plaintext highlighter-rouge">mtext()</code> functions):
       <ul>
         <li>strain name</li>
         <li>Log-Rank P-value</li>
@@ -612,12 +612,89 @@ the following on each plot (hint: use the <code class="language-plaintext highli
     </li>
   </ol>
 
-  <p>I am leaving this one without a specified solution. You have the tools from 
-our <em>In Class</em> work and previous classes. You will know from the finished 
-PDF document when you have all of the elements in place. The goal is to 
-combine concepts from across the early section of the class to generate a 
-novel analysis pipeline and apply it repeatedly to similar data sets (i.e. 
-different mouse strains) using R to do the heavy lifting.</p>
+  <p>The goal here is to combine concepts from across the early section of the class 
+to generate a novel analysis pipeline and apply it repeatedly to similar data 
+sets (i.e. different mouse strains) using R to do the heavy lifting.</p>
+
+  <blockquote class="solution">
+    <h2 id="solution-3">Solution</h2>
+
+    <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load survival package (if you don't already have it loaded)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="s2">"survival"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># read in inbred strain lifespan data</span><span class="w">
+</span><span class="n">data.surv</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.delim</span><span class="p">(</span><span class="s2">"data/inbred.lifespan.txt"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># extract the list of strains in our data set</span><span class="w">
+</span><span class="n">strain.list</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">unique</span><span class="p">(</span><span class="n">data.surv</span><span class="o">$</span><span class="n">strain</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># initialize our PDF file with a 3" x 5" plot area (size is up to you)</span><span class="w">
+</span><span class="n">pdf</span><span class="p">(</span><span class="s2">"results/inbred.lifespan.by.strain.pdf"</span><span class="p">,</span><span class="w">
+    </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># cycle through each strain in the strain list to</span><span class="w">
+</span><span class="k">for</span><span class="p">(</span><span class="n">i.strain</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">strain.list</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="c1"># grab the name of the current strain</span><span class="w">
+  </span><span class="n">strain.c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">strain.list</span><span class="p">[</span><span class="n">i.strain</span><span class="p">]</span><span class="w">
+  
+  </span><span class="c1"># grab the subset of the lifespan data for the current strain</span><span class="w">
+  </span><span class="n">data.c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.surv</span><span class="p">[</span><span class="n">data.surv</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">strain.c</span><span class="p">,]</span><span class="w">
+
+  </span><span class="c1"># calculate life table for the current strain</span><span class="w">
+  </span><span class="n">survfit.c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">survfit</span><span class="p">(</span><span class="n">Surv</span><span class="p">(</span><span class="n">lifespan_days</span><span class="p">,</span><span class="w"> </span><span class="n">censor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">sex</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">data.c</span><span class="p">)</span><span class="w">
+  
+  </span><span class="c1"># check to see if this strain has data for both sexes. When you try to </span><span class="w">
+  </span><span class="c1"># skip this step, your logrank function will throw an error for CAST/EiJ,</span><span class="w">
+  </span><span class="c1"># which only has data for female mice. There are various ways to do this,</span><span class="w">
+  </span><span class="c1"># but I just checked to make sure that there were more than one values in </span><span class="w">
+  </span><span class="c1"># the "sex" column for the current strain. If there is only 1 value, set</span><span class="w">
+  </span><span class="c1"># the p-value to 1 by default, otherwise calculate it.</span><span class="w">
+  </span><span class="k">if</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">unique</span><span class="p">(</span><span class="n">data.c</span><span class="o">$</span><span class="n">sex</span><span class="p">))</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c1"># run the logrank test using the survdiff() function</span><span class="w">
+    </span><span class="n">logrank.c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">survdiff</span><span class="p">(</span><span class="n">Surv</span><span class="p">(</span><span class="n">lifespan_days</span><span class="p">,</span><span class="w"> </span><span class="n">censor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">sex</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.c</span><span class="p">)</span><span class="w">
+    
+    </span><span class="c1"># extract the chi-squared statistic and number of groups from the survdiff</span><span class="w">
+    </span><span class="c1"># object</span><span class="w">
+    </span><span class="n">chisq.c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">logrank.c</span><span class="o">$</span><span class="n">chisq</span><span class="w">
+    </span><span class="n">n.c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">logrank.c</span><span class="o">$</span><span class="n">n</span><span class="w">
+    
+    </span><span class="c1"># use these value to calculate the P-value from the chi-squared distribution</span><span class="w">
+    </span><span class="n">P.c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pchisq</span><span class="p">(</span><span class="n">chisq.c</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">n.c</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">lower.tail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span><span class="w">
+  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c1"># if there is only 1 sex in the current strain dataset, set p = 1</span><span class="w">
+    </span><span class="n">P.c</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  
+  </span><span class="c1"># Plot the Kaplan-Meier curve</span><span class="w">
+  </span><span class="n">plot</span><span class="p">(</span><span class="n">survfit.c</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Age (days)"</span><span class="p">,</span><span class="w"> 
+       </span><span class="n">ylab</span><span class="o">=</span><span class="s2">"Fraction surviving"</span><span class="p">,</span><span class="w"> 
+       </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"red"</span><span class="p">,</span><span class="s2">"blue"</span><span class="p">),</span><span class="w">
+       </span><span class="n">conf.int</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span><span class="w">              </span><span class="c1"># turn of confidence intervals</span><span class="w">
+       </span><span class="n">mark.time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">,</span><span class="w">            </span><span class="c1"># mark time of censor</span><span class="w">
+       </span><span class="n">main</span><span class="o">=</span><span class="n">paste0</span><span class="p">(</span><span class="n">strain.c</span><span class="p">,</span><span class="s2">" Lifespan"</span><span class="p">))</span><span class="w">
+  
+  </span><span class="c1"># add legend</span><span class="w">
+  </span><span class="n">legend</span><span class="p">(</span><span class="s2">"topright"</span><span class="p">,</span><span class="w"> </span><span class="n">lty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w">
+         </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"red"</span><span class="p">,</span><span class="s2">"blue"</span><span class="p">),</span><span class="w">
+         </span><span class="n">legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"f"</span><span class="p">,</span><span class="s2">"m"</span><span class="p">))</span><span class="w">  
+  
+  </span><span class="c1"># add P value to plot (you can use either text or mtext here).</span><span class="w">
+  </span><span class="c1"># I used round() to limit the number of decimal places printed.</span><span class="w">
+  </span><span class="n">mtext</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">"P = "</span><span class="p">,</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">P.c</span><span class="p">,</span><span class="w"> </span><span class="n">digits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="p">)),</span><span class="w"> 
+        </span><span class="n">side</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="c1"># print on the bottom</span><span class="w">
+        </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-1.2</span><span class="p">,</span><span class="w"> </span><span class="c1"># use negative numbers to move "inward"/up on the plot</span><span class="w">
+        </span><span class="n">font</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="c1"># bold font</span><span class="w">
+        </span><span class="n">adj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.03</span><span class="p">)</span><span class="w"> </span><span class="c1"># left justify (0) plus a bit (0.03) to print in bottom left</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c1"># turn off PDF graphics device</span><span class="w">
+</span><span class="n">dev.off</span><span class="p">()</span><span class="w">
+</span></code></pre></div>    </div>
+
+    <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>png 
+  2 
+</code></pre></div>    </div>
+  </blockquote>
 </blockquote>
 
 <hr />

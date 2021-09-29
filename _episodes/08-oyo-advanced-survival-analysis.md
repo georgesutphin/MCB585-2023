@@ -143,7 +143,7 @@ List of 19
   ..- attr(*, "dimnames")=List of 2
   .. ..$ : chr [1:2] "sex=f" "sex=m"
   .. ..$ : chr [1:9] "records" "n.max" "n.start" "events" ...
- $ rmean.endtime: num [1:2] 1027 1027
+ $ rmean.endtime: num [1:2] 1034 1034
  - attr(*, "class")= chr "summary.survfit"
 ~~~
 {: .output}
@@ -724,18 +724,101 @@ Note that these plots can be somewhat sensitive to time periods during the lifes
 > Write a script that does the following using the `inbred.lifespan.txt` data:
 > 1. Generate a PDF.
 > 2. On each page, plot female vs. male lifespan and mortality curves for one strain. Include
-> the following on each plot (hint: use the `text()` function):
+> the following on each plot (hint: use the `text()` or `mtext()` functions):
 >  + strain name
 >  + Log-Rank P-value
 >  + Tick marks to indicate time of censoring
 >  + Legend to show female vs. male colors
 >
->  I am leaving this one without a specified solution. You have the tools from 
-> our *In Class* work and previous classes. You will know from the finished 
-> PDF document when you have all of the elements in place. The goal is to 
-> combine concepts from across the early section of the class to generate a 
-> novel analysis pipeline and apply it repeatedly to similar data sets (i.e. 
-> different mouse strains) using R to do the heavy lifting.
+> The goal here is to combine concepts from across the early section of the class 
+> to generate a novel analysis pipeline and apply it repeatedly to similar data 
+> sets (i.e. different mouse strains) using R to do the heavy lifting.
+> 
+> > ## Solution
+> > 
+> > 
+> > ~~~
+> > # load survival package (if you don't already have it loaded)
+> > library("survival")
+> > 
+> > # read in inbred strain lifespan data
+> > data.surv <- read.delim("data/inbred.lifespan.txt")
+> > 
+> > # extract the list of strains in our data set
+> > strain.list <- unique(data.surv$strain)
+> > 
+> > # initialize our PDF file with a 3" x 5" plot area (size is up to you)
+> > pdf("results/inbred.lifespan.by.strain.pdf",
+> >     width = 6, height = 4)
+> > 
+> > # cycle through each strain in the strain list to
+> > for(i.strain in 1:length(strain.list)) {
+> >   # grab the name of the current strain
+> >   strain.c <- strain.list[i.strain]
+> >   
+> >   # grab the subset of the lifespan data for the current strain
+> >   data.c <- data.surv[data.surv$strain == strain.c,]
+> > 
+> >   # calculate life table for the current strain
+> >   survfit.c <- survfit(Surv(lifespan_days, censor == 0) ~ sex, data=data.c)
+> >   
+> >   # check to see if this strain has data for both sexes. When you try to 
+> >   # skip this step, your logrank function will throw an error for CAST/EiJ,
+> >   # which only has data for female mice. There are various ways to do this,
+> >   # but I just checked to make sure that there were more than one values in 
+> >   # the "sex" column for the current strain. If there is only 1 value, set
+> >   # the p-value to 1 by default, otherwise calculate it.
+> >   if(length(unique(data.c$sex)) > 1) {
+> >     # run the logrank test using the survdiff() function
+> >     logrank.c <- survdiff(Surv(lifespan_days, censor == 0) ~ sex, data = data.c)
+> >     
+> >     # extract the chi-squared statistic and number of groups from the survdiff
+> >     # object
+> >     chisq.c <- logrank.c$chisq
+> >     n.c <- logrank.c$n
+> >     
+> >     # use these value to calculate the P-value from the chi-squared distribution
+> >     P.c <- pchisq(chisq.c, length(n.c) - 1, lower.tail = F)
+> >   } else {
+> >     # if there is only 1 sex in the current strain dataset, set p = 1
+> >     P.c <- 1
+> >   }
+> >   
+> >   # Plot the Kaplan-Meier curve
+> >   plot(survfit.c, xlab = "Age (days)", 
+> >        ylab="Fraction surviving", 
+> >        col = c("red","blue"),
+> >        conf.int=FALSE,              # turn of confidence intervals
+> >        mark.time = TRUE,            # mark time of censor
+> >        main=paste0(strain.c," Lifespan"))
+> >   
+> >   # add legend
+> >   legend("topright", lty = 1,
+> >          col = c("red","blue"),
+> >          legend = c("f","m"))  
+> >   
+> >   # add P value to plot (you can use either text or mtext here).
+> >   # I used round() to limit the number of decimal places printed.
+> >   mtext(paste0("P = ", round(P.c, digits = 4)), 
+> >         side = 1, # print on the bottom
+> >         line = -1.2, # use negative numbers to move "inward"/up on the plot
+> >         font = 2, # bold font
+> >         adj = 0.03) # left justify (0) plus a bit (0.03) to print in bottom left
+> > }
+> > 
+> > # turn off PDF graphics device
+> > dev.off()
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > png 
+> >   2 
+> > ~~~
+> > {: .output}
+> {: .solution}
 {: .challenge}
 
 ***
