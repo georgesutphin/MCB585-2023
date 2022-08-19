@@ -1,6 +1,6 @@
 ---
 title: "Decision Making and Loops"
-classdate: "9/7/2021 -- In Class"
+classdate: "9/6/2022 -- In Class"
 teaching: 90
 exercises: 30
 questions:

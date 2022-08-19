@@ -1,6 +1,6 @@
 ---
 title: "Multiple Test Correction"
-classdate: "9/14/2021 -- On Your Own"
+classdate: "9/13/2022 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:
