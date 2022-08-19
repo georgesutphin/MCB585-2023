@@ -1,6 +1,6 @@
 ---
 title: "Getting started with R and RStudio -- Additional Detail"
-classdate: "8/24/2021 -- On Your Own"
+classdate: "8/23/2022 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:
@@ -161,7 +161,7 @@ Any detail that you can add will help you down the line.
 
 Many scripts will require tools that are not available in the the base R language and will require one or more add-on packages. There are hundreds of packages available for numerous specialized applications, and we will be using several in this course. Installing and loading these packages is outlined below. 
 
-Loading any necessary packages up front (using `library`) is a nice way of indicating which packages are necessary to run your code. It can be frustrating to make it two-thirds of the way through a long-running script only to find out that a critical dependency hasn't been installed. It is good practice to load all required pacakges early in your script using a section like this:
+Loading any necessary packages up front (using `library`) is a nice way of indicating which packages are necessary to run your code. It can be frustrating to make it two-thirds of the way through a long-running script only to find out that a critical dependency hasn't been installed. It is good practice to load all required packages early in your script using a section like this (this is just an example; you don't need to run this, and in fact, it won't work if you don't have the packages installed):
 
 ```{r loadpkgs, eval=FALSE}
 # Load required packages
@@ -236,7 +236,7 @@ source("my_genius_fxns.R")
 
 1. Keep your code in bite-sized chunks. If a single function or loop gets too long, consider looking for ways to break it into smaller pieces (e.g. write functions to carry out chunks of code all in one line; break complex analyses into multiple loops with intermediate results saved in between).
 
-2. Don't repeat yourself--automate! If you are repeating the same code over and over, use a loop or a function to repeat that code for you. Needless repetition doesn't just waste time--it also increases the likelihood you'll make a costly mistake.
+2. Don't repeat yourself--automate! If you are repeating the same code over and over, use a loop or a function to repeat that code for you. Needless repetition doesn't just waste time, it also increases the likelihood you'll make a costly mistake.
 
 3. Keep all of your source files for a project in the same directory, then use relative paths as necessary to access them. For example, to load data use:
 
@@ -342,7 +342,7 @@ y
 
 &nbsp;
 
-You can also remove variables one at a time.
+R throws an error message when you ask it to return the values of `x` or `y` because you just removed both variables from memory--R no longer knows they exist. You can also remove variables one at a time.
 
 ```{r}
 # again, define a few test variables and check your workspace
@@ -488,7 +488,7 @@ When you enter either command, notice that the **Help** panel opens (lower right
 
 Perhaps the most valuable resource available to both basic and advanced R users is the vast online community. Many people are actively using the R language for a variety of analysis tasks. You will find that most questions have already been asked and answered on one of the various online forums. If you can't find the answer, sign up for a forum and post your question. You will generally get an answer (or a pointer to another forum where the question has already been answered) within a day or two.
 
-To find answers, the simplest way is to just type what you are trying to do into Google. Preceeding your question with "R" will tend to find questions within the R community: 
+To find answers, the simplest way is to just type what you are trying to do into Google. Preceding your question with "R" will tend to find questions within the R community: 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*R calculate standard deviation*
 

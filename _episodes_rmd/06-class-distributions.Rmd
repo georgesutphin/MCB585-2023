@@ -1,6 +1,6 @@
 ---
 title: "Distributions and Normality"
-classdate: "9/9/2021 -- In Class"
+classdate: "9/8/2022 -- In Class"
 teaching: 90
 exercises: 30
 questions:

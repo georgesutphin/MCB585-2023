@@ -1,11 +1,11 @@
-I"[<h2 id="final-project-details">Final project details</h2>
+I"~<h2 id="final-project-details">Final project details</h2>
 
 <p>MCB585 will culminate in the completion of individual final projects for each student. The goal of these projects is to apply the skills learned in this course to a novel large dataset to evaluate a hypothesis, design an experiment, or explore the behavior of a system.</p>
 
 <p>Each project will consist of three parts:</p>
 
 <ol>
-  <li><strong>Proposal (due 11/4/2021).</strong> Each student should submit a written proposal (~1/2 page) that outlines the following:
+  <li><strong>Proposal (due 11/3/2022).</strong> Each student should submit a written proposal (~1/2 page) that outlines the following:
     <ul>
       <li>The question being addressed.</li>
       <li>o	The dataset(s) to be used, with descriptive details (e.g. number of samples, variables of interest, potential confounding variables). If an unpublished dataset is being used, the data should be included with the proposal. For large datasets (e.g. outputs from high-throughput systems, genomic data) please provide one example input file in fastq, counts (or another appropriate format) through Box, Microsoft OneDrive, Dropbox, or Google Drive. For large microscopy datasets, a sample image should be provided.</li>
@@ -25,10 +25,10 @@
 
 <ol>
   <li>
-    <p><strong>Report and code (due 11/30/2021).</strong> A brief (~1 page) report describing the findings of the project should be turned in once analysis is complete. The report should include, as a separate attachment in addition to the report, a well-documented R or MATLAB script or scripts that can be run to reproduce the analysis presented.</p>
+    <p><strong>Report and code (due 11/29/2022).</strong> A brief (1-2 pages of text plus figures) report describing the findings of the project should be turned in once analysis is complete. The report should include, as a separate attachment in addition to the report, a well-documented R or MATLAB script or scripts that can be run to reproduce the analysis presented.</p>
   </li>
   <li>
-    <p><strong>Presentations (11/30/2021, 12/2/2021, 12/7/2021).</strong> During the last 3 days of class, each student will give a 10-15 minute presentation describing:</p>
+    <p><strong>Presentations (11/22/2022, 11/29/2022, 12/1/2022, 12/6/2022).</strong> During the last 4 days of class, each student will give a 10-15 minute presentation describing:</p>
     <ul>
       <li>The biological question that they chose to explore.</li>
       <li>The computational approach that they used in their analysis.</li>

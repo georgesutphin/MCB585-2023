@@ -1,6 +1,6 @@
 ---
 title: "Hypothesis Testing"
-classdate: "9/14/2021 -- In Class"
+classdate: "9/13/2022 -- In Class"
 teaching: 90
 exercises: 30
 questions:

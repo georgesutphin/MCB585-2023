@@ -1,6 +1,6 @@
 ---
 title: "Advanced Data Manipulation and Plotting"
-classdate: "9/2/2021 -- On Your Own"
+classdate: "9/1/2022 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:
