@@ -1,4 +1,4 @@
-I"lW<h2 id="in-class">In Class</h2>
+I"eW<h2 id="in-class">In Class</h2>
 
 <h3 id="basic-data-types-in-r">Basic Data Types in R</h3>
 
@@ -12,7 +12,7 @@
 
 <p> </p>
 
-<p>Use the <code class="language-plaintext highlighter-rouge">class()</code> function to determine the of a variable:</p>
+<p>Use the <code class="language-plaintext highlighter-rouge">class()</code> function to determine the type of a variable:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">char1</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -101,7 +101,7 @@ Line 2
 
 <p> </p>
 
-<p>There are many functions for manipulating character data types. Two examples are <code class="language-plaintext highlighter-rouge">paste()</code>, which combines text strings into a single variable separated by spaces (<code class="language-plaintext highlighter-rouge">paste0()</code> does the same without the spaces):</p>
+<p>There are many functions for manipulating character data types. Two examples are <code class="language-plaintext highlighter-rouge">paste()</code>, which combines text strings into a single variable separated by spaces. <code class="language-plaintext highlighter-rouge">paste0()</code> does the same without the spaces):</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">paste</span><span class="p">(</span><span class="s2">"Hello"</span><span class="p">,</span><span class="s2">"world!"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -179,7 +179,7 @@ Line 2
 
 <p>Some character functions automatically treat numbers (e.g. <code class="language-plaintext highlighter-rouge">12</code>) as the character equivalent (<code class="language-plaintext highlighter-rouge">"12"</code>):</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sub</span><span class="p">(</span><span class="s2">"2"</span><span class="p">,</span><span class="s2">"4"</span><span class="p">,</span><span class="n">dozen</span><span class="p">)</span><span class="w">
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sub</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="s2">"4"</span><span class="p">,</span><span class="n">dozen</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
 <div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "14"
@@ -755,7 +755,7 @@ what output it produces.</p>
   <li><strong>attributes</strong> – a list containing other forms of metadata of more complex objects</li>
 </ul>
 
-<p>While technically not assigned <em>attributes</em>, you can also glean other attribute-like metadata information from objects such as length (works on vectors and lists) or number of characters (for character strings).</p>
+<p>While technically not <em>attributes</em>, you can also glean other attribute-like metadata information from objects such as length (works on vectors and lists) or number of characters (for character strings).</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">length</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
