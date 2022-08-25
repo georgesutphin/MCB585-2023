@@ -42,7 +42,7 @@ logic2 <- F # T or F also work
 
 &nbsp;
 
-Use the `class()` function to determine the of a variable:
+Use the `class()` function to determine the type of a variable:
 
 
 ~~~
@@ -200,7 +200,7 @@ Single\backslash.
 
 &nbsp;
 
-There are many functions for manipulating character data types. Two examples are `paste()`, which combines text strings into a single variable separated by spaces (`paste0()` does the same without the spaces):
+There are many functions for manipulating character data types. Two examples are `paste()`, which combines text strings into a single variable separated by spaces. `paste0()` does the same without the spaces):
 
 
 ~~~
@@ -348,7 +348,7 @@ Some character functions automatically treat numbers (e.g. `12`) as the characte
 
 
 ~~~
-sub("2","4",dozen)
+sub(2,"4",dozen)
 ~~~
 {: .language-r}
 
@@ -1231,7 +1231,7 @@ R objects can have **attributes**. Attributes are metadata and part of the objec
 * **class** -- the data type of an object
 * **attributes** -- a list containing other forms of metadata of more complex objects
 
-While technically not assigned *attributes*, you can also glean other attribute-like metadata information from objects such as length (works on vectors and lists) or number of characters (for character strings).
+While technically not *attributes*, you can also glean other attribute-like metadata information from objects such as length (works on vectors and lists) or number of characters (for character strings).
 
 
 ~~~
