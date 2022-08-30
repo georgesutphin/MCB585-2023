@@ -29,7 +29,7 @@ knitr_fig_path("03-oyo-lists-")
 
 ### Lists
 
-**Lists** in R act as generalized containers. A **list** is a special type of vector, but unlike atomic vectors, the contents of a list are not restricted to a single mode and can encompass any mixture of data types. Lists are sometimes called "generic vectors"", because the elements of a list can be any type of R object, even lists containing further lists. This property makes them fundamentally different from atomic vectors.
+**Lists** in R act as generalized containers. A **list** is a special type of vector, but unlike atomic vectors, the contents of a list are not restricted to a single mode and can encompass any mixture of data types. Lists are sometimes called "generic vectors", because the elements of a list can be any type of R object, even lists containing further lists. This property makes them fundamentally different from atomic vectors.
 
 Create **lists** using `list()`:
 
@@ -162,7 +162,7 @@ my.list[[1]]
 class(my.list[[1]])
 class(my.list[[2]])
 
-my.list <- list(x = x, y = y, z = x) # use the `=` to name your list elements
+my.list <- list(x = x, y = y, z = z) # use the `=` to name your list elements
 my.list$x
 ```
 
@@ -236,7 +236,7 @@ dat[[2]]
 
 &nbsp;
 
-While the restriction that all elements (aka columns) must have the same length allows us to treat **data frames** as two-dimensional structures and use the `[x,y]` indexing format similar to matricies:
+While the restriction that all elements (aka columns) must have the same length allows us to treat **data frames** as two-dimensional structures and use the `[x,y]` indexing format similar to matrices:
 
 ```{r}
 dat[3,2]
@@ -442,7 +442,8 @@ iris.corrected
 > 
 > > ## Solution
 > > ```{r}
-> > iris.new = iris[iris$Sepal.Length > 5 & iris$Species == "setosa",]
+> > iris.new <- iris[iris$Sepal.Length > 5 & iris$Species == "setosa",]
+> > iris.new
 > > ```
 > {: .solution}
 {: .challenge}
@@ -468,6 +469,7 @@ iris.corrected
 > > ## Solution
 > > ```{r subset-sequence}
 > > iris[, 1:2]
+> > iris[,c("Sepal.Length", "Sepal.Width")]
 > > ```
 > {: .solution}
 {: .challenge}

@@ -95,13 +95,12 @@ Here is some additional information on **data frames**:
 * **Data frames** can be created *de novo* with the `data.frame()` or `as.data.frame()` functions.
 * Like matrices, the number of rows and columns can be queried with `nrow(dat)` and `ncol(dat)`, respectively.
 * **Data frames** can have additional attributes such as `rownames()`, which can be useful for annotating data, like `subject_id` or `sample_id`.
-* Rownames are often automatically generated to reflect the row number: `1, 2, ..., n`. Consistency in numbering of rownames may not be honored when rows are reshuffled or when a **data frame** is subsetted.
+* Row names are often automatically generated to reflect the row number: `1, 2, ..., n`. Consistency in numbering of row names may not be honored when rows are reshuffled or when a **data frame** is subsetted.
 * A common way to use data frames is with columns as "variables" (e.g. body weight, blood pressure) and rows as "patients" or "observations" (e.g. "subject 1", "subject 2", ...).
 
-Just as a **matrix** in R is a specialized **vector**, a **data frame** is a specialized **list**. More on this in today's *On Your Own* section. For now, the following table summarizes the one-dimensional and two-dimensional data structures in 
-R in relation to diversity of data types they can contain.
+Just as a **matrix** in R is a specialized **vector**, a **data frame** is a specialized **list**. More on this in today's *On Your Own* section. For now, the following table summarizes the one-dimensional and two-dimensional data structures in R in relation to diversity of data types they can contain.
 
-| Dimensions | Homogenous | Heterogeneous |
+| Dimensions | Homogeneous | Heterogeneous |
 | ------- | ---- | ---- |
 | 1-D | atomic vector | list |
 | 2-D | matrix | data frame |
@@ -176,7 +175,7 @@ str(iris)
 
 &nbsp;
 
-This is the same information displayed if you toggle the arrow for a **data frame** variable in the *Environment* panel (upper-right), for instance the `dat` variable we created earlier. Clicking on a variable opens a basic spreadsheet representation of the table in the *Source Editor* panel (upper-left). 
+This is the same information displayed if you toggle the arrow for a **data frame** variable in the *Environment* panel (by default this is in the upper-right panel of RStudio), for instance the `dat` variable we created earlier. Clicking on a variable opens a basic spreadsheet representation of the table in the *Source Editor* panel (upper-left by default). 
 
 &nbsp;
 #### Indexing data frames
@@ -217,7 +216,7 @@ iris[c(1:10,20:25), c(1,3)] # note the use of sequences within the `c()` list
 
 &nbsp;
 
-As with other data types, leaving a dimension blank is interpretted as *return all values* in that dimension:
+As with other data types, leaving a dimension blank is interpreted as *return all values* in that dimension:
 
 ```{r}
 iris[2,] # return row 2
@@ -492,8 +491,7 @@ As with any other function call, if the output is not explicitly assigned, it wi
 &nbsp;
 #### Changing Delimiters
 
-The default delimiter in the `read.csv()` function is a comma `,`, but you can
-use essentially any set of characters as a delimiter. `read.csv(...)` is actually a special case of a more general function called `read.table(...)`, with the delimiter argument (which is defined by the argument `sep`, for "separator") set to `,` by default. Check out the help file for these functions:
+The default delimiter in the `read.csv()` function is a comma `,`, but you can use essentially any set of characters as a delimiter. `read.csv(...)` is actually a special case of a more general function called `read.table(...)`, with the delimiter argument (which is defined by the argument `sep`, for "separator") set to `,` by default. Check out the help file for these functions:
 
 ```{r, eval=FALSE}
 ?read.table # note that `?read.csv` brings up the same help document.

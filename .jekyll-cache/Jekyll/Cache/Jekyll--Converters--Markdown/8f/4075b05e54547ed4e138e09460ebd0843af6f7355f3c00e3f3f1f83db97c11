@@ -1,4 +1,4 @@
-I"wq<h2 id="in-class">In Class</h2>
+I"�q<h2 id="in-class">In Class</h2>
 
 <h3 id="data-frames">Data Frames</h3>
 
@@ -141,18 +141,17 @@ $row.names
   <li><strong>Data frames</strong> can be created <em>de novo</em> with the <code class="language-plaintext highlighter-rouge">data.frame()</code> or <code class="language-plaintext highlighter-rouge">as.data.frame()</code> functions.</li>
   <li>Like matrices, the number of rows and columns can be queried with <code class="language-plaintext highlighter-rouge">nrow(dat)</code> and <code class="language-plaintext highlighter-rouge">ncol(dat)</code>, respectively.</li>
   <li><strong>Data frames</strong> can have additional attributes such as <code class="language-plaintext highlighter-rouge">rownames()</code>, which can be useful for annotating data, like <code class="language-plaintext highlighter-rouge">subject_id</code> or <code class="language-plaintext highlighter-rouge">sample_id</code>.</li>
-  <li>Rownames are often automatically generated to reflect the row number: <code class="language-plaintext highlighter-rouge">1, 2, ..., n</code>. Consistency in numbering of rownames may not be honored when rows are reshuffled or when a <strong>data frame</strong> is subsetted.</li>
+  <li>Row names are often automatically generated to reflect the row number: <code class="language-plaintext highlighter-rouge">1, 2, ..., n</code>. Consistency in numbering of row names may not be honored when rows are reshuffled or when a <strong>data frame</strong> is subsetted.</li>
   <li>A common way to use data frames is with columns as “variables” (e.g. body weight, blood pressure) and rows as “patients” or “observations” (e.g. “subject 1”, “subject 2”, …).</li>
 </ul>
 
-<p>Just as a <strong>matrix</strong> in R is a specialized <strong>vector</strong>, a <strong>data frame</strong> is a specialized <strong>list</strong>. More on this in today’s <em>On Your Own</em> section. For now, the following table summarizes the one-dimensional and two-dimensional data structures in 
-R in relation to diversity of data types they can contain.</p>
+<p>Just as a <strong>matrix</strong> in R is a specialized <strong>vector</strong>, a <strong>data frame</strong> is a specialized <strong>list</strong>. More on this in today’s <em>On Your Own</em> section. For now, the following table summarizes the one-dimensional and two-dimensional data structures in R in relation to diversity of data types they can contain.</p>
 
 <table>
   <thead>
     <tr>
       <th>Dimensions</th>
-      <th>Homogenous</th>
+      <th>Homogeneous</th>
       <th>Heterogeneous</th>
     </tr>
   </thead>
@@ -282,7 +281,7 @@ R in relation to diversity of data types they can contain.</p>
 
 <p> </p>
 
-<p>This is the same information displayed if you toggle the arrow for a <strong>data frame</strong> variable in the <em>Environment</em> panel (upper-right), for instance the <code class="language-plaintext highlighter-rouge">dat</code> variable we created earlier. Clicking on a variable opens a basic spreadsheet representation of the table in the <em>Source Editor</em> panel (upper-left).</p>
+<p>This is the same information displayed if you toggle the arrow for a <strong>data frame</strong> variable in the <em>Environment</em> panel (by default this is in the upper-right panel of RStudio), for instance the <code class="language-plaintext highlighter-rouge">dat</code> variable we created earlier. Clicking on a variable opens a basic spreadsheet representation of the table in the <em>Source Editor</em> panel (upper-left by default).</p>
 
 <p> </p>
 <h4 id="indexing-data-frames">Indexing data frames</h4>
@@ -367,7 +366,7 @@ R in relation to diversity of data types they can contain.</p>
 
 <p> </p>
 
-<p>As with other data types, leaving a dimension blank is interpretted as <em>return all values</em> in that dimension:</p>
+<p>As with other data types, leaving a dimension blank is interpreted as <em>return all values</em> in that dimension:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">iris</span><span class="p">[</span><span class="m">2</span><span class="p">,]</span><span class="w"> </span><span class="c1"># return row 2</span><span class="w">
 </span></code></pre></div></div>
@@ -1001,8 +1000,7 @@ with quotation marks around them.</p>
 <p> </p>
 <h4 id="changing-delimiters">Changing Delimiters</h4>
 
-<p>The default delimiter in the <code class="language-plaintext highlighter-rouge">read.csv()</code> function is a comma <code class="language-plaintext highlighter-rouge">,</code>, but you can
-use essentially any set of characters as a delimiter. <code class="language-plaintext highlighter-rouge">read.csv(...)</code> is actually a special case of a more general function called <code class="language-plaintext highlighter-rouge">read.table(...)</code>, with the delimiter argument (which is defined by the argument <code class="language-plaintext highlighter-rouge">sep</code>, for “separator”) set to <code class="language-plaintext highlighter-rouge">,</code> by default. Check out the help file for these functions:</p>
+<p>The default delimiter in the <code class="language-plaintext highlighter-rouge">read.csv()</code> function is a comma <code class="language-plaintext highlighter-rouge">,</code>, but you can use essentially any set of characters as a delimiter. <code class="language-plaintext highlighter-rouge">read.csv(...)</code> is actually a special case of a more general function called <code class="language-plaintext highlighter-rouge">read.table(...)</code>, with the delimiter argument (which is defined by the argument <code class="language-plaintext highlighter-rouge">sep</code>, for “separator”) set to <code class="language-plaintext highlighter-rouge">,</code> by default. Check out the help file for these functions:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">?</span><span class="n">read.table</span><span class="w"> </span><span class="c1"># note that `?read.csv` brings up the same help document.</span><span class="w">
 </span></code></pre></div></div>
