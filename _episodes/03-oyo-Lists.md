@@ -28,7 +28,7 @@ source: Rmd
 
 ### Lists
 
-**Lists** in R act as generalized containers. A **list** is a special type of vector, but unlike atomic vectors, the contents of a list are not restricted to a single mode and can encompass any mixture of data types. Lists are sometimes called "generic vectors"", because the elements of a list can be any type of R object, even lists containing further lists. This property makes them fundamentally different from atomic vectors.
+**Lists** in R act as generalized containers. A **list** is a special type of vector, but unlike atomic vectors, the contents of a list are not restricted to a single mode and can encompass any mixture of data types. Lists are sometimes called "generic vectors", because the elements of a list can be any type of R object, even lists containing further lists. This property makes them fundamentally different from atomic vectors.
 
 Create **lists** using `list()`:
 
@@ -464,7 +464,7 @@ class(my.list[[2]])
 
 
 ~~~
-my.list <- list(x = x, y = y, z = x) # use the `=` to name your list elements
+my.list <- list(x = x, y = y, z = z) # use the `=` to name your list elements
 my.list$x
 ~~~
 {: .language-r}
@@ -714,7 +714,7 @@ dat[[2]]
 
 &nbsp;
 
-While the restriction that all elements (aka columns) must have the same length allows us to treat **data frames** as two-dimensional structures and use the `[x,y]` indexing format similar to matricies:
+While the restriction that all elements (aka columns) must have the same length allows us to treat **data frames** as two-dimensional structures and use the `[x,y]` indexing format similar to matrices:
 
 
 ~~~
@@ -1561,9 +1561,39 @@ iris.corrected
 > > ## Solution
 > > 
 > > ~~~
-> > iris.new = iris[iris$Sepal.Length > 5 & iris$Species == "setosa",]
+> > iris.new <- iris[iris$Sepal.Length > 5 & iris$Species == "setosa",]
+> > iris.new
 > > ~~~
 > > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+> > 1           5.1         3.5          1.4         0.2  setosa
+> > 6           5.4         3.9          1.7         0.4  setosa
+> > 11          5.4         3.7          1.5         0.2  setosa
+> > 15          5.8         4.0          1.2         0.2  setosa
+> > 16          5.7         4.4          1.5         0.4  setosa
+> > 17          5.4         3.9          1.3         0.4  setosa
+> > 18          5.1         3.5          1.4         0.3  setosa
+> > 19          5.7         3.8          1.7         0.3  setosa
+> > 20          5.1         3.8          1.5         0.3  setosa
+> > 21          5.4         3.4          1.7         0.2  setosa
+> > 22          5.1         3.7          1.5         0.4  setosa
+> > 24          5.1         3.3          1.7         0.5  setosa
+> > 28          5.2         3.5          1.5         0.2  setosa
+> > 29          5.2         3.4          1.4         0.2  setosa
+> > 32          5.4         3.4          1.5         0.4  setosa
+> > 33          5.2         4.1          1.5         0.1  setosa
+> > 34          5.5         4.2          1.4         0.2  setosa
+> > 37          5.5         3.5          1.3         0.2  setosa
+> > 40          5.1         3.4          1.5         0.2  setosa
+> > 45          5.1         3.8          1.9         0.4  setosa
+> > 47          5.1         3.8          1.6         0.2  setosa
+> > 49          5.3         3.7          1.5         0.2  setosa
+> > ~~~
+> > {: .output}
 > {: .solution}
 {: .challenge}
 
@@ -1621,6 +1651,170 @@ iris.corrected
 > > 
 > > ~~~
 > > iris[, 1:2]
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >     Sepal.Length Sepal.Width
+> > 1            5.1         3.5
+> > 2            4.9         3.0
+> > 3            4.7         3.2
+> > 4            4.6         3.1
+> > 5            5.0         3.6
+> > 6            5.4         3.9
+> > 7            4.6         3.4
+> > 8            5.0         3.4
+> > 9            4.4         2.9
+> > 10           4.9         3.1
+> > 11           5.4         3.7
+> > 12           4.8         3.4
+> > 13           4.8         3.0
+> > 14           4.3         3.0
+> > 15           5.8         4.0
+> > 16           5.7         4.4
+> > 17           5.4         3.9
+> > 18           5.1         3.5
+> > 19           5.7         3.8
+> > 20           5.1         3.8
+> > 21           5.4         3.4
+> > 22           5.1         3.7
+> > 23           4.6         3.6
+> > 24           5.1         3.3
+> > 25           4.8         3.4
+> > 26           5.0         3.0
+> > 27           5.0         3.4
+> > 28           5.2         3.5
+> > 29           5.2         3.4
+> > 30           4.7         3.2
+> > 31           4.8         3.1
+> > 32           5.4         3.4
+> > 33           5.2         4.1
+> > 34           5.5         4.2
+> > 35           4.9         3.1
+> > 36           5.0         3.2
+> > 37           5.5         3.5
+> > 38           4.9         3.6
+> > 39           4.4         3.0
+> > 40           5.1         3.4
+> > 41           5.0         3.5
+> > 42           4.5         2.3
+> > 43           4.4         3.2
+> > 44           5.0         3.5
+> > 45           5.1         3.8
+> > 46           4.8         3.0
+> > 47           5.1         3.8
+> > 48           4.6         3.2
+> > 49           5.3         3.7
+> > 50           5.0         3.3
+> > 51           7.0         3.2
+> > 52           6.4         3.2
+> > 53           6.9         3.1
+> > 54           5.5         2.3
+> > 55           6.5         2.8
+> > 56           5.7         2.8
+> > 57           6.3         3.3
+> > 58           4.9         2.4
+> > 59           6.6         2.9
+> > 60           5.2         2.7
+> > 61           5.0         2.0
+> > 62           5.9         3.0
+> > 63           6.0         2.2
+> > 64           6.1         2.9
+> > 65           5.6         2.9
+> > 66           6.7         3.1
+> > 67           5.6         3.0
+> > 68           5.8         2.7
+> > 69           6.2         2.2
+> > 70           5.6         2.5
+> > 71           5.9         3.2
+> > 72           6.1         2.8
+> > 73           6.3         2.5
+> > 74           6.1         2.8
+> > 75           6.4         2.9
+> > 76           6.6         3.0
+> > 77           6.8         2.8
+> > 78           6.7         3.0
+> > 79           6.0         2.9
+> > 80           5.7         2.6
+> > 81           5.5         2.4
+> > 82           5.5         2.4
+> > 83           5.8         2.7
+> > 84           6.0         2.7
+> > 85           5.4         3.0
+> > 86           6.0         3.4
+> > 87           6.7         3.1
+> > 88           6.3         2.3
+> > 89           5.6         3.0
+> > 90           5.5         2.5
+> > 91           5.5         2.6
+> > 92           6.1         3.0
+> > 93           5.8         2.6
+> > 94           5.0         2.3
+> > 95           5.6         2.7
+> > 96           5.7         3.0
+> > 97           5.7         2.9
+> > 98           6.2         2.9
+> > 99           5.1         2.5
+> > 100          5.7         2.8
+> > 101          6.3         3.3
+> > 102          5.8         2.7
+> > 103          7.1         3.0
+> > 104          6.3         2.9
+> > 105          6.5         3.0
+> > 106          7.6         3.0
+> > 107          4.9         2.5
+> > 108          7.3         2.9
+> > 109          6.7         2.5
+> > 110          7.2         3.6
+> > 111          6.5         3.2
+> > 112          6.4         2.7
+> > 113          6.8         3.0
+> > 114          5.7         2.5
+> > 115          5.8         2.8
+> > 116          6.4         3.2
+> > 117          6.5         3.0
+> > 118          7.7         3.8
+> > 119          7.7         2.6
+> > 120          6.0         2.2
+> > 121          6.9         3.2
+> > 122          5.6         2.8
+> > 123          7.7         2.8
+> > 124          6.3         2.7
+> > 125          6.7         3.3
+> > 126          7.2         3.2
+> > 127          6.2         2.8
+> > 128          6.1         3.0
+> > 129          6.4         2.8
+> > 130          7.2         3.0
+> > 131          7.4         2.8
+> > 132          7.9         3.8
+> > 133          6.4         2.8
+> > 134          6.3         2.8
+> > 135          6.1         2.6
+> > 136          7.7         3.0
+> > 137          6.3         3.4
+> > 138          6.4         3.1
+> > 139          6.0         3.0
+> > 140          6.9         3.1
+> > 141          6.7         3.1
+> > 142          6.9         3.1
+> > 143          5.8         2.7
+> > 144          6.8         3.2
+> > 145          6.7         3.3
+> > 146          6.7         3.0
+> > 147          6.3         2.5
+> > 148          6.5         3.0
+> > 149          6.2         3.4
+> > 150          5.9         3.0
+> > ~~~
+> > {: .output}
+> > 
+> > 
+> > 
+> > ~~~
+> > iris[,c("Sepal.Length", "Sepal.Width")]
 > > ~~~
 > > {: .language-r}
 > > 
