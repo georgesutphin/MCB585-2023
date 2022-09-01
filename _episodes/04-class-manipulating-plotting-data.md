@@ -635,7 +635,7 @@ pdf(file = "results/iris-aspect-ratio-comparison.pdf", width = 5, height = 5)
 plot(iris$Petal.Length, iris$Petal.Width)
 title("Relationship between petal length and petal width")
 
-# plot petal length vs. width
+# plot sepal length vs. width
 plot(iris$Sepal.Length, iris$Sepal.Width)
 title("Relationship between sepal length and sepal width")
 
@@ -1124,6 +1124,12 @@ We can use the `boxplot()` function to generate box and whisker plots in R. To d
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`<plot variable> ~ <separator variable>`
 
 You can also provide the name of the data frame using the `data` argument, and then just use the column names directly in the formula. Let's give both a try for Petal Length separated by Species in the iris dataset. These statements are equivalent, except for the axis labels:
+
+
+~~~
+boxplot(iris$Petal.Length ~ iris$Species)
+~~~
+{: .language-r}
 
 <img src="../fig/rmd-04-class-manipulating-plotting-data-unnamed-chunk-39-1.png" title="plot of chunk unnamed-chunk-39" alt="plot of chunk unnamed-chunk-39" width="612" style="display: block; margin: auto;" />
 
