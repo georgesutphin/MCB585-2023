@@ -30,7 +30,7 @@ source: Rmd
 
 &nbsp;
 
-The goal of this course is to give you some practical tools to use when confronted with real problems in biological science. In coming lessons we will demonstrate how to use R to conduct basic hypothesis testing (e.g. run a t-test in order to determine the probability that two samples came from the same underlying population). However, equally important is understanding how to properly state a hypothesis, determine which statistical test is appropriate for your hypothesis and variables, and what the output of a statistical test means. 
+The goal of this course is to give you some practical tools to use when confronted with real problems in biological science. In the coming lessons we will demonstrate how to use R to conduct basic hypothesis testing (e.g. run a t-test in order to determine the probability that two samples came from the same underlying population). However, equally important is understanding how to properly state a hypothesis, determine which statistical test is appropriate for your hypothesis and variables, and what the output of a statistical test means. 
 
 To this end, this lesson will begin to build a practical framework for thinking about statistics and biological variables. We will not cover these statistical concepts in depth--for that you should consult a good introductory statistics text book, take a complete statistics course, or consult the variety of online resources (e.g. [StatTrek](https://stattrek.com/))--but we will introduce a few basic concepts to help guide your data analysis decisions.
 

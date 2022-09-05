@@ -131,9 +131,9 @@ Now that we have the tools, a question to consider: is it worth running a statis
 > see the next section). That said, a statistical test like the 
 > Shapiro-Wilk test is not likely to tell you whether your data is 
 > meaningfully non-normal beyond what the Q-Q plot can divulge. A 
-> highly statistical answer will be obvious in the Q-Q plot, and a 
-> close answer should, at most, make you a bit more skeptical of 
-> your 0.049 t-test p-value (which you should be anyway). 
+> highly statistically significant answer will be obvious in the 
+> Q-Q plot, and a close answer should, at most, make you a bit more
+> skeptical of your 0.049 t-test p-value (which you should be anyway). 
 {: .callout}
 
 ***
