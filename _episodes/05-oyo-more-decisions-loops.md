@@ -150,16 +150,16 @@ Beyond that, the best way to learn how to use `if` statements effectively is to 
 > 
 > &nbsp;
 >
-> and add a column that indicates, represents a member of 
+> and add a column that indicates whether that specific flower is a member of 
 > it's species with "large" petals (`Petal.Length` > species average of 
 > `Petal.Length`) or "small" petals (`Petal.Length` <= species average of 
 > `Petal.Length`).
 > 
-> To accomplish this goal, you will need to write a script that accomplishes
-> several steps that combine concepts from different lessons. Plan out the 
-> necessary steps and how to accomplish each step with concepts covered so far. 
-> Try to find answers to questions using forums or other online resources; 
-> however, there are a few progressive hints below if you get really stuck. 
+> To accomplish this goal, you will need to write a script with several steps
+> combining concepts from different lessons. Plan out the necessary steps and 
+> how to accomplish each step with concepts covered so far. Try to find answers 
+> to questions using forums or other online resources; however, there are a few 
+> progressive hints below if you get really stuck. 
 > 
 > > ## Hint 1 -- Planning your script
 > > 
@@ -369,7 +369,7 @@ for(item in collection) {
 
 &nbsp;
 
-we can now use the values contained within our `collection` in operations within the loop. As an arbitraty example, we can add the letters to a growing string and print that string:
+We can now use the values contained within our `collection` in operations within the loop. As an arbitrary example, we can add the letters to a growing string and print that string:
 
 
 
@@ -409,7 +409,7 @@ This structure for the `for` loop is important when all you need to manipulate w
 
 **Iterating by position**
 
-Often times, there will be a good reason to know the current position (or index) in the collection during a given loop, rather than the contents of the collection at that position. The index allows us to do a variety of things, including index other objects with the same dimensions or provide the user with a progress update for more time consuming jobs. T
+Often times, there will be a good reason to know the current position (or index) in the collection during a given loop, rather than the contents of the collection at that position. The index allows us to do a variety of things, including index other objects with the same dimensions or provide the user with a progress update for more time consuming jobs. 
 
 For positional indexing, we can use the format `for(1:length(collection))`. Alternatively, we can use the `seq_along()` function, which is a version of seq that uses arguments `from = 1` and `by = 1` by default, and the length of the entered object for the `to` argument. Thus `1:length(collection)` produces the same result as `seq_along(collection)`:
 
@@ -456,7 +456,7 @@ seq_along(collection)
 
 &nbsp;
 
-In essence, we are creating a new `collection` for the `for` loop that consists of a list of integers from 1 to the length of the collection. The `for` loop will step through these integers, in effect using the `loop` variable too keep count of the number of loops that have progressed. Let't look at the behavior by replacing the **loop** variable from our above example with the positional version (and renaming `item` with `i` to indicate that we are looking at the index, rather than the contents, of `collection`:
+In essence, we are creating a new `collection` for the `for` loop that consists of a list of integers from 1 to the length of the collection. The `for` loop will step through these integers, in effect using the `loop` variable too keep count of the number of loops that have progressed. Let's look at the behavior by replacing the **loop** variable from our above example with the positional version (and renaming `item` with `i` to indicate that we are looking at the index, rather than the contents, of `collection`:
 
 
 ~~~
@@ -596,30 +596,6 @@ In this case, the point is more illustrative of how to design a `for` loop. Usin
 
 
 &nbsp;
-#### `for` or `apply`?
-
-A `for` loop is used to apply the same function calls to a collection of objects. As we just demonstrated, the `apply` family of functions are used in much the same way.
-
-You've already used one of the family, `apply()`. The `apply` family members include:
- * `apply()`  - apply over the margins of an array (e.g. the rows or columns of a matrix)
- * `lapply()` - apply over an object and return list
- * `sapply()` - apply over an object and return a simplified object (an array) if possible
- * `vapply()` - similar to `sapply()` but you specify the type of object returned by the iterations
- * Functions provided in external packages, such as `ddply()` and `adply()` in the popular `dplyr` package.
-
-Each of these has an argument `FUN` (or something similar) which takes a function to apply to each element of the object. Instead of looping over `filenames` and calling `analyze`, as you did earlier, you could `sapply` over `filenames` with `FUN = analyze`:
-
-
-~~~
-sapply(filenames, FUN = analyze)
-~~~
-{: .language-r}
-
-Deciding whether to use `for` or one of the `apply` family is really personal preference. Using an `apply` family function forces to you encapsulate your operations as a function rather than separate calls with `for`. `for` loops are often more intuitive. For several related operations, a `for` loop will avoid you having to pass in a lot of extra arguments to your function.
-
-You will sometimes see claims that `apply` functions run faster than a `for` loop designed to run the same operations. However, this is not generally true, and under the surface the `apply` functions are just convenient wrappers for a hidden `for` loops.
-
-&nbsp;
 #### Loops in R are slow (??)
 
 On this topic, you will probably also hear at some point if you keep using R that loops are slow. This is a common refrain in coding forums. In point of fact, loops are not slow *if* you follow a few guidelines:
@@ -698,8 +674,8 @@ gc() # clean things up first
 
 ~~~
          used (Mb) gc trigger (Mb) max used (Mb)
-Ncells 515932 27.6    1151674 61.6   852906 45.6
-Vcells 990175  7.6    8388608 64.0  1650364 12.6
+Ncells 515908 27.6    1151637 61.6   839517 44.9
+Vcells 990094  7.6    8388608 64.0  1650364 12.6
 ~~~
 {: .output}
 
@@ -717,7 +693,7 @@ system.time(avg <- for(i in 1:100) {analyze(inflam.files)})
 
 ~~~
    user  system elapsed 
-   3.19    0.23    3.42 
+   2.31    0.17    2.53 
 ~~~
 {: .output}
 
@@ -732,7 +708,7 @@ system.time(avg <- for(i in 1:100) {analyze2(inflam.files)})
 
 ~~~
    user  system elapsed 
-   3.47    0.18    3.64 
+   1.89    0.17    2.07 
 ~~~
 {: .output}
 
@@ -750,6 +726,32 @@ Note that `apply` handles these memory allocation issues for you, but then you h
 > figures. We have done that here to some extent, putting all of our data files 
 > into the subdirectory "data". For more advice on this topic, you can read [A quick guide to organizing computational biology projects](http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1000424) by William Stafford Noble.
 {: .callout}
+
+
+&nbsp;
+#### `for` or `apply`?
+
+A `for` loop is used to apply the same function calls to a collection of objects. As we just demonstrated, the `apply` family of functions are used in much the same way.
+
+You've already used one of the family, `apply()`. The `apply` family members include:
+ * `apply()`  - apply over the margins of an array (e.g. the rows or columns of a matrix)
+ * `lapply()` - apply over an object and return list
+ * `sapply()` - apply over an object and return a simplified object (an array) if possible
+ * `vapply()` - similar to `sapply()` but you specify the type of object returned by the iterations
+ * Functions provided in external packages, such as `ddply()` and `adply()` in the popular `dplyr` package.
+
+Each of these has an argument `FUN` (or something similar) which takes a function to apply to each element of the object. Instead of looping over `filenames` and calling `analyze`, as you did earlier, you could `sapply` over `filenames` with `FUN = analyze`:
+
+
+~~~
+sapply(filenames, FUN = analyze)
+~~~
+{: .language-r}
+
+Deciding whether to use `for` or one of the `apply` family is really personal preference. Using an `apply` family function forces to you encapsulate your operations as a function rather than separate calls with `for`. `for` loops are often more intuitive. For several related operations, a `for` loop will avoid you having to pass in a lot of extra arguments to your function.
+
+You will sometimes see claims that `apply` functions run faster than a `for` loop designed to run the same operations. However, this is not generally true, and under the surface the `apply` functions are just convenient wrappers for a hidden `for` loops.
+
 
 &nbsp;
 #### Exercises -- `for` loops
@@ -951,14 +953,6 @@ Note that `apply` handles these memory allocation issues for you, but then you h
 > > dev.off()
 > > ~~~
 > > {: .language-r}
-> > 
-> > 
-> > 
-> > ~~~
-> > png 
-> >   2 
-> > ~~~
-> > {: .output}
 > > 
 > > As code becomes more complex, the ways to achieve a given solution multiply. This
 > > is just one solution of many possibilities.
