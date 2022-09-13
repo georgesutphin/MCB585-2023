@@ -41,7 +41,7 @@ So what happens when, within a given study, you run 20 statistical tests? Randal
 
 &nbsp;
 
-In this ficticious example, the researchers test whether acne is associated with each of 20 different jelly bean colors, and find that eating green jelly beans is significantly associated with acne (!!).
+In this fictitious example, the researchers test whether acne is associated with each of 20 different jelly bean colors, and find that eating green jelly beans is significantly associated with acne (!!).
 
 Does this mean that green jelly beans cause acne? No, of course not. Even if the association were real, perhaps people with acne just like green jelly beans better? However, even that is going too far. Recall that setting $$\alpha$$ = 0.05 means that we expect to reject $$H_0$$ 5% of the time (or 1 time in 20) when $$H_0$$ is true. So the illustrated test gave the expected outcome if jelly beans (of any color) had no connection to acne.
 

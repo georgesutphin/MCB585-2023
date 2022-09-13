@@ -1,4 +1,4 @@
-I"!<h2 id="in-class">In Class</h2>
+I"!<h2 id="in-class">In Class</h2>
 
 <p>In the last class we examined what we are actually doing statistically when take a sample from a population to run an experiment. In this lesson, we will take a similar look at hypothesis testing, define the formal process of formulating and testing a set of hypotheses, and examining the critical factors when selecting an appropriate statistical tool for a given set of data.</p>
 
@@ -470,7 +470,7 @@ weights.</p>
 
     <p><img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-13-2.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" /></p>
 
-    <p>Staring body weight looks okay, but ending body weight looks very 
+    <p>Starting body weight looks okay, but ending body weight looks very 
 skewed. Learning from the above exercise using the <code class="language-plaintext highlighter-rouge">iris</code> data set, 
 perhaps this is a strain effect? Let’s break it down further 
 and recheck.</p>

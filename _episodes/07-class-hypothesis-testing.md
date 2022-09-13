@@ -546,7 +546,7 @@ Here is an example of a flow chart for choosing a test. Many different versions 
 > > 
 > > <img src="../fig/rmd-07-class-hypothesis-testing-unnamed-chunk-13-2.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" width="612" style="display: block; margin: auto;" />
 > > 
-> > Staring body weight looks okay, but ending body weight looks very 
+> > Starting body weight looks okay, but ending body weight looks very 
 > > skewed. Learning from the above exercise using the `iris` data set, 
 > > perhaps this is a strain effect? Let's break it down further 
 > > and recheck.
