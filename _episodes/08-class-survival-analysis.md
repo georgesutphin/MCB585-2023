@@ -98,11 +98,11 @@ The *Life Table* is a systematic way to tabulate observations and estimate survi
 
 * $$t_0 =$$ start time, relative to the time period of interest (e.g. for lifespan data, each individual's birth is set to time 0, even if they were born on different dates) 
 * $$t =$$ observation time 
-* $$d_t =$$ number of events observed at at time t
+* $$d_t =$$ number of events observed at time t
 * $$n_0 = \sum d_t =$$ original sample size (number of individuals in the sample prior to censoring or events)
 * $$n_t = n_0 - \sum_{x = 0}^{t-1} d_x =$$ number of individuals at risk at time t (e.g. sampled, uncensored individuals with no event by time t)
 * $$l_t = \frac{n_t}{n_0} =$$ fraction of the sample remaining at risk by time t
-* $$S(t) \approx l_t =$$ survival function, the fraction of the population at risk (aka "surviving to") time t 
+* $$S(t) \approx l_t =$$ survival function, the fraction of the population at risk at (aka "surviving to") time t 
 
 We estimate the survival function by plotting $$l_t$$ vs. age $$t$$. Let's examine the survival of the US population as an example. The life table is stored in `US2011.life.table.txt`.
 

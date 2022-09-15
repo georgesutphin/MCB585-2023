@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2022-09-12 21:27:12 -0700">
+    <meta http-equiv="last-modified" content="2022-09-14 22:02:36 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -389,11 +389,11 @@ increase your statistical power to detect changes.</li>
 <ul>
   <li>\(t_0 =\) start time, relative to the time period of interest (e.g. for lifespan data, each individual’s birth is set to time 0, even if they were born on different dates)</li>
   <li>\(t =\) observation time</li>
-  <li>\(d_t =\) number of events observed at at time t</li>
+  <li>\(d_t =\) number of events observed at time t</li>
   <li>\(n_0 = \sum d_t =\) original sample size (number of individuals in the sample prior to censoring or events)</li>
   <li>\(n_t = n_0 - \sum_{x = 0}^{t-1} d_x =\) number of individuals at risk at time t (e.g. sampled, uncensored individuals with no event by time t)</li>
   <li>\(l_t = \frac{n_t}{n_0} =\) fraction of the sample remaining at risk by time t</li>
-  <li>\(S(t) \approx l_t =\) survival function, the fraction of the population at risk (aka “surviving to”) time t</li>
+  <li>\(S(t) \approx l_t =\) survival function, the fraction of the population at risk at (aka “surviving to”) time t</li>
 </ul>
 
 <p>We estimate the survival function by plotting \(l_t\) vs. age \(t\). Let’s examine the survival of the US population as an example. The life table is stored in <code class="language-plaintext highlighter-rouge">US2011.life.table.txt</code>.</p>
