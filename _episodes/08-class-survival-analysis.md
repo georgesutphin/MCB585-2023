@@ -134,10 +134,10 @@ Note that what I called $$n_t$$ this particular data set calls $$l_x$$ (and that
 
 ~~~
 # rename life table variables
-names(lt) = c("t","qt","nt","dt","Lt","Tt","et")
+names(lt) <- c("t","qt","nt","dt","Lt","Tt","et")
 
 # calculate l{t}
-lt$lt = lt$nt/max(lt$nt)
+lt$lt <- lt$nt/max(lt$nt)
 head(lt)
 ~~~
 {: .language-r}
@@ -188,8 +188,8 @@ $$\lambda(t)$$, while not normally distributed, does not depend on previous obse
 
 ~~~
 # calculate pt and lambdat
-lt$pt = 1 - lt$qt
-lt$lambdat = -log(lt$pt)
+lt$pt <- 1 - lt$qt
+lt$lambdat <- -log(lt$pt)
 
 # plot age specific mortality -- does the shape look familiar?
 plot(lt$t, lt$lambdat, type = "l",
@@ -318,7 +318,7 @@ The `survfit()` function builds the life table that we need for our analyses. We
 
 ~~~
 # calculate life table for BUB/BnJ mice
-survfit.bub <- survfit(Surv(lifespan_days, censor == 0) ~ 1, data=surv.bub)
+survfit.bub <- survfit(Surv(lifespan_days, censor == 0) ~ 1, data = surv.bub)
 
 # use summary() to look at the life table
 summary(survfit.bub)
@@ -403,7 +403,7 @@ We can also break the data down into the two sexes. We do this using the depende
 
 ~~~
 # calculate life table for BUB/BnJ mice with sex as an independent variable
-survfit.bub.sex <- survfit(Surv(lifespan_days, censor == 0) ~ sex, data=surv.bub)
+survfit.bub.sex <- survfit(Surv(lifespan_days, censor == 0) ~ sex, data = surv.bub)
 
 # use summary() to look at the life table
 summary(survfit.bub.sex)
@@ -476,11 +476,11 @@ Note that `survfit()` builds separate life tables for male and female mice. Now 
 ~~~
 # Plot the Kaplan-Meier curve
 plot(survfit.bub.sex, xlab = "Time (days)", 
-     ylab="Fraction surviving", 
+     ylab = "Fraction surviving", 
      col = c("red","blue"),
      conf.int=FALSE,              # turn of confidence intervals
      mark.time = TRUE,            # mark time of censor
-     main="BUB/BnJ Survival")
+     main = "BUB/BnJ Survival")
 
 # add legend
 legend("topright", lty = 1,
