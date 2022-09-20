@@ -211,20 +211,20 @@ Note that these plots can be somewhat sensitive to time periods during the lifes
 > > lt.female <- read.delim("./data/US2011.life.table.female.txt")
 > > 
 > > # change names to our convention
-> > names(lt.male) = c("t","qt","nt","dt","Lt","Tt","et")
+> > names(lt.male) <- c("t","qt","nt","dt","Lt","Tt","et")
 > > 
 > > # calculate lt, pt, and lambdat
-> > lt.male$lt = lt.male$nt/max(lt.male$nt)
-> > lt.male$pt = 1 - lt.male$qt
-> > lt.male$lambdat = -log(lt.male$pt)
+> > lt.male$lt <- lt.male$nt/max(lt.male$nt)
+> > lt.male$pt <- 1 - lt.male$qt
+> > lt.male$lambdat <- -log(lt.male$pt)
 > > 
 > > # change names to our convention (lx -> nx)
-> > names(lt.female) = c("t","qt","nt","dt","Lt","Tt","et")
+> > names(lt.female) <- c("t","qt","nt","dt","Lt","Tt","et")
 > > 
 > > # calculate lt, pt, and lambdat
-> > lt.female$lt = lt.female$nt/max(lt.female$nt)
-> > lt.female$pt = 1 - lt.female$qt
-> > lt.female$lambdat = -log(lt.female$pt)
+> > lt.female$lt <- lt.female$nt/max(lt.female$nt)
+> > lt.female$pt <- 1 - lt.female$qt
+> > lt.female$lambdat <- -log(lt.female$pt)
 > > 
 > > # plot survival curves
 > > plot(lt.female$t, lt.female$lt, type = "l", col = "red",
