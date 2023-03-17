@@ -31,7 +31,7 @@ Students will be able to:
 5.  Completion of final project.
 
 **Grading Summary:**
-* 67% discussion,  exercise participation, completion and understanding of *On Your Own* content, assignments
+* 67% discussion, exercise participation, completion and understanding of *On Your Own* content, assignments
 * 33% student research final project proposals, final report with code, and presentation
 
 ## Prerequisites
