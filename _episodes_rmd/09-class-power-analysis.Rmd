@@ -44,7 +44,7 @@ Truth Table | $$H_0$$ True | $$H_1$$ True
 Accept $$H_0$$ | Correct | Type II Error ($$\beta$$)
 Reject $$H_0$$ | Type I Error ($$\alpha$$) | Correct
 
-Each quadrant has specific meaning to our experiment: 
+Each quadrant has a specific meaning to our experiment: 
 1. **Correct acceptance of $$H_0$$ ($$1 - \alpha$$).** The upper-left quadrant is the boring case where there is no difference present, and we correctly conclude that this is the case.
 
 2. **Type I Error ($$\alpha$$).** In the lower-left is the probability that we make an error and reject the null hypothesis when it is, in fact, true. 

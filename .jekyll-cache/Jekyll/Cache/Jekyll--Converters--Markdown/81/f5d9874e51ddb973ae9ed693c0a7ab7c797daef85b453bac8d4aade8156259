@@ -1,4 +1,4 @@
-I"Œ<p>Welcome to MCB 585! This course is offered by the Molecular &amp; Cellular Biology Department at the University of Arizona.</p>
+I"‹<p>Welcome to MCB 585! This course is offered by the Molecular &amp; Cellular Biology Department at the University of Arizona.</p>
 
 <p>MCB585 is an advanced graduate course focused on quantitative approaches to biological questions. Students will learn how to acquire, access, and interact with large biological datasets. The course relies heavily on learning and utilizing the R Statistical Programing language, but students are not expected to have programing experience upon entering the course. The course is broken up into three units. The first unit will focus on introducing R and using R in basic statistical operations. This section incorporates elements of experimental design and appropriate application of statistical tests as a frame for learning R. In the second unit we will focus on quantitative approaches to â€˜omics data, covering RNA-seq analysis, basic machine learning techniques, network biology, and a survey of emerging technologies and multi-â€˜omic datasets. The third section focuses on extracting quantitative information from image data and applying the statistical tools from the first section on this data.</p>
 
@@ -33,7 +33,7 @@
 
 <p><strong>Grading Summary:</strong></p>
 <ul>
-  <li>67% discussion,  exercise participation, completion and understanding of <em>On Your Own</em> content, assignments</li>
+  <li>67% discussion, exercise participation, completion and understanding of <em>On Your Own</em> content, assignments</li>
   <li>33% student research final project proposals, final report with code, and presentation</li>
 </ul>
 
