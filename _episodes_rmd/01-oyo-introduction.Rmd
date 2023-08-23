@@ -1,6 +1,6 @@
 ---
 title: "Getting started with R and RStudio -- Additional Detail"
-classdate: "8/23/2022 -- On Your Own"
+classdate: "8/24/2023 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:
@@ -175,6 +175,10 @@ library(vegan)
 Another way you can be explicit about the requirements of your code and improve its reproducibility is to limit the "hard-coding" of the input and output files for your script. If your code will read in data from a file, define a variable early in your code that stores the path to that file:
 
 ```{r, eval=FALSE}
+### Note: this code is not meant to be run, just provide and example
+### of soft-coding a set of fictional file names.
+
+# define input and output file names
 input_file <- "data/data.csv" 
 output_file <- "data/results.csv"
 
@@ -196,7 +200,10 @@ write.table(results, output_file)
 This is preferable to repeatedly writing out the input file paths (and way easier to update if you move or rename one of your files):
 
 ```{r, eval=FALSE}
-# check
+### Note: this code is not meant to be run, just provide and example
+### of hard-coding a set of fictional file names.
+
+# read input
 input_data <- read.csv("data/data.csv")
 
 # get number of samples in data
@@ -245,8 +252,8 @@ source("my_genius_fxns.R")
 setwd("C:/Users/Karthik/Documents/sannic-project")
 
 # load datasets 1 and 2 from the files subfolder
-dat <- read.csv(file = "files/dataset1.csv", header = TRUE)
-dat <- read.csv(file = "files/dataset2.csv", header = TRUE)
+dat1 <- read.csv(file = "files/dataset1.csv", header = TRUE)
+dat2 <- read.csv(file = "files/dataset2.csv", header = TRUE)
 ```
 
 &nbsp;
@@ -292,8 +299,8 @@ gc()
 sessionInfo()
 
 # Here is how to save:
-current.session = sessionInfo()
-session.file = paste0("./Project X R Session Info for ",Sys.Date(),".Rdata")
+current.session <- sessionInfo()
+session.file <- paste0("./Project X R Session Info for ",Sys.Date(),".Rdata")
 save(current.session, file=session.file)
 rm(current.session)
 
@@ -506,8 +513,7 @@ The University of Arizona has several resources for both statistics and programm
 * [Statistics resources](https://it.arizona.edu/documentation/statistical-resources)
 * [Statistics consulting](https://it.arizona.edu/service/statistical-consulting) (pay service, free consultation)
 * [BIO5 StatLab](https://statlab.bio5.org/) (pay service, free consultation)
-* [Cancer Center biostatistics](https://cancercenter.arizona.edu/researchers/shared-resources/biostatistics)
-* [Cancer Center bioinformatics](https://cancercenter.arizona.edu/researchers/shared-resources/bioinformatics)
+* [Cancer Center Biostatistics & Bioinformatics](https://cancercenter.arizona.edu/researchers/shared-resources/biostatistics-bioinformatics)
 
 ***
 

@@ -1,6 +1,6 @@
 ---
 title: "Simulating Experiments"
-classdate: "9/20/2022 -- On Your Own"
+classdate: "9/21/2023 -- On Your Own"
 teaching: 90
 exercises: 30
 questions:
