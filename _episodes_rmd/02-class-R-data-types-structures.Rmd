@@ -286,7 +286,7 @@ z
 
 &nbsp;
 
-Note that order matters and defines the order in the output vector. `c()` treats any argument that is a vector as just another set of elements in the list.
+Note that order matters and defines the order in the output vector. `c()` treats any argument that is a vector as just another set of elements in the vector.
 
 &nbsp;
 #### Vectors from a Sequence of Numbers
@@ -318,7 +318,7 @@ series2
 ```
 
 &nbsp;
-#### What happens when you mix types inside a vector?
+#### What happens when you mix data types inside a vector?
 
 R will create a resulting vector with a mode that can most easily accommodate all the elements it contains. This conversion between modes of storage is called "coercion". When R converts the mode of storage based on its content, it is referred to as "implicit coercion". 
 
@@ -373,7 +373,7 @@ R will create a resulting vector with a mode that can most easily accommodate al
 &nbsp;
 #### Indexing vectors
 
-In R, `[]` are used to index vectors and other objects. For vectors, the number entered in the `[n]` will return the nth element of the vector.
+In R, `[]` are used to index vectors and other objects. For vectors, the number entered in the `[n]` will return the *n*th element of the vector.
 
 ```{r}
 x <- c("a","b","c","d","e","f")
@@ -513,8 +513,8 @@ paste(attitude,animal)
 > Vectorization is one of the reasons that R is so 
 > powerful, and it is employed by a wide range of 
 > functions. However, it is not universal. Depending on 
-> how a specific function is written, it may act on the 
-> vector, or on the list of values in the vector. 
+> how a particular function is written, it may act on the 
+> vector or on the list of values in the vector. 
 > 
 > Compare the function `sum()` to the operator `+`: 
 > 
@@ -527,7 +527,7 @@ paste(attitude,animal)
 > 
 > &nbsp;
 > 
-> The best way to find out is to just give it a try and see 
+> The easiest way to find out is to just give it a try and see 
 > what output it produces.
 {: .callout}
 
@@ -588,7 +588,7 @@ length(m)
 
 &nbsp;
 
-Matrices are a higher-order object (a vector with additional properties). Thus the `class()` function no longer tells you the data type for each element, but rather the data structure type of the entire object:
+Matrices are a higher-order object (a vector with additional attributes like dimensions `dim()`). Thus the `class()` function no longer tells you the data type for each element, but rather the data structure type of the entire object:
 
 ```{r}
 class(m)
@@ -627,6 +627,9 @@ Note that one difference between vectors and matrices is that an otherwise ident
 > > ## Solution
 > > We know that `typeof(FOURS)` will also return `"double"` since matrices 
 > > are just vectors, and vectors must be made of elements of the same data  type. 
+> > 
+> > In contrast, `class(FOURS)` returns `"matrix"` while `class(FOURS[1])` returns the
+> > class of that single element, `"numeric"`.
 > {: .solution}
 {: .challenge}
 

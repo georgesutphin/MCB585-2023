@@ -1,4 +1,4 @@
-I"eW<h2 id="in-class">In Class</h2>
+I"8Y<h2 id="in-class">In Class</h2>
 
 <h3 id="basic-data-types-in-r">Basic Data Types in R</h3>
 
@@ -377,7 +377,7 @@ Line 2
 
 <p> </p>
 
-<p>Note that order matters and defines the order in the output vector. <code class="language-plaintext highlighter-rouge">c()</code> treats any argument that is a vector as just another set of elements in the list.</p>
+<p>Note that order matters and defines the order in the output vector. <code class="language-plaintext highlighter-rouge">c()</code> treats any argument that is a vector as just another set of elements in the vector.</p>
 
 <p> </p>
 <h4 id="vectors-from-a-sequence-of-numbers">Vectors from a Sequence of Numbers</h4>
@@ -432,7 +432,7 @@ Line 2
 </code></pre></div></div>
 
 <p> </p>
-<h4 id="what-happens-when-you-mix-types-inside-a-vector">What happens when you mix types inside a vector?</h4>
+<h4 id="what-happens-when-you-mix-data-types-inside-a-vector">What happens when you mix data types inside a vector?</h4>
 
 <p>R will create a resulting vector with a mode that can most easily accommodate all the elements it contains. This conversion between modes of storage is called “coercion”. When R converts the mode of storage based on its content, it is referred to as “implicit coercion”.</p>
 
@@ -498,7 +498,7 @@ value (or can it?)</p>
 <p> </p>
 <h4 id="indexing-vectors">Indexing vectors</h4>
 
-<p>In R, <code class="language-plaintext highlighter-rouge">[]</code> are used to index vectors and other objects. For vectors, the number entered in the <code class="language-plaintext highlighter-rouge">[n]</code> will return the nth element of the vector.</p>
+<p>In R, <code class="language-plaintext highlighter-rouge">[]</code> are used to index vectors and other objects. For vectors, the number entered in the <code class="language-plaintext highlighter-rouge">[n]</code> will return the <em>n</em>th element of the vector.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span><span class="s2">"b"</span><span class="p">,</span><span class="s2">"c"</span><span class="p">,</span><span class="s2">"d"</span><span class="p">,</span><span class="s2">"e"</span><span class="p">,</span><span class="s2">"f"</span><span class="p">)</span><span class="w">
 </span><span class="n">x</span><span class="w">
@@ -718,8 +718,8 @@ spell the word “yoke” in a new vector:</p>
   <p>Vectorization is one of the reasons that R is so 
 powerful, and it is employed by a wide range of 
 functions. However, it is not universal. Depending on 
-how a specific function is written, it may act on the 
-vector, or on the list of values in the vector.</p>
+how a particular function is written, it may act on the 
+vector or on the list of values in the vector.</p>
 
   <p>Compare the function <code class="language-plaintext highlighter-rouge">sum()</code> to the operator <code class="language-plaintext highlighter-rouge">+</code>:</p>
 
@@ -739,7 +739,7 @@ vector, or on the list of values in the vector.</p>
 
   <p> </p>
 
-  <p>The best way to find out is to just give it a try and see 
+  <p>The easiest way to find out is to just give it a try and see 
 what output it produces.</p>
 </blockquote>
 
@@ -832,7 +832,7 @@ what output it produces.</p>
 
 <p> </p>
 
-<p>Matrices are a higher-order object (a vector with additional properties). Thus the <code class="language-plaintext highlighter-rouge">class()</code> function no longer tells you the data type for each element, but rather the data structure type of the entire object:</p>
+<p>Matrices are a higher-order object (a vector with additional attributes like dimensions <code class="language-plaintext highlighter-rouge">dim()</code>). Thus the <code class="language-plaintext highlighter-rouge">class()</code> function no longer tells you the data type for each element, but rather the data structure type of the entire object:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">class</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -881,6 +881,9 @@ running this code?</p>
     <h2 id="solution-2">Solution</h2>
     <p>We know that <code class="language-plaintext highlighter-rouge">typeof(FOURS)</code> will also return <code class="language-plaintext highlighter-rouge">"double"</code> since matrices 
 are just vectors, and vectors must be made of elements of the same data  type.</p>
+
+    <p>In contrast, <code class="language-plaintext highlighter-rouge">class(FOURS)</code> returns <code class="language-plaintext highlighter-rouge">"matrix"</code> while <code class="language-plaintext highlighter-rouge">class(FOURS[1])</code> returns the
+class of that single element, <code class="language-plaintext highlighter-rouge">"numeric"</code>.</p>
   </blockquote>
 </blockquote>
 

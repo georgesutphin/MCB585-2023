@@ -229,11 +229,11 @@ class(c2)
 
 &nbsp;
 
-Note that you have to define $$b$$ explicitly:
+Note that you have to define $$b$$ explicitly, and that it must be right next to the *i* (`bi`), not multiplied by the *i* (`b*i`):
 
 
 ~~~
-c3 <- 1+i
+c3 <- 1+i # incorrect
 ~~~
 {: .language-r}
 
@@ -247,7 +247,21 @@ Error in eval(expr, envir, enclos): object 'i' not found
 
 
 ~~~
-c3 <- 1+1i
+c3 <- 1+1*i # incorrect
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in eval(expr, envir, enclos): object 'i' not found
+~~~
+{: .error}
+
+
+
+~~~
+c3 <- 1+1i # correct
 ~~~
 {: .language-r}
 
@@ -398,7 +412,7 @@ Error in eval(expr, envir, enclos): object 'num1.as.char' not found
 
 &nbsp;
 
-It only works if the conversion makes sense in context. R also does not understand non-numeric references to numbers (e.g. using "two" to refer to the number 2). 
+It only works if the conversion makes sense in context. R also does not understand non-numeric references to numbers (e.g. using `"two"` to refer to the number `2`). 
 
 
 ~~~
@@ -459,7 +473,7 @@ Warning: NAs introduced by coercion
 
 &nbsp;
 
-Note that when one of the `as.` functions throws an error, it doesn't simply fail to return a variable. Instead it throws an error message and assigns an `NA` value to the variable. `NA` is one of several special values that represents missing data, or "Not Available". We will discuss these special characters in more detail later in this lesson.
+Note that when one of the `as.` functions throws an error, it doesn't simply fail to return a variable. Instead it throws an warning message and assigns an `NA` value to the variable. `NA` is one of several special values that represents missing data, or "Not Available". We will discuss these special characters in more detail later in this lesson.
 
 Sometimes these functions can have unintended consequences. When we apply the `as.integer()` function to a numeric, it automatically rounds decimal number "down" (i.e. "toward 0") to the nearest integer:
 
@@ -480,6 +494,20 @@ as.integer(1)
 
 ~~~
 as.integer(0.1)
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 0
+~~~
+{: .output}
+
+
+
+~~~
+as.integer(0.9)
 ~~~
 {: .language-r}
 
@@ -534,7 +562,7 @@ as.integer(-0.9)
 
 &nbsp;
 
-The `as.logical()` function will take `0` as `FALSE` and any non-zero numeric as `TRUE`. It will throw an error for any character input that is not a common spelling of `TRUE` or `FALSE`. Note that `T` works, but `t` does not.
+The `as.logical()` function will take `0` as `FALSE` and any non-zero numeric as `TRUE`. It will throw an error for any character input that is not a common spelling of `TRUE` or `FALSE`. Note that capitalization matters here: `T` works, but `t` does not.
 
 
 ~~~
@@ -698,6 +726,20 @@ You can also *coerce* vectors and matrices using the same functions `as.integer(
 
 ~~~
 num.vec <- seq(0.1,1,0.1)
+num.vec
+~~~
+{: .language-r}
+
+
+
+~~~
+ [1] 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+~~~
+{: .output}
+
+
+
+~~~
 class(num.vec)
 ~~~
 {: .language-r}
@@ -713,6 +755,20 @@ class(num.vec)
 
 ~~~
 int.vec <- as.integer(num.vec)
+int.vec
+~~~
+{: .language-r}
+
+
+
+~~~
+ [1] 0 0 0 0 0 0 0 0 0 1
+~~~
+{: .output}
+
+
+
+~~~
 class(int.vec)
 ~~~
 {: .language-r}
@@ -730,7 +786,7 @@ class(int.vec)
 
 Factors are technically a data structure but function as a special data type in R. Factors are primarily used to represent categorical data. Factors can be *ordered* or *unordered* and are an important class for statistical analysis and for plotting.
 
-Factors look (and often behave) like character vectors, but assuming that they are character vectors can lead to unexpected behavior. Factors are actually an odd hybrid of **integers** and **characters** under the hood, and you need to be careful when treating them like strings. 
+Factors look (and often behave) like character vectors, but assuming that they are character vectors can lead to unexpected behavior. Factors are actually an odd hybrid of **integers** and **characters** under the hood, and you need to be careful when treating them like character strings. 
 
 Factors have three essential properties:
 * A vector of *integers*.
@@ -739,7 +795,7 @@ Factors have three essential properties:
 
 The **integer** defines the value of each element in the factor, the *label* indicates what that value means, and the *order* defines the relationship between the values.
 
-Once created, each element of a factor can only contain a pre-defined set values, known as or *levels*. *Labels* and *levels* essentially refer to the same thing and the terms can be used interchangeably, for the most part. The *labels* variable in the `factor()` function defines the *levels* attribute in the created **factor**. By default, R sorts *levels* in alphabetical order. For instance, let's use the `factor()` command to create a factor with 2 levels:
+Once created, each element of a factor can only contain a pre-defined set values, known as *levels*. *Labels* and *levels* essentially refer to the same thing and the terms can be used interchangeably, for the most part. The *labels* variable in the `factor()` function defines the *levels* attribute in the created **factor**. By default, R sorts *levels* in alphabetical order. For instance, let's use the `factor()` command to create a factor with 2 levels:
 
 
 
@@ -829,13 +885,13 @@ str(sex)
 
 Note that the order in which the *levels* appear defines which level corresponds to which integer number. 
 
-The major functional difference between **character** and **factor** objects is that the elements of the **character** vector only have the inherent order defined by their values (e.g. alphabetical). Sometimes, the order of the **factor** elements does not matter; other times you might want to specify the order because it is meaningful. For instance, "low", "medium", "high" as elements of a character vector have the implicit alphabetical order:
+The major functional difference between **character** and **factor** objects is that the elements of the **character** vector only have the inherent order defined by their values (e.g. alphabetical). Sometimes, the order of the **factor** elements does not matter; other times you might want to specify the order because it is meaningful. For instance, `"low"`, `"medium"`, `"high"` as elements of a character vector have the implicit alphabetical order:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"high" < "low" < "medium"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"high"` < `"low"` < `"medium"`
 
 while the more meaningful conceptual ordering is:
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"low" < "medium" < "high"
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`"low"` < `"medium"` < `"high"`
 
 By default, **factor** levels take on the alphabetical order:
 
@@ -1173,7 +1229,7 @@ as.numeric(f)
 
 &nbsp;
 
-This does not behave as expected (and there is no warning). The reason is that the apparent numeric values are actually stored as integers (2, 1, 3) with labels ("3.4", "1.2", "5"). R uses the integer value when trying to perform the `as.numeric()` function.
+This does not behave as expected (and there is no warning). The reason is that the apparent numeric values are actually stored as integers (`2`, `1`, `3`) with labels (`"3.4"`, `"1.2"`, `"5"`). R uses the integer value when trying to perform the `as.numeric()` function.
 
 The recommended way is to use the integer vector to index the factor levels:
 
@@ -1197,7 +1253,7 @@ Remember that the factor really consists of two elements:
 * The "key" indicating which integer corresponds to which level: `1 = "1.2"`, `2 = "3.4"`, `3 = "5"` 
 
 To break down the `levels(f)[f]`:
-1. First we grab the list of levels using `levels(f)`, which outputs a character vector: "1.2" "3.4" "5".
+1. First we grab the list of levels using `levels(f)`, which outputs a character vector: `"1.2" "3.4" "5"`.
 2. Next we index this list with `[f]`. Because the index requests a numeric representation of the factor `f`, R replaces the `[f]` with `[c(2,1,3)]` (the integer portion of the factor object).
 3. R returns the elements of the character list in (1) with the order indicated by the integer list in (2).
 
@@ -1298,7 +1354,7 @@ mode(x)
 
 
 ~~~
-# Simple objects to not have attributes by default
+# Simple objects do not have attributes by default
 attributes(x) 
 ~~~
 {: .language-r}
@@ -1766,8 +1822,7 @@ R supports both missing data and special values in data structures.
 &nbsp;
 #### Missing Data
 
-Missing data is represented as `NA` (Not Available)
-and can be used for all the vector types that we have covered, though the `NA` is displayed differently for factors:
+Missing data is represented as `NA` (Not Available) and can be used for all the vector types that we have covered, though the `NA` is displayed differently for factors:
 
 
 ~~~
@@ -1931,7 +1986,7 @@ anyNA(y)
 
 &nbsp;
 
-Many functions will not accept objects that contain `NA`s by default. Take `sum()` for example:
+Many functions will not work correctly if given as input an object that contain `NA`s by default. Take `sum()` for example:
 
 
 ~~~
