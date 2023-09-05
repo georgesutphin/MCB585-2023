@@ -107,7 +107,8 @@ When analyzing data we usually want to look at partial statistics, such as the m
 # select aneurism data for the first subject
 sub1 <- dat[1, 6:9]
 
-# calculate the max number of aneurisms for subject 1 across # time points
+# calculate the max number of aneurisms for subject 1 across 
+# time points
 max(sub1)
 ```
 
@@ -142,7 +143,7 @@ Oops... Looks like someone was being lazy with their data entry for gender. How 
 
 > ## Correcting capitalization
 > 
-> There is a mixture of lower case (m, f) and uppder case
+> There is a mixture of lower case (m, f) and upper case
 > entries in the `dat$Gender` variable. 
 > ```{r}
 > # First load the data if you haven't already
@@ -355,9 +356,11 @@ jpeg(file = "results/petal-width-length-comparison.jpg", width = 500, height = 5
 
 &nbsp;
 
-Now look inside your results folder. If the `jpeg()` function worked correctly and our directories were correctly specified, you should now see a new file called *petal-width-length-comparison.jpg*. What happens when you try to open this file?
+Now look inside your results folder (Windows and Mac differ here, see below). If the `jpeg()` function worked correctly and our directories were correctly specified, you should now see a new file called *petal-width-length-comparison.jpg*. What happens when you try to open this file?
 
 You should get an error. This is because the file has been created, but that it is currently open in RStudio waiting for more input. We can use the `dev.cur()` to confirm that the active graphics device is indeed the JPEG file.
+
+* In the current version of R, the `.jpg` file will only be created in Windows (not MacOS). In MacOS, the file will only be created after executing the `dev.off()` command below. In both Windows and MacOS, the `pdf()` function discussed next will create the file immediately.
 
 ```{r, eval=F}
 dev.cur()
@@ -472,10 +475,11 @@ col.list <- c("red", "blue", "green")
 as.numeric(iris$Species)
 
 # Note: if you are are starting with a character vector, you can 
-# achieve this same effect by first converting the charater to a factor,
+# achieve this same effect by first converting the character to a factor,
 # then converting the factor to numeric: as.numeric(as.factor(x))
 
-# Taking advantage of this, we can directly index our color list and set # up a vector the length of iris$Species with a unique color value for 
+# Taking advantage of this, we can directly index our color list and set 
+# up a vector the length of iris$Species with a unique color value for 
 # each species name
 col.vector <- col.list[iris$Species]
 col.vector
