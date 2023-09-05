@@ -535,8 +535,8 @@ Now we can see that the *Iris setosa* species has the small petals.
 > 
 > > ## Hint
 > > 
-> > Aside from just converting your character back to a vector, there is
-> > a directly solution with the character vector. Check out the `unique()` and 
+> > Aside from just converting your character vector back to a factor vector, there is
+> > a more direct solution using the character vector. Check out the `unique()` and 
 > > `match()` functions.
 > {: .solution}
 >
