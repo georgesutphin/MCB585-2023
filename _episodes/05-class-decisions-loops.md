@@ -464,7 +464,7 @@ for(i in 1:10) print(i)
 
 &nbsp;
 
-... but it is a best practice to include them as we did, because it avoid ambiguity.
+... but it is a best practice to include them as we did, because it avoids ambiguity.
 
 Here's another loop that repeatedly updates a variable in order to count the number of entries in a vector, carrying out the the same task as the `length()` function:
 
@@ -503,7 +503,7 @@ It's worth tracing the execution of this little program step by step:
  4. The next time around, `v` is `"e"` and `len` is 1, so `len` is updated to be 2.
  5. After three more updates, `len` is 5; since there no remaining elements in the vector `vowels`, the loop finishes.
 
-Note that a **loop variable** is just a **variable** that's being used to record progress in a loop. Even though we don't explicitly use the value of 'v' in the code within the braces, it is still defined and updated during each loop. The value of 'v' will also be retained after the loop is over, and we can re-use variables previously defined as **loop variables** as well:
+Note that a **loop variable** is just a **variable** that's being used to record progress in a loop. Even though we don't explicitly use the value of `v` in the code within the braces, it is still defined and updated during each loop. The value of `v` will also be retained after the loop is over, and we can re-use variables previously defined as **loop variables** as well:
 
 
 ~~~
@@ -749,7 +749,7 @@ Almost, but not quite there. If we want to be more specific, the search string g
 >   <figcaption>Image credit <a href="https://xkcd.com/208/">xkcd.com</a></figcaption>
 > </figure>
 >
-> Regular expression are a whole separate language into themselves
+> Regular expression are a whole separate language unto themselves
 > and there are many resources online for learning to use and test 
 > regex. Here are a couple that I have used:
 > * [RegexOne](https://regexone.com/) -- regular expression tutorials
