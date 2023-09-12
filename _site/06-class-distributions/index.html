@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2023-09-06 22:01:34 -0700">
+    <meta http-equiv="last-modified" content="2023-09-11 20:23:06 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -306,7 +306,7 @@
 
 <p> </p>
 
-<p>The goal of this course is to give you some practical tools to use when confronted with real problems in biological science. In the coming lessons we will demonstrate how to use R to conduct basic hypothesis testing (e.g. run a t-test in order to determine the probability that two samples came from the same underlying population). However, equally important is understanding how to properly state a hypothesis, determine which statistical test is appropriate for your hypothesis and variables, and what the output of a statistical test means.</p>
+<p>The goal of this course is to give you some practical tools to use when confronted with real problems in biological science. In the coming lessons we will demonstrate how to use R to conduct basic hypothesis testing (e.g., run a t-test in order to determine the probability that two samples came from the same underlying population). However, equally important is understanding how to properly state a hypothesis, determine which statistical test is appropriate for your hypothesis and variables, and what the output of a statistical test means.</p>
 
 <p>To this end, this lesson will begin to build a practical framework for thinking about statistics and biological variables. We will not cover these statistical concepts in depth–for that you should consult a good introductory statistics text book, take a complete statistics course, or consult the variety of online resources (e.g. <a href="https://stattrek.com/">StatTrek</a>)–but we will introduce a few basic concepts to help guide your data analysis decisions.</p>
 
@@ -317,7 +317,7 @@
 <ol>
   <li>Identify your population of interest.</li>
   <li>Formulate a hypothesis.</li>
-  <li>Select a sample (i.e. a subset of your population).</li>
+  <li>Select a sample (i.e., a subset of your population).</li>
   <li>Observe some trait within that sample.</li>
   <li>Test your hypothesis using your observation.</li>
   <li>Interpret the outcome.</li>
@@ -325,7 +325,7 @@
 
 <p>This process revolves around the dataset resulting from your observation. To understand what you are formally doing when making an observation, we need to look at the structure of the trait (or phenotype) that we are observing.</p>
 
-<p>Consider the entire population that you are studying (e.g. all human beings, all C57BL/6 mice, all HeLa cells). There exists an abstract dataset that includes all values for the phenotype present in your population of interest (e.g. the body weights of all human beings). When you make an observation, you do so on a set of individuals from that population. This difference is important:</p>
+<p>Consider the entire population that you are studying (e.g., all human beings, all C57BL/6 mice, all HeLa cells). There exists an abstract dataset that includes all values for the phenotype present in your population of interest (e.g., the body weights of all human beings). When you make an observation, you do so on a set of individuals from that population. This difference is important:</p>
 
 <ul>
   <li>A <strong>population</strong> includes all elements present in a dataset (all values of a phenotype).</li>
@@ -644,7 +644,7 @@ is the original code:</p>
 
 <p> </p>
 
-<p>To save some typing, let’s separate out the data for the C57BL/6 strain.</p>
+<p>To save some typing, let’s separate out the data for the C57BL/6J strain.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b6</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.diet</span><span class="p">[</span><span class="n">data.diet</span><span class="o">$</span><span class="n">strain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"C57BL/6J"</span><span class="p">,]</span><span class="w">
 </span></code></pre></div></div>
@@ -759,7 +759,7 @@ Data: b6$bw_start (96 obs.);	Bandwidth 'bw' = 0.5924
 <p>Finally, for a direct comparison, we can calculate the expected theoretical normal distribution of a sample with the same mean and standard deviation as our body weight data using the <code class="language-plaintext highlighter-rouge">dnorm()</code> function. <code class="language-plaintext highlighter-rouge">dnorm()</code> will return the probability density function for a given phenotype value (relative probability that the specific value will occur) for a normal distribution with a given mean and standard deviation.</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># first we need to define the range of phenotype values that we are interested</span><span class="w">
-</span><span class="c1"># in, i.e. the range of values represented in our data. I will ask for a sequence of </span><span class="w">
+</span><span class="c1"># in (i.e., the range of values represented in our data). I will ask for a sequence of </span><span class="w">
 </span><span class="c1"># values from the minimum observation to the maximum with 100 equally spaced points in # between</span><span class="w">
 </span><span class="n">norm.x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seq</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">),</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">),</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w">
 
@@ -787,7 +787,7 @@ Data: b6$bw_start (96 obs.);	Bandwidth 'bw' = 0.5924
 
 <p> </p>
 
-<p>In this case, the distributions look to be very close to one another. The histogram and density function of a plot give useful information about the shape of the data and can be used to quickly assess whether a sample is, for example, skewed or bimodal. To more directly assess normality, a Q-Q plot, which plots quantiles of a distribution against the quantiles of the corresponding normal distribution, is simpler and makes picking out divergence from normality more obvious. In R this can be simply accomplished using the <code class="language-plaintext highlighter-rouge">qqnorm()</code> function. A second function, <code class="language-plaintext highlighter-rouge">qqline()</code> adds a line representing perfect normality:</p>
+<p>In this case, the distributions look to be very close to one another. The histogram and density function of a plot give useful information about the shape of the data and can be used to quickly assess whether a sample is, for example, skewed or bimodal. To more directly assess normality, a Q-Q plot, which plots quantiles of a distribution against the quantiles of the corresponding normal distribution, is simpler and makes picking out divergence from normality more obvious. In R this can be accomplished using the <code class="language-plaintext highlighter-rouge">qqnorm()</code> function. A second function, <code class="language-plaintext highlighter-rouge">qqline()</code> adds a line representing perfect normality:</p>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">qqnorm</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">
 </span><span class="n">qqline</span><span class="p">(</span><span class="n">b6</span><span class="o">$</span><span class="n">bw_start</span><span class="p">)</span><span class="w">

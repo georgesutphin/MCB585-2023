@@ -109,7 +109,7 @@ what.sign <- function(num) {
   }
 }
 
-sign(-3)
+what.sign(-3)
 ~~~
 {: .language-r}
 
@@ -123,7 +123,7 @@ sign(-3)
 
 
 ~~~
-sign(0)
+what.sign(0)
 ~~~
 {: .language-r}
 
@@ -137,7 +137,7 @@ sign(0)
 
 
 ~~~
-sign(2/3)
+what.sign(2/3)
 ~~~
 {: .language-r}
 

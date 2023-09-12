@@ -30,7 +30,7 @@ source: Rmd
 
 &nbsp;
 
-The goal of this course is to give you some practical tools to use when confronted with real problems in biological science. In the coming lessons we will demonstrate how to use R to conduct basic hypothesis testing (e.g. run a t-test in order to determine the probability that two samples came from the same underlying population). However, equally important is understanding how to properly state a hypothesis, determine which statistical test is appropriate for your hypothesis and variables, and what the output of a statistical test means. 
+The goal of this course is to give you some practical tools to use when confronted with real problems in biological science. In the coming lessons we will demonstrate how to use R to conduct basic hypothesis testing (e.g., run a t-test in order to determine the probability that two samples came from the same underlying population). However, equally important is understanding how to properly state a hypothesis, determine which statistical test is appropriate for your hypothesis and variables, and what the output of a statistical test means. 
 
 To this end, this lesson will begin to build a practical framework for thinking about statistics and biological variables. We will not cover these statistical concepts in depth--for that you should consult a good introductory statistics text book, take a complete statistics course, or consult the variety of online resources (e.g. [StatTrek](https://stattrek.com/))--but we will introduce a few basic concepts to help guide your data analysis decisions.
 
@@ -40,14 +40,14 @@ To this end, this lesson will begin to build a practical framework for thinking 
 Statistics is concerned with the study of data. The basic process for conducting an experiment is to:
 1. Identify your population of interest.
 2. Formulate a hypothesis.
-3. Select a sample (i.e. a subset of your population).
+3. Select a sample (i.e., a subset of your population).
 4. Observe some trait within that sample.
 5. Test your hypothesis using your observation.
 6. Interpret the outcome. 
 
 This process revolves around the dataset resulting from your observation. To understand what you are formally doing when making an observation, we need to look at the structure of the trait (or phenotype) that we are observing. 
 
-Consider the entire population that you are studying (e.g. all human beings, all C57BL/6 mice, all HeLa cells). There exists an abstract dataset that includes all values for the phenotype present in your population of interest (e.g. the body weights of all human beings). When you make an observation, you do so on a set of individuals from that population. This difference is important:
+Consider the entire population that you are studying (e.g., all human beings, all C57BL/6 mice, all HeLa cells). There exists an abstract dataset that includes all values for the phenotype present in your population of interest (e.g., the body weights of all human beings). When you make an observation, you do so on a set of individuals from that population. This difference is important:
 
 * A **population** includes all elements present in a dataset (all values of a phenotype).
 * A **sample** is made up of one or more observations drawn from a population.
@@ -361,7 +361,7 @@ str(data.diet)
 
 &nbsp;
 
-To save some typing, let's separate out the data for the C57BL/6 strain.
+To save some typing, let's separate out the data for the C57BL/6J strain.
 
 
 ~~~
@@ -516,7 +516,7 @@ Finally, for a direct comparison, we can calculate the expected theoretical norm
 
 ~~~
 # first we need to define the range of phenotype values that we are interested
-# in, i.e. the range of values represented in our data. I will ask for a sequence of 
+# in (i.e., the range of values represented in our data). I will ask for a sequence of 
 # values from the minimum observation to the maximum with 100 equally spaced points in # between
 norm.x <- seq(min(b6$bw_start), max(b6$bw_start), length = 100)
 
@@ -548,7 +548,7 @@ lines(norm.x,norm.y, col = "blue")
 
 &nbsp;
 
-In this case, the distributions look to be very close to one another. The histogram and density function of a plot give useful information about the shape of the data and can be used to quickly assess whether a sample is, for example, skewed or bimodal. To more directly assess normality, a Q-Q plot, which plots quantiles of a distribution against the quantiles of the corresponding normal distribution, is simpler and makes picking out divergence from normality more obvious. In R this can be simply accomplished using the `qqnorm()` function. A second function, `qqline()` adds a line representing perfect normality:
+In this case, the distributions look to be very close to one another. The histogram and density function of a plot give useful information about the shape of the data and can be used to quickly assess whether a sample is, for example, skewed or bimodal. To more directly assess normality, a Q-Q plot, which plots quantiles of a distribution against the quantiles of the corresponding normal distribution, is simpler and makes picking out divergence from normality more obvious. In R this can be accomplished using the `qqnorm()` function. A second function, `qqline()` adds a line representing perfect normality:
 
 
 

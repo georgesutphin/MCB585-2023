@@ -88,9 +88,9 @@ what.sign <- function(num) {
   }
 }
 
-sign(-3)
-sign(0)
-sign(2/3)
+what.sign(-3)
+what.sign(0)
+what.sign(2/3)
 ```
 
 Note that when combining `else` and `if` in an `else if` statement, the `if` portion still requires a direct input condition to specify the conditional test.  This is never the case for the lone `else` statement, which is only executed if all other conditions go unsatisfied. 
