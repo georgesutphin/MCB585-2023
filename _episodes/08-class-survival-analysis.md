@@ -653,7 +653,7 @@ Incidentally, we can similarly calculate the P-value from a `t` statistic (repor
 > 
 > Note from the structure and `?colon` description for `colon` that the data 
 > set includes two events encoded by the `etype` variable: recurrence (`1`) and > death (`2`). The `status` variable encodes the occurance of an event (1 = 
-> event, 0 = no even or censor) at `time`. `rx` indicates treatment group.
+> event, 0 = no event or censor) at `time`. `rx` indicates treatment group.
 > 
 > Based on this dataset, do we have evidence that is levamisole is effective at > increasing colon cancer survival? What is the impact of 5-FU?
 > 
