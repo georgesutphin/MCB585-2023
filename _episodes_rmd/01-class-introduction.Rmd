@@ -7,7 +7,7 @@ questions:
 - "What is R? What is RStudio?"
 - "How do I use the RStudio graphical user interface?"
 - "How do I perform basic calculations in R?"
-- "How do I assign values to variables in R?"
+- "How do I assign a value to a variables in R?"
 - "What are functions, and how are they used in R?"
 objectives:
 - "Get familiar with RStudio interface."
