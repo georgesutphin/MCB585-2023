@@ -19,7 +19,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="last-modified" content="2023-09-18 21:10:42 -0700">
+    <meta http-equiv="last-modified" content="2024-08-15 20:50:19 -0700">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- meta "search-domain" used for google site search function google_search() -->
     <meta name="search-domain" value="">
@@ -267,7 +267,7 @@
 	<li><p>How do I perform basic calculations in R?</p>
 </li>
 	
-	<li><p>How do I assign values to variables in R?</p>
+	<li><p>How do I assign a value to a variables in R?</p>
 </li>
 	
 	<li><p>What are functions, and how are they used in R?</p>
@@ -650,9 +650,9 @@ causing the errors?</p>
     <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">_</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="w"> 
 </span></code></pre></div>    </div>
 
-    <div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: &lt;text&gt;:1:1: unexpected input
-1: _
-    ^
+    <div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: &lt;text&gt;:1:2: unexpected symbol
+1: _age
+     ^
 </code></pre></div>    </div>
 
     <p>Error – variable names cannot start with an “_”.</p>
@@ -708,7 +708,7 @@ the “.” results in a hidden variable.</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">getwd</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "C:/Users/sutph/OneDrive/Documents/GitHub/MCB585/_episodes_rmd"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "C:/Users/sutph/OneDrive/Documents/GitHub/MCB585-2023/_episodes_rmd"
 </code></pre></div></div>
 
 <p> </p>
@@ -841,7 +841,7 @@ the “.” results in a hidden variable.</p>
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">setwd</span><span class="p">(</span><span class="s2">".\data"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: '\d' is an unrecognized escape in character string starting "".\d"
+<div class="language-plaintext error highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: '\d' is an unrecognized escape in character string (&lt;text&gt;:1:10)
 </code></pre></div></div>
 
 <p> </p>
@@ -852,7 +852,7 @@ the “.” results in a hidden variable.</p>
 </span><span class="n">getwd</span><span class="p">()</span><span class="w">
 </span></code></pre></div></div>
 
-<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "C:/Users/sutph/OneDrive/Documents/GitHub/MCB585/_episodes_rmd"
+<div class="language-plaintext output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "C:/Users/sutph/OneDrive/Documents/GitHub/MCB585-2023/_episodes_rmd"
 </code></pre></div></div>
 
 <div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># List all files in the current working directory</span><span class="w">
@@ -864,7 +864,7 @@ the “.” results in a hidden variable.</p>
  [3] "02-class-R-data-types-structures.Rmd"   
  [4] "02-oyo-R-data-types-in-depth.Rmd"       
  [5] "03-class-data-frames.Rmd"               
- [6] "03-oyo-lists.Rmd"                       
+ [6] "03-oyo-Lists.Rmd"                       
  [7] "04-class-manipulating-plotting-data.Rmd"
  [8] "04-oyo-advanced-data-manipulation.Rmd"  
  [9] "05-class-decisions-loops.Rmd"           

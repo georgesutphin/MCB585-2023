@@ -9,7 +9,7 @@ questions:
 - "What is R? What is RStudio?"
 - "How do I use the RStudio graphical user interface?"
 - "How do I perform basic calculations in R?"
-- "How do I assign values to variables in R?"
+- "How do I assign a value to a variables in R?"
 - "What are functions, and how are they used in R?"
 objectives:
 - "Get familiar with RStudio interface."
@@ -468,9 +468,9 @@ All better.
 > > 
 > > 
 > > ~~~
-> > Error: <text>:1:1: unexpected input
-> > 1: _
-> >     ^
+> > Error: <text>:1:2: unexpected symbol
+> > 1: _age
+> >      ^
 > > ~~~
 > > {: .error}
 > > 
@@ -560,7 +560,7 @@ getwd()
 
 
 ~~~
-[1] "C:/Users/sutph/OneDrive/Documents/GitHub/MCB585/_episodes_rmd"
+[1] "C:/Users/sutph/OneDrive/Documents/GitHub/MCB585-2023/_episodes_rmd"
 ~~~
 {: .output}
 
@@ -759,7 +759,7 @@ setwd(".\data")
 
 
 ~~~
-Error: '\d' is an unrecognized escape in character string starting "".\d"
+Error: '\d' is an unrecognized escape in character string (<text>:1:10)
 ~~~
 {: .error}
 
@@ -777,7 +777,7 @@ getwd()
 
 
 ~~~
-[1] "C:/Users/sutph/OneDrive/Documents/GitHub/MCB585/_episodes_rmd"
+[1] "C:/Users/sutph/OneDrive/Documents/GitHub/MCB585-2023/_episodes_rmd"
 ~~~
 {: .output}
 
@@ -796,7 +796,7 @@ list.files()
  [3] "02-class-R-data-types-structures.Rmd"   
  [4] "02-oyo-R-data-types-in-depth.Rmd"       
  [5] "03-class-data-frames.Rmd"               
- [6] "03-oyo-lists.Rmd"                       
+ [6] "03-oyo-Lists.Rmd"                       
  [7] "04-class-manipulating-plotting-data.Rmd"
  [8] "04-oyo-advanced-data-manipulation.Rmd"  
  [9] "05-class-decisions-loops.Rmd"           
